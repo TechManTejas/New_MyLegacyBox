@@ -1,0 +1,78 @@
+import React from "react";
+import { Pressable, StyleSheet, Text, View } from "react-native";
+import { useAuth } from "../../authentication/AuthProvider";
+import { useTheme } from "../../theme/ThemeProvider";
+import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
+import { useNavigation } from "@react-navigation/native";
+
+const HomeHeader = () => {
+  const {
+    theme: { colors, spacing, fontFamily, fontSize },
+  } = useTheme();
+  const { session } = useAuth();
+  const navigation = useNavigation();
+
+  const styles = StyleSheet.create({
+    container: {
+      paddingTop: spacing.xxl,
+      paddingBottom: spacing.xxl,
+      flexDirection: "row",
+      justifyContent: "space-between",
+      alignItems: "flex-start",
+    },
+    greeting: {
+      fontFamily: fontFamily.semiBold,
+      fontSize: fontSize.xxl,
+      lineHeight: fontSize.xxxl,
+      color: colors.black500,
+    },
+    username: {
+      color: colors.blue500,
+      textTransform: "capitalize",
+    },
+    caption: {
+      fontFamily: fontFamily.regular,
+      fontSize: fontSize.default,
+      color: colors.black400,
+    },
+    iconContainer: {
+      borderWidth: spacing.xxxs,
+      padding: spacing.sm,
+      borderRadius: spacing.sm,
+      borderColor: colors.blue300,
+      borderStyle: "dashed",
+      backgroundColor: colors.white100,
+    },
+  });
+
+  return (
+    <View style={styles.container}>
+      <View>
+        <Text style={styles.greeting}>
+          Hi,{" "}
+          <Text style={styles.username}>
+            {session?.identity?.traits?.name?.first || "user"}
+          </Text>
+        </Text>
+        <Text style={styles.caption}>Welcome to Oiconomos!</Text>
+      </View>
+      <Pressable
+        style={styles.iconContainer}
+        onPress={() => {
+          console.log(navigation.toggleDrawer);
+          navigation.toggleDrawer();
+        }}
+      >
+        <View>
+          <FontAwesome5
+            name="user-ninja"
+            color={colors.blue400}
+            size={fontSize.xxxl}
+          />
+        </View>
+      </Pressable>
+    </View>
+  );
+};
+
+export default HomeHeader;

@@ -1,0 +1,18 @@
+export const SCREEN_NAMES = {
+  globalNavigationModal: "GLOBALNAVIGATIONMODAL",
+  drawerNavigator: "DRAWERNAVIGATOR",
+  homeNavigator: "HOMENAVIGATOR",
+  bottomTabNavigator: "BOTTOMTABNAVIGATOR",
+  homeScreen: "HOMESCREEN",
+  onBoardingScreen: "ONBOARDINGSCREEN",
+  loginScreen: "LOGINSCREEN",
+  bankListScreen: "BANKLISTSCREEN",
+  bankScreen: "BANKSCREEN",
+  addBankScreen: "ADDBANKSCREEN",
+  updateBankScreen: "UPDATEBANKSCREEN",
+  addFinancialHoldingScreen: "ADDFINANCIALHOLDINGSCREEN",
+  updateFinancialHoldingScreen: "UPDATEFINANCIALHOLDINGSCREEN",
+  willScreen: "WILLSCREEN",
+  ohubScreen: "OHUBSCREEN",
+  nomineeScreen: "NOMINEESCREEN",
+};
