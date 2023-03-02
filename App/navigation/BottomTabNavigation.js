@@ -17,20 +17,29 @@ const BottomTabNavigation = () => {
     theme: { spacing, colors, fontSize, fontFamily },
   } = useTheme();
 
-  const shouldHideTabBarBottom = useCallback((route) => {
+  // const shouldHideTabBarBottom = useCallback((route) => {
+  //   const routeName =
+  //     getFocusedRouteNameFromRoute(route) || SCREEN_NAMES.homeScreen;
+
+  //   const HIDE_FROM_SCREENS = [
+  //     SCREEN_NAMES.bankListScreen,
+  //     SCREEN_NAMES.bankScreen,
+  //     SCREEN_NAMES.addBankScreen,
+  //     SCREEN_NAMES.addFinancialHoldingScreen,
+  //     SCREEN_NAMES.updateBankScreen,
+  //     SCREEN_NAMES.updateFinancialHoldingScreen,
+  //   ];
+
+  //   return HIDE_FROM_SCREENS.indexOf(routeName) > -1;
+  // }, []);
+
+  const shouldShowTabBarBottom = useCallback((route) => {
     const routeName =
       getFocusedRouteNameFromRoute(route) || SCREEN_NAMES.homeScreen;
 
-    const HIDE_FROM_SCREENS = [
-      SCREEN_NAMES.bankListScreen,
-      SCREEN_NAMES.bankScreen,
-      SCREEN_NAMES.addBankScreen,
-      SCREEN_NAMES.addFinancialHoldingScreen,
-      SCREEN_NAMES.updateBankScreen,
-      SCREEN_NAMES.updateFinancialHoldingScreen,
-    ];
+    const SHOW_ON_SCREENS = [SCREEN_NAMES.homeScreen];
 
-    return HIDE_FROM_SCREENS.indexOf(routeName) > -1;
+    return SHOW_ON_SCREENS.indexOf(routeName) > -1;
   }, []);
 
   const styles = StyleSheet.create({
@@ -98,12 +107,7 @@ const BottomTabNavigation = () => {
       initialRouteName={SCREEN_NAMES.homeScreen}
       screenOptions={({ route }) => ({
         headerShown: false,
-        tabBarStyle: [
-          {
-            display: shouldHideTabBarBottom(route) ? "none" : "flex",
-          },
-          styles.tabBar,
-        ],
+        tabBarStyle: [styles.tabBar],
         tabBarLabelStyle: styles.tabBarLabel,
         tabBarIconStyle: styles.tabBarIcon,
         tabBarActiveTintColor: colors.blue500,
@@ -112,8 +116,13 @@ const BottomTabNavigation = () => {
       <BottomTab.Screen
         name={SCREEN_NAMES.homeNavigator}
         component={HomeNavigation}
-        options={{
+        options={({ route }) => ({
           title: "Home",
+          tabBarStyle: [
+            {
+              display: shouldShowTabBarBottom(route) ? "flex" : "none",
+            },
+          ],
           tabBarIcon: ({ focused }) => (
             <FontAwesome5
               name="home"
@@ -124,7 +133,7 @@ const BottomTabNavigation = () => {
             />
           ),
           tabBarButton: () => null,
-        }}
+        })}
       />
 
       <BottomTab.Screen

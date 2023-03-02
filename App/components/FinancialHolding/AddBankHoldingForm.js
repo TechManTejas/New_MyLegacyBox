@@ -3,7 +3,7 @@ import { useAddFinancialHoldingForBankMutation } from "../../services/financialH
 import { useRoute } from "@react-navigation/native";
 import HoldingForm from "./HoldingForm";
 
-const AddHoldingForm = () => {
+const AddBankHoldingForm = () => {
   const route = useRoute();
   const { parentId, parentName } = route.params;
   const [addFinancialHoldingForBank, { isLoading }] =
@@ -19,4 +19,4 @@ const AddHoldingForm = () => {
   );
 };
 
-export default AddHoldingForm;
+export default AddBankHoldingForm;

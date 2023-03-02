@@ -65,6 +65,33 @@ export const bankValidator = z.object({
   address: addressValidator.optional(),
 });
 
+export const postalValidator = z.object({
+  ifsc: z
+    .string({
+      invalid_type_error: "Invalid type for IFSC code",
+    })
+    .optional(),
+  name: z.string({
+    required_error: "Postal name is required",
+    invalid_type_error: "Invalid type for Postal name",
+  }),
+  branchName: z.string({
+    required_error: "Branch name is required",
+    invalid_type_error: "Invalid type for Branch name",
+  }),
+  poc: z
+    .string({
+      invalid_type_error: "Invalid type for Point of contact name",
+    })
+    .optional(),
+  pocNumber: z
+    .string({
+      invalid_type_error: "Invalid type for Point of contact number",
+    })
+    .optional(),
+  address: addressValidator.optional(),
+});
+
 export const financialHoldingBodyValidator = z.object({
   holdingType: z.enum(Object.keys(financialHoldingtypeMapper), {
     required_error: "Type is required",

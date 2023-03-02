@@ -9,9 +9,14 @@ import BankScreen from "../screens/BankScreen";
 import CustomHeaderLeftIcon from "../components/Common/CustomHeaderLeftIcon";
 import CustomHeaderTitle from "../components/Common/CustomHeaderTitle";
 import AddBankForm from "../../_bkp/AddBankFormBkp";
-import AddHoldingForm from "../components/FinancialHolding/AddHoldingForm";
+import AddBankHoldingForm from "../components/FinancialHolding/AddBankHoldingForm";
 import UpdateBankForm from "../components/Bank/UpdateBankForm";
 import UpdateHoldingForm from "../components/FinancialHolding/UpdateHoldingForm";
+import PostalListScreen from "../screens/PostalListScreen";
+import PostalScreen from "../screens/PostalScreen";
+import AddPostalForm from "../components/Postal/AddPostalForm";
+import UpdatePostalForm from "../components/Postal/UpdatePostalForm";
+import AddPostalHoldingForm from "../components/FinancialHolding/AddPostalHoldingForm";
 
 const Stack = createStackNavigator();
 
@@ -43,6 +48,38 @@ const HomeNavigation = () => {
           headerShown: false,
         }}
       />
+      <Stack.Group>
+        <Stack.Screen
+          name={SCREEN_NAMES.addBankFinancialHoldingScreen}
+          component={AddBankHoldingForm}
+          options={({ route }) => ({
+            headerShown: true,
+            title: `Add Holding for ${
+              route.params?.parentName ? route.params?.parentName : ""
+            }`,
+          })}
+        />
+        <Stack.Screen
+          name={SCREEN_NAMES.addPostalFinancialHoldingScreen}
+          component={AddPostalHoldingForm}
+          options={({ route }) => ({
+            headerShown: true,
+            title: `Add Holding for ${
+              route.params?.parentName ? route.params?.parentName : ""
+            }`,
+          })}
+        />
+        <Stack.Screen
+          name={SCREEN_NAMES.updateFinancialHoldingScreen}
+          component={UpdateHoldingForm}
+          options={({ route }) => ({
+            headerShown: true,
+            title: `Update Holding for ${
+              route.params?.parentName ? route.params?.parentName : ""
+            }`,
+          })}
+        />
+      </Stack.Group>
       <Stack.Group>
         <Stack.Screen
           name={SCREEN_NAMES.bankListScreen}
@@ -81,24 +118,38 @@ const HomeNavigation = () => {
       </Stack.Group>
       <Stack.Group>
         <Stack.Screen
-          name={SCREEN_NAMES.addFinancialHoldingScreen}
-          component={AddHoldingForm}
+          name={SCREEN_NAMES.postalListScreen}
+          component={PostalListScreen}
+          options={{
+            headerShown: true,
+            title: "Postals",
+          }}
+        />
+        <Stack.Screen
+          name={SCREEN_NAMES.postalScreen}
+          component={PostalScreen}
           options={({ route }) => ({
             headerShown: true,
-            title: `Add Holding for ${
-              route.params?.parentName ? route.params?.parentName : ""
+            title: `${route.params?.postal?.name || ""}, ${
+              route.params?.postal?.branchName || ""
             }`,
           })}
         />
         <Stack.Screen
-          name={SCREEN_NAMES.updateFinancialHoldingScreen}
-          component={UpdateHoldingForm}
-          options={({ route }) => ({
+          name={SCREEN_NAMES.addPostalScreen}
+          component={AddPostalForm}
+          options={{
             headerShown: true,
-            title: `Update Holding for ${
-              route.params?.parentName ? route.params?.parentName : ""
-            }`,
-          })}
+            title: "Add Postal",
+          }}
+        />
+        <Stack.Screen
+          name={SCREEN_NAMES.updatePostalScreen}
+          component={UpdatePostalForm}
+          options={{
+            headerShown: true,
+            title: "Edit Postal",
+          }}
         />
       </Stack.Group>
     </Stack.Navigator>

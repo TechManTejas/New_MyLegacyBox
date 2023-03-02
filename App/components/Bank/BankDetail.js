@@ -83,8 +83,17 @@ const BankDetail = ({ bank }) => {
                 {address.city}, {address.state} - {address.pinCode}
               </Text>
             </View>
-          ) : null}
-          <Text style={styles.bankIfsc}>IFSC : {ifsc}</Text>
+          ) : (
+            <View style={styles.addressContainer}>
+              <Text style={styles.addressTitle}>Address</Text>
+              <Text style={styles.addressContent}>Not available</Text>
+            </View>
+          )}
+          {ifsc ? (
+            <Text style={styles.postalIfsc}>IFSC : {ifsc}</Text>
+          ) : (
+            <Text style={styles.postalIfsc}>IFSC : Not available</Text>
+          )}
 
           <View>
             {poc ? (

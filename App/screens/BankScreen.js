@@ -26,7 +26,7 @@ const BankScreen = ({ route }) => {
   } = useTheme();
 
   const pressHandler = () => {
-    navigation.navigate(SCREEN_NAMES.addFinancialHoldingScreen, {
+    navigation.navigate(SCREEN_NAMES.addBankFinancialHoldingScreen, {
       parentId: bank._id,
       parentName: `${bank.name}, ${bank.branchName}`,
     });

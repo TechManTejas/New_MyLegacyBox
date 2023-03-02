@@ -14,7 +14,7 @@ export const HOME_MAJOR_MENU_DATA = [
     title: "Postal",
     iconName: "landmark",
     IconComponent: FontAwesome5,
-    navigateToScreen: SCREEN_NAMES.bankListScreen,
+    navigateToScreen: SCREEN_NAMES.postalListScreen,
   },
   {
     id: 3,

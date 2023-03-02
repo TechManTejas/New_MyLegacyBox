@@ -71,12 +71,11 @@ const BankForm = ({
 
     const cleanedValues = cleanObject({ ...values });
 
-    console.log({ ...cleanedValues, ...defaultBody });
-
     try {
       await apiCallback({ ...cleanedValues, ...defaultBody }).unwrap();
       navigation.goBack();
-    } catch (error) {console.log(error);
+    } catch (error) {
+      console.log(error);
       setGlobalErrorMessage(error?.data?.error?.message || error.message);
     }
   }, []);

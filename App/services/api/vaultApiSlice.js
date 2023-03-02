@@ -29,6 +29,6 @@ const baseQuery = fetchBaseQuery({
 export const valutApiSlice = createApi({
   reducerPath: "valutApi",
   baseQuery: baseQuery,
-  tagTypes: [QUERY_TAGS.bank, QUERY_TAGS.financialHolding],
+  tagTypes: [QUERY_TAGS.bank, QUERY_TAGS.financialHolding, QUERY_TAGS.postal],
   endpoints: (builder) => ({}),
 });
