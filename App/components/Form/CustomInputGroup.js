@@ -6,9 +6,13 @@ import CustomErrorMessageGroup from "./CustomErrorMessageGroup";
 const CustomInputGroup = ({
   name,
   title,
+  onPressIn,
   onChange,
+  onFocus,
   onChangeText,
   onBlur,
+  onTouchStart,
+  pointerEvents,
   value,
   placeholder,
   disabled,
@@ -113,11 +117,15 @@ const CustomInputGroup = ({
           />
         ) : null}
         <TextInput
+          onPressIn={onPressIn}
           style={styles.input}
+          onFocus={onFocus}
           onChange={onChange}
           onChangeText={onChangeText ? onChangeText : onChange}
           onBlur={onBlur}
+          onTouchStart={onTouchStart}
           value={value ? String(value) : ""}
+          pointerEvents={pointerEvents}
           placeholder={`${placeholder} ${placeholderSuffix || ""}`}
           editable={!disabled}
           textContentType={textContentType}

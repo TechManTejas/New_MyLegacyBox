@@ -18,6 +18,7 @@ const MenuCard = ({
   iconName,
   IconComponent,
   navigateToScreen,
+  disabled,
 }) => {
   const { theme } = useTheme();
   const navigation = useNavigation();
@@ -65,7 +66,10 @@ const MenuCard = ({
 
   return (
     <View style={styles.wrapper}>
-      <Pressable style={styles.container} onPress={pressHandler}>
+      <Pressable
+        style={styles.container}
+        onPress={!disabled ? pressHandler : () => {}}
+      >
         <View style={styles.iconContainer}>
           <IconComponent
             name={iconName}

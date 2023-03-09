@@ -33,7 +33,7 @@ const BankItem = ({ hideCarret, ...bank }) => {
       flexDirection: "row",
       alignItems: "center",
     },
-    bankContainer: {
+    content: {
       flex: 1,
       paddingTop: spacing.sm,
     },
@@ -44,26 +44,26 @@ const BankItem = ({ hideCarret, ...bank }) => {
       paddingHorizontal: spacing.md,
       marginBottom: spacing.xs,
     },
-    bankName: {
+    name: {
       fontFamily: fontFamily.semiBold,
       color: colors.blue400,
       fontSize: fontSize.default,
       lineHeight: fontSize.lg,
     },
-    bankIfsc: {
+    ifsc: {
       fontFamily: fontFamily.regular,
       marginLeft: spacing.xs,
       fontSize: fontSize.md,
       lineHeight: fontSize.default,
       color: colors.black300,
     },
-    bankPoc: {
+    poc: {
       fontFamily: fontFamily.regular,
       fontSize: fontSize.md,
       lineHeight: fontSize.default,
       color: colors.black400,
     },
-    bankFooter: {
+    footer: {
       backgroundColor: colors.black700,
       width: 120,
       flexDirection: "row",
@@ -92,31 +92,31 @@ const BankItem = ({ hideCarret, ...bank }) => {
   return (
     <View style={styles.container}>
       <Pressable style={styles.pressableContainer} onPress={pressHandler}>
-        <View style={styles.bankContainer}>
+        <View style={styles.content}>
           <View>
             <View style={styles.row}>
-              <Text style={styles.bankName}>
+              <Text style={styles.name}>
                 {name}, {branchName}
               </Text>
-              <Text style={styles.bankIfsc}>({ifsc})</Text>
+              <Text style={styles.ifsc}>({ifsc})</Text>
             </View>
 
             {/* {poc ? ( */}
             <View style={styles.row}>
-              <Text style={styles.bankPoc}>RM : {poc ? poc : "Not added"}</Text>
+              <Text style={styles.poc}>RM : {poc ? poc : "Not added"}</Text>
             </View>
             {/* ) : null} */}
 
             {/* {pocNumber ? ( */}
             <View style={styles.row}>
-              <Text style={styles.bankPoc}>
+              <Text style={styles.poc}>
                 Phone : {pocNumber ? pocNumber : "Not added"}
               </Text>
             </View>
             {/* ) : null} */}
           </View>
           {address?.city ? (
-            <View style={styles.bankFooter}>
+            <View style={styles.footer}>
               <Text style={styles.city}>{address?.city}</Text>
             </View>
           ) : null}

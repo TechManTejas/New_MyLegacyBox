@@ -33,7 +33,7 @@ const PostalItem = ({ hideCarret, ...postal }) => {
       flexDirection: "row",
       alignItems: "center",
     },
-    postalContainer: {
+    content: {
       flex: 1,
       paddingTop: spacing.sm,
     },
@@ -44,26 +44,26 @@ const PostalItem = ({ hideCarret, ...postal }) => {
       paddingHorizontal: spacing.md,
       marginBottom: spacing.xs,
     },
-    postalName: {
+    name: {
       fontFamily: fontFamily.semiBold,
       color: colors.blue400,
       fontSize: fontSize.default,
       lineHeight: fontSize.lg,
     },
-    postalIfsc: {
+    ifsc: {
       fontFamily: fontFamily.regular,
       marginLeft: spacing.xs,
       fontSize: fontSize.md,
       lineHeight: fontSize.default,
       color: colors.black300,
     },
-    postalPoc: {
+    poc: {
       fontFamily: fontFamily.regular,
       fontSize: fontSize.md,
       lineHeight: fontSize.default,
       color: colors.black400,
     },
-    postalFooter: {
+    footer: {
       backgroundColor: colors.black700,
       width: 120,
       flexDirection: "row",
@@ -92,33 +92,31 @@ const PostalItem = ({ hideCarret, ...postal }) => {
   return (
     <View style={styles.container}>
       <Pressable style={styles.pressableContainer} onPress={pressHandler}>
-        <View style={styles.postalContainer}>
+        <View style={styles.content}>
           <View>
             <View style={styles.row}>
-              <Text style={styles.postalName}>
+              <Text style={styles.name}>
                 {name}, {branchName}
               </Text>
-              {ifsc ? <Text style={styles.postalIfsc}>({ifsc})</Text> : null}
+              {ifsc ? <Text style={styles.ifsc}>({ifsc})</Text> : null}
             </View>
 
             {/* {poc ? ( */}
             <View style={styles.row}>
-              <Text style={styles.postalPoc}>
-                RM : {poc ? poc : "Not added"}
-              </Text>
+              <Text style={styles.poc}>RM : {poc ? poc : "Not added"}</Text>
             </View>
             {/* ) : null} */}
 
             {/* {pocNumber ? ( */}
             <View style={styles.row}>
-              <Text style={styles.postalPoc}>
+              <Text style={styles.poc}>
                 Phone : {pocNumber ? pocNumber : "Not added"}
               </Text>
             </View>
             {/* ) : null} */}
           </View>
           {address?.city ? (
-            <View style={styles.postalFooter}>
+            <View style={styles.footer}>
               <Text style={styles.city}>{address?.city}</Text>
             </View>
           ) : null}

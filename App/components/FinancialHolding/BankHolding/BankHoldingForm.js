@@ -2,17 +2,24 @@ import React, { useCallback, useState } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { Formik } from "formik";
 import { toFormikValidationSchema } from "zod-formik-adapter";
-import { financialHoldingBodyValidator } from "../../utils/formValidators";
-import CustomInputGroup from "../Form/CustomInputGroup";
-import { useTheme } from "../../theme/ThemeProvider";
-import BlueButton from "../Button/BlueButton";
-import { cleanObject } from "../../utils/objectManipulation";
+import CustomInputGroup from "../../Form/CustomInputGroup";
+import {
+  cleanObjectAndTrim,
+  objectToDropDownLabelAndValues,
+} from "../../../utils/manipulators";
+import { bankHoldingValidator } from "../../../utils/form/validators/bankHoldingValidator";
+import { useTheme } from "../../../theme/ThemeProvider";
+import BlueButton from "../../Button/BlueButton";
 import { useNavigation } from "@react-navigation/native";
-import CustomDropDownInput from "../Common/CustomDropDownInput";
-import { financialHoldingTypeForDropDown } from "../../utils/financialHolding";
-import CustomKeyboardAvoidingScrollView from "../Common/CustomKeyboardAvoidingScrollView";
+import CustomDropDownInput from "../../Common/CustomDropDownInput";
+import CustomKeyboardAvoidingScrollView from "../../Common/CustomKeyboardAvoidingScrollView";
+import {
+  BANK_ACCOUNT_TYPES_TO_TITLE_MAP,
+  BANK_ACCOUNT_OWNERSHIP_TO_TITLE_MAP,
+  BANK_ACCOUNT_TYPES_MAP,
+} from "../../../constants/financialHoldings/bankHolding";
 
-const HoldingForm = ({
+const BankHoldingForm = ({
   ctaCaption,
   defaultBody,
   apiCallback,
@@ -62,7 +69,7 @@ const HoldingForm = ({
 
     if (!isValid || isLoading) return;
 
-    const cleanedValues = cleanObject({ ...values });
+    const cleanedValues = cleanObjectAndTrim({ ...values });
 
     try {
       await apiCallback({
@@ -74,7 +81,6 @@ const HoldingForm = ({
       setGlobalErrorMessage(error?.data?.error?.message || error.message);
     }
   }, []);
-
   const styles = StyleSheet.create({
     scrollContainer: {
       flexGrow: 1,
@@ -110,11 +116,13 @@ const HoldingForm = ({
 
   return (
     <Formik
-      validationSchema={toFormikValidationSchema(financialHoldingBodyValidator)}
+      validationSchema={toFormikValidationSchema(bankHoldingValidator)}
       initialValues={{
-        holdingType: initialValues?.holdingType || "",
-        holdingNumber: initialValues?.holdingNumber || "",
+        accountType: initialValues?.accountType || "",
+        accountNumber: initialValues?.accountNumber || "",
+        ownership: initialValues?.ownership || "",
         amount: initialValues?.amount || undefined,
+        pranNumber: initialValues?.pranNumber || "",
       }}
       validateOnChange={false}
       validateOnBlur={false}
@@ -126,15 +134,63 @@ const HoldingForm = ({
               <CustomDropDownInput
                 title="Account Type"
                 placeholder="Select type of account"
-                data={financialHoldingTypeForDropDown}
-                onChange={handleChange("holdingType")}
-                value={values.holdingType}
+                data={objectToDropDownLabelAndValues(
+                  BANK_ACCOUNT_TYPES_TO_TITLE_MAP
+                )}
+                onChange={(value) => {
+                  setFieldValue("accountType", value);
+
+                  if (value !== BANK_ACCOUNT_TYPES_MAP.npsAccount) {
+                    setFieldValue("pranNumber", "");
+                  }
+                }}
+                value={values.accountType}
                 messages={
-                  customErrors.holdingType
+                  customErrors.accountType
                     ? [
                         {
-                          id: "holdingType",
-                          text: customErrors.holdingType,
+                          id: "accountType",
+                          text: customErrors.accountType,
+                        },
+                      ]
+                    : undefined
+                }
+                showSelectedIcon
+              />
+              {values.accountType === BANK_ACCOUNT_TYPES_MAP.npsAccount ? (
+                <CustomInputGroup
+                  name="pranNumber"
+                  placeholder="Enter your PRAN Number"
+                  title="PRAN Number"
+                  onChange={handleChange("pranNumber")}
+                  onBlur={handleBlur("pranNumber")}
+                  value={values.pranNumber}
+                  messages={
+                    customErrors.pranNumber
+                      ? [
+                          {
+                            id: "pranNumber",
+                            text: customErrors.pranNumber,
+                          },
+                        ]
+                      : undefined
+                  }
+                />
+              ) : null}
+              <CustomDropDownInput
+                title="Ownership"
+                placeholder="Select type of ownership"
+                data={objectToDropDownLabelAndValues(
+                  BANK_ACCOUNT_OWNERSHIP_TO_TITLE_MAP
+                )}
+                onChange={handleChange("ownership")}
+                value={values.ownership}
+                messages={
+                  customErrors.ownership
+                    ? [
+                        {
+                          id: "ownership",
+                          text: customErrors.ownership,
                         },
                       ]
                     : undefined
@@ -142,18 +198,18 @@ const HoldingForm = ({
                 showSelectedIcon
               />
               <CustomInputGroup
-                name="holdingNumber"
-                placeholder="Enter your Account / Holding Number"
+                name="accountNumber"
+                placeholder="Enter your Account Number"
                 title="Account Number"
-                onChange={handleChange("holdingNumber")}
-                onBlur={handleBlur("holdingNumber")}
-                value={values.holdingNumber}
+                onChange={handleChange("accountNumber")}
+                onBlur={handleBlur("accountNumber")}
+                value={values.accountNumber}
                 messages={
-                  customErrors.holdingNumber
+                  customErrors.accountNumber
                     ? [
                         {
-                          id: "holdingNumber",
-                          text: customErrors.holdingNumber,
+                          id: "accountNumber",
+                          text: customErrors.accountNumber,
                         },
                       ]
                     : undefined
@@ -166,7 +222,7 @@ const HoldingForm = ({
                 onChange={(value) => {
                   setFieldValue("amount", +value);
                 }}
-                onBlur={handleBlur("holdingNumber")}
+                onBlur={handleBlur("amount")}
                 value={values.amount}
                 messages={
                   customErrors.amount
@@ -201,4 +257,4 @@ const HoldingForm = ({
   );
 };
 
-export default HoldingForm;
+export default BankHoldingForm;

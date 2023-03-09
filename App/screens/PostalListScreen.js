@@ -1,14 +1,15 @@
 import { StyleSheet, View, Text, StatusBar, FlatList } from "react-native";
 import React from "react";
-import { useGetPostalsQuery } from "../services/postal/postalSlice";
+import { useGetBanksQuery } from "../services/bank/bankSlice";
 import CustomActivityIndicator from "../components/Common/CustomActivityIndicator";
 import { useTheme } from "../theme/ThemeProvider";
 import { useIsFocused, useNavigation } from "@react-navigation/native";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
-import PostalItem from "../components/Postal/PostalItem";
 import BlueButton from "../components/Button/BlueButton";
 import Empty from "../components/Common/Empty";
 import { SCREEN_NAMES } from "../constants/screenNames";
+import PostalItem from "../components/Postal/PostalItem";
+import { useGetPostalsQuery } from "../services/postal/postalSlice";
 
 const PostalListScreen = () => {
   const navigation = useNavigation();

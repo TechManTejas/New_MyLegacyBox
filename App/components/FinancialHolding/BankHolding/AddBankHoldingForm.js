@@ -1,18 +1,18 @@
 import React from "react";
-import { useAddFinancialHoldingForBankMutation } from "../../services/financialHolding/financialHoldingSlice";
+import { useAddFinancialHoldingForBankMutation } from "../../../services/financialHolding/financialHoldingSlice";
 import { useRoute } from "@react-navigation/native";
-import HoldingForm from "./HoldingForm";
+import BankHoldingForm from "./BankHoldingForm";
 
 const AddBankHoldingForm = () => {
   const route = useRoute();
-  const { parentId, parentName } = route.params;
+  const { parentId } = route.params;
   const [addFinancialHoldingForBank, { isLoading }] =
     useAddFinancialHoldingForBankMutation();
 
   return (
-    <HoldingForm
+    <BankHoldingForm
       ctaCaption="Add Holding"
-      defaultBody={{ parentId, parentName }}
+      defaultBody={{ parentId }}
       apiCallback={addFinancialHoldingForBank}
       isLoading={isLoading}
     />

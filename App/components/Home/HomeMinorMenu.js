@@ -4,7 +4,7 @@ import { HOME_MINOR_MENU_DATA } from "../../data/HomeData";
 import MenuCard from "../Common/MenuCard";
 import { useTheme } from "../../theme/ThemeProvider";
 
-const HomeMinorMenu = () => {
+const HomeMinorMenu = ({ centered }) => {
   const {
     theme: { colors, spacing, fontFamily, fontSize },
   } = useTheme();
@@ -30,6 +30,9 @@ const HomeMinorMenu = () => {
     section: {
       flexDirection: "row",
     },
+    sectionCentered: {
+      justifyContent: "center",
+    },
   });
 
   return (
@@ -37,7 +40,7 @@ const HomeMinorMenu = () => {
       {/* <View style={styles.header}>
         <Text style={styles.headerTitle}>Additional</Text>
       </View> */}
-      <View style={styles.section}>
+      <View style={[styles.section, centered && styles.sectionCentered]}>
         {HOME_MINOR_MENU_DATA.map(({ id, ...menu }, index) => (
           <MenuCard
             key={`home-minor-menu-${id}`}

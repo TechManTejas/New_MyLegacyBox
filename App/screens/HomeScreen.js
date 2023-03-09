@@ -29,7 +29,7 @@ const HomeScreen = () => {
         <View style={styles.container}>
           <HomeHeader />
           <HomeMajorMenu />
-          <HomeMinorMenu />
+          <HomeMinorMenu centered />
         </View>
       </ScrollView>
     </CustomSafeView>

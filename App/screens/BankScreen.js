@@ -3,7 +3,6 @@ import { View, Text, StyleSheet, FlatList } from "react-native";
 import { useTheme } from "../theme/ThemeProvider";
 import { useGetFinancialHoldingForBankQuery } from "../services/financialHolding/financialHoldingSlice";
 import CustomActivityIndicator from "../components/Common/CustomActivityIndicator";
-import FinancialHoldingItem from "../components/FinancialHolding/FinancialHoldingItem";
 import BankDetail from "../components/Bank/BankDetail";
 import BlueButton from "../components/Button/BlueButton";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
@@ -12,6 +11,7 @@ import { useNavigation } from "@react-navigation/native";
 import { SCREEN_NAMES } from "../constants/screenNames";
 import { useSelector } from "react-redux";
 import { selectBankById } from "../services/bank/bankSlice";
+import BankFinancialHoldingItem from "../components/FinancialHolding/BankHolding/BankFinancialHoldingItem";
 
 const BankScreen = ({ route }) => {
   const navigation = useNavigation();
@@ -64,7 +64,7 @@ const BankScreen = ({ route }) => {
           contentContainerStyle={styles.listContentContainer}
           data={data.ids.map((id) => data.entities[id])}
           renderItem={({ item }) => (
-            <FinancialHoldingItem financialHolding={item} />
+            <BankFinancialHoldingItem financialHolding={item} />
           )}
           keyExtractor={({ _id }) => _id}
           ListEmptyComponent={() => <Empty message="No holdings available" />}

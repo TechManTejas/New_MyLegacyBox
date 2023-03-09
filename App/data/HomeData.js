@@ -21,14 +21,14 @@ export const HOME_MAJOR_MENU_DATA = [
     title: "Insurance",
     iconName: "house-damage",
     IconComponent: FontAwesome5,
-    navigateToScreen: SCREEN_NAMES.bankListScreen,
+    navigateToScreen: SCREEN_NAMES.insuranceListScreen,
   },
   {
     id: 4,
-    title: "Unsecured Loans",
+    title: "Cash",
     iconName: "hand-holding-usd",
     IconComponent: FontAwesome5,
-    navigateToScreen: SCREEN_NAMES.bankListScreen,
+    navigateToScreen: SCREEN_NAMES.cashScreen,
   },
 ];
 
@@ -60,5 +60,6 @@ export const HOME_MINOR_MENU_DATA = [
     iconName: "signature",
     IconComponent: FontAwesome5,
     navigateToScreen: SCREEN_NAMES.bankListScreen,
+    disabled: true,
   },
 ];

@@ -2,13 +2,13 @@ import React, { useCallback, useState } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { Formik } from "formik";
 import { toFormikValidationSchema } from "zod-formik-adapter";
-import { bankValidator } from "../../utils/formValidators";
+import { cleanObjectAndTrim } from "../../utils/manipulators";
 import CustomInputGroup from "../Form/CustomInputGroup";
 import { useTheme } from "../../theme/ThemeProvider";
 import BlueButton from "../Button/BlueButton";
-import { cleanObject } from "../../utils/objectManipulation";
 import { useNavigation } from "@react-navigation/native";
 import CustomKeyboardAvoidingScrollView from "../Common/CustomKeyboardAvoidingScrollView";
+import { bankValidator } from "../../utils/form/validators/bankValidator";
 
 const BankForm = ({
   ctaCaption,
@@ -69,7 +69,7 @@ const BankForm = ({
 
     if (!isValid || isLoading) return;
 
-    const cleanedValues = cleanObject({ ...values });
+    const cleanedValues = cleanObjectAndTrim({ ...values });
 
     try {
       await apiCallback({ ...cleanedValues, ...defaultBody }).unwrap();
@@ -129,6 +129,7 @@ const BankForm = ({
       initialValues={{
         name: initialValues?.name || "",
         ifsc: initialValues?.ifsc || "",
+        customerId: initialValues?.customerId || "",
         branchName: initialValues?.branchName || "",
         poc: initialValues?.poc || "",
         pocNumber: initialValues?.pocNumber || "",
@@ -179,6 +180,20 @@ const BankForm = ({
                     : undefined
                 }
                 textTransformNormal
+              />
+              <CustomInputGroup
+                name="customerId"
+                placeholder="Enter your Customer ID"
+                title="Customer ID"
+                onChange={handleChange("customerId")}
+                onBlur={handleBlur("customerId")}
+                value={values.customerId}
+                messages={
+                  customErrors.customerId
+                    ? [{ id: "customerId", text: customErrors.customerId }]
+                    : undefined
+                }
+                optional
               />
               <CustomInputGroup
                 name="branchName"

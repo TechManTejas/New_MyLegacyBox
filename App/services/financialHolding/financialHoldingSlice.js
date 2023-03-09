@@ -49,6 +49,15 @@ export const extendedFinancialHoldingApiSlice = valutApiSlice.injectEndpoints({
           ? [{ type: QUERY_TAGS.bank, id: QUERY_TAGS.financialHoldingBankList }]
           : [],
     }),
+    updateFinancialHoldingForBank: builder.mutation({
+      query: ({ parentId, _id, ...financialHolding }) => ({
+        url: `/banks/${parentId}/holdings/${_id}`,
+        method: "PUT",
+        body: financialHolding,
+      }),
+      invalidatesTags: (result, error, args) =>
+        result ? [{ type: QUERY_TAGS.financialHolding, _id: args._id }] : [],
+    }),
     getFinancialHoldingForPostal: builder.query({
       query: (parentId) => `/postals/${parentId}/holdings`,
       transformResponse: (responseData) => {
@@ -61,7 +70,7 @@ export const extendedFinancialHoldingApiSlice = valutApiSlice.injectEndpoints({
         result
           ? [
               {
-                type: QUERY_TAGS.postal,
+                type: QUERY_TAGS.financialHolding,
                 id: QUERY_TAGS.financialHoldingPostalList,
               },
               ...result.ids.map((id) => ({
@@ -86,15 +95,287 @@ export const extendedFinancialHoldingApiSlice = valutApiSlice.injectEndpoints({
         result
           ? [
               {
-                type: QUERY_TAGS.postal,
+                type: QUERY_TAGS.financialHolding,
                 id: QUERY_TAGS.financialHoldingPostalList,
               },
             ]
           : [],
     }),
-    updateFinancialHolding: builder.mutation({
+    updateFinancialHoldingForPostal: builder.mutation({
+      query: ({ parentId, _id, ...financialHolding }) => ({
+        url: `/postals/${parentId}/holdings/${_id}`,
+        method: "PUT",
+        body: financialHolding,
+      }),
+      invalidatesTags: (result, error, args) =>
+        result ? [{ type: QUERY_TAGS.financialHolding, _id: args._id }] : [],
+    }),
+    getFinancialHoldingForInsurance: builder.query({
+      query: (parentId) => `/insurances/${parentId}/holdings`,
+      transformResponse: (responseData) => {
+        return financialHoldingsAdapter.setAll(
+          initialState,
+          responseData?.data || []
+        );
+      },
+      providesTags: (result) =>
+        result
+          ? [
+              {
+                type: QUERY_TAGS.financialHolding,
+                id: QUERY_TAGS.financialHoldingInsuranceList,
+              },
+              ...result.ids.map((id) => ({
+                type: QUERY_TAGS.financialHolding,
+                id,
+              })),
+            ]
+          : [
+              {
+                type: QUERY_TAGS.financialHolding,
+                id: QUERY_TAGS.financialHoldingInsuranceList,
+              },
+            ],
+    }),
+    addFinancialHoldingForInsurance: builder.mutation({
+      query: ({ parentId, ...holding }) => ({
+        url: `/insurances/${parentId}/holdings`,
+        method: "POST",
+        body: holding,
+      }),
+      invalidatesTags: (result) =>
+        result
+          ? [
+              {
+                type: QUERY_TAGS.financialHolding,
+                id: QUERY_TAGS.financialHoldingInsuranceList,
+              },
+            ]
+          : [],
+    }),
+    updateFinancialHoldingForInsurance: builder.mutation({
+      query: ({ parentId, _id, ...financialHolding }) => ({
+        url: `/insurances/${parentId}/holdings/${_id}`,
+        method: "PUT",
+        body: financialHolding,
+      }),
+      invalidatesTags: (result, error, args) =>
+        result ? [{ type: QUERY_TAGS.financialHolding, _id: args._id }] : [],
+    }),
+    getFinancialHoldingForProvidentFund: builder.query({
+      query: ({ filter }) => ({
+        url: "/provident-funds/holdings",
+        params: filter,
+      }),
+      transformResponse: (responseData) => {
+        return financialHoldingsAdapter.setAll(
+          initialState,
+          responseData?.data || []
+        );
+      },
+      providesTags: (result) =>
+        result
+          ? [
+              {
+                type: QUERY_TAGS.financialHolding,
+                id: QUERY_TAGS.financialHoldingProvidentFundList,
+              },
+              ...result.ids.map((id) => ({
+                type: QUERY_TAGS.financialHolding,
+                id,
+              })),
+            ]
+          : [
+              {
+                type: QUERY_TAGS.financialHolding,
+                id: QUERY_TAGS.financialHoldingProvidentFundList,
+              },
+            ],
+    }),
+    addFinancialHoldingForProvidentFund: builder.mutation({
+      query: ({ ...holding }) => ({
+        url: `/provident-funds/holdings`,
+        method: "POST",
+        body: holding,
+      }),
+      invalidatesTags: (result) =>
+        result
+          ? [
+              {
+                type: QUERY_TAGS.financialHolding,
+                id: QUERY_TAGS.financialHoldingProvidentFundList,
+              },
+            ]
+          : [],
+    }),
+    updateFinancialHoldingForProvidentFund: builder.mutation({
       query: ({ _id, ...financialHolding }) => ({
-        url: `/holdings/${_id}`,
+        url: `/provident-funds/holdings/${_id}`,
+        method: "PUT",
+        body: financialHolding,
+      }),
+      invalidatesTags: (result, error, args) =>
+        result ? [{ type: QUERY_TAGS.financialHolding, _id: args._id }] : [],
+    }),
+    getFinancialHoldingForDemat: builder.query({
+      query: ({ filter }) => ({
+        url: "/demats/holdings",
+        params: filter,
+      }),
+      transformResponse: (responseData) => {
+        return financialHoldingsAdapter.setAll(
+          initialState,
+          responseData?.data || []
+        );
+      },
+      providesTags: (result) =>
+        result
+          ? [
+              {
+                type: QUERY_TAGS.financialHolding,
+                id: QUERY_TAGS.financialHoldingDematList,
+              },
+              ...result.ids.map((id) => ({
+                type: QUERY_TAGS.financialHolding,
+                id,
+              })),
+            ]
+          : [
+              {
+                type: QUERY_TAGS.financialHolding,
+                id: QUERY_TAGS.financialHoldingDematList,
+              },
+            ],
+    }),
+    addFinancialHoldingForDemat: builder.mutation({
+      query: ({ ...holding }) => ({
+        url: `/demats/holdings`,
+        method: "POST",
+        body: holding,
+      }),
+      invalidatesTags: (result) =>
+        result
+          ? [
+              {
+                type: QUERY_TAGS.financialHolding,
+                id: QUERY_TAGS.financialHoldingDematList,
+              },
+            ]
+          : [],
+    }),
+    updateFinancialHoldingForDemat: builder.mutation({
+      query: ({ _id, ...financialHolding }) => ({
+        url: `/demats/holdings/${_id}`,
+        method: "PUT",
+        body: financialHolding,
+      }),
+      invalidatesTags: (result, error, args) =>
+        result ? [{ type: QUERY_TAGS.financialHolding, _id: args._id }] : [],
+    }),
+    getFinancialHoldingForRealEstate: builder.query({
+      query: ({ filter }) => ({
+        url: "/real-estates/holdings",
+        params: filter,
+      }),
+      transformResponse: (responseData) => {
+        return financialHoldingsAdapter.setAll(
+          initialState,
+          responseData?.data || []
+        );
+      },
+      providesTags: (result) =>
+        result
+          ? [
+              {
+                type: QUERY_TAGS.financialHolding,
+                id: QUERY_TAGS.financialHoldingRealEstateList,
+              },
+              ...result.ids.map((id) => ({
+                type: QUERY_TAGS.financialHolding,
+                id,
+              })),
+            ]
+          : [
+              {
+                type: QUERY_TAGS.financialHolding,
+                id: QUERY_TAGS.financialHoldingRealEstateList,
+              },
+            ],
+    }),
+    addFinancialHoldingForRealEstate: builder.mutation({
+      query: ({ ...holding }) => ({
+        url: `/real-estates/holdings`,
+        method: "POST",
+        body: holding,
+      }),
+      invalidatesTags: (result) =>
+        result
+          ? [
+              {
+                type: QUERY_TAGS.financialHolding,
+                id: QUERY_TAGS.financialHoldingRealEstateList,
+              },
+            ]
+          : [],
+    }),
+    updateFinancialHoldingForRealEstate: builder.mutation({
+      query: ({ _id, ...financialHolding }) => ({
+        url: `/real-estates/holdings/${_id}`,
+        method: "PUT",
+        body: financialHolding,
+      }),
+      invalidatesTags: (result, error, args) =>
+        result ? [{ type: QUERY_TAGS.financialHolding, _id: args._id }] : [],
+    }),
+    getFinancialHoldingForCash: builder.query({
+      query: ({ filter }) => ({
+        url: "/cash/holdings",
+        params: filter,
+      }),
+      transformResponse: (responseData) => {
+        return financialHoldingsAdapter.setAll(
+          initialState,
+          responseData?.data || []
+        );
+      },
+      providesTags: (result) =>
+        result
+          ? [
+              {
+                type: QUERY_TAGS.financialHolding,
+                id: QUERY_TAGS.financialHoldingCashList,
+              },
+              ...result.ids.map((id) => ({
+                type: QUERY_TAGS.financialHolding,
+                id,
+              })),
+            ]
+          : [
+              {
+                type: QUERY_TAGS.financialHolding,
+                id: QUERY_TAGS.financialHoldingCashList,
+              },
+            ],
+    }),
+    addFinancialHoldingForCash: builder.mutation({
+      query: ({ ...holding }) => ({
+        url: `/cash/holdings`,
+        method: "POST",
+        body: holding,
+      }),
+      invalidatesTags: (result) =>
+        result
+          ? [
+              {
+                type: QUERY_TAGS.financialHolding,
+                id: QUERY_TAGS.financialHoldingCashList,
+              },
+            ]
+          : [],
+    }),
+    updateFinancialHoldingForCash: builder.mutation({
+      query: ({ _id, ...financialHolding }) => ({
+        url: `/cash/holdings/${_id}`,
         method: "PUT",
         body: financialHolding,
       }),
@@ -107,7 +388,23 @@ export const extendedFinancialHoldingApiSlice = valutApiSlice.injectEndpoints({
 export const {
   useGetFinancialHoldingForBankQuery,
   useAddFinancialHoldingForBankMutation,
+  useUpdateFinancialHoldingForBankMutation,
   useGetFinancialHoldingForPostalQuery,
   useAddFinancialHoldingForPostalMutation,
-  useUpdateFinancialHoldingMutation,
+  useUpdateFinancialHoldingForPostalMutation,
+  useGetFinancialHoldingForInsuranceQuery,
+  useAddFinancialHoldingForInsuranceMutation,
+  useUpdateFinancialHoldingForInsuranceMutation,
+  useGetFinancialHoldingForProvidentFundQuery,
+  useAddFinancialHoldingForProvidentFundMutation,
+  useUpdateFinancialHoldingForProvidentFundMutation,
+  useGetFinancialHoldingForDematQuery,
+  useAddFinancialHoldingForDematMutation,
+  useUpdateFinancialHoldingForDematMutation,
+  useGetFinancialHoldingForRealEstateQuery,
+  useAddFinancialHoldingForRealEstateMutation,
+  useUpdateFinancialHoldingForRealEstateMutation,
+  useGetFinancialHoldingForCashQuery,
+  useAddFinancialHoldingForCashMutation,
+  useUpdateFinancialHoldingForCashMutation,
 } = extendedFinancialHoldingApiSlice;
