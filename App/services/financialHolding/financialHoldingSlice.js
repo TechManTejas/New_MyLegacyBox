@@ -1,4 +1,5 @@
 import { createEntityAdapter } from "@reduxjs/toolkit";
+import { URLSearchParams } from "react-native-url-polyfill";
 import { QUERY_TAGS } from "../../constants/queryTags";
 import { valutApiSlice } from "../api/vaultApiSlice";
 
@@ -163,10 +164,8 @@ export const extendedFinancialHoldingApiSlice = valutApiSlice.injectEndpoints({
         result ? [{ type: QUERY_TAGS.financialHolding, _id: args._id }] : [],
     }),
     getFinancialHoldingForProvidentFund: builder.query({
-      query: ({ filter }) => ({
-        url: "/provident-funds/holdings",
-        params: filter,
-      }),
+      query: (filter) =>
+        `/provident-funds/holdings?${new URLSearchParams(filter)}`,
       transformResponse: (responseData) => {
         return financialHoldingsAdapter.setAll(
           initialState,
@@ -218,10 +217,7 @@ export const extendedFinancialHoldingApiSlice = valutApiSlice.injectEndpoints({
         result ? [{ type: QUERY_TAGS.financialHolding, _id: args._id }] : [],
     }),
     getFinancialHoldingForDemat: builder.query({
-      query: ({ filter }) => ({
-        url: "/demats/holdings",
-        params: filter,
-      }),
+      query: (filter) => `/demats/holdings?${new URLSearchParams(filter)}`,
       transformResponse: (responseData) => {
         return financialHoldingsAdapter.setAll(
           initialState,
@@ -273,10 +269,8 @@ export const extendedFinancialHoldingApiSlice = valutApiSlice.injectEndpoints({
         result ? [{ type: QUERY_TAGS.financialHolding, _id: args._id }] : [],
     }),
     getFinancialHoldingForRealEstate: builder.query({
-      query: ({ filter }) => ({
-        url: "/real-estates/holdings",
-        params: filter,
-      }),
+      query: (filter) =>
+        `/real-estates/holdings?${new URLSearchParams(filter)}`,
       transformResponse: (responseData) => {
         return financialHoldingsAdapter.setAll(
           initialState,
@@ -328,10 +322,7 @@ export const extendedFinancialHoldingApiSlice = valutApiSlice.injectEndpoints({
         result ? [{ type: QUERY_TAGS.financialHolding, _id: args._id }] : [],
     }),
     getFinancialHoldingForCash: builder.query({
-      query: ({ filter }) => ({
-        url: "/cash/holdings",
-        params: filter,
-      }),
+      query: (filter) => `/cash/holdings?${new URLSearchParams(filter)}`,
       transformResponse: (responseData) => {
         return financialHoldingsAdapter.setAll(
           initialState,

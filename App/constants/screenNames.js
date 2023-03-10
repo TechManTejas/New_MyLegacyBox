@@ -48,9 +48,13 @@ export const SCREEN_NAMES = {
   addinsuranceScreen: "ADD_INSURANCE_SCREEN",
   updateinsuranceScreen: "UPDATE_INSURANCE_SCREEN",
 
+  providentFundListScreen: "PROVIDENT_FUND_LIST_SCREEN",
   providentFundScreen: "PROVIDENT_FUND_SCREEN",
-  dematScreen: "DEMAT_SCREEN",
+
+  realEstateListScreen: "REAL_ESTATE_LIST_SCREEN",
   realEstateScreen: "REAL_ESTATE_SCREEN",
+
+  dematScreen: "DEMAT_SCREEN",
   cashScreen: "CASH_SCREEN",
 
   willScreen: "WILL_SCREEN",

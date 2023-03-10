@@ -20,6 +20,7 @@ const CustomDropDownInput = ({
   showSelectedIcon,
 }) => {
   const [isFocus, setIsFocus] = useState(false);
+
   const {
     theme: { colors, spacing, fontSize, fontFamily },
   } = useTheme();
@@ -59,7 +60,7 @@ const CustomDropDownInput = ({
       borderWidth: 1,
       borderColor: colors.black200,
       borderRadius: spacing.xs,
-      paddingVertical: spacing.xs,
+      // paddingVertical: spacing.xs,
       paddingRight: spacing.sm,
     },
     selectedTextStyle: {

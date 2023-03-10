@@ -15,7 +15,7 @@ const CashScreen = () => {
 
   // pass empty object as you dont have filter
   const { data, isLoading, isFetching, isError, error } =
-    useGetFinancialHoldingForCashQuery({});
+    useGetFinancialHoldingForCashQuery();
 
   const {
     theme: { spacing, colors },

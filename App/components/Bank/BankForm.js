@@ -221,6 +221,7 @@ const BankForm = ({
                     : undefined
                 }
                 optional
+                textTransformNormal
               />
               <CustomInputGroup
                 name="pocNumber"
@@ -236,6 +237,7 @@ const BankForm = ({
                     : undefined
                 }
                 optional
+                textTransformNormal
               />
               <View style={[styles.sectionTitleContainer, styles.row]}>
                 <Text style={styles.sectionTitle}>Address</Text>
@@ -353,6 +355,7 @@ const BankForm = ({
                       ]
                     : undefined
                 }
+                optional
                 textTransformNormal
               />
               <CustomInputGroup

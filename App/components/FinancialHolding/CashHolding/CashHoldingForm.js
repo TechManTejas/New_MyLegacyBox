@@ -83,10 +83,6 @@ const CashHoldingForm = ({
 
     const cleanedValues = cleanObjectAndTrim({ ...values });
 
-    console.log("====================================");
-    console.log(cleanedValues);
-    console.log("====================================");
-
     try {
       await apiCallback({
         ...cleanedValues,
@@ -94,9 +90,6 @@ const CashHoldingForm = ({
       }).unwrap();
       navigation.goBack();
     } catch (error) {
-      console.log("====================================");
-      console.log(error);
-      console.log("====================================");
       setGlobalErrorMessage(error?.data?.error?.message || error.message);
     }
   }, []);
@@ -435,6 +428,7 @@ const CashHoldingForm = ({
                       ]
                     : undefined
                 }
+                optional
                 textTransformNormal
               />
               <CustomInputGroup

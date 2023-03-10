@@ -17,7 +17,9 @@ const MenuCard = ({
   title,
   iconName,
   IconComponent,
+  iconSizeMultiplier,
   navigateToScreen,
+  navigationParams,
   disabled,
 }) => {
   const { theme } = useTheme();
@@ -26,7 +28,10 @@ const MenuCard = ({
   const { fontFamily } = theme;
 
   const pressHandler = () => {
-    navigation.navigate(navigateToScreen);
+    navigation.navigate(
+      navigateToScreen,
+      navigationParams ? navigationParams : undefined
+    );
   };
 
   const menuColors = getMenuVariantColor(color, isDark, theme);
@@ -51,7 +56,7 @@ const MenuCard = ({
       flex: menuSpacing.iconContainer.flex,
       justifyContent: "center",
       alignItems: "center",
-      fontSize: menuFontSize.iconContainer.fontSize,
+      fontSize: (iconSizeMultiplier || 1) * menuFontSize.iconContainer.fontSize,
       color: menuColors.iconContainer.color,
     },
     label: {

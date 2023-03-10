@@ -192,6 +192,7 @@ const InsuranceForm = ({
                     : undefined
                 }
                 optional
+                textTransformNormal
               />
               <CustomInputGroup
                 name="pocNumber"
@@ -207,6 +208,7 @@ const InsuranceForm = ({
                     : undefined
                 }
                 optional
+                textTransformNormal
               />
               <View style={[styles.sectionTitleContainer, styles.row]}>
                 <Text style={styles.sectionTitle}>Address</Text>
@@ -324,6 +326,7 @@ const InsuranceForm = ({
                       ]
                     : undefined
                 }
+                optional
                 textTransformNormal
               />
               <CustomInputGroup

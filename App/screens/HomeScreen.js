@@ -5,8 +5,9 @@ import { useAuth } from "../authentication/AuthProvider";
 import CustomSafeView from "../components/Common/CustomSafeView";
 import HomeHeader from "../components/Home/HomeHeader";
 import { useTheme } from "../theme/ThemeProvider";
-import HomeMajorMenu from "../components/Home/HomeMajorMenu";
-import HomeMinorMenu from "../components/Home/HomeMinorMenu";
+import { HOME_MAJOR_MENU_DATA, HOME_MINOR_MENU_DATA } from "../data/HomeData";
+import MajorMenu from "../components/Common/MajorMenu";
+import MinorMenu from "../components/Common/MinorMenu";
 
 const HomeScreen = () => {
   const { sessionToken } = useAuth();
@@ -28,8 +29,8 @@ const HomeScreen = () => {
       <ScrollView>
         <View style={styles.container}>
           <HomeHeader />
-          <HomeMajorMenu />
-          <HomeMinorMenu centered />
+          <MajorMenu title="home" menuData={HOME_MAJOR_MENU_DATA} />
+          <MinorMenu title="home" centered menuData={HOME_MINOR_MENU_DATA} />
         </View>
       </ScrollView>
     </CustomSafeView>

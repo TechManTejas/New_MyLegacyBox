@@ -222,6 +222,7 @@ const PostalForm = ({
                     : undefined
                 }
                 optional
+                textTransformNormal
               />
               <CustomInputGroup
                 name="pocNumber"
@@ -237,6 +238,7 @@ const PostalForm = ({
                     : undefined
                 }
                 optional
+                textTransformNormal
               />
               <View style={[styles.sectionTitleContainer, styles.row]}>
                 <Text style={styles.sectionTitle}>Address</Text>
@@ -354,6 +356,7 @@ const PostalForm = ({
                       ]
                     : undefined
                 }
+                optional
                 textTransformNormal
               />
               <CustomInputGroup

@@ -3,13 +3,9 @@ import { StyleSheet } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { SCREEN_NAMES } from "../constants/screenNames";
 import HomeScreen from "../screens/HomeScreen";
-import BankListScreen from "../screens/BankListScreen";
 import { useTheme } from "../theme/ThemeProvider";
-import BankScreen from "../screens/BankScreen";
 import CustomHeaderLeftIcon from "../components/Common/CustomHeaderLeftIcon";
 import CustomHeaderTitle from "../components/Common/CustomHeaderTitle";
-import UpdateBankForm from "../components/Bank/UpdateBankForm";
-import AddBankForm from "../components/Bank/AddBankForm";
 import BankFinancialHoldingNavigation from "./FinancialHoldingsNavigation/BankFinancialHoldingNavigation";
 import BankNavigation from "./FinancialInstitutionNavigation/BankNavigation";
 import PostalNavigation from "./FinancialInstitutionNavigation/PostalNavigation";
@@ -18,6 +14,12 @@ import InsuranceNavigation from "./FinancialInstitutionNavigation/InsuranceNavig
 import InsuranceFinancialHoldingNavigation from "./FinancialHoldingsNavigation/InsuranceFinancialHoldingNavigation";
 import CashNavigation from "./FinancialInstitutionNavigation/CashNavigation";
 import CashFinancialHoldingNavigation from "./FinancialHoldingsNavigation/CashFinancialHoldingNavigation";
+import ProvidentFundNavigation from "./FinancialInstitutionNavigation/ProvidentFundNavigation";
+import ProvidentFundFinancialHoldingNavigation from "./FinancialHoldingsNavigation/ProvidentFundFinancialHoldingNavigation";
+import RealEstateNavigation from "./FinancialInstitutionNavigation/RealEstateNavigation";
+import RealEstateFinancialHoldingNavigation from "./FinancialHoldingsNavigation/RealEstateFinancialHoldingNavigation";
+import DematNavigation from "./FinancialInstitutionNavigation/DematNavigation";
+import DematFinancialHoldingNavigation from "./FinancialHoldingsNavigation/DematFinancialHoldingNavigation";
 
 const Stack = createStackNavigator();
 
@@ -55,11 +57,17 @@ const HomeNavigation = () => {
       {PostalNavigation({ Stack })}
       {InsuranceNavigation({ Stack })}
       {CashNavigation({ Stack })}
+      {DematNavigation({ Stack })}
+      {ProvidentFundNavigation({ Stack })}
+      {RealEstateNavigation({ Stack })}
 
       {BankFinancialHoldingNavigation({ Stack })}
       {PostalFinancialHoldingNavigation({ Stack })}
       {InsuranceFinancialHoldingNavigation({ Stack })}
       {CashFinancialHoldingNavigation({ Stack })}
+      {DematFinancialHoldingNavigation({ Stack })}
+      {ProvidentFundFinancialHoldingNavigation({ Stack })}
+      {RealEstateFinancialHoldingNavigation({ Stack })}
     </Stack.Navigator>
   );
 };

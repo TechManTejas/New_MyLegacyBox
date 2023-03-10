@@ -19,7 +19,6 @@ import {
   POLICY_TYPE_TO_TITLE_MAP,
 } from "../../../constants/financialHoldings/insuranceHolding";
 import { insuranceHoldingValidator } from "../../../utils/form/validators/insuranceHoldingValidator";
-import Pressable from "react-native/Libraries/Components/Pressable/Pressable";
 
 const InsuranceHoldingForm = ({
   ctaCaption,
@@ -230,6 +229,86 @@ const InsuranceHoldingForm = ({
                 showSelectedIcon
               />
 
+              <View style={styles.row}>
+                <View style={styles.fullWidth}>
+                  <CustomInputGroup
+                    name="dateOfPremium"
+                    placeholder="Enter the Date of Premium"
+                    title="Date of premium"
+                    pointerEvents="none"
+                    onFocus={() => {
+                      Keyboard.dismiss();
+                      setDatePickerOptions({
+                        show: true,
+                        property: "dateOfPremium",
+                      });
+                    }}
+                    onBlur={handleBlur("dateOfPremium")}
+                    value={
+                      values.dateOfPremium
+                        ? new Date(values.dateOfPremium).toLocaleDateString(
+                            "en-us",
+                            {
+                              year: "numeric",
+                              month: "short",
+                              day: "2-digit",
+                            }
+                          )
+                        : ""
+                    }
+                    messages={
+                      customErrors.dateOfPremium
+                        ? [
+                            {
+                              id: "dateOfPremium",
+                              text: customErrors.dateOfPremium,
+                            },
+                          ]
+                        : undefined
+                    }
+                    textTransformNormal
+                  />
+                </View>
+                <View style={[styles.fullWidth, styles.leftPadded]}>
+                  <CustomInputGroup
+                    name="dateOfMaturity"
+                    placeholder="Enter the Date of Maturity"
+                    title="Date of maturity"
+                    onFocus={() => {
+                      Keyboard.dismiss();
+                      setDatePickerOptions({
+                        show: true,
+                        property: "dateOfMaturity",
+                      });
+                    }}
+                    onBlur={handleBlur("dateOfMaturity")}
+                    value={
+                      values.dateOfMaturity
+                        ? new Date(values.dateOfMaturity).toLocaleDateString(
+                            "en-us",
+                            {
+                              year: "numeric",
+                              month: "short",
+                              day: "2-digit",
+                            }
+                          )
+                        : ""
+                    }
+                    messages={
+                      customErrors.dateOfMaturity
+                        ? [
+                            {
+                              id: "dateOfMaturity",
+                              text: customErrors.dateOfMaturity,
+                            },
+                          ]
+                        : undefined
+                    }
+                    textTransformNormal
+                  />
+                </View>
+              </View>
+
               <CustomInputGroup
                 name="policyAmount"
                 placeholder="Enter the Policy Amount"
@@ -273,81 +352,6 @@ const InsuranceHoldingForm = ({
                     : undefined
                 }
                 optional
-                textTransformNormal
-              />
-
-              <CustomInputGroup
-                name="dateOfPremium"
-                placeholder="Enter the Date of Premium"
-                title="Date of Premium"
-                pointerEvents="none"
-                onFocus={() => {
-                  Keyboard.dismiss();
-                  setDatePickerOptions({
-                    show: true,
-                    property: "dateOfPremium",
-                  });
-                }}
-                onBlur={handleBlur("dateOfPremium")}
-                value={
-                  values.dateOfPremium
-                    ? new Date(values.dateOfPremium).toLocaleDateString(
-                        "en-us",
-                        {
-                          year: "numeric",
-                          month: "short",
-                          day: "2-digit",
-                        }
-                      )
-                    : ""
-                }
-                messages={
-                  customErrors.dateOfPremium
-                    ? [
-                        {
-                          id: "dateOfPremium",
-                          text: customErrors.dateOfPremium,
-                        },
-                      ]
-                    : undefined
-                }
-                textTransformNormal
-              />
-
-              <CustomInputGroup
-                name="dateOfMaturity"
-                placeholder="Enter the Date of Maturity"
-                title="Date of Maturity"
-                onFocus={() => {
-                  Keyboard.dismiss();
-                  setDatePickerOptions({
-                    show: true,
-                    property: "dateOfMaturity",
-                  });
-                }}
-                onBlur={handleBlur("dateOfMaturity")}
-                value={
-                  values.dateOfMaturity
-                    ? new Date(values.dateOfMaturity).toLocaleDateString(
-                        "en-us",
-                        {
-                          year: "numeric",
-                          month: "short",
-                          day: "2-digit",
-                        }
-                      )
-                    : ""
-                }
-                messages={
-                  customErrors.dateOfMaturity
-                    ? [
-                        {
-                          id: "dateOfMaturity",
-                          text: customErrors.dateOfMaturity,
-                        },
-                      ]
-                    : undefined
-                }
                 textTransformNormal
               />
 

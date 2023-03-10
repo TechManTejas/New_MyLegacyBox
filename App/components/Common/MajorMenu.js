@@ -1,10 +1,9 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
-import { HOME_MAJOR_MENU_DATA } from "../../data/HomeData";
+import { StyleSheet, View } from "react-native";
 import { useTheme } from "../../theme/ThemeProvider";
-import MenuCard from "../Common/MenuCard";
+import MenuCard from "./MenuCard";
 
-const HomeMajorMenu = () => {
+const MajorMenu = ({ centeredContent, menuData, title }) => {
   const {
     theme: { spacing },
   } = useTheme();
@@ -15,13 +14,18 @@ const HomeMajorMenu = () => {
       flexWrap: "wrap",
       marginBottom: spacing.lg,
     },
+    containerCentered: {
+      justifyContent: "center",
+    },
   });
 
   return (
-    <View style={styles.container}>
-      {HOME_MAJOR_MENU_DATA.map(({ id, ...menu }, index) => (
+    <View
+      style={[styles.container, centeredContent && styles.containerCentered]}
+    >
+      {menuData.map(({ id, ...menu }, index) => (
         <MenuCard
-          key={`home-major-menu-${id}`}
+          key={`${title}-major-menu-${id}`}
           {...menu}
           index={index}
           cardsInRow={2}
@@ -31,4 +35,4 @@ const HomeMajorMenu = () => {
   );
 };
 
-export default HomeMajorMenu;
+export default MajorMenu;
