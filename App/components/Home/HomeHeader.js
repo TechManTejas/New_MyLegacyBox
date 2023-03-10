@@ -59,7 +59,6 @@ const HomeHeader = () => {
       <Pressable
         style={styles.iconContainer}
         onPress={() => {
-          console.log(navigation.toggleDrawer);
           navigation.toggleDrawer();
         }}
       >

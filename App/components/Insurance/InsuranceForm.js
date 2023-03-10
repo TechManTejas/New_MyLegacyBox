@@ -75,7 +75,6 @@ const InsuranceForm = ({
       await apiCallback({ ...cleanedValues, ...defaultBody }).unwrap();
       navigation.goBack();
     } catch (error) {
-      console.log(error);
       setGlobalErrorMessage(error?.data?.error?.message || error.message);
     }
   }, []);

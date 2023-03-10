@@ -4,7 +4,6 @@ import { Keyboard, Platform } from "react-native";
 export const useKeyboardHeight = () => {
   const [keyboardHeight, setKeyboardHeight] = useState(0);
 
-  console.log("kb metrics : ", Keyboard.metrics());
 
   useEffect(() => {
     const showEventName =

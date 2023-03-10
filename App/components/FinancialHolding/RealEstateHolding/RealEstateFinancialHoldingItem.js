@@ -21,10 +21,6 @@ const RealEstateFinancialHoldingItem = ({ financialHolding }) => {
     address,
   } = holding;
 
-  console.log('====================================');
-  console.log(address);
-  console.log('====================================');
-
   const {
     theme: { colors, fontFamily, fontSize, spacing },
   } = useTheme();
