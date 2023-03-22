@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Pressable } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import React from "react";
 import { useTheme } from "../../../theme/ThemeProvider";
 import { useNavigation } from "@react-navigation/native";
@@ -6,6 +6,7 @@ import { SCREEN_NAMES } from "../../../constants/screenNames";
 import { numberWithCommas } from "../../../utils/manipulators";
 import FinancialHoldingItemWrapper from "../FinancialHoldingItemWrapper";
 import { CASH_TYPE_TO_TITLE_MAP } from "../../../constants/financialHoldings/cashHolding";
+import CustomPill from "../../Common/Pill/CustomPill";
 
 const CashFinancialHoldingItem = ({ financialHolding }) => {
   const navigation = useNavigation();
@@ -38,20 +39,35 @@ const CashFinancialHoldingItem = ({ financialHolding }) => {
       alignItems: "baseline",
       justifyContent: "space-between",
     },
-    rowBottomMargin: {
+    rowAlignItemsStart: {
+      alignItems: "flex-start",
+    },
+    marginBottomXs: {
       marginBottom: spacing.xs,
     },
     semiBold: {
       fontFamily: fontFamily.semiBold,
+    },
+    marginTopXxs: {
+      marginTop: spacing.xxs,
+    },
+    marginLeftSm: {
+      marginLeft: spacing.sm,
+    },
+    paddingVerticalXxs: {
+      paddingVertical: spacing.xxs,
     },
     name: {
       fontFamily: fontFamily.semiBold,
       color: colors.blue400,
       fontSize: fontSize.lg,
       lineHeight: fontSize.xl,
-      paddingLeft: spacing.md,
-      paddingRight: spacing.xs,
-      marginBottom: spacing.xs,
+      textTransform: 'capitalize'
+    },
+    infoHeaderContainer: {
+      paddingHorizontal: spacing.md,
+      marginBottom: spacing.sm,
+      alignSelf: "flex-start",
     },
     type: {
       fontFamily: fontFamily.regular,
@@ -60,7 +76,6 @@ const CashFinancialHoldingItem = ({ financialHolding }) => {
       lineHeight: fontSize.lg,
       marginBottom: spacing.xs,
     },
-    infoContainer: {},
     info: {
       fontFamily: fontFamily.regular,
       fontSize: fontSize.md,
@@ -93,19 +108,28 @@ const CashFinancialHoldingItem = ({ financialHolding }) => {
       holdingClass={holdingClass}
       pressHandler={pressHandler}
     >
-      <View style={styles.row}>
-        <View style={[styles.row, styles.rowBottomMargin]}>
-          <Text style={styles.name}>{nameOfParty}</Text>
-          <Text style={styles.type}>({CASH_TYPE_TO_TITLE_MAP[cashType]})</Text>
+      <View style={styles.infoHeaderContainer}>
+        <View style={[styles.row, styles.rowAlignItemsStart]}>
+          <Text style={[styles.name]}>{nameOfParty}</Text>
+          <View style={[styles.marginLeftSm, styles.marginBottomXs]}>
+            <CustomPill
+              label={CASH_TYPE_TO_TITLE_MAP[cashType]}
+              color={colors.white100}
+              backgroundColor={colors.blue400}
+              containerStyle={styles.paddingVerticalXxs}
+              size="sm"
+              labelBold
+            />
+          </View>
         </View>
       </View>
-      <View style={styles.infoContainer}>
-        <View style={[styles.row, styles.rowBottomMargin]}>
+      <View>
+        <View style={[styles.row, styles.marginBottomXs]}>
           <Text style={[styles.info, styles.semiBold]}>Phone Number </Text>
           <Text style={styles.info}>{phoneNumberOfParty}</Text>
         </View>
 
-        <View style={[styles.row, styles.rowBottomMargin]}>
+        <View style={[styles.row, styles.marginBottomXs]}>
           <Text style={[styles.info, styles.semiBold]}>
             Date of Transaction{" "}
           </Text>
@@ -118,7 +142,7 @@ const CashFinancialHoldingItem = ({ financialHolding }) => {
           </Text>
         </View>
 
-        <View style={[styles.row, styles.rowBottomMargin]}>
+        <View style={[styles.row, styles.marginBottomXs]}>
           <Text style={[styles.info, styles.semiBold]}>Amount </Text>
           <Text style={styles.info}>
             {amount ? `Rs. ${numberWithCommas(amount)}` : "Not available"}

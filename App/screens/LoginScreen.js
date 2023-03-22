@@ -6,7 +6,6 @@ import {
   Text,
   useWindowDimensions,
   StatusBar,
-  Keyboard,
 } from "react-native";
 import { useIsFocused, useNavigation } from "@react-navigation/native";
 import { useAuth } from "../authentication/AuthProvider";

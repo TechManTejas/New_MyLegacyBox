@@ -8,7 +8,7 @@ const AddCashHoldingForm = () => {
 
   return (
     <CashHoldingForm
-      ctaCaption="Add Holding"
+      ctaCaption="Add"
       apiCallback={addFinancialHoldingForCash}
       isLoading={isLoading}
     />

@@ -15,20 +15,18 @@ const OnBoardingScreen = () => {
 
   const styles = StyleSheet.create({
     safeViewStyle: {
-      backgroundColor: colors.blue700,
+      backgroundColor: colors.white400,
     },
     list: {
-      flex: 3,
-    },
-    footer: {
       flex: 1,
     },
+
   });
 
   return (
     <CustomSafeView safeViewStyle={styles.safeViewStyle}>
       {isFoucused ? (
-        <StatusBar barStyle="light-content" backgroundColor={colors.blue700} />
+        <StatusBar barStyle="light-content" backgroundColor={colors.white700} />
       ) : null}
       <View style={styles.list}>
         <OnBoardingSlidesList />

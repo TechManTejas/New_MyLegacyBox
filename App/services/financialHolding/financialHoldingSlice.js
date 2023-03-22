@@ -1,7 +1,7 @@
 import { createEntityAdapter } from "@reduxjs/toolkit";
 import { URLSearchParams } from "react-native-url-polyfill";
 import { QUERY_TAGS } from "../../constants/queryTags";
-import { valutApiSlice } from "../api/vaultApiSlice";
+import { vaultApiSlice } from "../api/vaultApiSlice";
 
 const financialHoldingsAdapter = createEntityAdapter({
   selectId: ({ _id }) => _id,
@@ -10,7 +10,7 @@ const financialHoldingsAdapter = createEntityAdapter({
 
 const initialState = financialHoldingsAdapter.getInitialState();
 
-export const extendedFinancialHoldingApiSlice = valutApiSlice.injectEndpoints({
+export const extendedFinancialHoldingApiSlice = vaultApiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getFinancialHoldingForBank: builder.query({
       query: (parentId) => `/banks/${parentId}/holdings`,

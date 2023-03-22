@@ -15,7 +15,7 @@ const UpdateDematHoldingForm = () => {
 
   return (
     <DematHoldingForm
-      ctaCaption="Update Demat Holding"
+      ctaCaption="Update"
       apiCallback={updateDematFinancialHolding}
       isLoading={isLoading}
       defaultBody={{ _id }}

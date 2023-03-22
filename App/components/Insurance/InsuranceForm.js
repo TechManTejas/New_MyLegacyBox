@@ -5,7 +5,7 @@ import { toFormikValidationSchema } from "zod-formik-adapter";
 import { cleanObjectAndTrim } from "../../utils/manipulators";
 import CustomInputGroup from "../Form/CustomInputGroup";
 import { useTheme } from "../../theme/ThemeProvider";
-import BlueButton from "../Button/BlueButton";
+import BlueButton from "../Common/Button/BlueButton";
 import { useNavigation } from "@react-navigation/native";
 import CustomKeyboardAvoidingScrollView from "../Common/CustomKeyboardAvoidingScrollView";
 import { insuranceValidator } from "../../utils/form/validators/insuranceValidator";
@@ -195,8 +195,8 @@ const InsuranceForm = ({
               />
               <CustomInputGroup
                 name="pocNumber"
-                placeholder="Point of contact number"
-                title="Point of contact number"
+                placeholder="Phone number of point of contact"
+                title="Point of contact's number"ho
                 onChange={handleChange("pocNumber")}
                 onBlur={handleBlur("pocNumber")}
                 value={values.pocNumber}

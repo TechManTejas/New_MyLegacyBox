@@ -1,6 +1,6 @@
 import { createEntityAdapter, createSelector } from "@reduxjs/toolkit";
 import { QUERY_TAGS } from "../../constants/queryTags";
-import { valutApiSlice } from "../api/vaultApiSlice";
+import { vaultApiSlice } from "../api/vaultApiSlice";
 
 const bankAdapter = createEntityAdapter({
   selectId: ({ _id }) => _id,
@@ -9,7 +9,7 @@ const bankAdapter = createEntityAdapter({
 
 const initialState = bankAdapter.getInitialState();
 
-export const extendedBankApiSlice = valutApiSlice.injectEndpoints({
+export const extendedBankApiSlice = vaultApiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getBanks: builder.query({
       query: () => "/banks",

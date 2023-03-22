@@ -1,11 +1,15 @@
 export const SCREEN_NAMES = {
+  feedbackScreen: "FEEDBACK_SCREEN",
+
   globalNavigationModal: "GLOBAL_NAVIGATION_MODAL",
   drawerNavigator: "DRAWER_NAVIGATOR",
   homeNavigator: "HOME_NAVIGATOR",
+  nomineeNavigator: "NOMINEE_NAVIGATOR",
   bottomTabNavigator: "BOTTOM_TAB_NAVIGATOR",
   homeScreen: "HOME_SCREEN",
   onBoardingScreen: "ONBOARDING_SCREEN",
   loginScreen: "LOGIN_SCREEN",
+  registerScreen: "REGISTER_SCREEN",
 
   addBankFinancialHoldingScreen: "ADD_BANK_FINANCIAL_HOLDING_SCREEN",
   updateBankFinancialHoldingScreen: "UPDATE_BANK_FINANCIAL_HOLDING_SCREEN",
@@ -48,7 +52,6 @@ export const SCREEN_NAMES = {
   addinsuranceScreen: "ADD_INSURANCE_SCREEN",
   updateinsuranceScreen: "UPDATE_INSURANCE_SCREEN",
 
-  providentFundListScreen: "PROVIDENT_FUND_LIST_SCREEN",
   providentFundScreen: "PROVIDENT_FUND_SCREEN",
 
   realEstateListScreen: "REAL_ESTATE_LIST_SCREEN",
@@ -57,7 +60,9 @@ export const SCREEN_NAMES = {
   dematScreen: "DEMAT_SCREEN",
   cashScreen: "CASH_SCREEN",
 
+  nomineeScreen: "NOMINEE_SCREEN",
+  addNomineeScreen: "ADD_NOMINEE_SCREEN",
+
   willScreen: "WILL_SCREEN",
   ohubScreen: "OHUB_SCREEN",
-  nomineeScreen: "NOMINEE_SCREEN",
 };

@@ -9,7 +9,7 @@ const AddBankForm = () => {
     <BankForm
       apiCallback={addBank}
       isLoading={isLoading}
-      ctaCaption="Add Bank"
+      ctaCaption="Add"
     />
   );
 };

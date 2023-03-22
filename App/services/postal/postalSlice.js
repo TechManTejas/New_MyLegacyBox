@@ -1,6 +1,6 @@
 import { createEntityAdapter, createSelector } from "@reduxjs/toolkit";
 import { QUERY_TAGS } from "../../constants/queryTags";
-import { valutApiSlice } from "../api/vaultApiSlice";
+import { vaultApiSlice } from "../api/vaultApiSlice";
 
 const postalAdapter = createEntityAdapter({
   selectId: ({ _id }) => _id,
@@ -9,7 +9,7 @@ const postalAdapter = createEntityAdapter({
 
 const initialState = postalAdapter.getInitialState();
 
-export const extendedPostalApiSlice = valutApiSlice.injectEndpoints({
+export const extendedPostalApiSlice = vaultApiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getPostals: builder.query({
       query: () => "/postals",

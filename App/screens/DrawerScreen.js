@@ -1,9 +1,5 @@
 import React, { useCallback } from "react";
 import { View, StyleSheet, Pressable } from "react-native";
-import {
-  DrawerContentScrollView,
-  DrawerItemList,
-} from "@react-navigation/drawer";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import { useTheme } from "../theme/ThemeProvider";
 import CustomDrawerItem from "../components/Common/CustomDrawerItem";
@@ -12,6 +8,10 @@ import { kratosClient } from "../authentication/kratosSdk";
 import { SCREEN_NAMES } from "../constants/screenNames";
 import CustomSafeView from "../components/Common/CustomSafeView";
 import { useNavigation } from "@react-navigation/native";
+import {
+  DrawerContentScrollView,
+  DrawerItemList,
+} from "@react-navigation/drawer";
 
 const DrawerScreen = (props) => {
   const {
@@ -46,6 +46,8 @@ const DrawerScreen = (props) => {
     header: {
       paddingHorizontal: spacing.sm,
       paddingVertical: spacing.md,
+      borderBottomWidth: StyleSheet.hairlineWidth,
+      borderBottomColor: colors.black100,
     },
     iconContainer: {
       flexDirection: "row",
@@ -75,12 +77,12 @@ const DrawerScreen = (props) => {
           </Pressable>
         </View>
       </View>
-      {/* <DrawerContentScrollView
+      <DrawerContentScrollView
         contentContainerStyle={styles.contentContainer}
         {...props}
       >
         <DrawerItemList {...props} />
-      </DrawerContentScrollView> */}
+      </DrawerContentScrollView>
 
       <View style={styles.footer}>
         <CustomDrawerItem

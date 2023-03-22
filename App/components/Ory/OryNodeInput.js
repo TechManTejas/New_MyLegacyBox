@@ -19,6 +19,8 @@ const guessAttributeVariant = ({ attributes }) => {
   }
 
   switch (attributes.type) {
+    case "tel":
+      return "phone";
     case "hidden":
       return null;
     case "email":
@@ -93,6 +95,10 @@ const OryNodeInput = ({
       // extra props for displaying custom placeholder
       extraProps.placeholderSuffix = "/ email";
       break;
+    case "phone":
+      extraProps.keyboardType = "phone-pad";
+      extraProps.textContentType = "telephoneNumber";
+      extraProps.maxLength = 13;
   }
 
   if (textInputOverride) {
@@ -105,7 +111,9 @@ const OryNodeInput = ({
   return (
     <CustomInputGroup
       name={name}
-      placeholder={`Enter your ${title}`}
+      placeholder={`Enter your ${title} ${
+        title === "Phone" ? "(with country code)" : ""
+      }`}
       title={title}
       onChange={onChange}
       onChangeText={onChange}

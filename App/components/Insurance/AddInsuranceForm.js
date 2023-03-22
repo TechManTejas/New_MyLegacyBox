@@ -9,7 +9,7 @@ const AddInsuranceForm = () => {
     <InsuranceForm
       apiCallback={addInsurance}
       isLoading={isLoading}
-      ctaCaption="Add Insurance"
+      ctaCaption="Add"
     />
   );
 };

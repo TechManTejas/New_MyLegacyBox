@@ -15,7 +15,7 @@ const UpdatePostalHoldingForm = () => {
 
   return (
     <PostalHoldingForm
-      ctaCaption="Update Postal Holding"
+      ctaCaption="Update"
       apiCallback={updatePostalFinancialHolding}
       isLoading={isLoading}
       defaultBody={{ parentId, _id }}

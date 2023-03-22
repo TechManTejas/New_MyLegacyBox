@@ -3,7 +3,7 @@ import { View, StyleSheet, FlatList } from "react-native";
 import { useTheme } from "../theme/ThemeProvider";
 import { useGetFinancialHoldingForCashQuery } from "../services/financialHolding/financialHoldingSlice";
 import CustomActivityIndicator from "../components/Common/CustomActivityIndicator";
-import BlueButton from "../components/Button/BlueButton";
+import BlueButton from "../components/Common/Button/BlueButton";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import Empty from "../components/Common/Empty";
 import { useNavigation } from "@react-navigation/native";

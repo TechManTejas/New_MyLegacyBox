@@ -9,7 +9,7 @@ const AddPostalForm = () => {
     <PostalForm
       apiCallback={addPostal}
       isLoading={isLoading}
-      ctaCaption="Add Postal"
+      ctaCaption="Add"
     />
   );
 };

@@ -4,14 +4,14 @@ import { SCREEN_NAMES } from "../constants/screenNames";
 export const HOME_MAJOR_MENU_DATA = [
   {
     id: 1,
-    title: "Banks",
+    title: "Bank",
     iconName: "university",
     IconComponent: FontAwesome5,
     navigateToScreen: SCREEN_NAMES.bankListScreen,
   },
   {
     id: 2,
-    title: "Postal",
+    title: "Post Office",
     iconName: "landmark",
     IconComponent: FontAwesome5,
     navigateToScreen: SCREEN_NAMES.postalListScreen,
@@ -52,7 +52,7 @@ export const HOME_MINOR_MENU_DATA = [
     title: "Provident Fund",
     iconName: "funnel-dollar",
     IconComponent: FontAwesome5,
-    navigateToScreen: SCREEN_NAMES.providentFundListScreen,
+    navigateToScreen: SCREEN_NAMES.providentFundScreen,
   },
   {
     id: 4,

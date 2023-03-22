@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Keyboard } from "react-native";
 import { Formik } from "formik";
+import DateTimePicker from "@react-native-community/datetimepicker";
 import { toFormikValidationSchema } from "zod-formik-adapter";
 import CustomInputGroup from "../../Form/CustomInputGroup";
 import {
@@ -8,12 +9,13 @@ import {
   objectToDropDownLabelAndValues,
 } from "../../../utils/manipulators";
 import { useTheme } from "../../../theme/ThemeProvider";
-import BlueButton from "../../Button/BlueButton";
+import BlueButton from "../../Common/Button/BlueButton";
 import { useNavigation } from "@react-navigation/native";
 import CustomDropDownInput from "../../Common/CustomDropDownInput";
 import CustomKeyboardAvoidingScrollView from "../../Common/CustomKeyboardAvoidingScrollView";
 import { realEstateHoldingValidator } from "../../../utils/form/validators/realEstateHoldingValidator";
 import {
+  REAL_ESTATE_OWNERSHIP_STATUS_MAP,
   REAL_ESTATE_OWNERSHIP_STATUS_TO_TITLE_MAP,
   REAL_ESTATE_PROPERTY_AREA_UNIT_TO_TITLE_MAP,
 } from "../../../constants/financialHoldings/realEstateHolding";
@@ -29,6 +31,10 @@ const RealEstateHoldingForm = ({
   const [customErrors, setCustomErrors] = useState({});
   const [globalErrorMessage, setGlobalErrorMessage] = useState("");
   const navigation = useNavigation();
+  const [datePickerOptions, setDatePickerOptions] = useState({
+    show: false,
+    property: "",
+  });
 
   const {
     theme: { colors, spacing, fontSize, fontFamily },
@@ -138,11 +144,18 @@ const RealEstateHoldingForm = ({
     <Formik
       validationSchema={toFormikValidationSchema(realEstateHoldingValidator)}
       initialValues={{
+        propertyName: initialValues?.propertyName || "",
+        ownershipStatus: initialValues?.ownershipStatus || "",
         realEstateType: defaultBody?.realEstateType,
         ownershipStatus: initialValues?.ownershipStatus || "",
+        propertyValue: initialValues?.propertyValue || undefined,
+        dateOfPurchase: initialValues?.dateOfPurchase
+          ? new Date(initialValues?.dateOfPurchase)
+          : undefined,
         propertyArea: initialValues?.propertyArea || undefined,
         propertyAreaUnit: initialValues?.propertyAreaUnit || "",
         ownershipPercentage: initialValues?.ownershipPercentage || undefined,
+        description: initialValues?.description || "",
         address: {
           city: initialValues?.address?.city || "",
           state: initialValues?.address?.state || "",
@@ -164,13 +177,59 @@ const RealEstateHoldingForm = ({
               <View style={styles.sectionTitleContainer}>
                 <Text style={styles.sectionTitle}>Real Estate Details</Text>
               </View>
+              {datePickerOptions.show ? (
+                <DateTimePicker
+                  value={
+                    values[datePickerOptions.property]
+                      ? values[datePickerOptions.property]
+                      : new Date()
+                  }
+                  mode="date"
+                  display="default"
+                  onChange={(event, selectedDate) => {
+                    if (event.type === "set")
+                      setFieldValue(datePickerOptions.property, selectedDate);
+
+                    setDatePickerOptions((datePickerOptions) => ({
+                      show: false,
+                      property: datePickerOptions.property,
+                    }));
+                  }}
+                />
+              ) : null}
+
+              <CustomInputGroup
+                name="propertyName"
+                placeholder="Enter the Property Name"
+                title="Name"
+                onChange={handleChange("propertyName")}
+                onBlur={handleBlur("propertyName")}
+                value={values.propertyName}
+                messages={
+                  customErrors.propertyName
+                    ? [
+                        {
+                          id: "propertyName",
+                          text: customErrors.propertyName,
+                        },
+                      ]
+                    : undefined
+                }
+                textTransformNormal
+              />
+
               <CustomDropDownInput
                 title="Ownership"
                 placeholder="Select status of your ownership"
                 data={objectToDropDownLabelAndValues(
                   REAL_ESTATE_OWNERSHIP_STATUS_TO_TITLE_MAP
                 )}
-                onChange={handleChange("ownershipStatus")}
+                onChange={(value) => {
+                  setFieldValue("ownershipStatus", value);
+                  if (value === REAL_ESTATE_OWNERSHIP_STATUS_MAP.owned)
+                    setFieldValue("ownershipPercentage", 100);
+                  else setFieldValue("ownershipPercentage", undefined);
+                }}
                 value={values.ownershipStatus}
                 messages={
                   customErrors.ownershipStatus
@@ -183,6 +242,32 @@ const RealEstateHoldingForm = ({
                     : undefined
                 }
                 showSelectedIcon
+              />
+
+              <CustomInputGroup
+                name="ownershipPercentage"
+                placeholder="Enter the ownership %"
+                title="Ownership %"
+                onChange={(value) => {
+                  setFieldValue("ownershipPercentage", +value);
+                }}
+                onBlur={handleBlur("ownershipPercentage")}
+                value={values.ownershipPercentage}
+                messages={
+                  customErrors.ownershipPercentage
+                    ? [
+                        {
+                          id: "ownershipPercentage",
+                          text: customErrors.ownershipPercentage,
+                        },
+                      ]
+                    : undefined
+                }
+                disabled={
+                  values.ownershipStatus ===
+                  REAL_ESTATE_OWNERSHIP_STATUS_MAP.owned
+                }
+                textTransformNormal
               />
 
               <View style={styles.row}>
@@ -236,24 +321,84 @@ const RealEstateHoldingForm = ({
               </View>
 
               <CustomInputGroup
-                name="ownershipPercentage"
-                placeholder="Enter the ownership %"
-                title="Ownership %"
+                name="propertyValue"
+                placeholder="Enter the Property value (in Rs.)"
+                title="Property value (in Rs.)"
                 onChange={(value) => {
-                  setFieldValue("ownershipPercentage", +value);
+                  setFieldValue("propertyValue", +value);
                 }}
-                onBlur={handleBlur("ownershipPercentage")}
-                value={values.ownershipPercentage}
+                onBlur={handleBlur("propertyValue")}
+                value={values.propertyValue}
                 messages={
-                  customErrors.ownershipPercentage
+                  customErrors.propertyValue
                     ? [
                         {
-                          id: "ownershipPercentage",
-                          text: customErrors.ownershipPercentage,
+                          id: "propertyValue",
+                          text: customErrors.propertyValue,
                         },
                       ]
                     : undefined
                 }
+                optional
+                textTransformNormal
+              />
+
+              <CustomInputGroup
+                name="dateOfPurchase"
+                placeholder="Enter the Date of Purchase"
+                title="Date of purchase"
+                pointerEvents="none"
+                onFocus={() => {
+                  Keyboard.dismiss();
+                  setDatePickerOptions({
+                    show: true,
+                    property: "dateOfPurchase",
+                  });
+                }}
+                onBlur={handleBlur("dateOfPurchase")}
+                value={
+                  values.dateOfPurchase
+                    ? new Date(values.dateOfPurchase).toLocaleDateString(
+                        "en-us",
+                        {
+                          year: "numeric",
+                          month: "short",
+                          day: "2-digit",
+                        }
+                      )
+                    : ""
+                }
+                messages={
+                  customErrors.dateOfPurchase
+                    ? [
+                        {
+                          id: "dateOfPurchase",
+                          text: customErrors.dateOfPurchase,
+                        },
+                      ]
+                    : undefined
+                }
+                optional
+                textTransformNormal
+              />
+              <CustomInputGroup
+                name="description"
+                placeholder="Enter the Description"
+                title="Description"
+                onChange={handleChange("description")}
+                onBlur={handleBlur("description")}
+                value={values.description}
+                messages={
+                  customErrors.description
+                    ? [
+                        {
+                          id: "description",
+                          text: customErrors.description,
+                        },
+                      ]
+                    : undefined
+                }
+                optional
                 textTransformNormal
               />
 

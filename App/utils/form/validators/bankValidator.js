@@ -30,4 +30,4 @@ export const bankValidator = z.object({
     })
     .optional(),
   address: addressValidator.optional(),
-});
+}).strict();

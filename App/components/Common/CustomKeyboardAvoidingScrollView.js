@@ -8,6 +8,7 @@ import {
 } from "react-native";
 // specifically if you use header in react native
 import { useHeaderHeight } from "@react-navigation/elements";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 const CustomKeyboardAvoidingScrollView = ({
   children,
@@ -54,24 +55,33 @@ const CustomKeyboardAvoidingScrollView = ({
   // console.log(headerHeight);
   // console.log(keyboardVerticalOffset);
   // console.log("---");
-  
+
   return (
-    <KeyboardAvoidingView
-      keyboardVerticalOffset={
-        keyboardVerticalOffset
-          ? headerHeight + keyboardVerticalOffset
-          : headerHeight
-      }
-      style={styles.keyboard}
-      behavior={Platform.OS === "android" ? "height" : "padding"}
+    <KeyboardAwareScrollView
+      contentContainerStyle={styles.keyboard}
+      scrollEnabled={true}
+      enableAutomaticScroll={true}
+      extraHeight={300}
+      keyboardShouldPersistTaps="handled"
     >
-      <ScrollView
-        keyboardShouldPersistTaps="handled"
-        contentContainerStyle={styles.scrollView}
-      >
-        {children}
-      </ScrollView>
-    </KeyboardAvoidingView>
+      {children}
+    </KeyboardAwareScrollView>
+    // <KeyboardAvoidingView
+    //   keyboardVerticalOffset={
+    //     keyboardVerticalOffset
+    //       ? headerHeight + keyboardVerticalOffset
+    //       : headerHeight
+    //   }
+    //   style={styles.keyboard}
+    //   behavior={Platform.OS === "android" ? "height" : "padding"}
+    // >
+    //   <ScrollView
+    //     keyboardShouldPersistTaps="handled"
+    //     contentContainerStyle={styles.scrollView}
+    //   >
+    //     {children}
+    //   </ScrollView>
+    // </KeyboardAvoidingView>
   );
 };
 

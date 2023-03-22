@@ -2,6 +2,7 @@ import React from "react";
 import { SCREEN_NAMES } from "../../constants/screenNames";
 import AddRealEstateHoldingForm from "../../components/FinancialHolding/RealEstateHolding/AddRealEstateHoldingForm";
 import UpdateRealEstateHoldingForm from "../../components/FinancialHolding/RealEstateHolding/UpdateRealEstateHoldingForm";
+import { REAL_ESTATE_TYPE_TO_TITLE_MAP } from "../../constants/financialHoldings/realEstateHolding";
 
 const RealEstateFinancialHoldingNavigation = ({ Stack }) => {
   return (
@@ -11,7 +12,9 @@ const RealEstateFinancialHoldingNavigation = ({ Stack }) => {
         component={AddRealEstateHoldingForm}
         options={({ route }) => ({
           headerShown: true,
-          title: `Add Holding for ${route.params.realEstateType}`,
+          title: `Add Holding for ${
+            REAL_ESTATE_TYPE_TO_TITLE_MAP[route.params.realEstateType]
+          }`,
         })}
       />
       <Stack.Screen

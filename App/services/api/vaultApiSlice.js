@@ -2,8 +2,6 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import Constants from "expo-constants";
 import {
   BASE_API_URL_LOCAL_SUFFIX,
-  BASE_API_URL_LOCAL,
-  BASE_API_URL,
 } from "@env";
 import { QUERY_TAGS } from "../../constants/queryTags";
 
@@ -26,8 +24,8 @@ const baseQuery = fetchBaseQuery({
   },
 });
 
-export const valutApiSlice = createApi({
-  reducerPath: "valutApi",
+export const vaultApiSlice = createApi({
+  reducerPath: "vaultApi",
   baseQuery: baseQuery,
   tagTypes: [
     QUERY_TAGS.bank,

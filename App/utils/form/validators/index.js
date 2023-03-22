@@ -9,3 +9,4 @@ export * from "./providentFundHoldingValidator";
 export * from "./dematHoldingValidator";
 export * from "./realEstateHoldingValidator";
 export * from "./cashHoldingValidator";
+export * from "./nomineeValidator";

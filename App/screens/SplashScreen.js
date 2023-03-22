@@ -33,6 +33,7 @@ const SplashScreen = ({ children }) => {
           require("../assets/images/3.png"),
           require("../assets/images/logoFullDark.png"),
           require("../assets/images/logoFullLight.png"),
+          // require("../assets/images/logoSmallLight.png"),
         ]),
       ])
         .then(async () => {

@@ -13,7 +13,7 @@ const PostalNavigation = ({ Stack }) => {
         component={PostalListScreen}
         options={{
           headerShown: true,
-          title: "Postals",
+          title: "Post Office",
         }}
       />
       <Stack.Screen
@@ -21,9 +21,7 @@ const PostalNavigation = ({ Stack }) => {
         component={PostalScreen}
         options={({ route }) => ({
           headerShown: true,
-          title: `${route.params?.postal?.name || ""}, ${
-            route.params?.postal?.branchName || ""
-          }`,
+          title: `Post office, ${route.params?.postal?.branchName}`,
         })}
       />
       <Stack.Screen

@@ -12,7 +12,7 @@ const AddRealEstateHoldingForm = () => {
 
   return (
     <RealEstateHoldingForm
-      ctaCaption="Add Holding"
+      ctaCaption="Add"
       defaultBody={{ realEstateType }}
       apiCallback={addFinancialHoldingForRealEstate}
       isLoading={isLoading}

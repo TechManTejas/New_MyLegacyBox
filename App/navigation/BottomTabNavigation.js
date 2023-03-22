@@ -7,8 +7,9 @@ import { SCREEN_NAMES } from "../constants/screenNames";
 import HomeNavigation from "./HomeNavigation";
 import WillScreen from "../screens/WillScreen";
 import OHubScreen from "../screens/OHubScreen";
-import NomineeScreen from "../screens/NomineeScreen";
 import { useTheme } from "../theme/ThemeProvider";
+import NomineeNavigation from "./NomineeNavigation";
+import UnderDevelopment from "../screens/UnderDevelopment";
 
 const BottomTab = createBottomTabNavigator();
 
@@ -17,25 +18,8 @@ const BottomTabNavigation = () => {
     theme: { spacing, colors, fontSize, fontFamily },
   } = useTheme();
 
-  // const shouldHideTabBarBottom = useCallback((route) => {
-  //   const routeName =
-  //     getFocusedRouteNameFromRoute(route) || SCREEN_NAMES.homeScreen;
-
-  //   const HIDE_FROM_SCREENS = [
-  //     SCREEN_NAMES.bankListScreen,
-  //     SCREEN_NAMES.bankScreen,
-  //     SCREEN_NAMES.addBankScreen,
-  //     SCREEN_NAMES.addFinancialHoldingScreen,
-  //     SCREEN_NAMES.updateBankScreen,
-  //     SCREEN_NAMES.updateFinancialHoldingScreen,
-  //   ];
-
-  //   return HIDE_FROM_SCREENS.indexOf(routeName) > -1;
-  // }, []);
-
-  const shouldShowTabBarBottom = useCallback((route) => {
-    const routeName =
-      getFocusedRouteNameFromRoute(route) || SCREEN_NAMES.homeScreen;
+  const shouldShowTabBarBottom = useCallback((route, initialScreen) => {
+    const routeName = getFocusedRouteNameFromRoute(route) || initialScreen;
 
     const SHOW_ON_SCREENS = [SCREEN_NAMES.homeScreen];
 
@@ -45,7 +29,7 @@ const BottomTabNavigation = () => {
   const styles = StyleSheet.create({
     tabBar: {
       position: "absolute",
-      height: spacing.xxxl + spacing.xs,
+      height: spacing.u52,
       backgroundColor: colors.white100,
     },
     tabBarIcon: {
@@ -104,7 +88,7 @@ const BottomTabNavigation = () => {
 
   return (
     <BottomTab.Navigator
-      initialRouteName={SCREEN_NAMES.homeScreen}
+      initialRouteName={SCREEN_NAMES.homeNavigator}
       screenOptions={({ route }) => ({
         headerShown: false,
         tabBarStyle: [styles.tabBar],
@@ -119,8 +103,11 @@ const BottomTabNavigation = () => {
         options={({ route }) => ({
           title: "Home",
           tabBarStyle: [
+            styles.tabBar,
             {
-              display: shouldShowTabBarBottom(route) ? "flex" : "none",
+              display: shouldShowTabBarBottom(route, SCREEN_NAMES.homeScreen)
+                ? "flex"
+                : "none",
             },
           ],
           tabBarIcon: ({ focused }) => (
@@ -138,7 +125,7 @@ const BottomTabNavigation = () => {
 
       <BottomTab.Screen
         name={SCREEN_NAMES.ohubScreen}
-        component={OHubScreen}
+        component={UnderDevelopment}
         options={{
           title: "O-Hub",
           tabBarIcon: ({ focused }) => (
@@ -154,7 +141,7 @@ const BottomTabNavigation = () => {
       />
       <BottomTab.Screen
         name={SCREEN_NAMES.willScreen}
-        component={WillScreen}
+        component={UnderDevelopment}
         options={{
           title: "E-Will",
           tabBarIcon: ({ focused }) => (
@@ -176,10 +163,17 @@ const BottomTabNavigation = () => {
         }}
       />
       <BottomTab.Screen
-        name={SCREEN_NAMES.nomineeScreen}
-        component={NomineeScreen}
-        options={{
+        name={SCREEN_NAMES.nomineeNavigator}
+        component={NomineeNavigation}
+        options={({ route }) => ({
           title: "Nominee",
+          tabBarStyle: [
+            {
+              display: shouldShowTabBarBottom(route, SCREEN_NAMES.nomineeScreen)
+                ? "flex"
+                : "none",
+            },
+          ],
           tabBarIcon: ({ focused }) => (
             <FontAwesome5
               name="user-shield"
@@ -189,7 +183,7 @@ const BottomTabNavigation = () => {
               }
             />
           ),
-        }}
+        })}
       />
     </BottomTab.Navigator>
   );

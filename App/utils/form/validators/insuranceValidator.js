@@ -22,4 +22,4 @@ export const insuranceValidator = z.object({
     })
     .optional(),
   address: addressValidator.optional(),
-});
+}).strict();

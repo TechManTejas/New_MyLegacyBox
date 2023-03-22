@@ -7,10 +7,6 @@ export const postalValidator = z.object({
       invalid_type_error: "Invalid type for IFSC code",
     })
     .optional(),
-  name: z.string({
-    required_error: "Postal name is required",
-    invalid_type_error: "Invalid type for Postal name",
-  }),
   branchName: z.string({
     required_error: "Branch name is required",
     invalid_type_error: "Invalid type for Branch name",
@@ -31,4 +27,4 @@ export const postalValidator = z.object({
     })
     .optional(),
   address: addressValidator.optional(),
-});
+}).strict();

@@ -8,7 +8,7 @@ const AddDematHoldingForm = () => {
 
   return (
     <DematHoldingForm
-      ctaCaption="Add Holding"
+      ctaCaption="Add"
       apiCallback={addFinancialHoldingForDemat}
       isLoading={isLoading}
     />

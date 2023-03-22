@@ -78,6 +78,7 @@ const spacing = {
   xxl: 32,
   xxxl: 48,
   x4l: 64,
+  u52: 52,
   u56: 56,
   u90: 90,
 };

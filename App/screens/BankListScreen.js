@@ -6,7 +6,7 @@ import { useTheme } from "../theme/ThemeProvider";
 import { useIsFocused, useNavigation } from "@react-navigation/native";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import BankItem from "../components/Bank/BankItem";
-import BlueButton from "../components/Button/BlueButton";
+import BlueButton from "../components/Common/Button/BlueButton";
 import Empty from "../components/Common/Empty";
 import { SCREEN_NAMES } from "../constants/screenNames";
 

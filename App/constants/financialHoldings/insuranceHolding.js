@@ -9,27 +9,45 @@ export const POLICY_TYPE_MAP = {
 export const POLICY_BENEFICIERY_MAP = {
   self: "SELF",
   spouse: "SPOUSE",
-  parent: "PARENT",
+  father: "FATHER",
+  mother: "MOTHER",
+  sibling: "SIBLINGS",
   children: "CHILDREN",
-  family: "FAMILY",
-  floater: "FLOATER",
+  familyFloater: "FAMILY_FLOATER",
   others: "OTHERS",
 };
 
+export const POLICY_PREMIUM_FREQUENCY_MAP = {
+  monthly: "MONTHLY",
+  biMonthly: "BIMONTHLY",
+  quarterly: "QUARTERLY",
+  halfYearly: "HALFYEARLY",
+  annually: "ANNUALLY",
+};
+
 export const POLICY_TYPE_TO_TITLE_MAP = {
-  [POLICY_TYPE_MAP.life]: "Life Insurance",
-  [POLICY_TYPE_MAP.health]: "Health Insurance",
-  [POLICY_TYPE_MAP.accidental]: "Accidental Insurance",
-  [POLICY_TYPE_MAP.general]: "General Insurance",
-  [POLICY_TYPE_MAP.others]: "Other",
+  [POLICY_TYPE_MAP.life]: "Life",
+  [POLICY_TYPE_MAP.health]: "Health",
+  [POLICY_TYPE_MAP.accidental]: "Accidental",
+  [POLICY_TYPE_MAP.general]: "General",
+  [POLICY_TYPE_MAP.others]: "Others",
 };
 
 export const POLICY_BENEFICIERY_TO_TITLE_MAP = {
   [POLICY_BENEFICIERY_MAP.self]: "Self",
   [POLICY_BENEFICIERY_MAP.spouse]: "Spouse",
-  [POLICY_BENEFICIERY_MAP.parent]: "Parent",
+  [POLICY_BENEFICIERY_MAP.father]: "Father",
+  [POLICY_BENEFICIERY_MAP.mother]: "Mother",
+  [POLICY_BENEFICIERY_MAP.sibling]: "Siblings",
   [POLICY_BENEFICIERY_MAP.children]: "Children",
-  [POLICY_BENEFICIERY_MAP.family]: "Family",
-  [POLICY_BENEFICIERY_MAP.floater]: "Floater",
+  [POLICY_BENEFICIERY_MAP.familyFloater]: "Family Floater",
   [POLICY_BENEFICIERY_MAP.others]: "Others",
-}
+};
+
+export const POLICY_PREMIUM_FREQUENCY_TO_TITLE_MAP = {
+  [POLICY_PREMIUM_FREQUENCY_MAP.monthly]: "Monthly",
+  [POLICY_PREMIUM_FREQUENCY_MAP.biMonthly]: "Bi Monthly",
+  [POLICY_PREMIUM_FREQUENCY_MAP.quarterly]: "Quarterly",
+  [POLICY_PREMIUM_FREQUENCY_MAP.halfYearly]: "Half Yearly",
+  [POLICY_PREMIUM_FREQUENCY_MAP.annually]: "Annually",
+};

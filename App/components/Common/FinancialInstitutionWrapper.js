@@ -14,7 +14,7 @@ const FinancialInstitutionWrapper = ({ children, address, pressHandler }) => {
       borderRadius: spacing.sm,
     },
     viewContainer: {
-      width: "100%",
+      flex: 1,
       flexDirection: "row",
       alignItems: "flex-start",
     },
@@ -24,6 +24,7 @@ const FinancialInstitutionWrapper = ({ children, address, pressHandler }) => {
     },
     addressContainer: {
       marginBottom: spacing.xs,
+      flex: 1,
     },
     addressContent: {
       fontFamily: fontFamily.regular,
@@ -53,23 +54,21 @@ const FinancialInstitutionWrapper = ({ children, address, pressHandler }) => {
   return (
     <View style={styles.container}>
       <View style={styles.viewContainer}>
-        <View style={styles.childContainer}>
-          {address ? (
-            <View style={styles.addressContainer}>
-              <Text style={styles.addressTitle}>Address</Text>
-              <Text style={styles.addressContent}>{address.street}</Text>
-              <Text style={styles.addressContent}>
-                {address.city}, {address.state} - {address.pinCode}
-              </Text>
-            </View>
-          ) : (
-            <View style={styles.addressContainer}>
-              <Text style={styles.addressTitle}>Address</Text>
-              <Text style={styles.addressContent}>Not available</Text>
-            </View>
-          )}
-          {children}
-        </View>
+        {address ? (
+          <View style={styles.addressContainer}>
+            <Text style={styles.addressTitle}>Address</Text>
+            <Text style={styles.addressContent}>{address.street}</Text>
+            <Text style={styles.addressContent}>
+              {address.city}, {address.state} - {address.pinCode}
+            </Text>
+          </View>
+        ) : (
+          <View style={styles.addressContainer}>
+            <Text style={styles.addressTitle}>Address</Text>
+            <Text style={styles.addressContent}>Not available</Text>
+          </View>
+        )}
+
         <View style={styles.buttonContainer}>
           <Pressable style={styles.button} onPress={pressHandler}>
             <Text style={styles.buttonText}>
@@ -78,6 +77,7 @@ const FinancialInstitutionWrapper = ({ children, address, pressHandler }) => {
           </Pressable>
         </View>
       </View>
+      <View style={styles.childContainer}>{children}</View>
     </View>
   );
 };

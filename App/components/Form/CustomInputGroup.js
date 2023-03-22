@@ -20,13 +20,14 @@ const CustomInputGroup = ({
   IconLeftComponent,
   IconRightComponent,
   placeholderSuffix,
+  multiline,
+  numberOfLines,
   optional,
   textContentType,
   textTransformNormal,
   ...extraProps
 }) => {
   const [hasError, setHasError] = useState(false);
-
   const {
     theme: { colors, spacing, fontSize, fontFamily },
   } = useTheme();
@@ -71,6 +72,9 @@ const CustomInputGroup = ({
       borderRadius: spacing.xs,
       paddingVertical: spacing.xs,
     },
+    multilineInputContainer: {
+      paddingTop: spacing.md,
+    },
     inputIcon: {
       width: spacing.xxl,
       justifyContent: "center",
@@ -87,6 +91,12 @@ const CustomInputGroup = ({
       color: colors.black500,
       lineHeight: fontSize.md,
       paddingHorizontal: spacing.sm,
+    },
+    multilineInput: {
+      textAlignVertical: "top",
+    },
+    inputDisabled: {
+      backgroundColor: colors.black100,
     },
     placeholder: {
       color: colors.black300,
@@ -108,7 +118,13 @@ const CustomInputGroup = ({
         <Text style={styles.label}>{title}</Text>
         {optional ? <Text style={styles.labelOptional}>optional</Text> : null}
       </View>
-      <View style={styles.inputContainer}>
+      <View
+        style={[
+          styles.inputContainer,
+          disabled && styles.inputDisabled,
+          multiline && styles.multilineInputContainer,
+        ]}
+      >
         {IconLeftComponent ? (
           <IconLeftComponent
             style={[styles.inputIcon]}
@@ -118,8 +134,9 @@ const CustomInputGroup = ({
         ) : null}
         <TextInput
           onPressIn={onPressIn}
-          style={styles.input}
+          style={[styles.input, multiline && styles.multilineInput]}
           onFocus={onFocus}
+          numberOfLines={multiline ? numberOfLines : 1}
           onChange={onChange}
           onChangeText={onChangeText ? onChangeText : onChange}
           onBlur={onBlur}
@@ -130,6 +147,7 @@ const CustomInputGroup = ({
           editable={!disabled}
           textContentType={textContentType}
           placeholderTextColor={styles.placeholder.color}
+          multiline={multiline}
           {...extraProps}
         />
         {IconRightComponent ? (

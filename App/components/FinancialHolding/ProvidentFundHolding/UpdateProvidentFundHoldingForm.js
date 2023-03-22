@@ -1,7 +1,5 @@
 import React from "react";
-import {
-  useUpdateFinancialHoldingForProvidentFundMutation,
-} from "../../../services/financialHolding/financialHoldingSlice";
+import { useUpdateFinancialHoldingForProvidentFundMutation } from "../../../services/financialHolding/financialHoldingSlice";
 import { useRoute } from "@react-navigation/native";
 import ProvidentFundHoldingForm from "./ProvidentFundHoldingForm";
 
@@ -17,10 +15,10 @@ const UpdateProvidentFundHoldingForm = () => {
 
   return (
     <ProvidentFundHoldingForm
-      ctaCaption="Update PF Holding"
+      ctaCaption="Update"
       apiCallback={updateProvidentFundFinancialHolding}
       isLoading={isLoading}
-      defaultBody={{ _id, pfType: holding.pfType }}
+      defaultBody={{ _id }}
       initialValues={holding}
     />
   );

@@ -5,6 +5,7 @@ import { useAuth } from "../authentication/AuthProvider";
 import OnBoardingScreen from "../screens/OnBoardingScreen";
 import { SCREEN_NAMES } from "../constants/screenNames";
 import LoginScreen from "../screens/LoginScreen";
+import RegisterScreen from "../screens/RegisterScreen";
 import DrawerNavigation from "./DrawerNavigation";
 
 const Stack = createStackNavigator();
@@ -27,6 +28,13 @@ export const RootNavigation = () => {
             <Stack.Screen
               name={SCREEN_NAMES.loginScreen}
               component={LoginScreen}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name={SCREEN_NAMES.registerScreen}
+              component={RegisterScreen}
               options={{
                 headerShown: false,
               }}

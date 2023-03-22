@@ -5,7 +5,7 @@ import CustomActivityIndicator from "../components/Common/CustomActivityIndicato
 import { useTheme } from "../theme/ThemeProvider";
 import { useIsFocused, useNavigation } from "@react-navigation/native";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
-import BlueButton from "../components/Button/BlueButton";
+import BlueButton from "../components/Common/Button/BlueButton";
 import Empty from "../components/Common/Empty";
 import { SCREEN_NAMES } from "../constants/screenNames";
 import PostalItem from "../components/Postal/PostalItem";
@@ -54,7 +54,7 @@ const PostalListScreen = () => {
           outline
           Icon={FontAwesome5}
           iconName="plus"
-          title="Add Postal"
+          title="Add Post Office"
           onPress={() => navigation.navigate(SCREEN_NAMES.addPostalScreen)}
         />
       </View>

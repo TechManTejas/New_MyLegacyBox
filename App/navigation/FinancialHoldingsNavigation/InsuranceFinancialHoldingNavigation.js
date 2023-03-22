@@ -11,7 +11,7 @@ const InsuranceFinancialHoldingNavigation = ({ Stack }) => {
         component={AddInsuranceHoldingForm}
         options={({ route }) => ({
           headerShown: true,
-          title: `Add Holding for ${route.params?.parentName}`,
+          title: `Add for ${route.params?.parentName}`,
         })}
       />
       <Stack.Screen

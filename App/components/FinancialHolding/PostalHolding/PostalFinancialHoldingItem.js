@@ -9,6 +9,7 @@ import {
   POSTAL_ACCOUNT_OWNERSHIP_TO_TITLE_MAP,
   POSTAL_ACCOUNT_TYPES_TO_TITLE_MAP,
 } from "../../../constants/financialHoldings/postalHolding";
+import CustomPill from "../../Common/Pill/CustomPill";
 
 const PostalFinancialHoldingItem = ({ financialHolding }) => {
   const navigation = useNavigation();
@@ -35,21 +36,31 @@ const PostalFinancialHoldingItem = ({ financialHolding }) => {
       alignItems: "baseline",
       justifyContent: "space-between",
     },
-    accountType: {
+    rowAlignItemsStart: {
+      alignItems: "flex-start",
+    },
+    marginBottomXs: {
+      marginBottom: spacing.xs,
+    },
+    marginTopXxs: {
+      marginTop: spacing.xxs,
+    },
+    marginLeftSm: {
+      marginLeft: spacing.sm,
+    },
+    paddingVerticalXxs: {
+      paddingVertical: spacing.xxs,
+    },
+    name: {
       fontFamily: fontFamily.semiBold,
       color: colors.blue400,
       fontSize: fontSize.lg,
       lineHeight: fontSize.xl,
-      paddingLeft: spacing.md,
-      paddingRight: spacing.xs,
-      marginBottom: spacing.xs,
     },
-    ownership: {
-      fontFamily: fontFamily.regular,
-      color: colors.blue400,
-      fontSize: fontSize.default,
-      lineHeight: fontSize.lg,
-      marginBottom: spacing.xs,
+    infoHeaderContainer: {
+      paddingHorizontal: spacing.md,
+      marginBottom: spacing.sm,
+      alignSelf: "flex-start",
     },
     amount: {
       paddingHorizontal: spacing.md,
@@ -72,13 +83,22 @@ const PostalFinancialHoldingItem = ({ financialHolding }) => {
       pressHandler={pressHandler}
     >
       <View style={styles.row}>
-        <View style={styles.row}>
-          <Text style={styles.accountType}>
-            {POSTAL_ACCOUNT_TYPES_TO_TITLE_MAP[accountType]}
-          </Text>
-          <Text style={styles.ownership}>
-            ({POSTAL_ACCOUNT_OWNERSHIP_TO_TITLE_MAP[ownership]})
-          </Text>
+        <View style={styles.infoHeaderContainer}>
+          <View style={[styles.row, styles.rowAlignItemsStart]}>
+            <Text style={[styles.name]}>
+              {POSTAL_ACCOUNT_TYPES_TO_TITLE_MAP[accountType]}
+            </Text>
+            <View style={[styles.marginLeftSm, styles.marginBottomXs]}>
+              <CustomPill
+                label={POSTAL_ACCOUNT_OWNERSHIP_TO_TITLE_MAP[ownership]}
+                color={colors.white100}
+                backgroundColor={colors.blue400}
+                containerStyle={styles.paddingVerticalXxs}
+                size="sm"
+                labelBold
+              />
+            </View>
+          </View>
         </View>
 
         {amount ? (

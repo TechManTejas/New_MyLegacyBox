@@ -5,7 +5,7 @@ import { toFormikValidationSchema } from "zod-formik-adapter";
 import { cleanObjectAndTrim } from "../../utils/manipulators";
 import CustomInputGroup from "../Form/CustomInputGroup";
 import { useTheme } from "../../theme/ThemeProvider";
-import BlueButton from "../Button/BlueButton";
+import BlueButton from "../Common/Button/BlueButton";
 import { useNavigation } from "@react-navigation/native";
 import CustomKeyboardAvoidingScrollView from "../Common/CustomKeyboardAvoidingScrollView";
 import { postalValidator } from "../../utils/form/validators/postalValidator";
@@ -126,7 +126,6 @@ const PostalForm = ({
     <Formik
       validationSchema={toFormikValidationSchema(postalValidator)}
       initialValues={{
-        name: initialValues?.name || "",
         ifsc: initialValues?.ifsc || "",
         customerId: initialValues?.customerId || "",
         branchName: initialValues?.branchName || "",
@@ -153,19 +152,21 @@ const PostalForm = ({
               <View style={styles.sectionTitleContainer}>
                 <Text style={styles.sectionTitle}>Postal Details</Text>
               </View>
+
               <CustomInputGroup
-                name="name"
-                placeholder="Enter your Post office Name"
-                title="Name"
-                onChange={handleChange("name")}
-                onBlur={handleBlur("name")}
-                value={values.name}
+                name="branchName"
+                placeholder="Enter your Branch Name"
+                title="Branch Name"
+                onChange={handleChange("branchName")}
+                onBlur={handleBlur("branchName")}
+                value={values.branchName}
                 messages={
-                  customErrors.name
-                    ? [{ id: "name", text: customErrors.name }]
+                  customErrors.branchName
+                    ? [{ id: "branchName", text: customErrors.branchName }]
                     : undefined
                 }
               />
+
               <CustomInputGroup
                 name="ifsc"
                 placeholder="Enter your IFSC"
@@ -195,19 +196,7 @@ const PostalForm = ({
                 }
                 optional
               />
-              <CustomInputGroup
-                name="branchName"
-                placeholder="Enter your Branch Name"
-                title="Branch Name"
-                onChange={handleChange("branchName")}
-                onBlur={handleBlur("branchName")}
-                value={values.branchName}
-                messages={
-                  customErrors.branchName
-                    ? [{ id: "branchName", text: customErrors.branchName }]
-                    : undefined
-                }
-              />
+
               <CustomInputGroup
                 name="poc"
                 placeholder="Point of contact name"
@@ -225,8 +214,8 @@ const PostalForm = ({
               />
               <CustomInputGroup
                 name="pocNumber"
-                placeholder="Point of contact number"
-                title="Point of contact number"
+                placeholder="Phone number of point of contact"
+                title="Point of contact's number"
                 onChange={handleChange("pocNumber")}
                 onBlur={handleBlur("pocNumber")}
                 value={values.pocNumber}

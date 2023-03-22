@@ -1,11 +1,13 @@
 export const PROVIDENT_FUND_TYPE_MAP = {
   epf: "EPF",
+  privateTrust: "PRIVATE_TRUST",
+  spf: "SPF",
   upf: "UPF",
-  rpf: "RPF",
 };
 
 export const PROVIDENT_FUND_TYPE_TO_TITLE_MAP = {
   [PROVIDENT_FUND_TYPE_MAP.epf]: "EPF",
+  [PROVIDENT_FUND_TYPE_MAP.privateTrust]: "Private Trust",
+  [PROVIDENT_FUND_TYPE_MAP.spf]: "SPF",
   [PROVIDENT_FUND_TYPE_MAP.upf]: "UPF",
-  [PROVIDENT_FUND_TYPE_MAP.rpf]: "RPF",
 };

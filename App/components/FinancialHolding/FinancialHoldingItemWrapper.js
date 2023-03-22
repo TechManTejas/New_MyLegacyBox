@@ -30,9 +30,9 @@ const FinancialHoldingItemWrapper = ({
     financialHoldingClassContainer: {
       backgroundColor: colors.black700,
       width: 80,
-      height: '100%',
+      height: "100%",
       flexDirection: "row",
-      alignItems: 'center',
+      alignItems: "center",
       justifyContent: "center",
       paddingHorizontal: spacing.sm,
       paddingVertical: spacing.xs,
@@ -70,6 +70,12 @@ const FinancialHoldingItemWrapper = ({
     buttonText: {
       color: colors.blue,
     },
+    backgroundColorGreen: {
+      backgroundColor: colors.green600,
+    },
+    backgroundColorRed: {
+      backgroundColor: colors.red600,
+    },
   });
 
   return (
@@ -86,7 +92,14 @@ const FinancialHoldingItemWrapper = ({
           })}
         </Text>
         <View style={[styles.row, styles.rowAlignEnd]}>
-          <View style={styles.financialHoldingClassContainer}>
+          <View
+            style={[
+              styles.financialHoldingClassContainer,
+              holdingClass === "ASSET"
+                ? styles.backgroundColorGreen
+                : styles.backgroundColorRed,
+            ]}
+          >
             <Text style={styles.financialHoldingClass}>{holdingClass}</Text>
           </View>
 

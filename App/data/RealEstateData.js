@@ -38,14 +38,4 @@ export const REAL_ESTATE_MENU_DATA = [
       realEstateType: REAL_ESTATE_TYPE_MAP.commercial,
     },
   },
-  {
-    id: 4,
-    title: REAL_ESTATE_TYPE_TO_TITLE_MAP[REAL_ESTATE_TYPE_MAP.other],
-    iconName: "th",
-    IconComponent: FontAwesome5,
-    navigateToScreen: SCREEN_NAMES.realEstateScreen,
-    navigationParams: {
-      realEstateType: REAL_ESTATE_TYPE_MAP.other,
-    },
-  },
 ];

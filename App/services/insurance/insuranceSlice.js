@@ -1,6 +1,6 @@
 import { createEntityAdapter, createSelector } from "@reduxjs/toolkit";
 import { QUERY_TAGS } from "../../constants/queryTags";
-import { valutApiSlice } from "../api/vaultApiSlice";
+import { vaultApiSlice } from "../api/vaultApiSlice";
 
 const insuranceAdapter = createEntityAdapter({
   selectId: ({ _id }) => _id,
@@ -9,7 +9,7 @@ const insuranceAdapter = createEntityAdapter({
 
 const initialState = insuranceAdapter.getInitialState();
 
-export const extendedInsuranceApiSlice = valutApiSlice.injectEndpoints({
+export const extendedInsuranceApiSlice = vaultApiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getInsurances: builder.query({
       query: () => "/insurances",

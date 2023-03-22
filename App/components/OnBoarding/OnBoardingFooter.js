@@ -3,7 +3,7 @@ import { useNavigation } from "@react-navigation/native";
 import { StyleSheet, Text, View } from "react-native";
 import { useTheme } from "../../theme/ThemeProvider";
 import { SCREEN_NAMES } from "../../constants/screenNames";
-import BlueButton from "../Button/BlueButton";
+import BlueButton from "../Common/Button/BlueButton";
 
 const OnBoardingFooter = () => {
   const navigation = useNavigation();
@@ -13,23 +13,27 @@ const OnBoardingFooter = () => {
 
   const styles = StyleSheet.create({
     footerContainer: {
-      flex: 1,
-      backgroundColor: colors.blue700,
+      // flex: 1,
+      backgroundColor: colors.white400,
     },
     footer: {
-      flex: 1,
-      backgroundColor: colors.white500,
+      // flex: 1,
+      borderWidth: StyleSheet.hairlineWidth,
+      borderColor: colors.blue200,
+      backgroundColor: colors.white100,
       borderTopLeftRadius: spacing.xl,
       borderTopRightRadius: spacing.xl,
     },
     container: {
-      flex: 1,
+      // flex: 1,
       paddingVertical: spacing.md,
       paddingHorizontal: spacing.md,
     },
     heading: {
       fontFamily: fontFamily.semiBold,
-      fontSize: fontSize.lg + fontSize.xxs,
+      fontSize: fontSize.xl,
+      lineHeight: fontSize.xxl,
+      marginBottom: spacing.xl,
       color: colors.blue,
       textAlign: "center",
     },
@@ -37,12 +41,12 @@ const OnBoardingFooter = () => {
       marginTop: "auto",
       alignItems: "flex-start",
       flexDirection: "row",
-      marginBottom: spacing.sm,
+      marginBottom: spacing.lg,
     },
     caption: {
       textAlign: "center",
       fontFamily: fontFamily.regular,
-      fontSize: fontSize.sm,
+      fontSize: fontSize.xs,
       color: colors.black400,
     },
     captionBold: {
@@ -54,7 +58,7 @@ const OnBoardingFooter = () => {
     <View style={styles.footerContainer}>
       <View style={styles.footer}>
         <View style={styles.container}>
-          <Text style={styles.heading}>Be Oiconomos Today!</Text>
+          <Text style={styles.heading}>I'm a proud Oiconomos!</Text>
           <View style={styles.buttonContainer}>
             <BlueButton
               title="Login"
@@ -71,7 +75,7 @@ const OnBoardingFooter = () => {
               uppercase
               expandHorizontal
               onPress={() => {
-                alert("hi");
+                navigation.navigate(SCREEN_NAMES.registerScreen);
               }}
             />
           </View>

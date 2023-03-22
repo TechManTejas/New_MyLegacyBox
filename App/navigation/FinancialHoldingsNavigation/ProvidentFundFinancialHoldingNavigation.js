@@ -9,10 +9,10 @@ const ProvidentFundFinancialHoldingNavigation = ({ Stack }) => {
       <Stack.Screen
         name={SCREEN_NAMES.addProvidentFundFinancialHoldingScreen}
         component={AddProvidentFundHoldingForm}
-        options={({ route }) => ({
+        options={{
           headerShown: true,
-          title: `Add Holding for ${route.params.pfType}`,
-        })}
+          title: "Add PF holding",
+        }}
       />
       <Stack.Screen
         name={SCREEN_NAMES.updateProvidentFundFinancialHoldingScreen}

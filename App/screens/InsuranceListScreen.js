@@ -4,7 +4,7 @@ import CustomActivityIndicator from "../components/Common/CustomActivityIndicato
 import { useTheme } from "../theme/ThemeProvider";
 import { useIsFocused, useNavigation } from "@react-navigation/native";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
-import BlueButton from "../components/Button/BlueButton";
+import BlueButton from "../components/Common/Button/BlueButton";
 import Empty from "../components/Common/Empty";
 import { SCREEN_NAMES } from "../constants/screenNames";
 import { useGetInsurancesQuery } from "../services/insurance/insuranceSlice";

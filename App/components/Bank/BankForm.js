@@ -5,7 +5,7 @@ import { toFormikValidationSchema } from "zod-formik-adapter";
 import { cleanObjectAndTrim } from "../../utils/manipulators";
 import CustomInputGroup from "../Form/CustomInputGroup";
 import { useTheme } from "../../theme/ThemeProvider";
-import BlueButton from "../Button/BlueButton";
+import BlueButton from "../Common/Button/BlueButton";
 import { useNavigation } from "@react-navigation/native";
 import CustomKeyboardAvoidingScrollView from "../Common/CustomKeyboardAvoidingScrollView";
 import { bankValidator } from "../../utils/form/validators/bankValidator";
@@ -155,19 +155,6 @@ const BankForm = ({
                 <Text style={styles.sectionTitle}>Bank Details</Text>
               </View>
               <CustomInputGroup
-                name="name"
-                placeholder="Enter your Bank Name"
-                title="Name"
-                onChange={handleChange("name")}
-                onBlur={handleBlur("name")}
-                value={values.name}
-                messages={
-                  customErrors.name
-                    ? [{ id: "name", text: customErrors.name }]
-                    : undefined
-                }
-              />
-              <CustomInputGroup
                 name="ifsc"
                 placeholder="Enter your IFSC"
                 title="IFSC code"
@@ -182,18 +169,17 @@ const BankForm = ({
                 textTransformNormal
               />
               <CustomInputGroup
-                name="customerId"
-                placeholder="Enter your Customer ID"
-                title="Customer ID"
-                onChange={handleChange("customerId")}
-                onBlur={handleBlur("customerId")}
-                value={values.customerId}
+                name="name"
+                placeholder="Enter your Bank Name"
+                title="Name"
+                onChange={handleChange("name")}
+                onBlur={handleBlur("name")}
+                value={values.name}
                 messages={
-                  customErrors.customerId
-                    ? [{ id: "customerId", text: customErrors.customerId }]
+                  customErrors.name
+                    ? [{ id: "name", text: customErrors.name }]
                     : undefined
                 }
-                optional
               />
               <CustomInputGroup
                 name="branchName"
@@ -208,6 +194,22 @@ const BankForm = ({
                     : undefined
                 }
               />
+
+              <CustomInputGroup
+                name="customerId"
+                placeholder="Enter your Customer ID"
+                title="Customer ID"
+                onChange={handleChange("customerId")}
+                onBlur={handleBlur("customerId")}
+                value={values.customerId}
+                messages={
+                  customErrors.customerId
+                    ? [{ id: "customerId", text: customErrors.customerId }]
+                    : undefined
+                }
+                optional
+              />
+
               <CustomInputGroup
                 name="poc"
                 placeholder="Point of contact name"
@@ -225,8 +227,8 @@ const BankForm = ({
               />
               <CustomInputGroup
                 name="pocNumber"
-                placeholder="Point of contact number"
-                title="Point of contact number"
+                placeholder="Phone number of point of contact"
+                title="Point of contact's number"
                 onChange={handleChange("pocNumber")}
                 onBlur={handleBlur("pocNumber")}
                 value={values.pocNumber}

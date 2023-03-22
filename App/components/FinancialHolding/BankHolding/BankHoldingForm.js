@@ -9,7 +9,7 @@ import {
 } from "../../../utils/manipulators";
 import { bankHoldingValidator } from "../../../utils/form/validators/bankHoldingValidator";
 import { useTheme } from "../../../theme/ThemeProvider";
-import BlueButton from "../../Button/BlueButton";
+import BlueButton from "../../Common/Button/BlueButton";
 import { useNavigation } from "@react-navigation/native";
 import CustomDropDownInput from "../../Common/CustomDropDownInput";
 import CustomKeyboardAvoidingScrollView from "../../Common/CustomKeyboardAvoidingScrollView";

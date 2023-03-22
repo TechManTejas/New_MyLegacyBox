@@ -14,7 +14,7 @@ const UpdateBankForm = () => {
 
   return (
     <BankForm
-      ctaCaption="Update Bank"
+      ctaCaption="Update"
       apiCallback={updateBank}
       isLoading={isLoading}
       defaultBody={{ _id }}

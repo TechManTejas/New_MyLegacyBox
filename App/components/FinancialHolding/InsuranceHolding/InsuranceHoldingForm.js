@@ -9,13 +9,14 @@ import {
   objectToDropDownLabelAndValues,
 } from "../../../utils/manipulators";
 import { useTheme } from "../../../theme/ThemeProvider";
-import BlueButton from "../../Button/BlueButton";
+import BlueButton from "../../Common/Button/BlueButton";
 import { useNavigation } from "@react-navigation/native";
 import CustomDropDownInput from "../../Common/CustomDropDownInput";
 import CustomKeyboardAvoidingScrollView from "../../Common/CustomKeyboardAvoidingScrollView";
 
 import {
   POLICY_BENEFICIERY_TO_TITLE_MAP,
+  POLICY_PREMIUM_FREQUENCY_TO_TITLE_MAP,
   POLICY_TYPE_TO_TITLE_MAP,
 } from "../../../constants/financialHoldings/insuranceHolding";
 import { insuranceHoldingValidator } from "../../../utils/form/validators/insuranceHoldingValidator";
@@ -127,6 +128,7 @@ const InsuranceHoldingForm = ({
         policyNumber: initialValues?.policyNumber || "",
         policyType: initialValues?.policyType || "",
         beneficiary: initialValues?.beneficiary || "",
+        premiumFrequency: initialValues?.premiumFrequency || "",
         policyAmount: initialValues?.policyAmount || undefined,
         premiumAmount: initialValues?.premiumAmount || undefined,
         dateOfPremium: initialValues?.dateOfPremium
@@ -222,6 +224,26 @@ const InsuranceHoldingForm = ({
                         {
                           id: "beneficiary",
                           text: customErrors.beneficiary,
+                        },
+                      ]
+                    : undefined
+                }
+                showSelectedIcon
+              />
+              <CustomDropDownInput
+                title="Premium Frequency"
+                placeholder="Select Premium frequency"
+                data={objectToDropDownLabelAndValues(
+                  POLICY_PREMIUM_FREQUENCY_TO_TITLE_MAP
+                )}
+                onChange={handleChange("premiumFrequency")}
+                value={values.premiumFrequency}
+                messages={
+                  customErrors.premiumFrequency
+                    ? [
+                        {
+                          id: "premiumFrequency",
+                          text: customErrors.premiumFrequency,
                         },
                       ]
                     : undefined

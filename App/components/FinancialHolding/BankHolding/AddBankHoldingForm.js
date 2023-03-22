@@ -11,7 +11,7 @@ const AddBankHoldingForm = () => {
 
   return (
     <BankHoldingForm
-      ctaCaption="Add Holding"
+      ctaCaption="Add"
       defaultBody={{ parentId }}
       apiCallback={addFinancialHoldingForBank}
       isLoading={isLoading}

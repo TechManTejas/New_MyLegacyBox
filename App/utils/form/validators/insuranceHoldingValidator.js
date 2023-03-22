@@ -1,6 +1,7 @@
 import { z } from "zod";
 import {
   POLICY_BENEFICIERY_MAP,
+  POLICY_PREMIUM_FREQUENCY_MAP,
   POLICY_TYPE_MAP,
 } from "../../../constants/financialHoldings/insuranceHolding";
 
@@ -22,6 +23,10 @@ export const insuranceHoldingValidator = z
     beneficiary: z.enum(Object.values(POLICY_BENEFICIERY_MAP), {
       required_error: "Beneficiary is required",
       invalid_type_error: "Invalid type for Beneficiary",
+    }),
+    premiumFrequency: z.enum(Object.values(POLICY_PREMIUM_FREQUENCY_MAP), {
+      required_error: "Premium frequency is required",
+      invalid_type_error: "Invalid type for Premium frequency",
     }),
     policyAmount: z
       .number({

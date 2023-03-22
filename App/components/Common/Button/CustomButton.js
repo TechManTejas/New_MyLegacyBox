@@ -1,7 +1,7 @@
 import React from "react";
 import { Pressable, Text, StyleSheet, View } from "react-native";
-import { useTheme } from "../../theme/ThemeProvider";
-import CustomActivityIndicator from "../Common/CustomActivityIndicator";
+import { useTheme } from "../../../theme/ThemeProvider";
+import CustomActivityIndicator from "../CustomActivityIndicator";
 
 const CustomButton = ({
   title,

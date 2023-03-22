@@ -1,6 +1,6 @@
 import React from "react";
 import { getNodeTitle } from "../../utils/oryForm";
-import BlueButton from "../Button/BlueButton";
+import BlueButton from "../Common/Button/BlueButton";
 
 const OryNodeInputSubmit = ({
   node,
@@ -18,6 +18,7 @@ const OryNodeInputSubmit = ({
     <BlueButton
       extraSpaceTop
       disabled={isSubmitting || notAllowedToSubmit}
+      isLoading={isSubmitting}
       title={title}
       onPress={() => {
         onSubmitPress(attributes.name, attributes.value);

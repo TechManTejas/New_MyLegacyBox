@@ -1,7 +1,6 @@
 import React from "react";
 import { View, StyleSheet, ScrollView } from "react-native";
 import { useAuth } from "../authentication/AuthProvider";
-
 import CustomSafeView from "../components/Common/CustomSafeView";
 import HomeHeader from "../components/Home/HomeHeader";
 import { useTheme } from "../theme/ThemeProvider";

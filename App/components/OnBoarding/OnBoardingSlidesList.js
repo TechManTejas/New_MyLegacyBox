@@ -26,17 +26,16 @@ const OnBoardingSlidesList = () => {
       flexDirection: "row",
       justifyContent: "center",
       marginBottom: spacing.x4l,
-      // backgroundColor: colors.blue,
     },
     indicator: {
       height: 2.5,
       width: 10,
-      backgroundColor: colors.white700,
+      backgroundColor: colors.black300,
       marginHorizontal: spacing.xxs,
       borderRadius: spacing.xxs,
     },
     indicatorActive: {
-      backgroundColor: colors.white,
+      backgroundColor: colors.blue,
       width: 25,
     },
   });
@@ -52,6 +51,7 @@ const OnBoardingSlidesList = () => {
         horizontal
         renderItem={({ item }) => <OnboardSlide item={item} />}
         keyExtractor={(item) => item.id}
+        style={styles.flatList}
       />
       <View style={styles.indicatorContainer}>
         {ON_BOARDING_SLIDES_DATA.map((_, index) => (

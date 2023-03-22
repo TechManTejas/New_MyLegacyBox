@@ -8,6 +8,10 @@ import { addressValidator } from "./addressValidator";
 
 export const realEstateHoldingValidator = z
   .object({
+    propertyName: z.string({
+      required_error: "Property Name is required",
+      invalid_type_error: "Invalid type for property name",
+    }),
     realEstateType: z.enum(Object.values(REAL_ESTATE_TYPE_MAP), {
       required_error: "Real estate type is required",
       invalid_type_error: "Invalid type for Real estate type",
@@ -26,12 +30,27 @@ export const realEstateHoldingValidator = z
         invalid_type_error: "Invalid type for Property Area Unit",
       })
       .optional(),
+    propertyValue: z
+      .number({
+        invalid_type_error: "Invalid type for Property value",
+      })
+      .optional(),
+    dateOfPurchase: z
+      .date({
+        invalid_type_error: "Invalid type for date of purchase",
+      })
+      .optional(),
     ownershipPercentage: z
       .number({
         required_error: "Ownership percentage is required",
         invalid_type_error: "Invalid type for Ownership percentage",
       })
       .max(100),
+    description: z
+      .string({
+        invalid_type_error: "Invalid type for description",
+      })
+      .optional(),
     address: addressValidator,
   })
   .strict();

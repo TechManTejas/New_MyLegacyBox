@@ -7,20 +7,12 @@ const ProvidentFundNavigation = ({ Stack }) => {
   return (
     <Stack.Group>
       <Stack.Screen
-        name={SCREEN_NAMES.providentFundListScreen}
-        component={ProvidentFundListScreen}
+        name={SCREEN_NAMES.providentFundScreen}
+        component={ProvidentFundScreen}
         options={{
           headerShown: true,
           title: "Provident Fund",
         }}
-      />
-      <Stack.Screen
-        name={SCREEN_NAMES.providentFundScreen}
-        component={ProvidentFundScreen}
-        options={({ route }) => ({
-          headerShown: true,
-          title: `${route.params?.pfType} Holdings` || "Provicent Fund",
-        })}
       />
     </Stack.Group>
   );

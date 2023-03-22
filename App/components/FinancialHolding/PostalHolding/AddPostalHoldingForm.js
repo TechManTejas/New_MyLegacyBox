@@ -11,7 +11,7 @@ const AddPostalHoldingForm = () => {
 
   return (
     <PostalHoldingForm
-      ctaCaption="Add Holding"
+      ctaCaption="Add"
       defaultBody={{ parentId }}
       apiCallback={addFinancialHoldingForPostal}
       isLoading={isLoading}

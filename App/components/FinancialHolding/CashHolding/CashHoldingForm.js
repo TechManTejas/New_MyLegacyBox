@@ -9,7 +9,7 @@ import {
   objectToDropDownLabelAndValues,
 } from "../../../utils/manipulators";
 import { useTheme } from "../../../theme/ThemeProvider";
-import BlueButton from "../../Button/BlueButton";
+import BlueButton from "../../Common/Button/BlueButton";
 import { useNavigation } from "@react-navigation/native";
 import CustomDropDownInput from "../../Common/CustomDropDownInput";
 import CustomKeyboardAvoidingScrollView from "../../Common/CustomKeyboardAvoidingScrollView";
@@ -212,6 +212,7 @@ const CashHoldingForm = ({
                       ]
                     : undefined
                 }
+                textTransformNormal
               />
 
               <CustomInputGroup
@@ -231,6 +232,7 @@ const CashHoldingForm = ({
                       ]
                     : undefined
                 }
+                textTransformNormal
               />
               <CustomDropDownInput
                 title="Cash Type"
@@ -254,7 +256,7 @@ const CashHoldingForm = ({
               <CustomInputGroup
                 name="dateOfTransaction"
                 placeholder="Enter the Date of Transaction"
-                title="Date of Transaction"
+                title="Date of transaction"
                 pointerEvents="none"
                 onFocus={() => {
                   Keyboard.dismiss();

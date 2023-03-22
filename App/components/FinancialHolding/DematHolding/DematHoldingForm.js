@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from "react";
-import { View, Text, StyleSheet, Keyboard } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import { Formik } from "formik";
 import { toFormikValidationSchema } from "zod-formik-adapter";
 import CustomInputGroup from "../../Form/CustomInputGroup";
@@ -8,7 +8,7 @@ import {
   objectToDropDownLabelAndValues,
 } from "../../../utils/manipulators";
 import { useTheme } from "../../../theme/ThemeProvider";
-import BlueButton from "../../Button/BlueButton";
+import BlueButton from "../../Common/Button/BlueButton";
 import { useNavigation } from "@react-navigation/native";
 import CustomDropDownInput from "../../Common/CustomDropDownInput";
 import CustomKeyboardAvoidingScrollView from "../../Common/CustomKeyboardAvoidingScrollView";
@@ -204,8 +204,8 @@ const DematHoldingForm = ({
 
               <CustomInputGroup
                 name="pocNumber"
-                placeholder="Enter Point of contact number"
-                title="Point of contact number"
+                placeholder="Phone number of point of contact"
+                title="Point of contact's number"
                 onChange={handleChange("pocNumber")}
                 onBlur={handleBlur("pocNumber")}
                 value={values.pocNumber}

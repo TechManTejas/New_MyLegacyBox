@@ -4,6 +4,7 @@ export const QUERY_TAGS = {
   postal: "POSTAL",
   postalList: "POSTAL_LIST",
   insurance: "INSURANCE",
+
   insuranceList: "INSURANCE_LIST",
   financialHolding: "FINANCIAL_HOLDING",
   financialHoldingBankList: "FINANCIAL_HOLDING_BANK_LIST",
@@ -13,4 +14,7 @@ export const QUERY_TAGS = {
   financialHoldingDematList: "FINANCIAL_HOLDING_DEMAT_LIST",
   financialHoldingRealEstateList: "FINANCIAL_HOLDING_REAL_ESTATE_LIST",
   financialHoldingCashList: "FINANCIAL_HOLDING_CASH_LIST",
+
+  nominee: "NOMINEE",
+  nomineeList: "NOMINEE_LIST",
 };

@@ -14,6 +14,7 @@ const CustomHeaderTitle = ({ children }) => {
       fontSize: fontSize.default,
       lineHeight: fontSize.xl,
       color: colors.blue,
+      textAlign: 'center',
     },
   });
 

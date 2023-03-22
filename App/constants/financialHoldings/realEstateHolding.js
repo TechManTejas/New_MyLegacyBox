@@ -2,12 +2,12 @@ export const REAL_ESTATE_TYPE_MAP = {
   land: "LAND",
   residential: "RESIDENTIAL",
   commercial: "COMMERCIAL",
-  other: "OTHER",
 };
 
 export const REAL_ESTATE_OWNERSHIP_STATUS_MAP = {
   owned: "OWNED",
   joint: "JOINT",
+  onBehalfOfSomeOneElse: "ON_BEHALF_OF_SOMEONE_ELSE",
 };
 
 export const REAL_ESTATE_PROPERTY_AREA_UNIT_MAP = {
@@ -32,6 +32,8 @@ export const REAL_ESTATE_TYPE_TO_TITLE_MAP = {
 export const REAL_ESTATE_OWNERSHIP_STATUS_TO_TITLE_MAP = {
   [REAL_ESTATE_OWNERSHIP_STATUS_MAP.owned]: "Owned",
   [REAL_ESTATE_OWNERSHIP_STATUS_MAP.joint]: "Joint",
+  [REAL_ESTATE_OWNERSHIP_STATUS_MAP.onBehalfOfSomeOneElse]:
+    "On behalf of someone else",
 };
 
 export const REAL_ESTATE_PROPERTY_AREA_UNIT_TO_TITLE_MAP = {

@@ -49,6 +49,7 @@ const PostalItem = ({ hideCarret, ...postal }) => {
       color: colors.blue400,
       fontSize: fontSize.default,
       lineHeight: fontSize.lg,
+      textTransform: "capitalize",
     },
     ifsc: {
       fontFamily: fontFamily.regular,
@@ -95,9 +96,7 @@ const PostalItem = ({ hideCarret, ...postal }) => {
         <View style={styles.content}>
           <View>
             <View style={styles.row}>
-              <Text style={styles.name}>
-                {name}, {branchName}
-              </Text>
+              <Text style={styles.name}>{branchName}</Text>
               {ifsc ? <Text style={styles.ifsc}>({ifsc})</Text> : null}
             </View>
 

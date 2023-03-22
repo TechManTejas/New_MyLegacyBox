@@ -3,12 +3,17 @@ import { View, Text, StyleSheet } from "react-native";
 import { Formik } from "formik";
 import { toFormikValidationSchema } from "zod-formik-adapter";
 import CustomInputGroup from "../../Form/CustomInputGroup";
-import { cleanObjectAndTrim } from "../../../utils/manipulators";
+import {
+  cleanObjectAndTrim,
+  objectToDropDownLabelAndValues,
+} from "../../../utils/manipulators";
 import { useTheme } from "../../../theme/ThemeProvider";
-import BlueButton from "../../Button/BlueButton";
+import BlueButton from "../../Common/Button/BlueButton";
 import { useNavigation } from "@react-navigation/native";
 import CustomKeyboardAvoidingScrollView from "../../Common/CustomKeyboardAvoidingScrollView";
 import { providentFundHoldingValidator } from "../../../utils/form/validators/providentFundHoldingValidator";
+import { PROVIDENT_FUND_TYPE_TO_TITLE_MAP } from "../../../constants/financialHoldings/providentFundHolding";
+import CustomDropDownInput from "../../Common/CustomDropDownInput";
 
 const ProvidentFundHoldingForm = ({
   ctaCaption,
@@ -126,7 +131,7 @@ const ProvidentFundHoldingForm = ({
     <Formik
       validationSchema={toFormikValidationSchema(providentFundHoldingValidator)}
       initialValues={{
-        pfType: defaultBody.pfType,
+        pfType: initialValues?.pfType || "",
         uan: initialValues?.uan || "",
         employerName: initialValues?.employerName || "",
         amount: initialValues?.amount || undefined,
@@ -155,6 +160,7 @@ const ProvidentFundHoldingForm = ({
                       ]
                     : undefined
                 }
+                textTransformNormal
               />
 
               <CustomInputGroup
@@ -174,6 +180,27 @@ const ProvidentFundHoldingForm = ({
                       ]
                     : undefined
                 }
+              />
+
+              <CustomDropDownInput
+                title="Provident Fund Type"
+                placeholder="Select type of PF"
+                data={objectToDropDownLabelAndValues(
+                  PROVIDENT_FUND_TYPE_TO_TITLE_MAP
+                )}
+                onChange={handleChange("pfType")}
+                value={values.pfType}
+                messages={
+                  customErrors.pfType
+                    ? [
+                        {
+                          id: "pfType",
+                          text: customErrors.pfType,
+                        },
+                      ]
+                    : undefined
+                }
+                showSelectedIcon
               />
 
               <CustomInputGroup

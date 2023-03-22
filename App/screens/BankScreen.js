@@ -4,7 +4,7 @@ import { useTheme } from "../theme/ThemeProvider";
 import { useGetFinancialHoldingForBankQuery } from "../services/financialHolding/financialHoldingSlice";
 import CustomActivityIndicator from "../components/Common/CustomActivityIndicator";
 import BankDetail from "../components/Bank/BankDetail";
-import BlueButton from "../components/Button/BlueButton";
+import BlueButton from "../components/Common/Button/BlueButton";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import Empty from "../components/Common/Empty";
 import { useNavigation } from "@react-navigation/native";

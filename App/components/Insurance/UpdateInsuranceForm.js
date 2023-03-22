@@ -14,7 +14,7 @@ const UpdateInsuranceForm = () => {
 
   return (
     <InsuranceForm
-      ctaCaption="Update Insurance"
+      ctaCaption="Update"
       apiCallback={updateInsurance}
       isLoading={isLoading}
       defaultBody={{ _id }}
