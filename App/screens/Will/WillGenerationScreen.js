@@ -104,17 +104,33 @@ const WillGenerationScreen = () => {
     },
   });
 
+  const pressHandler = () => {
+    navigation.canGoBack() ? navigation.popToTop() : null;
+  };
+
   useEffect(() => {
+    const generateDownloadLink = async (willId) => {
+      try {
+        const result = await generateWordHashByWillId(willId).unwrap();
+
+        if (result.data && result.status === 201) {
+          Linking.openURL(
+            generateWordFileWillByHashUrl.replace(":hashedWillId", result.data)
+          ).finally(pressHandler);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
     const addWillToDbAndGenerateWord = async (will) => {
       try {
         const data = await addWill({
           ...will,
           selectedAssets: undefined,
         }).unwrap();
-        console.log("====================================");
-        console.log(data);
-        console.log("====================================");
-        // await generateWordHashByWillId({ ...will, selectedAssets: undefined });
+
+        await generateDownloadLink(data.data);
       } catch (error) {
         console.log(error);
       }
@@ -122,41 +138,6 @@ const WillGenerationScreen = () => {
 
     addWillToDbAndGenerateWord(will);
   }, [will]);
-
-  const generateDownloadLink = async (willId) => {
-    try {
-      const result = await generateWordHashByWillId(willId).unwrap();
-
-      if (result.data && result.status === 201) {
-        Linking.openURL(
-          generateWordFileWillByHashUrl.replace(":hashedWillId", result.data)
-        );
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const addWillToDbAndGenerateWord = async (will) => {
-    try {
-      const data = await addWill({
-        ...will,
-        selectedAssets: undefined,
-      }).unwrap();
-
-      console.log('====================================');
-      console.log(data.data);
-      console.log('====================================');
-
-      await generateDownloadLink(data.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const pressHandler = () => {
-    navigation.canGoBack() ? navigation.popToTop() : null;
-  };
 
   return (
     <View style={styles.container}>
@@ -255,12 +236,7 @@ const WillGenerationScreen = () => {
           ) : null}
         </View>
       </CustomKeyboardAvoidingScrollView>
-      <BlueButton
-        title="Add again"
-        onPress={() => {
-          addWillToDbAndGenerateWord(will);
-        }}
-      />
+
       <View style={styles.footer}>
         <BlueButton outline title="Go to Wills" onPress={pressHandler} />
       </View>

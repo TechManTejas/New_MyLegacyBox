@@ -41,8 +41,8 @@ const WillItem = ({ will }) => {
       fontSize: fontSize.default,
       lineHeight: fontSize.lg,
     },
-    marginBottomLg: {
-      marginBottom: spacing.lg,
+    marginBottomXs: {
+      marginBottom: spacing.xs,
     },
     errorText: {
       color: colors.red,
@@ -71,7 +71,7 @@ const WillItem = ({ will }) => {
   };
 
   return (
-    <View style={styles.marginBottomLg}>
+    <View style={styles.marginBottomXs}>
       <View style={styles.actionContainer}>
         <View style={styles.action}>
           <Text style={styles.actionName}>

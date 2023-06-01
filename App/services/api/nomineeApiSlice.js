@@ -5,11 +5,11 @@ import { QUERY_TAGS } from "../../constants/queryTags";
 
 const { manifest } = Constants;
 
-const baseUrl = `http://${manifest.debuggerHost
-  .split(":")
-  .shift()}${BASE_API_URL_LOCAL_SUFFIX}`;
+// const baseUrl = `http://${manifest.debuggerHost
+//   .split(":")
+//   .shift()}${BASE_API_URL_LOCAL_SUFFIX}`;
 
-// const baseUrl = `${BASE_API_URL}`;
+const baseUrl = `${BASE_API_URL}`;
 
 const baseQuery = fetchBaseQuery({
   baseUrl: `${baseUrl}/nominees`,

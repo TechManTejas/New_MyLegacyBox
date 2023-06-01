@@ -4,11 +4,11 @@ import Constants from "expo-constants";
 
 const { manifest } = Constants;
 
-const baseUrl = `http://${manifest.debuggerHost
-  .split(":")
-  .shift()}${KRATOS_URL_LOCAL_SUFFIX}`;
+// const baseUrl = `http://${manifest.debuggerHost
+//   .split(":")
+//   .shift()}${KRATOS_URL_LOCAL_SUFFIX}`;
 
-// const baseUrl = `${KRATOS_URL}`
+const baseUrl = `${KRATOS_URL}`
 
 export const kratosClient = new FrontendApi(
   new Configuration({

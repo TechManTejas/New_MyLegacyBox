@@ -92,53 +92,57 @@ const WillAssetsScreen = () => {
   }, [allFinancialHoldingData]);
 
   const sectionListData = useMemo(() => {
-    return bankData && postalData && insuranceData && financialData
-      ? [
-          {
-            title: "Bank",
-            data: bankData.ids.map((id) => bankData.entities[id]),
-          },
-          {
-            title: "Postal",
-            data: postalData.ids.map((id) => postalData.entities[id]),
-          },
-          {
-            title: "Insurance",
-            data: insuranceData.ids.map((id) => insuranceData.entities[id]),
-          },
-          {
-            title: "Demat",
-            data: financialData.filter(
-              (financialHolding) =>
-                financialHolding.holdingType ===
-                FINANCIAL_HOLDING_TYPE_MAP.demat
-            ),
-          },
-          {
-            title: "Provident Fund",
-            data: financialData.filter(
-              (financialHolding) =>
-                financialHolding.holdingType ===
-                FINANCIAL_HOLDING_TYPE_MAP.providentFund
-            ),
-          },
-          {
-            title: "Real Estate",
-            data: financialData.filter(
-              (financialHolding) =>
-                financialHolding.holdingType ===
-                FINANCIAL_HOLDING_TYPE_MAP.realEstate
-            ),
-          },
-          {
-            title: "Cash",
-            data: financialData.filter(
-              (financialHolding) =>
-                financialHolding.holdingType === FINANCIAL_HOLDING_TYPE_MAP.cash
-            ),
-          },
-        ]
-      : undefined;
+    const result =
+      bankData && postalData && insuranceData && financialData
+        ? [
+            {
+              title: "Bank",
+              data: bankData.ids.map((id) => bankData.entities[id]),
+            },
+            {
+              title: "Postal",
+              data: postalData.ids.map((id) => postalData.entities[id]),
+            },
+            {
+              title: "Insurance",
+              data: insuranceData.ids.map((id) => insuranceData.entities[id]),
+            },
+            {
+              title: "Demat",
+              data: financialData.filter(
+                (financialHolding) =>
+                  financialHolding.holdingType ===
+                  FINANCIAL_HOLDING_TYPE_MAP.demat
+              ),
+            },
+            {
+              title: "Provident Fund",
+              data: financialData.filter(
+                (financialHolding) =>
+                  financialHolding.holdingType ===
+                  FINANCIAL_HOLDING_TYPE_MAP.providentFund
+              ),
+            },
+            {
+              title: "Real Estate",
+              data: financialData.filter(
+                (financialHolding) =>
+                  financialHolding.holdingType ===
+                  FINANCIAL_HOLDING_TYPE_MAP.realEstate
+              ),
+            },
+            {
+              title: "Cash",
+              data: financialData.filter(
+                (financialHolding) =>
+                  financialHolding.holdingType ===
+                  FINANCIAL_HOLDING_TYPE_MAP.cash
+              ),
+            },
+          ]
+        : undefined;
+
+    return result;
   }, [financialData, bankData, postalData, insuranceData]);
 
   const prevHandler = () => navigation.goBack();
@@ -207,10 +211,6 @@ const WillAssetsScreen = () => {
 
     return { title, subTitle };
   };
-
-  console.log('====================================');
-  console.log(financialData);
-  console.log('====================================');
 
   const styles = StyleSheet.create({
     container: {

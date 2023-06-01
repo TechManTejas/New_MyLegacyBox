@@ -88,7 +88,7 @@ const BottomTabNavigation = () => {
 
   return (
     <BottomTab.Navigator
-      initialRouteName={SCREEN_NAMES.willNavigator}
+      initialRouteName={SCREEN_NAMES.homeNavigator}
       screenOptions={({ route }) => ({
         headerShown: false,
         tabBarStyle: [styles.tabBar],
