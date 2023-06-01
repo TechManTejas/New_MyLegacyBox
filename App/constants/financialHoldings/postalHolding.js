@@ -9,7 +9,7 @@ export const POSTAL_ACCOUNT_TYPES_MAP = {
   npsAccount: "NPS",
 };
 export const POSTAL_ACCOUNT_OWNERSHIP_MAP = {
-  singe: "SINGLE",
+  single: "SINGLE",
   joint: "JOINT",
   onBehalfOfMinor: "ONBEHALFOFMINOR",
 };
@@ -26,7 +26,7 @@ export const POSTAL_ACCOUNT_TYPES_TO_TITLE_MAP = {
 };
 
 export const POSTAL_ACCOUNT_OWNERSHIP_TO_TITLE_MAP = {
-  [POSTAL_ACCOUNT_OWNERSHIP_MAP.singe]: "single",
+  [POSTAL_ACCOUNT_OWNERSHIP_MAP.single]: "single",
   [POSTAL_ACCOUNT_OWNERSHIP_MAP.joint]: "joint",
   [POSTAL_ACCOUNT_OWNERSHIP_MAP.onBehalfOfMinor]: "on behalf of minor",
 };

@@ -1,0 +1,30 @@
+import { Text, View, StyleSheet } from "react-native";
+import React from "react";
+import { useTheme } from "../../theme/ThemeProvider";
+import { useRoute } from "@react-navigation/native";
+import WillExecutorInfoForm from "../../components/Will/willExecutorInfoForm";
+
+const WillExecutorInfoScreen = () => {
+  const route = useRoute();
+
+  const {
+    theme: { spacing, colors },
+  } = useTheme();
+
+  const { initialValues, index } = route.params;
+
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: colors.white100,
+    },
+  });
+
+  return (
+    <View style={styles.container}>
+      <WillExecutorInfoForm initialValues={initialValues} index={index} />
+    </View>
+  );
+};
+
+export default WillExecutorInfoScreen;

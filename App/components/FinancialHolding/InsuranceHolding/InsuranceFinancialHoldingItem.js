@@ -22,6 +22,7 @@ const InsuranceFinancialHoldingItem = ({ financialHolding }) => {
     policyType,
     premiumFrequency,
     beneficiary,
+    homeBranch,
     policyAmount,
     premiumAmount,
     dateOfPremium,
@@ -137,7 +138,12 @@ const InsuranceFinancialHoldingItem = ({ financialHolding }) => {
           </View>
         </View>
       </View>
-
+      <View style={[styles.row, styles.marginBottomXs]}>
+        <Text style={[styles.info, styles.semiBold]}>Home Branch </Text>
+        <Text style={styles.info}>
+          {homeBranch ? homeBranch : "Not available"}
+        </Text>
+      </View>
       <View>
         <View style={[styles.row, styles.marginBottomXs]}>
           <Text style={[styles.info, styles.semiBold]}>Policy Number </Text>

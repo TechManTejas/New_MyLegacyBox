@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSelector, createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   session: null,
@@ -18,6 +18,13 @@ export const authSlice = createSlice({
     },
   },
 });
+
+const authSelector = (state) => state.auth;
+
+export const getSessionTokenSelector = createSelector(
+  authSelector,
+  (auth) => auth.sessionToken
+);
 
 export const { setSessionRedux, clearSessionRedux } = authSlice.actions;
 

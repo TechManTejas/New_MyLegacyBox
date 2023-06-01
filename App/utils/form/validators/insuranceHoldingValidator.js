@@ -28,6 +28,11 @@ export const insuranceHoldingValidator = z
       required_error: "Premium frequency is required",
       invalid_type_error: "Invalid type for Premium frequency",
     }),
+    homeBranch: z
+      .string({
+        invalid_type_error: "Invalid type for Home branch",
+      })
+      .optional(),
     policyAmount: z
       .number({
         invalid_type_error: "Invalid type for Policy amount",

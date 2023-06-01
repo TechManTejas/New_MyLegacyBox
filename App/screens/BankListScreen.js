@@ -30,6 +30,7 @@ const BankListScreen = () => {
     },
     footer: {
       paddingVertical: spacing.md,
+      paddingBottom: spacing.lg,
       paddingHorizontal: spacing.lg,
     },
   });

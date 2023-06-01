@@ -17,6 +17,7 @@ const RealEstateListScreen = () => {
       backgroundColor: colors.white100,
       paddingHorizontal: spacing.lg,
       paddingVertical: spacing.md,
+      paddingBottom: spacing.lg,
     },
   });
 

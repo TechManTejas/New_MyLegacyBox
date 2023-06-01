@@ -128,6 +128,7 @@ const InsuranceHoldingForm = ({
         policyNumber: initialValues?.policyNumber || "",
         policyType: initialValues?.policyType || "",
         beneficiary: initialValues?.beneficiary || "",
+        homeBranch: initialValues?.homeBranch || "",
         premiumFrequency: initialValues?.premiumFrequency || "",
         policyAmount: initialValues?.policyAmount || undefined,
         premiumAmount: initialValues?.premiumAmount || undefined,
@@ -179,6 +180,22 @@ const InsuranceHoldingForm = ({
                 }
                 optional
               />
+
+              <CustomInputGroup
+                name="homeBranch"
+                placeholder="Enter your Home branch"
+                title="Home Branch"
+                onChange={handleChange("homeBranch")}
+                onBlur={handleBlur("homeBranch")}
+                value={values.homeBranch}
+                messages={
+                  customErrors.homeBranch
+                    ? [{ id: "homeBranch", text: customErrors.homeBranch }]
+                    : undefined
+                }
+                optional
+              />
+
               <CustomInputGroup
                 name="policyNumber"
                 placeholder="Enter your Policy Number"
@@ -230,6 +247,7 @@ const InsuranceHoldingForm = ({
                 }
                 showSelectedIcon
               />
+
               <CustomDropDownInput
                 title="Premium Frequency"
                 placeholder="Select Premium frequency"

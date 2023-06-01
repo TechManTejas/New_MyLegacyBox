@@ -5,12 +5,14 @@ import { useNavigation } from "@react-navigation/native";
 import { SCREEN_NAMES } from "../../../constants/screenNames";
 import { numberWithCommas } from "../../../utils/manipulators";
 import FinancialHoldingItemWrapper from "../FinancialHoldingItemWrapper";
+import { DEMAT_TYPE_MAP_TO_TITLE_MAP } from "../../../constants/financialHoldings/dematHolding";
 
 const DematFinancialHoldingItem = ({ financialHolding }) => {
   const navigation = useNavigation();
   const { _id, holdingClass, holding, updatedAt } = financialHolding;
 
-  const { broker, customerId, poc, pocNumber, investedAmount } = holding;
+  const { broker, dematType, customerId, poc, pocNumber, investedAmount } =
+    holding;
 
   const {
     theme: { colors, fontFamily, fontSize, spacing },
@@ -94,6 +96,13 @@ const DematFinancialHoldingItem = ({ financialHolding }) => {
         <View style={[styles.row, styles.rowBottomMargin]}>
           <Text style={[styles.info, styles.semiBold]}>Customer ID </Text>
           <Text style={styles.info}>{customerId}</Text>
+        </View>
+
+        <View style={[styles.row, styles.rowBottomMargin]}>
+          <Text style={[styles.info, styles.semiBold]}>Type </Text>
+          <Text style={styles.info}>
+            {DEMAT_TYPE_MAP_TO_TITLE_MAP[dematType]}
+          </Text>
         </View>
 
         <View style={[styles.row, styles.rowBottomMargin]}>

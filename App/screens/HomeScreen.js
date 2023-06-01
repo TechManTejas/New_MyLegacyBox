@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet, ScrollView } from "react-native";
+import { View, StyleSheet, ScrollView, StatusBar } from "react-native";
 import { useAuth } from "../authentication/AuthProvider";
 import CustomSafeView from "../components/Common/CustomSafeView";
 import HomeHeader from "../components/Home/HomeHeader";
@@ -11,7 +11,7 @@ import MinorMenu from "../components/Common/MinorMenu";
 const HomeScreen = () => {
   const { sessionToken } = useAuth();
   const {
-    theme: { spacing },
+    theme: { spacing, colors },
   } = useTheme();
 
   console.log("Session Token : ", sessionToken);
@@ -27,6 +27,10 @@ const HomeScreen = () => {
     <CustomSafeView>
       <ScrollView>
         <View style={styles.container}>
+          <StatusBar
+            barStyle="dark-content"
+            backgroundColor={colors.white100}
+          />
           <HomeHeader />
           <MajorMenu title="home" menuData={HOME_MAJOR_MENU_DATA} />
           <MinorMenu title="home" centered menuData={HOME_MINOR_MENU_DATA} />

@@ -5,11 +5,11 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import { SCREEN_NAMES } from "../constants/screenNames";
 import HomeNavigation from "./HomeNavigation";
-import WillScreen from "../screens/WillScreen";
 import OHubScreen from "../screens/OHubScreen";
 import { useTheme } from "../theme/ThemeProvider";
 import NomineeNavigation from "./NomineeNavigation";
 import UnderDevelopment from "../screens/UnderDevelopment";
+import WillNavigation from "./WillNavigation";
 
 const BottomTab = createBottomTabNavigator();
 
@@ -88,7 +88,7 @@ const BottomTabNavigation = () => {
 
   return (
     <BottomTab.Navigator
-      initialRouteName={SCREEN_NAMES.homeNavigator}
+      initialRouteName={SCREEN_NAMES.willNavigator}
       screenOptions={({ route }) => ({
         headerShown: false,
         tabBarStyle: [styles.tabBar],
@@ -140,10 +140,17 @@ const BottomTabNavigation = () => {
         }}
       />
       <BottomTab.Screen
-        name={SCREEN_NAMES.willScreen}
-        component={UnderDevelopment}
-        options={{
+        name={SCREEN_NAMES.willNavigator}
+        component={WillNavigation}
+        options={({ route }) => ({
           title: "E-Will",
+          tabBarStyle: [
+            {
+              display: shouldShowTabBarBottom(route, SCREEN_NAMES.nomineeScreen)
+                ? "flex"
+                : "none",
+            },
+          ],
           tabBarIcon: ({ focused }) => (
             <View style={styles.centerTabContainer}>
               <View style={styles.centerTab}>
@@ -160,7 +167,7 @@ const BottomTabNavigation = () => {
           ),
           tabBarIconStyle: { marginTop: 0 },
           tabBarLabelStyle: { display: "none" },
-        }}
+        })}
       />
       <BottomTab.Screen
         name={SCREEN_NAMES.nomineeNavigator}

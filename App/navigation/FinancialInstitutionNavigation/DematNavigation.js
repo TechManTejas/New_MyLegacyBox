@@ -10,7 +10,7 @@ const DematNavigation = ({ Stack }) => {
         component={DematScreen}
         options={{
           headerShown: true,
-          title: "Demat",
+          title: "Share & Securities",
         }}
       />
     </Stack.Group>

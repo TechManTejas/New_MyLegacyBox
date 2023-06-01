@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "oiconomos-mobile-app",
+    "name": "Oiconomos",
     "slug": "oiconomos-mobile-app",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -23,7 +23,8 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.oiconomos.www"
+      "package": "com.oiconomos.www",
+      "versionCode": 1
     },
     "web": {
       "favicon": "./assets/favicon.png"

@@ -13,6 +13,7 @@ import { useNavigation } from "@react-navigation/native";
 import CustomDropDownInput from "../../Common/CustomDropDownInput";
 import CustomKeyboardAvoidingScrollView from "../../Common/CustomKeyboardAvoidingScrollView";
 import { dematHoldingValidator } from "../../../utils/form/validators/dematHoldingValidator";
+import { DEMAT_TYPE_MAP_TO_TITLE_MAP } from "../../../constants/financialHoldings/dematHolding";
 
 const DematHoldingForm = ({
   ctaCaption,
@@ -132,6 +133,7 @@ const DematHoldingForm = ({
       initialValues={{
         broker: initialValues?.broker || "",
         customerId: initialValues?.customerId || "",
+        dematType: initialValues?.dematType || "",
         poc: initialValues?.poc || "",
         pocNumber: initialValues?.pocNumber || "",
         investedAmount: initialValues?.investedAmount || undefined,
@@ -160,6 +162,27 @@ const DematHoldingForm = ({
                       ]
                     : undefined
                 }
+              />
+
+              <CustomDropDownInput
+                title="Type"
+                placeholder="Select demat type"
+                data={objectToDropDownLabelAndValues(
+                  DEMAT_TYPE_MAP_TO_TITLE_MAP
+                )}
+                onChange={handleChange("dematType")}
+                value={values.dematType}
+                messages={
+                  customErrors.dematType
+                    ? [
+                        {
+                          id: "dematType",
+                          text: customErrors.dematType,
+                        },
+                      ]
+                    : undefined
+                }
+                showSelectedIcon
               />
 
               <CustomInputGroup

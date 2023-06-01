@@ -12,7 +12,7 @@ const CustomActivityIndicator = ({ backgroundColor, color, isLarge }) => {
       flex: 1,
       justifyContent: "center",
       alignItems: "center",
-      backgroundColor: backgroundColor ? backgroundColor : colors.white,
+      backgroundColor: backgroundColor ? backgroundColor : colors.white100,
     },
   });
 

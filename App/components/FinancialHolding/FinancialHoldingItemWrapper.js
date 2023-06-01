@@ -78,6 +78,7 @@ const FinancialHoldingItemWrapper = ({
     },
   });
 
+
   return (
     <View style={styles.container}>
       <View style={styles.financialHoldingContainer}>

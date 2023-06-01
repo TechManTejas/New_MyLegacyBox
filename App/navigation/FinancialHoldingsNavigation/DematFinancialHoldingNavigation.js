@@ -11,7 +11,7 @@ const DematFinancialHoldingNavigation = ({ Stack }) => {
         component={AddDematHoldingForm}
         options={{
           headerShown: true,
-          title: "Add Holding for Demat",
+          title: "Add Holding",
         }}
       />
       <Stack.Screen
@@ -19,7 +19,7 @@ const DematFinancialHoldingNavigation = ({ Stack }) => {
         component={UpdateDematHoldingForm}
         options={{
           headerShown: true,
-          title: "Update demat holding",
+          title: "Update holding",
         }}
       />
     </Stack.Group>

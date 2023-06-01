@@ -12,6 +12,33 @@ const initialState = financialHoldingsAdapter.getInitialState();
 
 export const extendedFinancialHoldingApiSlice = vaultApiSlice.injectEndpoints({
   endpoints: (builder) => ({
+    getAllFinancialHoldings: builder.query({
+      query: () => "/financial-holdings",
+      transformResponse: (responseData) => {
+        return financialHoldingsAdapter.setAll(
+          initialState,
+          responseData?.data || []
+        );
+      },
+      providesTags: (result) =>
+        result
+          ? [
+              {
+                type: QUERY_TAGS.financialHolding,
+                id: QUERY_TAGS.allFinancialHoldingList,
+              },
+              ...result.ids.map((id) => ({
+                type: QUERY_TAGS.financialHolding,
+                id,
+              })),
+            ]
+          : [
+              {
+                type: QUERY_TAGS.financialHolding,
+                id: QUERY_TAGS.allFinancialHoldingList,
+              },
+            ],
+    }),
     getFinancialHoldingForBank: builder.query({
       query: (parentId) => `/banks/${parentId}/holdings`,
       transformResponse: (responseData) => {
@@ -24,7 +51,7 @@ export const extendedFinancialHoldingApiSlice = vaultApiSlice.injectEndpoints({
         result
           ? [
               {
-                type: QUERY_TAGS.bank,
+                type: QUERY_TAGS.financialHolding,
                 id: QUERY_TAGS.financialHoldingBankList,
               },
               ...result.ids.map((id) => ({
@@ -47,7 +74,12 @@ export const extendedFinancialHoldingApiSlice = vaultApiSlice.injectEndpoints({
       }),
       invalidatesTags: (result) =>
         result
-          ? [{ type: QUERY_TAGS.bank, id: QUERY_TAGS.financialHoldingBankList }]
+          ? [
+              {
+                type: QUERY_TAGS.financialHolding,
+                id: QUERY_TAGS.financialHoldingBankList,
+              },
+            ]
           : [],
     }),
     updateFinancialHoldingForBank: builder.mutation({
@@ -377,6 +409,7 @@ export const extendedFinancialHoldingApiSlice = vaultApiSlice.injectEndpoints({
 });
 
 export const {
+  useGetAllFinancialHoldingsQuery,
   useGetFinancialHoldingForBankQuery,
   useAddFinancialHoldingForBankMutation,
   useUpdateFinancialHoldingForBankMutation,

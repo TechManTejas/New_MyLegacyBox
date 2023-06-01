@@ -88,16 +88,6 @@ const NomineeItem = ({ nominee }) => {
       <View style={styles.infoHeaderContainer}>
         <View style={[styles.row, styles.rowAlignItemsStart]}>
           <Text style={styles.name}>{fullName}</Text>
-          <View style={[styles.marginLeftSm, styles.marginBottomXs]}>
-            <CustomPill
-              label={NOMINEE_GENDER_TO_TITLE_MAP[gender]}
-              color={colors.white100}
-              backgroundColor={colors.blue400}
-              containerStyle={styles.paddingVerticalXxs}
-              size="sm"
-              labelBold
-            />
-          </View>
         </View>
       </View>
       <View>

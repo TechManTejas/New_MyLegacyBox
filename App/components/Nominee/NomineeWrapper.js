@@ -2,12 +2,12 @@ import React from "react";
 import { View, Text, StyleSheet, Pressable } from "react-native";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import { useTheme } from "../../theme/ThemeProvider";
+import {
+  NOMINEE_RELATIONSHIP_MAP,
+  NOMINEE_RELATIONSHIP_TO_TITLE_MAP,
+} from "../../constants/nominee";
 
-const NomineeWrapper = ({
-  children,
-  relationship,
-  pressHandler,
-}) => {
+const NomineeWrapper = ({ children, relationship, pressHandler }) => {
   const {
     theme: { colors, fontFamily, fontSize, spacing },
   } = useTheme();
@@ -25,11 +25,10 @@ const NomineeWrapper = ({
     },
     childContainer: {
       flex: 1,
-      marginBottom: spacing.sm
+      marginBottom: spacing.sm,
     },
     nomineeRelationshipContainer: {
       backgroundColor: colors.black700,
-      width: 80,
       height: "100%",
       flexDirection: "row",
       alignItems: "center",
@@ -38,6 +37,9 @@ const NomineeWrapper = ({
       paddingVertical: spacing.xs,
       borderTopRightRadius: spacing.sm,
       borderBottomLeftRadius: spacing.sm,
+    },
+    nomineeRelationshipContainerWithWidth: {
+      width: 80,
     },
     nomineeRelationship: {
       fontFamily: fontFamily.semiBold,
@@ -93,15 +95,19 @@ const NomineeWrapper = ({
               relationship === "OTHER"
                 ? styles.backgroundColorGrey
                 : styles.backgroundColorGreen,
+              !relationship === NOMINEE_RELATIONSHIP_MAP["pms"] &&
+                styles.nomineeRelationshipContainerWithWidth,
             ]}
           >
-            <Text style={styles.nomineeRelationship}>{relationship}</Text>
+            <Text style={styles.nomineeRelationship}>
+              {NOMINEE_RELATIONSHIP_TO_TITLE_MAP[relationship]}
+            </Text>
           </View>
 
           {pressHandler ? (
             <Pressable style={styles.button} onPress={pressHandler}>
               <Text style={styles.buttonText}>
-                Edit{" "}
+                Edit
                 <FontAwesome5 name="edit" color={styles.buttonText.color} />
               </Text>
             </Pressable>

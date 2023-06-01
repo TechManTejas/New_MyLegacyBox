@@ -14,7 +14,12 @@ export const QUERY_TAGS = {
   financialHoldingDematList: "FINANCIAL_HOLDING_DEMAT_LIST",
   financialHoldingRealEstateList: "FINANCIAL_HOLDING_REAL_ESTATE_LIST",
   financialHoldingCashList: "FINANCIAL_HOLDING_CASH_LIST",
+  allFinancialHoldingList: "ALL_FINANCIAL_HOLDING_LIST",
 
   nominee: "NOMINEE",
   nomineeList: "NOMINEE_LIST",
+
+  will: "WILL",
+  willList: "WILL_LIST",
+  willHashId: "WILL_HASH_ID",
 };

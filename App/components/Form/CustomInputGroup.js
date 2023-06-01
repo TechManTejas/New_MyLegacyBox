@@ -6,6 +6,7 @@ import CustomErrorMessageGroup from "./CustomErrorMessageGroup";
 const CustomInputGroup = ({
   name,
   title,
+  subTitle,
   onPressIn,
   onChange,
   onFocus,
@@ -110,6 +111,15 @@ const CustomInputGroup = ({
       fontFamily: fontFamily.regular,
       color: colors.red,
     },
+    subTitleContainer: {
+      marginBottom: spacing.sm,
+    },
+    subTitle: {
+      color: colors.black400,
+      fontFamily: fontFamily.regular,
+      fontSize: fontSize.default,
+      lineHeight: fontSize.lg,
+    },
   });
 
   return (
@@ -118,6 +128,11 @@ const CustomInputGroup = ({
         <Text style={styles.label}>{title}</Text>
         {optional ? <Text style={styles.labelOptional}>optional</Text> : null}
       </View>
+      {subTitle ? (
+        <View style={styles.subTitleContainer}>
+          <Text style={styles.subTitle}>{subTitle}</Text>
+        </View>
+      ) : null}
       <View
         style={[
           styles.inputContainer,
@@ -141,7 +156,7 @@ const CustomInputGroup = ({
           onChangeText={onChangeText ? onChangeText : onChange}
           onBlur={onBlur}
           onTouchStart={onTouchStart}
-          value={value ? String(value) : ""}
+          value={value || value === 0 ? String(value) : ""}
           pointerEvents={pointerEvents}
           placeholder={`${placeholder} ${placeholderSuffix || ""}`}
           editable={!disabled}

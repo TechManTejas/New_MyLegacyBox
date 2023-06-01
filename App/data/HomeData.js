@@ -35,7 +35,7 @@ export const HOME_MAJOR_MENU_DATA = [
 export const HOME_MINOR_MENU_DATA = [
   {
     id: 1,
-    title: "Demat",
+    title: "Share & Securities",
     iconName: "chart-line",
     IconComponent: FontAwesome5,
     navigateToScreen: SCREEN_NAMES.dematScreen,

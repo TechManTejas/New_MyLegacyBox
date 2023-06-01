@@ -5,6 +5,7 @@ export const SCREEN_NAMES = {
   drawerNavigator: "DRAWER_NAVIGATOR",
   homeNavigator: "HOME_NAVIGATOR",
   nomineeNavigator: "NOMINEE_NAVIGATOR",
+  willNavigator: "WILL_NAVIGATOR",
   bottomTabNavigator: "BOTTOM_TAB_NAVIGATOR",
   homeScreen: "HOME_SCREEN",
   onBoardingScreen: "ONBOARDING_SCREEN",
@@ -64,5 +65,23 @@ export const SCREEN_NAMES = {
   addNomineeScreen: "ADD_NOMINEE_SCREEN",
 
   willScreen: "WILL_SCREEN",
+  willPersonalInfoScreen: "WILL_PERSONAL_INFO_SCREEN",
+
+  willWitnessesScreen: "WILL_WITNESSES_SCREEN",
+  willWitnessInfoScreen: "WILL_WITNESS_INFO_SCREEN",
+
+  willBeneficiariesScreen: "WILL_BENEFICIARIES_SCREEN",
+  willBeneficiaryInfoScreen: "WILL_BENEFICIARY_INFO_SCREEN",
+
+  willAssetsScreen: "WILL_ASSETS_SCREEN",
+  willAssetInfoScreen: "WILL_ASSET_INFO_SCREEN",
+
+  willExecutorScreen: "WILL_EXECUTOR_SCREEN",
+  willExecutorInfoScreen: "WILL_EXECUTOR_INFO_SCREEN",
+
+  willDeclarationScreen: "WILL_DECLARATION_SCREEN",
+
+  willGenerationScreen: "WILL_GENERATION_SCREEN",
+
   ohubScreen: "OHUB_SCREEN",
 };

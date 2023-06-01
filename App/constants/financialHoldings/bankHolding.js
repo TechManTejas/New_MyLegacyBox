@@ -16,7 +16,7 @@ export const BANK_ACCOUNT_TYPES_MAP = {
   otherLoanAccount: "OTHERS",
 };
 export const BANK_ACCOUNT_OWNERSHIP_MAP = {
-  singe: "SINGLE",
+  single: "SINGLE",
   joint: "JOINT",
   onBehalfOfMinor: "ON_BEHALF_OF_MINOR",
 };
@@ -40,7 +40,7 @@ export const BANK_ACCOUNT_TYPES_TO_TITLE_MAP = {
 };
 
 export const BANK_ACCOUNT_OWNERSHIP_TO_TITLE_MAP = {
-  [BANK_ACCOUNT_OWNERSHIP_MAP.singe]: "single",
+  [BANK_ACCOUNT_OWNERSHIP_MAP.single]: "single",
   [BANK_ACCOUNT_OWNERSHIP_MAP.joint]: "joint",
   [BANK_ACCOUNT_OWNERSHIP_MAP.onBehalfOfMinor]: "on behalf of minor",
 };
