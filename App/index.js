@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 // import 'expo-dev-client';
 
 // essential for kratos config
-import { LogBox } from "react-native";
+import { AppState, BackHandler, LogBox } from "react-native";
 import * as ExpoSplashScreen from "expo-splash-screen";
 import "react-native-url-polyfill/auto";
 import "react-native-gesture-handler";
@@ -19,19 +19,39 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 LogBox.ignoreLogs(["Remote debugger"]);
 ExpoSplashScreen.preventAutoHideAsync().catch(console.warn);
 
+import BiometricAuthScreen from "./screens/BiometricAuthScreen";
+import { authenticateAsync } from "expo-local-authentication";
+
 function App() {
+
+  const [isBioAuthenticated, setIsBioAuthenticated] = useState(false)
+  const [bioAuthFlow, setBioAuthFlow] = useState(true)
+
+  const handleBiometricAuth = async () => {
+      const res = await authenticateAsync({ promptMessage: "Authenticate" })
+      setIsBioAuthenticated(res.success)
+      if (!res.success) setBioAuthFlow(false)
+  }
+
+  useEffect(() => {
+    handleBiometricAuth()
+  }, [])
+
   return (
-    <Provider store={store}>
-      <ThemeProvider>
-        <AuthProvider>
-          <SplashScreen>
-            <SafeAreaProvider>
-              <RootNavigation />
-            </SafeAreaProvider>
-          </SplashScreen>
-        </AuthProvider>
-      </ThemeProvider>
-    </Provider>
+      <Provider store={store}>
+        <ThemeProvider>
+          <AuthProvider>
+            <SplashScreen>
+              <SafeAreaProvider>
+                { (!isBioAuthenticated) ? 
+                  <BiometricAuthScreen handleBiometricAuth={handleBiometricAuth} setBioAuthFlow={setBioAuthFlow} bioAuthFlow={bioAuthFlow} /> : 
+                  <RootNavigation />
+                }
+              </SafeAreaProvider>
+            </SplashScreen>
+          </AuthProvider>
+        </ThemeProvider>
+      </Provider>
   );
 }
 
