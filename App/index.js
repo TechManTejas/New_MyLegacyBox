@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from "react";
 
-// import 'expo-dev-client';
-
-// essential for kratos config
 import { AppState, BackHandler, LogBox } from "react-native";
 import * as ExpoSplashScreen from "expo-splash-screen";
 import "react-native-url-polyfill/auto";
@@ -25,16 +22,26 @@ import { authenticateAsync } from "expo-local-authentication";
 function App() {
 
   const [isBioAuthenticated, setIsBioAuthenticated] = useState(false)
-  const [bioAuthFlow, setBioAuthFlow] = useState(true)
 
   const handleBiometricAuth = async () => {
       const res = await authenticateAsync({ promptMessage: "Authenticate" })
+      if (res.error == "user_cancel") BackHandler.exitApp()
       setIsBioAuthenticated(res.success)
-      if (!res.success) setBioAuthFlow(false)
   }
 
   useEffect(() => {
-    handleBiometricAuth()
+
+    const handleAppStateChange = (nextAppState) => {
+      if (nextAppState === 'background') setIsBioAuthenticated(false)
+      if (nextAppState == 'active') handleBiometricAuth()
+    }
+
+    AppState.addEventListener('change', handleAppStateChange);
+
+    return () => {
+      AppState.removeEventListener('change', handleAppStateChange);
+    }
+
   }, [])
 
   return (
@@ -43,10 +50,7 @@ function App() {
           <AuthProvider>
             <SplashScreen>
               <SafeAreaProvider>
-                { (!isBioAuthenticated) ? 
-                  <BiometricAuthScreen handleBiometricAuth={handleBiometricAuth} setBioAuthFlow={setBioAuthFlow} bioAuthFlow={bioAuthFlow} /> : 
-                  <RootNavigation />
-                }
+                { (!isBioAuthenticated) ? <BiometricAuthScreen /> : <RootNavigation /> }
               </SafeAreaProvider>
             </SplashScreen>
           </AuthProvider>
