@@ -293,7 +293,8 @@ const WillExecutorInfoForm = ({ initialValues, defaultBody, index }) => {
                     placeholder="Enter PIN code"
                     title="PIN Code"
                     onChangeText={(value) => {
-                      setFieldValue("address.pinCode", +value);
+                      if (value==" " || value=="") setFieldValue("address.pinCode")
+                      else if (!isNaN(value)) setFieldValue("address.pinCode", + value)
                     }}
                     onBlur={handleBlur("address.pinCode")}
                     value={values.address.pinCode}
