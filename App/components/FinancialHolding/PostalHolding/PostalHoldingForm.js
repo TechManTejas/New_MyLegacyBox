@@ -220,7 +220,7 @@ const PostalHoldingForm = ({
                 placeholder="Enter the Balance"
                 title="Balance (in Rs)"
                 onChange={(value) => {
-                  if (value==" " || value=="") setFieldValue("amount")
+                  if (value==" " || value=="") return
                   else if (!isNaN(value)) setFieldValue("amount", + value)
                 }}
                 onBlur={handleBlur("amount")}

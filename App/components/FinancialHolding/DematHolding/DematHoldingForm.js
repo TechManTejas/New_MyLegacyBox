@@ -251,7 +251,7 @@ const DematHoldingForm = ({
                 placeholder="Enter the Invested Amount"
                 title="Invested Amount (in Rs)"
                 onChange={(value) => {
-                  if (value==" " || value=="") setFieldValue("investedAmount")
+                  if (value==" " || value=="") return
                   else if (!isNaN(value)) setFieldValue("investedAmount", + value)
                 }}
                 onBlur={handleBlur("investedAmount")}

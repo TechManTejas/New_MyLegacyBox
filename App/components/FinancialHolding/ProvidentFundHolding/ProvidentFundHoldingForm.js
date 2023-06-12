@@ -208,7 +208,7 @@ const ProvidentFundHoldingForm = ({
                 placeholder="Enter the Amount"
                 title="Amount (in Rs)"
                 onChange={(value) => {
-                  if (value==" " || value=="") setFieldValue("amount")
+                  if (value==" " || value=="") return
                   else if (!isNaN(value)) setFieldValue("amount", + value)
                 }}
                 onBlur={handleBlur("amount")}
