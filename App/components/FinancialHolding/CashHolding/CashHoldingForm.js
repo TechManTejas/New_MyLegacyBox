@@ -296,7 +296,8 @@ const CashHoldingForm = ({
                 placeholder="Enter the Amount"
                 title="Amount (in Rs)"
                 onChange={(value) => {
-                  setFieldValue("amount", +value);
+                  if (value==" " || value=="") return
+                  else if (!isNaN(value)) setFieldValue("amount", + value)
                 }}
                 onBlur={handleBlur("amount")}
                 value={values.amount}
@@ -371,7 +372,8 @@ const CashHoldingForm = ({
                     placeholder="Enter PIN code"
                     title="PIN Code"
                     onChangeText={(value) => {
-                      setFieldValue("address.pinCode", +value);
+                      if (value==" " || value=="") return
+                      else if (!isNaN(value)) setFieldValue("address.pinCode", + value)
                     }}
                     onBlur={handleBlur("address.pinCode")}
                     value={values.address.pinCode}

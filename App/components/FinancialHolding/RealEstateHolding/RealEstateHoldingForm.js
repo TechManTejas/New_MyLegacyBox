@@ -249,7 +249,8 @@ const RealEstateHoldingForm = ({
                 placeholder="Enter the ownership %"
                 title="Ownership %"
                 onChange={(value) => {
-                  setFieldValue("ownershipPercentage", +value);
+                  if (value==" " || value=="") return
+                  else if (!isNaN(value)) setFieldValue("ownershipPercentage", + value)
                 }}
                 onBlur={handleBlur("ownershipPercentage")}
                 value={values.ownershipPercentage}
@@ -277,7 +278,8 @@ const RealEstateHoldingForm = ({
                     placeholder="Enter the Property Area"
                     title="Area"
                     onChange={(value) => {
-                      setFieldValue("propertyArea", +value);
+                      if (value==" " || value=="") return
+                      else if (!isNaN(value)) setFieldValue("propertyArea", + value)
                     }}
                     onBlur={handleBlur("propertyArea")}
                     value={values.propertyArea}
@@ -325,7 +327,8 @@ const RealEstateHoldingForm = ({
                 placeholder="Enter the Property value (in Rs.)"
                 title="Property value (in Rs.)"
                 onChange={(value) => {
-                  setFieldValue("propertyValue", +value);
+                  if (value==" " || value=="") return
+                  else if (!isNaN(value)) setFieldValue("propertyValue", + value)
                 }}
                 onBlur={handleBlur("propertyValue")}
                 value={values.propertyValue}
@@ -456,7 +459,8 @@ const RealEstateHoldingForm = ({
                     placeholder="Enter PIN code"
                     title="PIN Code"
                     onChangeText={(value) => {
-                      setFieldValue("address.pinCode", +value);
+                      if (value==" " || value=="") return
+                      else if (!isNaN(value)) setFieldValue("address.pinCode", + value)
                     }}
                     onBlur={handleBlur("address.pinCode")}
                     value={values.address.pinCode}

@@ -161,7 +161,8 @@ const WillBeneficiaryInfoForm = ({ initialValues, defaultBody, index }) => {
                 placeholder="Enter beneficiary's age"
                 title="Age"
                 onChangeText={(value) => {
-                  setFieldValue("age", +value);
+                  if (value==" " || value=="") return
+                  else if (!isNaN(value)) setFieldValue("age", + value)
                 }}
                 onBlur={handleBlur("age")}
                 value={values.age}

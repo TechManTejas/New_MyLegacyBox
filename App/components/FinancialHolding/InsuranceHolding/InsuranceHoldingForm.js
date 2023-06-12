@@ -354,7 +354,8 @@ const InsuranceHoldingForm = ({
                 placeholder="Enter the Policy Amount"
                 title="Policy Amount (in Rs)"
                 onChange={(value) => {
-                  setFieldValue("policyAmount", +value);
+                  if (value==" " || value=="") return
+                  else if (!isNaN(value)) setFieldValue("policyAmount", + value)
                 }}
                 onBlur={handleBlur("policyAmount")}
                 value={values.policyAmount}
@@ -377,7 +378,8 @@ const InsuranceHoldingForm = ({
                 placeholder="Enter the Premium Amount"
                 title="Premium Amount (in Rs)"
                 onChange={(value) => {
-                  setFieldValue("premiumAmount", +value);
+                  if (value==" " || value=="") return
+                  else if (!isNaN(value)) setFieldValue("premiumAmount", + value)
                 }}
                 onBlur={handleBlur("premiumAmount")}
                 value={values.premiumAmount}
