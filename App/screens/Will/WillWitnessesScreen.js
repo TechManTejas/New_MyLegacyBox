@@ -1,5 +1,4 @@
 import { View, StyleSheet } from "react-native";
-import React from "react";
 import { useTheme } from "../../theme/ThemeProvider";
 import { useSelector } from "react-redux";
 import { getWitnessesSelector } from "../../services/willForm/willFormSlice";
@@ -9,12 +8,13 @@ import WillInfoCard from "../../components/Will/WillInfoCard";
 import { SCREEN_NAMES } from "../../constants/screenNames";
 
 const WillWitnessesScreen = () => {
-  const navigation = useNavigation();
 
-  const witnesses = useSelector((state) => getWitnessesSelector(state));
+  const navigation = useNavigation()
 
-  const firstInitialValues = witnesses[0] ? witnesses[0] : {};
-  const secondInitialValues = witnesses[1] ? witnesses[1] : {};
+  const witnesses = useSelector((state) => getWitnessesSelector(state))
+
+  const firstInitialValues = witnesses[0] ? witnesses[0] : {}
+  const secondInitialValues = witnesses[1] ? witnesses[1] : {}
 
   const {
     theme: { spacing, colors },
@@ -28,24 +28,18 @@ const WillWitnessesScreen = () => {
     content: {
       padding: spacing.lg,
     },
-  });
-
-  const prevHandler = () => navigation.goBack();
-
-  const nextHandler = () =>
-    navigation.navigate(SCREEN_NAMES.willBeneficiariesScreen);
+  })
 
   const getPressHandler = (initialValues, index) => () =>
     navigation.navigate(SCREEN_NAMES.willWitnessInfoScreen, {
       initialValues,
       index,
-    });
+    })
 
   return (
     <View style={styles.container}>
       <WillFormContainer
-        prevHandler={prevHandler}
-        nextHandler={nextHandler}
+        Handler={() => navigation.goBack()}
         nextDisabled={witnesses.length != 2}
       >
         <View style={styles.content}>

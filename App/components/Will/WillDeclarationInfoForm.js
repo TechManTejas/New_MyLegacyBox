@@ -19,9 +19,7 @@ const WillDeclarationInfoForm = ({ initialValues, defaultBody }) => {
   const dispatch = useDispatch();
   const [customErrors, setCustomErrors] = useState({});
 
-  const {
-    theme: { colors, spacing, fontSize, fontFamily },
-  } = useTheme();
+  const { theme: { colors, spacing, fontSize, fontFamily } } = useTheme();
 
   const styles = StyleSheet.create({
     container: {
@@ -94,22 +92,21 @@ const WillDeclarationInfoForm = ({ initialValues, defaultBody }) => {
       setGlobalErrorMessage(error.message);
     }
 
-    const isValid = customErrorWithValidation({
-      values,
-      errors: validationErrors,
-    });
+    const isValid = customErrorWithValidation({ values, errors: validationErrors })
 
-    if (!isValid) return;
+    if (!isValid) return
 
-    const cleanedValues = cleanObjectAndTrim({ ...values });
+    const cleanedValues = cleanObjectAndTrim({ ...values })
 
     try {
-      dispatch(setDeclarationInfoRedux(cleanedValues));
-      navigation.navigate(SCREEN_NAMES.willGenerationScreen);
-    } catch (error) {
-      setGlobalErrorMessage(error?.data?.error?.message || error.message);
+      dispatch(setDeclarationInfoRedux(cleanedValues))
+      navigation.goBack()
+    } 
+    catch (error) {
+      setGlobalErrorMessage(error?.data?.error?.message || error.message)
     }
-  }, []);
+
+  }, [])
 
   return (
     <Formik
@@ -162,7 +159,7 @@ const WillDeclarationInfoForm = ({ initialValues, defaultBody }) => {
 
               <View style={styles.buttonContainer}>
                 <BlueButton
-                  title="Generate E-Will"
+                  title="Done"
                   onPress={() => onSubmit({ values, validateForm })}
                 />
               </View>

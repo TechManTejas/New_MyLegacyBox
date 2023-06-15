@@ -249,7 +249,7 @@ const RealEstateHoldingForm = ({
                 placeholder="Enter the ownership %"
                 title="Ownership %"
                 onChange={(value) => {
-                  if (value==" " || value=="") return
+                  if (value==" " || value=="") setFieldValue("ownershipPercentage", "")
                   else if (!isNaN(value)) setFieldValue("ownershipPercentage", + value)
                 }}
                 onBlur={handleBlur("ownershipPercentage")}
@@ -278,7 +278,7 @@ const RealEstateHoldingForm = ({
                     placeholder="Enter the Property Area"
                     title="Area"
                     onChange={(value) => {
-                      if (value==" " || value=="") return
+                      if (value==" " || value=="") setFieldValue("propertyArea", "")
                       else if (!isNaN(value)) setFieldValue("propertyArea", + value)
                     }}
                     onBlur={handleBlur("propertyArea")}
@@ -327,7 +327,7 @@ const RealEstateHoldingForm = ({
                 placeholder="Enter the Property value (in Rs.)"
                 title="Property value (in Rs.)"
                 onChange={(value) => {
-                  if (value==" " || value=="") return
+                  if (value==" " || value=="") setFieldValue("propertyValue", "")
                   else if (!isNaN(value)) setFieldValue("propertyValue", + value)
                 }}
                 onBlur={handleBlur("propertyValue")}
@@ -459,7 +459,7 @@ const RealEstateHoldingForm = ({
                     placeholder="Enter PIN code"
                     title="PIN Code"
                     onChangeText={(value) => {
-                      if (value==" " || value=="") return
+                      if (value==" " || value=="") setFieldValue("address.pinCode", "")
                       else if (!isNaN(value)) setFieldValue("address.pinCode", + value)
                     }}
                     onBlur={handleBlur("address.pinCode")}

@@ -21,15 +21,11 @@ const WillAssetInfoForm = ({ initialValues, sectionTitles }) => {
   const [globalErrorMessage, setGlobalErrorMessage] = useState("");
   const formRef = useRef();
 
-  const selectedAssetsEntities = useSelector((state) =>
-    getSelectedAssetsEntitiesSelector(state)
-  );
+  const selectedAssetsEntities = useSelector((state) => getSelectedAssetsEntitiesSelector(state));
 
   const dispatch = useDispatch();
 
-  const {
-    theme: { colors, spacing, fontSize, fontFamily },
-  } = useTheme();
+  const { theme: { colors, spacing, fontSize, fontFamily } } = useTheme()
 
   const styles = StyleSheet.create({
     container: {
@@ -115,32 +111,26 @@ const WillAssetInfoForm = ({ initialValues, sectionTitles }) => {
 
     try {
       validationErrors = await validateForm(values);
-    } catch (error) {
+    } 
+    catch (error) {
       setGlobalErrorMessage(error.message);
     }
 
-    const isValid = customErrorWithValidation({
-      values,
-      errors: validationErrors,
-    });
+    const isValid = customErrorWithValidation({ values, errors: validationErrors });
 
     if (!isValid) return;
 
-    const allocationValues = Object.values(selectedAssetsEntities).map(
-      (asset) => ({ ...asset, allocations: values[asset._id] })
-    );
+    const allocationValues = Object.values(selectedAssetsEntities).map((asset) => ({ ...asset, allocations: values[asset._id] }));
 
     dispatch(setAssetRedux(allocationValues));
 
-    navigation.navigate(SCREEN_NAMES.willExecutorScreen);
-  }, []);
+    navigation.goBack()
 
-  const prevHandler = () => navigation.goBack();
+  }, []);
 
   return (
     <WillFormContainer
-      prevHandler={prevHandler}
-      nextHandler={() =>
+      Handler={() =>
         onSubmit({
           values: formRef.current.values,
           validateForm: formRef.current.validateForm,

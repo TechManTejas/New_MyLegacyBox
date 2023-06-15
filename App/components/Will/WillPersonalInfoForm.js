@@ -18,67 +18,73 @@ import { toFormikValidationSchema } from "zod-formik-adapter";
 import CustomInputGroup from "../Form/CustomInputGroup";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { setPersonalInfoRedux } from "../../services/willForm/willFormSlice";
-import { SCREEN_NAMES } from "../../constants/screenNames";
 
 const WillPersonalInfoForm = ({ initialValues, defaultBody }) => {
-  const navigation = useNavigation();
-  const dispatch = useDispatch();
-  const [customErrors, setCustomErrors] = useState({});
-  const [globalErrorMessage, setGlobalErrorMessage] = useState("");
+
+  const navigation = useNavigation()
+
+  const dispatch = useDispatch()
+
+  const [customErrors, setCustomErrors] = useState({})
+
+  const [globalErrorMessage, setGlobalErrorMessage] = useState("")
+
   const [datePickerOptions, setDatePickerOptions] = useState({
     show: false,
     property: "",
-  });
+  })
 
   const formRef = useRef();
 
-  const {
-    theme: { colors, spacing, fontSize, fontFamily },
-  } = useTheme();
+  const { theme: { colors, spacing, fontSize, fontFamily } } = useTheme()
 
   const customErrorWithValidation = useCallback(({ values, errors }) => {
-    let customErrors;
-    let isValid;
 
-    customErrors = { ...errors };
-    isValid = !Boolean(Object.keys(customErrors).length);
+    let customErrors
+    let isValid
 
-    setCustomErrors(customErrors);
+    customErrors = { ...errors }
+    isValid = !Boolean(Object.keys(customErrors).length)
 
-    if (Object.keys(customErrors).length) {
-      setGlobalErrorMessage("Invalid / Missing entries found");
-    }
+    setCustomErrors(customErrors)
 
-    return isValid;
-  }, []);
+    if (Object.keys(customErrors).length) setGlobalErrorMessage("Invalid / Missing entries found")
+
+    return isValid
+
+  }, [])
 
   const onSubmit = useCallback(async ({ values, validateForm }) => {
-    let validationErrors;
 
-    setGlobalErrorMessage("");
+    let validationErrors
+
+    setGlobalErrorMessage("")
 
     try {
-      validationErrors = await validateForm(values);
-    } catch (error) {
-      setGlobalErrorMessage(error.message);
+      validationErrors = await validateForm(values)
+    } 
+    catch (error) {
+      setGlobalErrorMessage(error.message)
     }
 
     const isValid = customErrorWithValidation({
       values,
       errors: validationErrors,
-    });
+    })
 
-    if (!isValid) return;
+    if (!isValid) return
 
-    const cleanedValues = cleanObjectAndTrim({ ...values });
-    cleanedValues.dateOfBirth = cleanedValues.dateOfBirth.toISOString();
+    const cleanedValues = cleanObjectAndTrim({ ...values })
+    cleanedValues.dateOfBirth = cleanedValues.dateOfBirth.toISOString()
 
     try {
-      dispatch(setPersonalInfoRedux({ ...cleanedValues, ...defaultBody }));
-      navigation.navigate(SCREEN_NAMES.willWitnessesScreen);
-    } catch (error) {
-      setGlobalErrorMessage(error?.data?.error?.message || error.message);
+      dispatch(setPersonalInfoRedux({ ...cleanedValues, ...defaultBody }))
+      navigation.goBack()
+    } 
+    catch (error) {
+      setGlobalErrorMessage(error?.data?.error?.message || error.message)
     }
+
   }, []);
 
   const styles = StyleSheet.create({
@@ -129,8 +135,7 @@ const WillPersonalInfoForm = ({ initialValues, defaultBody }) => {
 
   return (
     <WillFormContainer
-      prevDisabled
-      nextHandler={() =>
+      Handler={() =>
         onSubmit({
           values: formRef.current.values,
           validateForm: formRef.current.validateForm,
@@ -347,7 +352,7 @@ const WillPersonalInfoForm = ({ initialValues, defaultBody }) => {
                       placeholder="Enter PIN code"
                       title="PIN Code"
                       onChangeText={(value) => {
-                        if (value==" " || value=="") return
+                        if (value==" " || value=="") setFieldValue("address.pinCode", "")
                         else if (!isNaN(value)) setFieldValue("address.pinCode", + value)
                       }}
                       onBlur={handleBlur("address.pinCode")}

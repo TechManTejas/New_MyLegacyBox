@@ -296,7 +296,7 @@ const CashHoldingForm = ({
                 placeholder="Enter the Amount"
                 title="Amount (in Rs)"
                 onChange={(value) => {
-                  if (value==" " || value=="") return
+                  if (value==" " || value=="") setFieldValue("amount", "")
                   else if (!isNaN(value)) setFieldValue("amount", + value)
                 }}
                 onBlur={handleBlur("amount")}

@@ -17,6 +17,7 @@ import WillExecutorScreen from "../screens/Will/WillExecutorScreen";
 import WillExecutorInfoScreen from "../screens/Will/WillExecutorInfoScreen";
 import WillDeclarationScreen from "../screens/Will/WillDeclarationScreen";
 import WillGenerationScreen from "../screens/Will/WillGenerationScreen";
+import WillInfoScreen from "../screens/Will/WillInfoScreen";
 
 const Stack = createStackNavigator();
 
@@ -42,6 +43,7 @@ const WillNavigation = () => {
       })}
     >
       <Stack.Group>
+
         <Stack.Screen
           name={SCREEN_NAMES.willScreen}
           component={WillScreen}
@@ -50,6 +52,17 @@ const WillNavigation = () => {
             title: "Will",
           }}
         />
+
+        <Stack.Screen
+          name={SCREEN_NAMES.willInfoScreen}
+          component={WillInfoScreen}
+          options={{
+            headerShown: true,
+            title: "Will",
+          }}
+        />
+
+
         <Stack.Screen
           name={SCREEN_NAMES.willPersonalInfoScreen}
           component={WillPersonalInfoScreen}
@@ -58,6 +71,7 @@ const WillNavigation = () => {
             title: "Testator Information",
           }}
         />
+
         <Stack.Screen
           name={SCREEN_NAMES.willWitnessesScreen}
           component={WillWitnessesScreen}
@@ -66,6 +80,7 @@ const WillNavigation = () => {
             title: "Witnesses",
           }}
         />
+
         <Stack.Screen
           name={SCREEN_NAMES.willWitnessInfoScreen}
           component={WillWitnessInfoScreen}
@@ -74,6 +89,7 @@ const WillNavigation = () => {
             title: "Witness Information",
           }}
         />
+
         <Stack.Screen
           name={SCREEN_NAMES.willBeneficiariesScreen}
           component={WillBeneficiariesScreen}
@@ -82,6 +98,7 @@ const WillNavigation = () => {
             title: "Beneficiaries",
           }}
         />
+
         <Stack.Screen
           name={SCREEN_NAMES.willBeneficiaryInfoScreen}
           component={WillBeneficiaryInfoScreen}
@@ -90,6 +107,7 @@ const WillNavigation = () => {
             title: "Beneficiary Information",
           }}
         />
+
         <Stack.Screen
           name={SCREEN_NAMES.willAssetsScreen}
           component={WillAssetsScreen}
@@ -98,6 +116,7 @@ const WillNavigation = () => {
             title: "Assets Selection",
           }}
         />
+
         <Stack.Screen
           name={SCREEN_NAMES.willAssetInfoScreen}
           component={WillAssetInfoScreen}
@@ -106,6 +125,7 @@ const WillNavigation = () => {
             title: "Asset Allocation",
           }}
         />
+
         <Stack.Screen
           name={SCREEN_NAMES.willExecutorScreen}
           component={WillExecutorScreen}
@@ -114,6 +134,7 @@ const WillNavigation = () => {
             title: "Executors (Optional)",
           }}
         />
+
         <Stack.Screen
           name={SCREEN_NAMES.willExecutorInfoScreen}
           component={WillExecutorInfoScreen}
@@ -140,6 +161,7 @@ const WillNavigation = () => {
             title: "E-Will Generation",
           }}
         />
+
       </Stack.Group>
     </Stack.Navigator>
   );

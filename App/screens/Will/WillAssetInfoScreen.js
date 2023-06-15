@@ -7,22 +7,17 @@ import {
   getSelectedAssetsEntitiesSelector,
 } from "../../services/willForm/willFormSlice";
 import WillAssetInfoForm from "../../components/Will/WillAssetInfoForm";
-import {} from "react";
 import CustomActivityIndicator from "../../components/Common/CustomActivityIndicator";
 
 const WillAssetInfoScreen = () => {
   const [initialValues, setInitialValues] = useState(undefined);
   const [sectionTitles, setSectionTitles] = useState(undefined);
 
-  const selectedAssetsEntities = useSelector((state) =>
-    getSelectedAssetsEntitiesSelector(state)
-  );
+  const selectedAssetsEntities = useSelector((state) => getSelectedAssetsEntitiesSelector(state))
 
-  const beneficiaries = useSelector((state) => getBeneficiariesSelector(state));
+  const beneficiaries = useSelector((state) => getBeneficiariesSelector(state))
 
-  const {
-    theme: { colors },
-  } = useTheme();
+  const { theme: { colors } } = useTheme()
 
   const styles = StyleSheet.create({
     container: {
