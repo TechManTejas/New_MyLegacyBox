@@ -16,24 +16,17 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 LogBox.ignoreLogs(["Remote debugger"]);
 ExpoSplashScreen.preventAutoHideAsync().catch(console.warn);
 
-import BiometricAuthScreen from "./screens/BiometricAuthScreen";
 import { authenticateAsync } from "expo-local-authentication";
 
 function App() {
 
-  const [isBioAuthenticated, setIsBioAuthenticated] = useState(false)
-
-  const handleBiometricAuth = async () => {
-      const res = await authenticateAsync({ promptMessage: "Authenticate" })
-      if (res.error == "user_cancel") BackHandler.exitApp()
-      setIsBioAuthenticated(res.success)
-  }
-
   useEffect(() => {
 
-    const handleAppStateChange = (nextAppState) => {
-      if (nextAppState === 'background') setIsBioAuthenticated(false)
-      if (nextAppState == 'active') handleBiometricAuth()
+    const handleAppStateChange = async (nextAppState) => {
+      if (nextAppState == 'active') {
+        const res = await authenticateAsync({ promptMessage: "Authenticate" })
+        if (!res.success) BackHandler.exitApp()
+      }
     }
 
     AppState.addEventListener('change', handleAppStateChange);
@@ -50,7 +43,7 @@ function App() {
           <AuthProvider>
             <SplashScreen>
               <SafeAreaProvider>
-                { (!isBioAuthenticated) ? <BiometricAuthScreen /> : <RootNavigation /> }
+                <RootNavigation /> 
               </SafeAreaProvider>
             </SplashScreen>
           </AuthProvider>
