@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 
 import { AppState, BackHandler, LogBox } from "react-native";
 import * as ExpoSplashScreen from "expo-splash-screen";
@@ -25,7 +25,7 @@ function App() {
     const handleAppStateChange = async (nextAppState) => {
       if (nextAppState == 'active') {
         const res = await authenticateAsync({ promptMessage: "Authenticate" })
-        if (!res.success) BackHandler.exitApp()
+        if (res.error == "user_cancel") BackHandler.exitApp()
       }
     }
 

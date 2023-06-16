@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Pressable, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useTheme } from "../../theme/ThemeProvider";
 import { useNavigation } from "@react-navigation/native";
 import { SCREEN_NAMES } from "../../constants/screenNames";
@@ -12,10 +12,13 @@ import {
     getDeclarationSelector
 } from "../../services/willForm/willFormSlice";
 import { useSelector } from "react-redux";
+import FontAwesome from "@expo/vector-icons/FontAwesome";
+import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
+import BlueButton from "../../components/Common/Button/BlueButton";
 
 const WillInfoScreen = () => {
 
-    const { theme: { spacing, colors, fontSize } } = useTheme()
+    const { theme: { spacing, colors, fontSize, fontFamily } } = useTheme()
 
     const personalInfo = useSelector((state) => getPersonalInfoSelector(state))
     const witnesses = useSelector((state) => getWitnessesSelector(state))
@@ -25,59 +28,65 @@ const WillInfoScreen = () => {
     const assetsDistribution = useSelector((state) => getAssetsSelector(state))
     const declarationInfo = useSelector((state) => getDeclarationSelector(state))
 
+    const witnessValues = witnesses[witnesses.length] ? witnesses[witnesses.length] : {}
+    const executorValues = executors[executors.length] ? executors[executors.length] : {}
+
     const navigator = useNavigation()
 
     const styles = StyleSheet.create({
 
         enabledbutton: {
-            padding: spacing.lg,
-            margin: spacing.sm,
+            padding: spacing.sm,
+            paddingHorizontal: spacing.md,
             borderRadius: 10,
-            borderColor: colors.blue600,
-            borderWidth: 0.5
+            borderColor: colors.black400,
+            borderWidth: 0.5,
+            marginTop: spacing.sm
         },
         enabledtext: {
             color: colors.blue600,
             fontSize: fontSize.lg,
-            fontWeight: "700"
+            fontFamily: fontFamily.semiBold
         },
         enabledsubtext: {
-            color: colors.blue600,
+            color: colors.black400,
             fontSize: fontSize.sm,
-            paddingTop: 5
+            fontFamily: fontFamily.regular
         },
 
         disabledbutton: {
-            padding: spacing.lg,
-            margin: spacing.sm,
+            padding: spacing.sm,
+            paddingHorizontal: spacing.md,
             borderRadius: 10,
-            borderColor: colors.black300,
-            borderWidth: 0.5
+            borderColor: colors.black400,
+            borderWidth: 0.5,
+            marginTop: spacing.sm
         },
         disabledtext: {
-            color: colors.black300,
+            color: colors.black400,
             fontSize: fontSize.lg,
-            fontWeight: "700"
+            fontFamily: fontFamily.semiBold
         },
         disabledsubtext: {
-            color: colors.black300,
+            color: colors.black400,
             fontSize: fontSize.sm,
-            paddingTop: 5
+            fontFamily: fontFamily.regular
         },
 
         generatebtntext: {
-            fontWeight: "700",
-            textAlign : "center"
+            textAlign : "center",
+            fontFamily: fontFamily.semiBold,
         },
 
         section: {
             paddingVertical: spacing.lg,
-            borderWidth: 1,
-            borderColor: colors.black200
+            borderBottomWidth: 1,
+            borderBottomColor: colors.black200,
+            marginHorizontal: spacing.lg
         },
         sectiontitle: {
             marginHorizontal: spacing.md,
-            fontWeight: "700",
+            fontFamily: fontFamily.semiBold,
             fontSize: fontSize.xl          
         },
 
@@ -88,19 +97,50 @@ const WillInfoScreen = () => {
             justifyContent: "space-between"
         },
         allocperson: {
-            fontWeight: "500"
+            fontFamily: fontFamily.semiBold
         },
         allocpercent: {
-            fontWeight: "500"
+            fontFamily: fontFamily.semiBold
         },
 
         warning: {
             color: colors.red700,
             fontSize: fontSize.sm,
-            paddingTop: 5
-        }
+            paddingTop: 5,
+            fontFamily: fontFamily.regular
+        },
+
+        icon: {
+            fontSize: fontSize.xl,
+            color: colors.green600,
+        },
+        iconspace: {
+            marginRight: spacing.xl
+        },
+
+        editblock: {
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between"
+        },
+        editbutton: {
+            paddingVertical: spacing.sm,
+            paddingHorizontal: spacing.md,
+            borderTopLeftRadius: spacing.sm,
+            borderBottomRightRadius: spacing.sm,
+            backgroundColor: colors.white500,
+          },
+        editbuttonText: {
+            color: colors.blue,
+        },
 
     })
+
+    const TickIcon = <FontAwesome name="check-circle" size={styles.icon.fontSize} color={styles.icon.color} /> 
+
+    const getPressHandler = (screenName, initialValues, index) => {
+        navigator.navigate(screenName, { initialValues, index })
+    }
     
     return (
         <ScrollView>
@@ -108,8 +148,7 @@ const WillInfoScreen = () => {
             {/* Testator Information Section */}
             <View style={styles.section}>
                 <Text style={styles.sectiontitle}>
-                    Testator Information 
-                    {Object.keys(personalInfo).length != 0 ? ' ✔️' : '' }
+                    <Text>Testator Information </Text> {(Object.keys(personalInfo).length != 0) && TickIcon}
                 </Text>
                 <TouchableOpacity style={styles.enabledbutton} onPress={() => navigator.navigate(SCREEN_NAMES.willPersonalInfoScreen)}>
                     <Text style={styles.enabledtext}>Add Testator Information</Text> 
@@ -120,13 +159,12 @@ const WillInfoScreen = () => {
             {/* Beneficiaries Section */}
             <View style={styles.section}>
                 <Text style={styles.sectiontitle}>
-                    Beneficiaries
-                    { beneficiaries.length >= 1  ? ' ✔️' : '' }
+                    <Text>Beneficiaries</Text> {( beneficiaries.length >= 1) && TickIcon}
                 </Text>
                 <TouchableOpacity 
                     disabled={Object.keys(personalInfo).length == 0 ? true : false }
                     style={Object.keys(personalInfo).length == 0 ? styles.disabledbutton : styles.enabledbutton }
-                    onPress={() => navigator.navigate(SCREEN_NAMES.willBeneficiariesScreen)}
+                    onPress={()=>getPressHandler(SCREEN_NAMES.willBeneficiaryInfoScreen, {}, undefined)}
                 >
                     <Text style={Object.keys(personalInfo).length == 0 ? styles.disabledtext : styles.enabledtext }>
                         Add Beneficiary
@@ -141,6 +179,17 @@ const WillInfoScreen = () => {
                             <TouchableOpacity key={index} disabled style={styles.disabledbutton}>
                                 <Text style={styles.disabledtext}>{item.name}</Text> 
                                 <Text style={styles.disabledsubtext}>{item.relationshipWithTestator}</Text>
+                                <View style={styles.editblock}>
+                                    <Text></Text>
+                                    <Pressable 
+                                        onPress={()=>getPressHandler(SCREEN_NAMES.willBeneficiaryInfoScreen, item, index)} 
+                                        style={styles.editbutton}
+                                    >
+                                        <Text style={styles.editbuttonText}>
+                                        Edit <FontAwesome5 name="edit" color={styles.editbuttonText.color} />
+                                        </Text>
+                                    </Pressable>
+                                </View>
                             </TouchableOpacity>
                         )
                     })
@@ -150,23 +199,25 @@ const WillInfoScreen = () => {
             {/* Witnesses Section */}
             <View style={styles.section}>
                 <Text style={styles.sectiontitle}>
-                    Witnesses ({witnesses.length}/2)
-                    { witnesses.length == 2  ? ' ✔️' : '' }
+                    <Text>Witnesses ({witnesses.length}/2)</Text> {(witnesses.length == 2)  && TickIcon}
                 </Text>
                 <TouchableOpacity 
-                    disabled={beneficiaries.length < 1 ? true : false }
-                    style={beneficiaries.length < 1 ? styles.disabledbutton : styles.enabledbutton} 
-                    onPress={() => navigator.navigate(SCREEN_NAMES.willWitnessesScreen)}
+                    disabled={beneficiaries.length < 1 || witnesses.length == 2 ? true : false }
+                    style={beneficiaries.length < 1 || witnesses.length == 2 ? styles.disabledbutton : styles.enabledbutton} 
+                    onPress={()=>getPressHandler(SCREEN_NAMES.willWitnessInfoScreen, witnessValues, undefined)}
                 >
-                    <Text style={beneficiaries.length < 1 ? styles.disabledtext : styles.enabledtext}>
+                    <Text style={beneficiaries.length < 1 || witnesses.length == 2 ? styles.disabledtext : styles.enabledtext}>
                         Add Witness
                     </Text> 
-                    <Text style={beneficiaries.length < 1 ? styles.disabledsubtext : styles.enabledsubtext}>
+                    <Text style={beneficiaries.length < 1 || witnesses.length == 2 ? styles.disabledsubtext : styles.enabledsubtext}>
                         It is mandatory to add two witnesses
                     </Text>
-                    <Text style={styles.warning}>
-                        Warning: Beneficiaries and Witnesses should be different individuals
-                    </Text>
+                    {
+                        witnesses.length != 2 && 
+                        <Text style={styles.warning}>
+                            Warning: Beneficiaries and Witnesses should be different individuals
+                        </Text> 
+                    }
                 </TouchableOpacity>
                 {
                     witnesses.map((item, index) => {
@@ -174,6 +225,17 @@ const WillInfoScreen = () => {
                             <TouchableOpacity key={index} disabled style={styles.disabledbutton}>
                                 <Text style={styles.disabledtext}>{item.name}</Text> 
                                 <Text style={styles.disabledsubtext}>{item.relationshipWithTestator}</Text>
+                                <View style={styles.editblock}>
+                                    <Text></Text>
+                                    <Pressable 
+                                        onPress={()=>getPressHandler(SCREEN_NAMES.willWitnessInfoScreen, witnesses[index], index)}
+                                        style={styles.editbutton}
+                                    >
+                                        <Text style={styles.editbuttonText}>
+                                        Edit <FontAwesome5 name="edit" color={styles.editbuttonText.color} />
+                                        </Text>
+                                    </Pressable>
+                                </View>
                             </TouchableOpacity>
                         )
                     })
@@ -183,8 +245,7 @@ const WillInfoScreen = () => {
             {/* Assets Section */}
             <View style={styles.section}>
                 <Text style={styles.sectiontitle}>
-                    Assets
-                    { assets.length >= 1  ? ' ✔️' : '' }
+                    <Text>Assets</Text> {(assets.length >= 1) && TickIcon}
                 </Text>
                 <TouchableOpacity 
                     disabled={witnesses.length != 2 ? true : false}
@@ -203,8 +264,7 @@ const WillInfoScreen = () => {
             {/* Asset Allocation Section */}
             <View style={styles.section}>
                 <Text style={styles.sectiontitle}>
-                    Asset Allocation
-                    {assetsDistribution.length > 0 ? " ✔️" : ""}
+                    <Text>Asset Allocation</Text> {(assetsDistribution.length > 0) && TickIcon}
                 </Text>
                 <TouchableOpacity 
                     disabled={assets.length < 1 ? true : false}
@@ -222,7 +282,7 @@ const WillInfoScreen = () => {
                     assetsDistribution.map((item, index) => {
                         return (
                             <TouchableOpacity key={index} disabled style={styles.disabledbutton}>
-                                <Text style={styles.disabledtext}>{item.section}</Text> 
+                                <Text style={styles.disabledtext}>{item.itemTitle}</Text> 
                                 {
                                     Object.entries(item.allocations).map(([key, val], idx) => {
                                         return (
@@ -242,12 +302,25 @@ const WillInfoScreen = () => {
             {/* Executor Optional Section */}
             <View style={styles.section}>
                 <Text style={styles.sectiontitle}>
-                    Executor ({executors.length}/2) (optional)
-                    { executors.length == 2  ? ' ✔️' : '' }
+                    <Text>Executor ({executors.length}/2) (optional)</Text> {(executors.length == 2) && TickIcon}
                 </Text>
-                <TouchableOpacity style={styles.enabledbutton} onPress={() => navigator.navigate(SCREEN_NAMES.willExecutorScreen)}>
-                    <Text style={styles.enabledtext}>Add Witness</Text> 
-                    <Text style={styles.enabledsubtext}>It is mandatory to add two witnesses</Text>
+                <TouchableOpacity 
+                    disabled={executors.length == 2 ? true: false}
+                    style={executors.length == 2 ? styles.disabledbutton : styles.enabledbutton} 
+                    onPress={()=>getPressHandler(SCREEN_NAMES.willExecutorInfoScreen, executorValues, undefined)}
+                >
+                    <Text style={executors.length == 2 ? styles.disabledtext : styles.enabledtext} >
+                        Add Witness
+                    </Text> 
+                    <Text style={executors.length == 2 ? styles.disabledsubtext : styles.enabledsubtext}>
+                        It is mandatory to add two witnesses
+                    </Text>
+                    {
+                        (executors.length != 2) && 
+                        <Text style={styles.warning}>
+                            Warning: Beneficiaries, Witnesses and Executors should be different individuals.
+                        </Text>
+                    }
                 </TouchableOpacity>
                 {
                     executors.map((item, index) => {
@@ -255,6 +328,17 @@ const WillInfoScreen = () => {
                             <TouchableOpacity key={index} disabled style={styles.disabledbutton}>
                                 <Text style={styles.disabledtext}>{item.name}</Text> 
                                 <Text style={styles.disabledsubtext}>{item.relationshipWithTestator}</Text>
+                                <View style={styles.editblock}>
+                                    <Text></Text>
+                                    <Pressable 
+                                        onPress={()=>getPressHandler(SCREEN_NAMES.willExecutorInfoScreen, executors[index], index)}
+                                        style={styles.editbutton}
+                                    >
+                                        <Text style={styles.editbuttonText}>
+                                        Edit <FontAwesome5 name="edit" color={styles.editbuttonText.color} />
+                                        </Text>
+                                    </Pressable>
+                                </View>
                             </TouchableOpacity>
                         )
                     })
@@ -264,12 +348,11 @@ const WillInfoScreen = () => {
             {/* Declaration Section */}
             <View style={styles.section}>
                 <Text style={styles.sectiontitle}>
-                    Declaration
-                    { declarationInfo.declaration != '' ? ' ✔️' : '' }
+                    <Text>Declaration</Text> {(declarationInfo.declaration != '') && TickIcon}
                 </Text>
                 <TouchableOpacity 
                     disabled={assetsDistribution.length < 1 ? true : false}
-                    style={assetsDistribution.length < 1 ? styles.disabledbutton : styles.enabledbutton}
+                    style={[assetsDistribution.length < 1 ? styles.disabledbutton : styles.enabledbutton, { marginBottom: spacing.lg }]}
                     onPress={() => navigator.navigate(SCREEN_NAMES.willDeclarationScreen)}
                 >
                     <Text style={assetsDistribution.length < 1 ? styles.disabledtext : styles.enabledtext}>
@@ -279,15 +362,11 @@ const WillInfoScreen = () => {
                         Without declaration will wont be created
                     </Text>
                 </TouchableOpacity>
-                <TouchableOpacity
-                    onPress={() => navigator.navigate(SCREEN_NAMES.willGenerationScreen)}
+                <BlueButton 
                     disabled={ declarationInfo.declaration != '' ? false : true }
-                    style={ declarationInfo.declaration != '' ? styles.enabledbutton : styles.disabledbutton }
-                >
-                    <Text style={[declarationInfo.declaration != '' ? styles.enabledtext : styles.disabledtext, styles.generatebtntext ]}>
-                        GENERATE WILL
-                    </Text>
-                </TouchableOpacity>
+                    title="GENERATE WILL"
+                    onPress={() => navigator.navigate(SCREEN_NAMES.willGenerationScreen)} 
+                />
             </View>
 
         </ScrollView>
