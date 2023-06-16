@@ -36,8 +36,8 @@ const WillInfoScreen = () => {
     const styles = StyleSheet.create({
 
         enabledbutton: {
-            padding: spacing.sm,
-            paddingHorizontal: spacing.md,
+            padding: spacing.xs,
+            paddingHorizontal: spacing.sm,
             borderRadius: 10,
             borderColor: colors.black400,
             borderWidth: 0.5,
@@ -186,7 +186,7 @@ const WillInfoScreen = () => {
                                         style={styles.editbutton}
                                     >
                                         <Text style={styles.editbuttonText}>
-                                        Edit <FontAwesome5 name="edit" color={styles.editbuttonText.color} />
+                                            <FontAwesome5 name="edit" color={styles.editbuttonText.color} />
                                         </Text>
                                     </Pressable>
                                 </View>
@@ -232,7 +232,7 @@ const WillInfoScreen = () => {
                                         style={styles.editbutton}
                                     >
                                         <Text style={styles.editbuttonText}>
-                                        Edit <FontAwesome5 name="edit" color={styles.editbuttonText.color} />
+                                        <FontAwesome5 name="edit" color={styles.editbuttonText.color} />
                                         </Text>
                                     </Pressable>
                                 </View>
@@ -335,7 +335,7 @@ const WillInfoScreen = () => {
                                         style={styles.editbutton}
                                     >
                                         <Text style={styles.editbuttonText}>
-                                        Edit <FontAwesome5 name="edit" color={styles.editbuttonText.color} />
+                                            <FontAwesome5 name="edit" color={styles.editbuttonText.color} />
                                         </Text>
                                     </Pressable>
                                 </View>
