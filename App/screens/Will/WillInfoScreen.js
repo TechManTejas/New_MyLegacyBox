@@ -39,7 +39,7 @@ const WillInfoScreen = () => {
             padding: spacing.sm,
             paddingHorizontal: spacing.md,
             borderRadius: 10,
-            borderColor: colors.black400,
+            borderColor: colors.black200,
             borderWidth: 0.5,
             marginTop: spacing.sm
         },
@@ -120,12 +120,6 @@ const WillInfoScreen = () => {
             marginRight: spacing.xl
         },
 
-        editblock: {
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-between"
-        },
-
         penicon: {
             fontSize: fontSize.default,
             color: colors.blue400
@@ -135,7 +129,13 @@ const WillInfoScreen = () => {
             display: "flex",
             flexDirection: "row",
             alignItems: "center",
-            justifyContent: "space-between"
+            justifyContent: "space-between",
+            borderColor: colors.blue300,
+            backgroundColor: colors.blue100
+        },
+        displaycardtext: {
+            color: colors.blue600,
+            
         }
 
     })
@@ -183,8 +183,8 @@ const WillInfoScreen = () => {
                         return (
                             <TouchableOpacity key={index} disabled style={[ styles.disabledbutton, styles.displaycards ]}>
                                 <View>
-                                    <Text style={styles.disabledtext}>{item.name}</Text>
-                                    <Text style={styles.disabledsubtext}>{item.relationshipWithTestator}</Text>
+                                    <Text style={[styles.disabledtext, styles.displaycardtext]}>{item.name}</Text>
+                                    <Text style={[styles.disabledsubtext, styles.displaycardtext]}>{item.relationshipWithTestator}</Text>
                                 </View>
                                 <Pressable onPress={() => getPressHandler(SCREEN_NAMES.willBeneficiaryInfoScreen, item, index)}>
                                     { PenIcon }
@@ -223,8 +223,8 @@ const WillInfoScreen = () => {
                         return (
                             <TouchableOpacity key={index} disabled style={[ styles.disabledbutton, styles.displaycards ]}>
                                 <View>
-                                    <Text style={styles.disabledtext}>{item.name}</Text>
-                                    <Text style={styles.disabledsubtext}>{item.relationshipWithTestator}</Text>
+                                    <Text style={[styles.disabledtext, styles.displaycardtext]}>{item.name}</Text>
+                                    <Text style={[styles.disabledsubtext, styles.displaycardtext]}>{item.relationshipWithTestator}</Text>
                                 </View>
                                 <Pressable onPress={() => getPressHandler(SCREEN_NAMES.willWitnessInfoScreen, witnesses[index], index)}>
                                     { PenIcon }
@@ -320,8 +320,8 @@ const WillInfoScreen = () => {
                         return (
                             <TouchableOpacity key={index} disabled style={[ styles.disabledbutton, styles.displaycards ]}>
                                 <View>
-                                    <Text style={styles.disabledtext}>{item.name}</Text>
-                                    <Text style={styles.disabledsubtext}>{item.relationshipWithTestator}</Text>
+                                    <Text style={[styles.disabledtext, styles.displaycardtext]}>{item.name}</Text>
+                                    <Text style={[styles.disabledsubtext, styles.displaycardtext]}>{item.relationshipWithTestator}</Text>
                                 </View>
                                 <Pressable onPress={() => getPressHandler(SCREEN_NAMES.willExecutorInfoScreen, executors[index], index)}>
                                     { PenIcon }
