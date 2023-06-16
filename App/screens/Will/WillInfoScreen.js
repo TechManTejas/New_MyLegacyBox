@@ -39,9 +39,10 @@ const WillInfoScreen = () => {
             padding: spacing.sm,
             paddingHorizontal: spacing.md,
             borderRadius: 10,
-            borderColor: colors.black200,
+            borderColor: colors.blue400,
             borderWidth: 0.5,
-            marginTop: spacing.sm
+            marginTop: spacing.sm,
+            backgroundColor: colors.blue100
         },
         enabledtext: {
             color: colors.blue600,
@@ -50,7 +51,7 @@ const WillInfoScreen = () => {
             lineHeight: spacing.xl
         },
         enabledsubtext: {
-            color: colors.black400,
+            color: colors.blue500,
             fontSize: fontSize.md,
             fontFamily: fontFamily.regular
         },
@@ -59,9 +60,9 @@ const WillInfoScreen = () => {
             padding: spacing.sm,
             paddingHorizontal: spacing.md,
             borderRadius: 10,
-            borderColor: colors.black400,
+            borderColor: colors.black200,
             borderWidth: 0.5,
-            marginTop: spacing.sm
+            marginTop: spacing.sm,
         },
         disabledtext: {
             color: colors.black400,
@@ -73,6 +74,9 @@ const WillInfoScreen = () => {
             color: colors.black400,
             fontSize: fontSize.md,
             fontFamily: fontFamily.regular,
+        },
+        noncard: {
+            backgroundColor: colors.black200
         },
 
         generatebtntext: {
@@ -130,12 +134,7 @@ const WillInfoScreen = () => {
             flexDirection: "row",
             alignItems: "center",
             justifyContent: "space-between",
-            borderColor: colors.blue300,
-            backgroundColor: colors.blue100
-        },
-        displaycardtext: {
-            color: colors.blue600,
-            
+            borderColor: colors.black200,
         }
 
     })
@@ -168,7 +167,7 @@ const WillInfoScreen = () => {
                 </Text>
                 <TouchableOpacity
                     disabled={Object.keys(personalInfo).length == 0 ? true : false}
-                    style={Object.keys(personalInfo).length == 0 ? styles.disabledbutton : styles.enabledbutton}
+                    style={Object.keys(personalInfo).length == 0 ? [styles.disabledbutton, styles.noncard] : styles.enabledbutton}
                     onPress={() => getPressHandler(SCREEN_NAMES.willBeneficiaryInfoScreen, {}, undefined)}
                 >
                     <Text style={Object.keys(personalInfo).length == 0 ? styles.disabledtext : styles.enabledtext}>
@@ -183,8 +182,8 @@ const WillInfoScreen = () => {
                         return (
                             <TouchableOpacity key={index} disabled style={[ styles.disabledbutton, styles.displaycards ]}>
                                 <View>
-                                    <Text style={[styles.disabledtext, styles.displaycardtext]}>{item.name}</Text>
-                                    <Text style={[styles.disabledsubtext, styles.displaycardtext]}>{item.relationshipWithTestator}</Text>
+                                    <Text style={styles.disabledtext}>{item.name}</Text>
+                                    <Text style={styles.disabledsubtext}>{item.relationshipWithTestator}</Text>
                                 </View>
                                 <Pressable onPress={() => getPressHandler(SCREEN_NAMES.willBeneficiaryInfoScreen, item, index)}>
                                     { PenIcon }
@@ -202,7 +201,7 @@ const WillInfoScreen = () => {
                 </Text>
                 <TouchableOpacity
                     disabled={beneficiaries.length < 1 || witnesses.length == 2 ? true : false}
-                    style={beneficiaries.length < 1 || witnesses.length == 2 ? styles.disabledbutton : styles.enabledbutton}
+                    style={beneficiaries.length < 1 || witnesses.length == 2 ? [styles.disabledbutton, styles.noncard] : styles.enabledbutton}
                     onPress={() => getPressHandler(SCREEN_NAMES.willWitnessInfoScreen, witnessValues, undefined)}
                 >
                     <Text style={beneficiaries.length < 1 || witnesses.length == 2 ? styles.disabledtext : styles.enabledtext}>
@@ -223,8 +222,8 @@ const WillInfoScreen = () => {
                         return (
                             <TouchableOpacity key={index} disabled style={[ styles.disabledbutton, styles.displaycards ]}>
                                 <View>
-                                    <Text style={[styles.disabledtext, styles.displaycardtext]}>{item.name}</Text>
-                                    <Text style={[styles.disabledsubtext, styles.displaycardtext]}>{item.relationshipWithTestator}</Text>
+                                    <Text style={styles.disabledtext}>{item.name}</Text>
+                                    <Text style={styles.disabledsubtext}>{item.relationshipWithTestator}</Text>
                                 </View>
                                 <Pressable onPress={() => getPressHandler(SCREEN_NAMES.willWitnessInfoScreen, witnesses[index], index)}>
                                     { PenIcon }
@@ -242,7 +241,7 @@ const WillInfoScreen = () => {
                 </Text>
                 <TouchableOpacity
                     disabled={witnesses.length != 2 ? true : false}
-                    style={witnesses.length != 2 ? styles.disabledbutton : styles.enabledbutton}
+                    style={witnesses.length != 2 ? [styles.disabledbutton, styles.noncard] : styles.enabledbutton}
                     onPress={() => navigator.navigate(SCREEN_NAMES.willAssetsScreen)}
                 >
                     <Text style={witnesses.length != 2 ? styles.disabledtext : styles.enabledtext}>
@@ -261,7 +260,7 @@ const WillInfoScreen = () => {
                 </Text>
                 <TouchableOpacity
                     disabled={assets.length < 1 ? true : false}
-                    style={assets.length < 1 ? styles.disabledbutton : styles.enabledbutton}
+                    style={assets.length < 1 ? [styles.disabledbutton, styles.noncard] : styles.enabledbutton}
                     onPress={() => navigator.navigate(SCREEN_NAMES.willAssetInfoScreen)}
                 >
                     <Text style={assets.length < 1 ? styles.disabledtext : styles.enabledtext}>
@@ -320,8 +319,8 @@ const WillInfoScreen = () => {
                         return (
                             <TouchableOpacity key={index} disabled style={[ styles.disabledbutton, styles.displaycards ]}>
                                 <View>
-                                    <Text style={[styles.disabledtext, styles.displaycardtext]}>{item.name}</Text>
-                                    <Text style={[styles.disabledsubtext, styles.displaycardtext]}>{item.relationshipWithTestator}</Text>
+                                    <Text style={styles.disabledtext}>{item.name}</Text>
+                                    <Text style={styles.disabledsubtext}>{item.relationshipWithTestator}</Text>
                                 </View>
                                 <Pressable onPress={() => getPressHandler(SCREEN_NAMES.willExecutorInfoScreen, executors[index], index)}>
                                     { PenIcon }
@@ -339,7 +338,10 @@ const WillInfoScreen = () => {
                 </Text>
                 <TouchableOpacity
                     disabled={assetsDistribution.length < 1 ? true : false}
-                    style={[assetsDistribution.length < 1 ? styles.disabledbutton : styles.enabledbutton, { marginBottom: spacing.lg }]}
+                    style={[assetsDistribution.length < 1 ? 
+                        [styles.disabledbutton, styles.noncard] : 
+                        styles.enabledbutton, { marginBottom: spacing.lg }
+                    ]}
                     onPress={() => navigator.navigate(SCREEN_NAMES.willDeclarationScreen)}
                 >
                     <Text style={assetsDistribution.length < 1 ? styles.disabledtext : styles.enabledtext}>
