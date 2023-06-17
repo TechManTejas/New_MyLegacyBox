@@ -297,7 +297,8 @@ const InsuranceForm = ({ ctaCaption, defaultBody, apiCallback, isLoading, initia
                   />
                 </View>
               </View>
-              <CustomInputGroup
+
+              {/* <CustomInputGroup
                 name="address.street"
                 placeholder="Enter street"
                 title="Street"
@@ -316,7 +317,31 @@ const InsuranceForm = ({ ctaCaption, defaultBody, apiCallback, isLoading, initia
                     : undefined
                 }
                 textTransformNormal
-              />
+              /> */}
+
+<CustomInputGroup
+                    name="address.street"
+                    placeholder="Enter street"
+                    title="Street"
+                    onChange={handleChange("address.street")}
+                    onBlur={handleBlur("address.street")}
+                    value={values.address.street}
+                    textContentType="fullStreetAddress"
+                    messages={
+                      customErrors.address?.street
+                        ? [
+                            {
+                              id: "address.street",
+                              text: customErrors.address?.street,
+                            },
+                          ]
+                        : undefined
+                    }
+                    multiline
+                    numberOfLines={10}
+                    textTransformNormal
+                  />
+
               <BlueButton
                 disabled={isLoading}
                 title={ctaCaption}

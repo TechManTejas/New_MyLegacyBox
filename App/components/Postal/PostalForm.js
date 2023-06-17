@@ -238,17 +238,18 @@ const PostalForm = ({ ctaCaption, defaultBody, apiCallback, isLoading, initialVa
                     messages={
                       customErrors.address?.city
                         ? [
-                            {
-                              id: "address.city",
-                              text: customErrors.address?.city,
-                            },
-                          ]
+                          {
+                            id: "address.city",
+                            text: customErrors.address?.city,
+                          },
+                        ]
                         : undefined
                     }
                   />
                 </View>
+
                 <View style={[styles.fullWidth, styles.leftPadded]}>
-                  <CustomInputGroup
+                  {/* <CustomInputGroup
                     name="address.state"
                     placeholder="Enter state"
                     title="State"
@@ -266,8 +267,31 @@ const PostalForm = ({ ctaCaption, defaultBody, apiCallback, isLoading, initialVa
                           ]
                         : undefined
                     }
+                  /> */}
+                  <CustomInputGroup
+                    name="address.street"
+                    placeholder="Enter street"
+                    title="Street"
+                    onChange={handleChange("address.street")}
+                    onBlur={handleBlur("address.street")}
+                    value={values.address.street}
+                    textContentType="fullStreetAddress"
+                    messages={
+                      customErrors.address?.street
+                        ? [
+                          {
+                            id: "address.street",
+                            text: customErrors.address?.street,
+                          },
+                        ]
+                        : undefined
+                    }
+                    multiline
+                    numberOfLines={10}
+                    textTransformNormal
                   />
                 </View>
+
               </View>
               <View style={styles.row}>
                 <View style={styles.fullWidth}>
@@ -276,7 +300,7 @@ const PostalForm = ({ ctaCaption, defaultBody, apiCallback, isLoading, initialVa
                     placeholder="Enter PIN code"
                     title="PIN Code"
                     onChangeText={(value) => {
-                      if (value==" " || value=="") setFieldValue("address.pinCode", "")
+                      if (value == " " || value == "") setFieldValue("address.pinCode", "")
                       else if (!isNaN(value)) setFieldValue("address.pinCode", + value)
                     }}
                     onBlur={handleBlur("address.pinCode")}
@@ -285,11 +309,11 @@ const PostalForm = ({ ctaCaption, defaultBody, apiCallback, isLoading, initialVa
                     messages={
                       customErrors.address?.pinCode
                         ? [
-                            {
-                              id: "address.pinCode",
-                              text: customErrors.address?.pinCode,
-                            },
-                          ]
+                          {
+                            id: "address.pinCode",
+                            text: customErrors.address?.pinCode,
+                          },
+                        ]
                         : undefined
                     }
                     textTransformNormal
@@ -307,11 +331,11 @@ const PostalForm = ({ ctaCaption, defaultBody, apiCallback, isLoading, initialVa
                     messages={
                       customErrors.address?.country
                         ? [
-                            {
-                              id: "address.country",
-                              text: customErrors.address?.country,
-                            },
-                          ]
+                          {
+                            id: "address.country",
+                            text: customErrors.address?.country,
+                          },
+                        ]
                         : undefined
                     }
                     optional
@@ -329,11 +353,11 @@ const PostalForm = ({ ctaCaption, defaultBody, apiCallback, isLoading, initialVa
                 messages={
                   customErrors.address?.street
                     ? [
-                        {
-                          id: "address.street",
-                          text: customErrors.address?.street,
-                        },
-                      ]
+                      {
+                        id: "address.street",
+                        text: customErrors.address?.street,
+                      },
+                    ]
                     : undefined
                 }
                 textTransformNormal

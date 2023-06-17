@@ -175,11 +175,11 @@ const NomineeForm = ({ ctaCaption, defaultBody, apiCallback, isLoading, initialV
                 messages={
                   customErrors.gender
                     ? [
-                        {
-                          id: "gender",
-                          text: customErrors.gender,
-                        },
-                      ]
+                      {
+                        id: "gender",
+                        text: customErrors.gender,
+                      },
+                    ]
                     : undefined
                 }
                 showSelectedIcon
@@ -196,11 +196,11 @@ const NomineeForm = ({ ctaCaption, defaultBody, apiCallback, isLoading, initialV
                 messages={
                   customErrors.relationship
                     ? [
-                        {
-                          id: "relationship",
-                          text: customErrors.relationship,
-                        },
-                      ]
+                      {
+                        id: "relationship",
+                        text: customErrors.relationship,
+                      },
+                    ]
                     : undefined
                 }
                 showSelectedIcon
@@ -254,11 +254,11 @@ const NomineeForm = ({ ctaCaption, defaultBody, apiCallback, isLoading, initialV
                     messages={
                       customErrors.address?.city
                         ? [
-                            {
-                              id: "address.city",
-                              text: customErrors.address?.city,
-                            },
-                          ]
+                          {
+                            id: "address.city",
+                            text: customErrors.address?.city,
+                          },
+                        ]
                         : undefined
                     }
                   />
@@ -275,11 +275,11 @@ const NomineeForm = ({ ctaCaption, defaultBody, apiCallback, isLoading, initialV
                     messages={
                       customErrors.address?.state
                         ? [
-                            {
-                              id: "address.state",
-                              text: customErrors.address?.state,
-                            },
-                          ]
+                          {
+                            id: "address.state",
+                            text: customErrors.address?.state,
+                          },
+                        ]
                         : undefined
                     }
                   />
@@ -292,7 +292,7 @@ const NomineeForm = ({ ctaCaption, defaultBody, apiCallback, isLoading, initialV
                     placeholder="Enter PIN code"
                     title="PIN Code"
                     onChangeText={(value) => {
-                      if (value==" " || value=="") setFieldValue("address.pinCode", "")
+                      if (value == " " || value == "") setFieldValue("address.pinCode", "")
                       else if (!isNaN(value)) setFieldValue("address.pinCode", + value)
                     }}
                     onBlur={handleBlur("address.pinCode")}
@@ -301,11 +301,11 @@ const NomineeForm = ({ ctaCaption, defaultBody, apiCallback, isLoading, initialV
                     messages={
                       customErrors.address?.pinCode
                         ? [
-                            {
-                              id: "address.pinCode",
-                              text: customErrors.address?.pinCode,
-                            },
-                          ]
+                          {
+                            id: "address.pinCode",
+                            text: customErrors.address?.pinCode,
+                          },
+                        ]
                         : undefined
                     }
                     textTransformNormal
@@ -323,18 +323,19 @@ const NomineeForm = ({ ctaCaption, defaultBody, apiCallback, isLoading, initialV
                     messages={
                       customErrors.address?.country
                         ? [
-                            {
-                              id: "address.country",
-                              text: customErrors.address?.country,
-                            },
-                          ]
+                          {
+                            id: "address.country",
+                            text: customErrors.address?.country,
+                          },
+                        ]
                         : undefined
                     }
                     optional
                   />
                 </View>
               </View>
-              <CustomInputGroup
+
+              {/* <CustomInputGroup
                 name="address.street"
                 placeholder="Enter street"
                 title="Street"
@@ -353,7 +354,31 @@ const NomineeForm = ({ ctaCaption, defaultBody, apiCallback, isLoading, initialV
                     : undefined
                 }
                 textTransformNormal
+              /> */}
+
+              <CustomInputGroup
+                name="address.street"
+                placeholder="Enter street"
+                title="Street"
+                onChange={handleChange("address.street")}
+                onBlur={handleBlur("address.street")}
+                value={values.address.street}
+                textContentType="fullStreetAddress"
+                messages={
+                  customErrors.address?.street
+                    ? [
+                      {
+                        id: "address.street",
+                        text: customErrors.address?.street,
+                      },
+                    ]
+                    : undefined
+                }
+                multiline
+                numberOfLines={10}
+                textTransformNormal
               />
+
               <BlueButton
                 disabled={isLoading}
                 title={ctaCaption}

@@ -68,11 +68,11 @@ const WillWitnessInfoForm = ({ initialValues, defaultBody, index }) => {
     try {
       Object.keys(initialValues).length
         ? dispatch(
-            editWitnessByIndexRedux({
-              witness: { ...cleanedValues, ...defaultBody },
-              index,
-            })
-          )
+          editWitnessByIndexRedux({
+            witness: { ...cleanedValues, ...defaultBody },
+            index,
+          })
+        )
         : dispatch(addWitnessRedux({ ...cleanedValues, ...defaultBody }));
       navigation.goBack();
     } catch (error) {
@@ -189,11 +189,11 @@ const WillWitnessInfoForm = ({ initialValues, defaultBody, index }) => {
                 messages={
                   customErrors.gender
                     ? [
-                        {
-                          id: "gender",
-                          text: customErrors.gender,
-                        },
-                      ]
+                      {
+                        id: "gender",
+                        text: customErrors.gender,
+                      },
+                    ]
                     : undefined
                 }
                 showSelectedIcon
@@ -208,11 +208,11 @@ const WillWitnessInfoForm = ({ initialValues, defaultBody, index }) => {
                 messages={
                   customErrors.relationshipWithTestator
                     ? [
-                        {
-                          id: "relationshipWithTestator",
-                          text: customErrors.relationshipWithTestator,
-                        },
-                      ]
+                      {
+                        id: "relationshipWithTestator",
+                        text: customErrors.relationshipWithTestator,
+                      },
+                    ]
                     : undefined
                 }
                 textTransformNormal
@@ -234,11 +234,11 @@ const WillWitnessInfoForm = ({ initialValues, defaultBody, index }) => {
                     messages={
                       customErrors.address?.city
                         ? [
-                            {
-                              id: "address.city",
-                              text: customErrors.address?.city,
-                            },
-                          ]
+                          {
+                            id: "address.city",
+                            text: customErrors.address?.city,
+                          },
+                        ]
                         : undefined
                     }
                   />
@@ -255,11 +255,11 @@ const WillWitnessInfoForm = ({ initialValues, defaultBody, index }) => {
                     messages={
                       customErrors.address?.state
                         ? [
-                            {
-                              id: "address.state",
-                              text: customErrors.address?.state,
-                            },
-                          ]
+                          {
+                            id: "address.state",
+                            text: customErrors.address?.state,
+                          },
+                        ]
                         : undefined
                     }
                   />
@@ -272,7 +272,7 @@ const WillWitnessInfoForm = ({ initialValues, defaultBody, index }) => {
                     placeholder="Enter PIN code"
                     title="PIN Code"
                     onChangeText={(value) => {
-                      if (value==" " || value=="") setFieldValue("address.pinCode", "")
+                      if (value == " " || value == "") setFieldValue("address.pinCode", "")
                       else if (!isNaN(value)) setFieldValue("address.pinCode", + value)
                     }}
                     onBlur={handleBlur("address.pinCode")}
@@ -281,11 +281,11 @@ const WillWitnessInfoForm = ({ initialValues, defaultBody, index }) => {
                     messages={
                       customErrors.address?.pinCode
                         ? [
-                            {
-                              id: "address.pinCode",
-                              text: customErrors.address?.pinCode,
-                            },
-                          ]
+                          {
+                            id: "address.pinCode",
+                            text: customErrors.address?.pinCode,
+                          },
+                        ]
                         : undefined
                     }
                     textTransformNormal
@@ -303,18 +303,19 @@ const WillWitnessInfoForm = ({ initialValues, defaultBody, index }) => {
                     messages={
                       customErrors.address?.country
                         ? [
-                            {
-                              id: "address.country",
-                              text: customErrors.address?.country,
-                            },
-                          ]
+                          {
+                            id: "address.country",
+                            text: customErrors.address?.country,
+                          },
+                        ]
                         : undefined
                     }
                     optional
                   />
                 </View>
               </View>
-              <CustomInputGroup
+
+              {/* <CustomInputGroup
                 name="address.street"
                 placeholder="Enter street"
                 title="Street"
@@ -333,7 +334,31 @@ const WillWitnessInfoForm = ({ initialValues, defaultBody, index }) => {
                     : undefined
                 }
                 textTransformNormal
+              /> */}
+
+              <CustomInputGroup
+                name="address.street"
+                placeholder="Enter street"
+                title="Street"
+                onChange={handleChange("address.street")}
+                onBlur={handleBlur("address.street")}
+                value={values.address.street}
+                textContentType="fullStreetAddress"
+                messages={
+                  customErrors.address?.street
+                    ? [
+                      {
+                        id: "address.street",
+                        text: customErrors.address?.street,
+                      },
+                    ]
+                    : undefined
+                }
+                multiline
+                numberOfLines={10}
+                textTransformNormal
               />
+
               <BlueButton
                 title={
                   Object.keys(initialValues).length

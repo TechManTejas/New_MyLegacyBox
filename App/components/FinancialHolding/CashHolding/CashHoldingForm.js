@@ -25,7 +25,7 @@ const CashHoldingForm = ({ ctaCaption, defaultBody, apiCallback, isLoading, init
     property: "",
   });
 
-  const { theme: { colors, spacing, fontSize, fontFamily }} = useTheme();
+  const { theme: { colors, spacing, fontSize, fontFamily } } = useTheme();
 
   const customErrorWithValidation = useCallback(({ values, errors }) => {
     let customErrors;
@@ -193,11 +193,11 @@ const CashHoldingForm = ({ ctaCaption, defaultBody, apiCallback, isLoading, init
                 messages={
                   customErrors.nameOfParty
                     ? [
-                        {
-                          id: "nameOfParty",
-                          text: customErrors.nameOfParty,
-                        },
-                      ]
+                      {
+                        id: "nameOfParty",
+                        text: customErrors.nameOfParty,
+                      },
+                    ]
                     : undefined
                 }
                 textTransformNormal
@@ -213,11 +213,11 @@ const CashHoldingForm = ({ ctaCaption, defaultBody, apiCallback, isLoading, init
                 messages={
                   customErrors.phoneNumberOfParty
                     ? [
-                        {
-                          id: "phoneNumberOfParty",
-                          text: customErrors.phoneNumberOfParty,
-                        },
-                      ]
+                      {
+                        id: "phoneNumberOfParty",
+                        text: customErrors.phoneNumberOfParty,
+                      },
+                    ]
                     : undefined
                 }
                 textTransformNormal
@@ -231,11 +231,11 @@ const CashHoldingForm = ({ ctaCaption, defaultBody, apiCallback, isLoading, init
                 messages={
                   customErrors.cashType
                     ? [
-                        {
-                          id: "cashType",
-                          text: customErrors.cashType,
-                        },
-                      ]
+                      {
+                        id: "cashType",
+                        text: customErrors.cashType,
+                      },
+                    ]
                     : undefined
                 }
                 showSelectedIcon
@@ -257,23 +257,23 @@ const CashHoldingForm = ({ ctaCaption, defaultBody, apiCallback, isLoading, init
                 value={
                   values.dateOfTransaction
                     ? new Date(values.dateOfTransaction).toLocaleDateString(
-                        "en-us",
-                        {
-                          year: "numeric",
-                          month: "short",
-                          day: "2-digit",
-                        }
-                      )
+                      "en-us",
+                      {
+                        year: "numeric",
+                        month: "short",
+                        day: "2-digit",
+                      }
+                    )
                     : ""
                 }
                 messages={
                   customErrors.dateOfTransaction
                     ? [
-                        {
-                          id: "dateOfTransaction",
-                          text: customErrors.dateOfTransaction,
-                        },
-                      ]
+                      {
+                        id: "dateOfTransaction",
+                        text: customErrors.dateOfTransaction,
+                      },
+                    ]
                     : undefined
                 }
                 textTransformNormal
@@ -284,7 +284,7 @@ const CashHoldingForm = ({ ctaCaption, defaultBody, apiCallback, isLoading, init
                 placeholder="Enter the Amount"
                 title="Amount (in Rs)"
                 onChange={(value) => {
-                  if (value==" " || value=="") setFieldValue("amount", "")
+                  if (value == " " || value == "") setFieldValue("amount", "")
                   else if (!isNaN(value)) setFieldValue("amount", + value)
                 }}
                 onBlur={handleBlur("amount")}
@@ -292,11 +292,11 @@ const CashHoldingForm = ({ ctaCaption, defaultBody, apiCallback, isLoading, init
                 messages={
                   customErrors.amount
                     ? [
-                        {
-                          id: "amount",
-                          text: customErrors.amount,
-                        },
-                      ]
+                      {
+                        id: "amount",
+                        text: customErrors.amount,
+                      },
+                    ]
                     : undefined
                 }
                 optional
@@ -322,11 +322,11 @@ const CashHoldingForm = ({ ctaCaption, defaultBody, apiCallback, isLoading, init
                     messages={
                       customErrors.address?.city
                         ? [
-                            {
-                              id: "address.city",
-                              text: customErrors.address?.city,
-                            },
-                          ]
+                          {
+                            id: "address.city",
+                            text: customErrors.address?.city,
+                          },
+                        ]
                         : undefined
                     }
                   />
@@ -343,11 +343,11 @@ const CashHoldingForm = ({ ctaCaption, defaultBody, apiCallback, isLoading, init
                     messages={
                       customErrors.address?.state
                         ? [
-                            {
-                              id: "address.state",
-                              text: customErrors.address?.state,
-                            },
-                          ]
+                          {
+                            id: "address.state",
+                            text: customErrors.address?.state,
+                          },
+                        ]
                         : undefined
                     }
                   />
@@ -360,7 +360,7 @@ const CashHoldingForm = ({ ctaCaption, defaultBody, apiCallback, isLoading, init
                     placeholder="Enter PIN code"
                     title="PIN Code"
                     onChangeText={(value) => {
-                      if (value==" " || value=="") return
+                      if (value == " " || value == "") return
                       else if (!isNaN(value)) setFieldValue("address.pinCode", + value)
                     }}
                     onBlur={handleBlur("address.pinCode")}
@@ -369,11 +369,11 @@ const CashHoldingForm = ({ ctaCaption, defaultBody, apiCallback, isLoading, init
                     messages={
                       customErrors.address?.pinCode
                         ? [
-                            {
-                              id: "address.pinCode",
-                              text: customErrors.address?.pinCode,
-                            },
-                          ]
+                          {
+                            id: "address.pinCode",
+                            text: customErrors.address?.pinCode,
+                          },
+                        ]
                         : undefined
                     }
                     textTransformNormal
@@ -391,18 +391,19 @@ const CashHoldingForm = ({ ctaCaption, defaultBody, apiCallback, isLoading, init
                     messages={
                       customErrors.address?.country
                         ? [
-                            {
-                              id: "address.country",
-                              text: customErrors.address?.country,
-                            },
-                          ]
+                          {
+                            id: "address.country",
+                            text: customErrors.address?.country,
+                          },
+                        ]
                         : undefined
                     }
                     optional
                   />
                 </View>
               </View>
-              <CustomInputGroup
+
+              {/* <CustomInputGroup
                 name="address.street"
                 placeholder="Enter street"
                 title="Street"
@@ -421,7 +422,31 @@ const CashHoldingForm = ({ ctaCaption, defaultBody, apiCallback, isLoading, init
                     : undefined
                 }
                 textTransformNormal
+              /> */}
+
+              <CustomInputGroup
+                name="address.street"
+                placeholder="Enter street"
+                title="Street"
+                onChange={handleChange("address.street")}
+                onBlur={handleBlur("address.street")}
+                value={values.address.street}
+                textContentType="fullStreetAddress"
+                messages={
+                  customErrors.address?.street
+                    ? [
+                      {
+                        id: "address.street",
+                        text: customErrors.address?.street,
+                      },
+                    ]
+                    : undefined
+                }
+                multiline
+                numberOfLines={10}
+                textTransformNormal
               />
+
               <View style={styles.buttonContainer}>
                 <BlueButton
                   disabled={isLoading}

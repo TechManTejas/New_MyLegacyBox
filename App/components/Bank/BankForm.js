@@ -250,11 +250,11 @@ const BankForm = ({ ctaCaption, defaultBody, apiCallback, isLoading, initialValu
                     messages={
                       customErrors.address?.city
                         ? [
-                            {
-                              id: "address.city",
-                              text: customErrors.address?.city,
-                            },
-                          ]
+                          {
+                            id: "address.city",
+                            text: customErrors.address?.city,
+                          },
+                        ]
                         : undefined
                     }
                   />
@@ -271,11 +271,11 @@ const BankForm = ({ ctaCaption, defaultBody, apiCallback, isLoading, initialValu
                     messages={
                       customErrors.address?.state
                         ? [
-                            {
-                              id: "address.state",
-                              text: customErrors.address?.state,
-                            },
-                          ]
+                          {
+                            id: "address.state",
+                            text: customErrors.address?.state,
+                          },
+                        ]
                         : undefined
                     }
                   />
@@ -288,7 +288,7 @@ const BankForm = ({ ctaCaption, defaultBody, apiCallback, isLoading, initialValu
                     placeholder="Enter PIN code"
                     title="PIN Code"
                     onChangeText={(value) => {
-                      if (value==" " || value=="") setFieldValue("address.pinCode", "")
+                      if (value == " " || value == "") setFieldValue("address.pinCode", "")
                       else if (!isNaN(value)) setFieldValue("address.pinCode", + value)
                     }}
                     onBlur={handleBlur("address.pinCode")}
@@ -297,11 +297,11 @@ const BankForm = ({ ctaCaption, defaultBody, apiCallback, isLoading, initialValu
                     messages={
                       customErrors.address?.pinCode
                         ? [
-                            {
-                              id: "address.pinCode",
-                              text: customErrors.address?.pinCode,
-                            },
-                          ]
+                          {
+                            id: "address.pinCode",
+                            text: customErrors.address?.pinCode,
+                          },
+                        ]
                         : undefined
                     }
                     textTransformNormal
@@ -319,18 +319,19 @@ const BankForm = ({ ctaCaption, defaultBody, apiCallback, isLoading, initialValu
                     messages={
                       customErrors.address?.country
                         ? [
-                            {
-                              id: "address.country",
-                              text: customErrors.address?.country,
-                            },
-                          ]
+                          {
+                            id: "address.country",
+                            text: customErrors.address?.country,
+                          },
+                        ]
                         : undefined
                     }
                     optional
                   />
                 </View>
               </View>
-              <CustomInputGroup
+
+              {/* <CustomInputGroup
                 name="address.street"
                 placeholder="Enter street"
                 title="Street"
@@ -349,7 +350,31 @@ const BankForm = ({ ctaCaption, defaultBody, apiCallback, isLoading, initialValu
                     : undefined
                 }
                 textTransformNormal
+              /> */}
+
+              <CustomInputGroup
+                name="address.street"
+                placeholder="Enter street"
+                title="Street"
+                onChange={handleChange("address.street")}
+                onBlur={handleBlur("address.street")}
+                value={values.address.street}
+                textContentType="fullStreetAddress"
+                messages={
+                  customErrors.address?.street
+                    ? [
+                      {
+                        id: "address.street",
+                        text: customErrors.address?.street,
+                      },
+                    ]
+                    : undefined
+                }
+                multiline
+                numberOfLines={10}
+                textTransformNormal
               />
+
               <BlueButton
                 disabled={isLoading}
                 title={ctaCaption}
