@@ -249,7 +249,7 @@ const PostalForm = ({ ctaCaption, defaultBody, apiCallback, isLoading, initialVa
                 </View>
 
                 <View style={[styles.fullWidth, styles.leftPadded]}>
-                  {/* <CustomInputGroup
+                  <CustomInputGroup
                     name="address.state"
                     placeholder="Enter state"
                     title="State"
@@ -260,35 +260,13 @@ const PostalForm = ({ ctaCaption, defaultBody, apiCallback, isLoading, initialVa
                     messages={
                       customErrors.address?.state
                         ? [
-                            {
-                              id: "address.state",
-                              text: customErrors.address?.state,
-                            },
-                          ]
-                        : undefined
-                    }
-                  /> */}
-                  <CustomInputGroup
-                    name="address.street"
-                    placeholder="Enter street"
-                    title="Street"
-                    onChange={handleChange("address.street")}
-                    onBlur={handleBlur("address.street")}
-                    value={values.address.street}
-                    textContentType="fullStreetAddress"
-                    messages={
-                      customErrors.address?.street
-                        ? [
                           {
-                            id: "address.street",
-                            text: customErrors.address?.street,
+                            id: "address.state",
+                            text: customErrors.address?.state,
                           },
                         ]
                         : undefined
                     }
-                    multiline
-                    numberOfLines={10}
-                    textTransformNormal
                   />
                 </View>
 
@@ -342,6 +320,26 @@ const PostalForm = ({ ctaCaption, defaultBody, apiCallback, isLoading, initialVa
                   />
                 </View>
               </View>
+              {/* <CustomInputGroup
+                name="address.street"
+                placeholder="Enter street"
+                title="Street"
+                onChange={handleChange("address.street")}
+                onBlur={handleBlur("address.street")}
+                value={values.address.street}
+                textContentType="fullStreetAddress"
+                messages={
+                  customErrors.address?.street
+                    ? [
+                        {
+                          id: "address.street",
+                          text: customErrors.address?.street,
+                        },
+                      ]
+                    : undefined
+                }
+                textTransformNormal
+              /> */}
               <CustomInputGroup
                 name="address.street"
                 placeholder="Enter street"
@@ -360,6 +358,8 @@ const PostalForm = ({ ctaCaption, defaultBody, apiCallback, isLoading, initialVa
                     ]
                     : undefined
                 }
+                multiline
+                numberOfLines={10}
                 textTransformNormal
               />
               <BlueButton
