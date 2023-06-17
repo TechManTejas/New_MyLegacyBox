@@ -16,14 +16,7 @@ import CustomKeyboardAvoidingScrollView from "../../Common/CustomKeyboardAvoidin
 import { cashHoldingValidator } from "../../../utils/form/validators/cashHoldingValidator";
 import { CASH_TYPE_TO_TITLE_MAP } from "../../../constants/financialHoldings/cashHolding";
 
-const CashHoldingForm = ({
-  ctaCaption,
-  defaultBody,
-  apiCallback,
-  isLoading,
-  initialValues,
-  // parentId in default for add
-}) => {
+const CashHoldingForm = ({ ctaCaption, defaultBody, apiCallback, isLoading, initialValues }) => {
   const [customErrors, setCustomErrors] = useState({});
   const [globalErrorMessage, setGlobalErrorMessage] = useState("");
   const navigation = useNavigation();
@@ -32,9 +25,7 @@ const CashHoldingForm = ({
     property: "",
   });
 
-  const {
-    theme: { colors, spacing, fontSize, fontFamily },
-  } = useTheme();
+  const { theme: { colors, spacing, fontSize, fontFamily }} = useTheme();
 
   const customErrorWithValidation = useCallback(({ values, errors }) => {
     let customErrors;
@@ -317,9 +308,6 @@ const CashHoldingForm = ({
 
               <View style={[styles.sectionTitleContainer, styles.row]}>
                 <Text style={styles.sectionTitle}>Address</Text>
-                <Text style={[styles.sectionSubTitle, styles.leftPadded]}>
-                  optional
-                </Text>
               </View>
               <View style={styles.row}>
                 <View style={styles.fullWidth}>
@@ -415,27 +403,6 @@ const CashHoldingForm = ({
                 </View>
               </View>
               <CustomInputGroup
-                name="address.contact"
-                placeholder="Enter contact"
-                title="Contact"
-                onChange={handleChange("address.contact")}
-                onBlur={handleBlur("address.contact")}
-                value={values.address.contact}
-                textContentType="telephoneNumber"
-                messages={
-                  customErrors.address?.contact
-                    ? [
-                        {
-                          id: "address.contact",
-                          text: customErrors.address?.contact,
-                        },
-                      ]
-                    : undefined
-                }
-                optional
-                textTransformNormal
-              />
-              <CustomInputGroup
                 name="address.street"
                 placeholder="Enter street"
                 title="Street"
@@ -455,46 +422,6 @@ const CashHoldingForm = ({
                 }
                 textTransformNormal
               />
-
-              <CustomInputGroup
-                name="address.landmark"
-                placeholder="Enter landmark"
-                title="Landmark"
-                onChange={handleChange("address.landmark")}
-                onBlur={handleBlur("address.landmark")}
-                value={values.address.landmark}
-                messages={
-                  customErrors.address?.landmark
-                    ? [
-                        {
-                          id: "address.landmark",
-                          text: customErrors.address?.landmark,
-                        },
-                      ]
-                    : undefined
-                }
-                optional
-              />
-              <CustomInputGroup
-                name="address.building"
-                placeholder="Enter Building"
-                title="Building"
-                onChange={handleChange("address.building")}
-                onBlur={handleBlur("address.building")}
-                value={values.address.building}
-                messages={
-                  customErrors.address?.building
-                    ? [
-                        {
-                          id: "address.building",
-                          text: customErrors.address?.building,
-                        },
-                      ]
-                    : undefined
-                }
-                optional
-              />
-
               <View style={styles.buttonContainer}>
                 <BlueButton
                   disabled={isLoading}

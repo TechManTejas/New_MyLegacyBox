@@ -336,27 +336,6 @@ const WillExecutorInfoForm = ({ initialValues, defaultBody, index }) => {
                 </View>
               </View>
               <CustomInputGroup
-                name="address.contact"
-                placeholder="Enter contact"
-                title="Contact"
-                onChange={handleChange("address.contact")}
-                onBlur={handleBlur("address.contact")}
-                value={values.address.contact}
-                textContentType="telephoneNumber"
-                messages={
-                  customErrors.address?.contact
-                    ? [
-                        {
-                          id: "address.contact",
-                          text: customErrors.address?.contact,
-                        },
-                      ]
-                    : undefined
-                }
-                optional
-                textTransformNormal
-              />
-              <CustomInputGroup
                 name="address.street"
                 placeholder="Enter street"
                 title="Street"
@@ -375,45 +354,6 @@ const WillExecutorInfoForm = ({ initialValues, defaultBody, index }) => {
                     : undefined
                 }
                 textTransformNormal
-              />
-
-              <CustomInputGroup
-                name="address.landmark"
-                placeholder="Enter landmark"
-                title="Landmark"
-                onChange={handleChange("address.landmark")}
-                onBlur={handleBlur("address.landmark")}
-                value={values.address.landmark}
-                messages={
-                  customErrors.address?.landmark
-                    ? [
-                        {
-                          id: "address.landmark",
-                          text: customErrors.address?.landmark,
-                        },
-                      ]
-                    : undefined
-                }
-                optional
-              />
-              <CustomInputGroup
-                name="address.building"
-                placeholder="Enter Building"
-                title="Building"
-                onChange={handleChange("address.building")}
-                onBlur={handleBlur("address.building")}
-                value={values.address.building}
-                messages={
-                  customErrors.address?.building
-                    ? [
-                        {
-                          id: "address.building",
-                          text: customErrors.address?.building,
-                        },
-                      ]
-                    : undefined
-                }
-                optional
               />
               <BlueButton
                 title={
