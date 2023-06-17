@@ -168,26 +168,21 @@ const WillPersonalInfoForm = ({ initialValues, defaultBody }) => {
           return (
             <CustomKeyboardAvoidingScrollView keyboardVerticalOffset={100}>
               <View style={styles.container}>
-                {datePickerOptions.show ? (
+
+                {datePickerOptions.show &&
                   <DateTimePicker
-                    value={
-                      values[datePickerOptions.property]
-                        ? values[datePickerOptions.property]
-                        : new Date()
-                    }
+                    value={values[datePickerOptions.property]? values[datePickerOptions.property]: new Date()}
                     mode="date"
                     display="default"
                     onChange={(event, selectedDate) => {
-                      if (event.type === "set")
-                        setFieldValue(datePickerOptions.property, selectedDate);
-
-                      setDatePickerOptions((datePickerOptions) => ({
-                        show: false,
-                        property: datePickerOptions.property,
-                      }));
+                      setDatePickerOptions({ show: false, property: datePickerOptions.property })
+                      if (event.type === "set") { 
+                        setFieldValue(datePickerOptions.property, selectedDate) 
+                        return
+                      }
                     }}
-                  />
-                ) : null}
+                  />}
+
                 <View style={styles.sectionTitleContainer}>
                   <Text style={styles.sectionTitle}>Testator's Details</Text>
                 </View>
@@ -301,6 +296,7 @@ const WillPersonalInfoForm = ({ initialValues, defaultBody }) => {
                 <View style={styles.row}>
                   <View style={styles.fullWidth}>
                     <CustomInputGroup
+        
                       name="address.city"
                       placeholder="Enter City"
                       title="City"

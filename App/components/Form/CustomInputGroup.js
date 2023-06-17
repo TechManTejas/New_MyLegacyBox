@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, TextInput, View, Pressable } from "react-native";
+import { StyleSheet, Text, TextInput, View } from "react-native";
 import { useTheme } from "../../theme/ThemeProvider";
 import CustomErrorMessageGroup from "./CustomErrorMessageGroup";
 
@@ -149,7 +149,7 @@ const CustomInputGroup = ({
         ) : null}
         <TextInput
           onPressIn={onPressIn}
-          style={[styles.input, multiline && styles.multilineInput]}
+          style={[styles.input, multiline && styles.multilineInput, { width: "30%" }]}
           onFocus={onFocus}
           numberOfLines={multiline ? numberOfLines : 1}
           onChange={onChange}
