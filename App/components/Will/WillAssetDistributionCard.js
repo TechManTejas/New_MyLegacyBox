@@ -15,12 +15,14 @@ const WillAssetDistributionCard = () => {
             justifyContent: "space-between"
         },
         allocperson: {
-            fontFamily: fontFamily.semiBold
+            fontFamily: fontFamily.semiBold,
+            color: colors.black400,
         },
         allocpercent: {
-            fontFamily: fontFamily.semiBold
+            fontFamily: fontFamily.semiBold,
+            color: colors.black400,
         },
-        disabledbutton: {
+        card: {
             padding: spacing.sm,
             paddingHorizontal: spacing.md,
             borderRadius: 10,
@@ -28,8 +30,8 @@ const WillAssetDistributionCard = () => {
             borderWidth: 0.5,
             marginTop: spacing.sm,
         },
-        disabledtext: {
-            color: colors.black400,
+        cardtitle: {
+            color: colors.blue600,
             fontSize: fontSize.lg,
             fontFamily: fontFamily.semiBold,
             lineHeight: spacing.xl
@@ -40,8 +42,8 @@ const WillAssetDistributionCard = () => {
 
     return assetsDistribution.map((item, index) => {
         return (
-            <Pressable key={index} disabled style={styles.disabledbutton}>
-                <Text style={styles.disabledtext}>{item.itemTitle}</Text>
+            <Pressable key={index} disabled style={styles.card}>
+                <Text style={styles.cardtitle}>{item.itemTitle}</Text>
                 {
                     Object.entries(item.allocations).map(([key, val], idx) => {
                         return (

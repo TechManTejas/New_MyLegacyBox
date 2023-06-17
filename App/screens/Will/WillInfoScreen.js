@@ -44,18 +44,19 @@ const WillInfoScreen = () => {
 
     return (
         <ScrollView>
-            {/* Testator Information Section */}
+            
             <View style={styles.section}>
                 <WillSectionCard
                     sectiontitle={"Testator Information"}
                     tickCondition={Object.keys(personalInfo).length != 0}
-                    title={"Add Testator Information"}
+                    title={Object.keys(personalInfo).length != 0 ? personalInfo.name :"Add Testator Information"}
                     subtitle={"Testator information is mandatory"}
                     screenName={SCREEN_NAMES.willPersonalInfoScreen}
+                    showEditIcon={true}
+                    dataFilled={Object.keys(personalInfo).length != 0 ? true : false}
                 />
             </View>
 
-            {/* Beneficiaries Section */}
             <View style={styles.section}>
                 <WillSectionCard
                     sectiontitle={"Beneficiaries"}
@@ -70,7 +71,6 @@ const WillInfoScreen = () => {
                 />
             </View>
 
-            {/* Witnesses Section */}
             <View style={styles.section}>
                 <WillSectionCard
                     sectiontitle={`Witnesses (${witnesses.length}/2)`}
@@ -83,10 +83,10 @@ const WillInfoScreen = () => {
                     index={undefined}
                     warnCondition={witnesses.length != 2}
                     warnMsg={"Warning: Beneficiaries and Witnesses should be different individuals"}
+                    array={witnesses}
                 />
             </View>
 
-            {/* Assets Section */}
             <View style={styles.section}>
                 <WillSectionCard
                     sectiontitle={"Assets"}
@@ -98,7 +98,6 @@ const WillInfoScreen = () => {
                 />
             </View>
 
-            {/* Asset Allocation Section */}
             <View style={styles.section}>
                 <WillSectionCard
                     sectiontitle={"Asset Allocation"}
@@ -111,7 +110,6 @@ const WillInfoScreen = () => {
                 <WillAssetDistributionCard />
             </View>
 
-            {/* Executor Optional Section */}
             <View style={styles.section}>
                 <WillSectionCard
                     sectiontitle={`Executor (${executors.length}/2) (optional)`}
@@ -124,10 +122,10 @@ const WillInfoScreen = () => {
                     index={undefined}
                     warnCondition={executors.length != 2}
                     warnMsg={"Warning: Beneficiaries, Witnesses and Executors should be different individuals."}
+                    array={executors}
                 />
             </View>
 
-            {/* Declaration Section */}
             <View style={styles.section}>
                 <WillSectionCard
                     sectiontitle={"Declaration"}
@@ -140,7 +138,7 @@ const WillInfoScreen = () => {
                 <View style={{ marginTop: spacing.lg }} />
                 <BlueButton
                     disabled={declarationInfo.declaration != '' ? false : true}
-                    title="GENERATE WILL"
+                    title="Generate Will"
                     onPress={() => navigator.navigate(SCREEN_NAMES.willGenerationScreen)}
                 />
             </View>

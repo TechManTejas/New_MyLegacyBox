@@ -138,11 +138,8 @@ const WillWitnessInfoForm = ({ initialValues, defaultBody, index }) => {
           city: initialValues?.address?.city || "",
           state: initialValues?.address?.state || "",
           pinCode: initialValues?.address?.pinCode || undefined,
-          contact: initialValues?.address?.contact || "",
           street: initialValues?.address?.street || "",
           country: initialValues?.address?.country || "",
-          landmark: initialValues?.address?.landmark || "",
-          building: initialValues?.address?.building || "",
         },
       }}
       validateOnChange={false}

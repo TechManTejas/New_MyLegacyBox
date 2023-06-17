@@ -15,7 +15,9 @@ const WillSectionCard = ({
     paramindex,
     warnCondition,
     warnMsg,
-    array
+    array,
+    showEditIcon,
+    dataFilled
 }) => {
 
     const { theme: { spacing, colors, fontSize, fontFamily } } = useTheme()
@@ -106,8 +108,14 @@ const WillSectionCard = ({
                 style={disableCondition ? [styles.disabledbutton, styles.noncard] : styles.enabledbutton}
                 onPress={() => navigator.navigate(screenName, { initialValues, paramindex })}
             >
-                <Text style={disableCondition ? styles.disabledtext : styles.enabledtext}>{title}</Text>
-                <Text style={disableCondition ? styles.disabledsubtext : styles.enabledsubtext}>{subtitle}</Text>
+                <View style={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
+                    <View>
+                        <Text style={disableCondition ? styles.disabledtext : styles.enabledtext}>{title}</Text>
+                        <Text style={disableCondition ? styles.disabledsubtext : styles.enabledsubtext}>{subtitle}</Text>
+                    </View>
+                    { showEditIcon && dataFilled && PenIcon }
+                </View>
+                
                 {warnCondition && <Text style={styles.warning}>{warnMsg}</Text>}
             </Pressable>
             {
