@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, FlatList } from "react-native";
+import { View, StyleSheet, FlatList } from "react-native";
 import React from "react";
 import { getBeneficiariesSelector } from "../../services/willForm/willFormSlice";
 import { useNavigation } from "@react-navigation/native";
@@ -9,13 +9,12 @@ import WillFormContainer from "../../components/Will/WillFormContainer";
 import WillInfoCard from "../../components/Will/WillInfoCard";
 
 const WillBeneficiariesScreen = () => {
-  const navigation = useNavigation();
 
-  const beneficiaries = useSelector((state) => getBeneficiariesSelector(state));
+  const navigation = useNavigation()
 
-  const {
-    theme: { spacing, colors },
-  } = useTheme();
+  const beneficiaries = useSelector((state) => getBeneficiariesSelector(state))
+
+  const { theme: { spacing, colors } } = useTheme()
 
   const styles = StyleSheet.create({
     container: {
@@ -29,25 +28,18 @@ const WillBeneficiariesScreen = () => {
     listContentContainer: {
       flexGrow: 1,
     },
-  });
-
-  const prevHandler = () => navigation.goBack();
-
-  const nextHandler = () => {
-    navigation.navigate(SCREEN_NAMES.willAssetsScreen);
-  };
+  })
 
   const getPressHandler = (initialValues, index) => () =>
     navigation.navigate(SCREEN_NAMES.willBeneficiaryInfoScreen, {
       initialValues,
       index,
-    });
+    })
 
   return (
     <View style={styles.container}>
       <WillFormContainer
-        prevHandler={prevHandler}
-        nextHandler={nextHandler}
+        Handler={() => navigation.goBack()}
         nextDisabled={beneficiaries.length < 1}
       >
         <View style={styles.content}>

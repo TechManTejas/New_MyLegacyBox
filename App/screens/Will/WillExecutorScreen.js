@@ -1,11 +1,7 @@
 import { View, StyleSheet } from "react-native";
-import React from "react";
 import { useTheme } from "../../theme/ThemeProvider";
 import { useSelector } from "react-redux";
-import {
-  getExecutorsSelector,
-  getWitnessesSelector,
-} from "../../services/willForm/willFormSlice";
+import { getExecutorsSelector } from "../../services/willForm/willFormSlice";
 import WillFormContainer from "../../components/Will/WillFormContainer";
 import { useNavigation } from "@react-navigation/native";
 import WillInfoCard from "../../components/Will/WillInfoCard";
@@ -19,9 +15,7 @@ const WillExecutorScreen = () => {
   const firstInitialValues = executors[0] ? executors[0] : {};
   const secondInitialValues = executors[1] ? executors[1] : {};
 
-  const {
-    theme: { spacing, colors },
-  } = useTheme();
+  const { theme: { spacing, colors } } = useTheme()
 
   const styles = StyleSheet.create({
     container: {
@@ -31,12 +25,7 @@ const WillExecutorScreen = () => {
     content: {
       padding: spacing.lg,
     },
-  });
-
-  const prevHandler = () => navigation.goBack();
-
-  const nextHandler = () =>
-    navigation.navigate(SCREEN_NAMES.willDeclarationScreen);
+  })
 
   const getPressHandler = (initialValues, index) => () =>
     navigation.navigate(SCREEN_NAMES.willExecutorInfoScreen, {
@@ -46,7 +35,7 @@ const WillExecutorScreen = () => {
 
   return (
     <View style={styles.container}>
-      <WillFormContainer prevHandler={prevHandler} nextHandler={nextHandler}>
+      <WillFormContainer Handler={() => navigation.goBack()}>
         <View style={styles.content}>
           <WillInfoCard
             title={firstInitialValues.name}

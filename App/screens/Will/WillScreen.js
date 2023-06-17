@@ -23,12 +23,7 @@ const WillScreen = () => {
 
   const pressHandler = () => {
     dispatch(clearWillFormRedux());
-    navigation.navigate(SCREEN_NAMES.willPersonalInfoScreen);
-    // navigation.navigate(SCREEN_NAMES.willWitnessesScreen);
-    // navigation.navigate(SCREEN_NAMES.willBeneficiariesScreen);
-    // navigation.navigate(SCREEN_NAMES.willAssetsScreen);
-    // navigation.navigate(SCREEN_NAMES.willExecutorScreen);
-    // navigation.navigate(SCREEN_NAMES.willGenerationScreen);
+    navigation.navigate(SCREEN_NAMES.willInfoScreen);
   };
 
   const styles = StyleSheet.create({

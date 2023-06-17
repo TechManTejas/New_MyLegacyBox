@@ -70,11 +70,11 @@ const WillExecutorInfoForm = ({ initialValues, defaultBody, index }) => {
     try {
       Object.keys(initialValues).length
         ? dispatch(
-            editExecutorByIndexRedux({
-              executor: { ...cleanedValues, ...defaultBody },
-              index,
-            })
-          )
+          editExecutorByIndexRedux({
+            executor: { ...cleanedValues, ...defaultBody },
+            index,
+          })
+        )
         : dispatch(addExecutorRedux({ ...cleanedValues, ...defaultBody }));
       navigation.goBack();
     } catch (error) {
@@ -141,11 +141,8 @@ const WillExecutorInfoForm = ({ initialValues, defaultBody, index }) => {
           city: initialValues?.address?.city || "",
           state: initialValues?.address?.state || "",
           pinCode: initialValues?.address?.pinCode || undefined,
-          contact: initialValues?.address?.contact || "",
           street: initialValues?.address?.street || "",
           country: initialValues?.address?.country || "",
-          landmark: initialValues?.address?.landmark || "",
-          building: initialValues?.address?.building || "",
         },
       }}
       validateOnChange={false}
@@ -195,11 +192,11 @@ const WillExecutorInfoForm = ({ initialValues, defaultBody, index }) => {
                 messages={
                   customErrors.gender
                     ? [
-                        {
-                          id: "gender",
-                          text: customErrors.gender,
-                        },
-                      ]
+                      {
+                        id: "gender",
+                        text: customErrors.gender,
+                      },
+                    ]
                     : undefined
                 }
                 showSelectedIcon
@@ -214,11 +211,11 @@ const WillExecutorInfoForm = ({ initialValues, defaultBody, index }) => {
                 messages={
                   customErrors.relationshipWithTestator
                     ? [
-                        {
-                          id: "relationshipWithTestator",
-                          text: customErrors.relationshipWithTestator,
-                        },
-                      ]
+                      {
+                        id: "relationshipWithTestator",
+                        text: customErrors.relationshipWithTestator,
+                      },
+                    ]
                     : undefined
                 }
                 textTransformNormal
@@ -255,11 +252,11 @@ const WillExecutorInfoForm = ({ initialValues, defaultBody, index }) => {
                     messages={
                       customErrors.address?.city
                         ? [
-                            {
-                              id: "address.city",
-                              text: customErrors.address?.city,
-                            },
-                          ]
+                          {
+                            id: "address.city",
+                            text: customErrors.address?.city,
+                          },
+                        ]
                         : undefined
                     }
                   />
@@ -276,11 +273,11 @@ const WillExecutorInfoForm = ({ initialValues, defaultBody, index }) => {
                     messages={
                       customErrors.address?.state
                         ? [
-                            {
-                              id: "address.state",
-                              text: customErrors.address?.state,
-                            },
-                          ]
+                          {
+                            id: "address.state",
+                            text: customErrors.address?.state,
+                          },
+                        ]
                         : undefined
                     }
                   />
@@ -293,7 +290,7 @@ const WillExecutorInfoForm = ({ initialValues, defaultBody, index }) => {
                     placeholder="Enter PIN code"
                     title="PIN Code"
                     onChangeText={(value) => {
-                      if (value==" " || value=="") return
+                      if (value == " " || value == "") setFieldValue("address.pinCode", "")
                       else if (!isNaN(value)) setFieldValue("address.pinCode", + value)
                     }}
                     onBlur={handleBlur("address.pinCode")}
@@ -302,11 +299,11 @@ const WillExecutorInfoForm = ({ initialValues, defaultBody, index }) => {
                     messages={
                       customErrors.address?.pinCode
                         ? [
-                            {
-                              id: "address.pinCode",
-                              text: customErrors.address?.pinCode,
-                            },
-                          ]
+                          {
+                            id: "address.pinCode",
+                            text: customErrors.address?.pinCode,
+                          },
+                        ]
                         : undefined
                     }
                     textTransformNormal
@@ -324,39 +321,19 @@ const WillExecutorInfoForm = ({ initialValues, defaultBody, index }) => {
                     messages={
                       customErrors.address?.country
                         ? [
-                            {
-                              id: "address.country",
-                              text: customErrors.address?.country,
-                            },
-                          ]
+                          {
+                            id: "address.country",
+                            text: customErrors.address?.country,
+                          },
+                        ]
                         : undefined
                     }
                     optional
                   />
                 </View>
               </View>
-              <CustomInputGroup
-                name="address.contact"
-                placeholder="Enter contact"
-                title="Contact"
-                onChange={handleChange("address.contact")}
-                onBlur={handleBlur("address.contact")}
-                value={values.address.contact}
-                textContentType="telephoneNumber"
-                messages={
-                  customErrors.address?.contact
-                    ? [
-                        {
-                          id: "address.contact",
-                          text: customErrors.address?.contact,
-                        },
-                      ]
-                    : undefined
-                }
-                optional
-                textTransformNormal
-              />
-              <CustomInputGroup
+
+              {/* <CustomInputGroup
                 name="address.street"
                 placeholder="Enter street"
                 title="Street"
@@ -375,46 +352,31 @@ const WillExecutorInfoForm = ({ initialValues, defaultBody, index }) => {
                     : undefined
                 }
                 textTransformNormal
-              />
+              /> */}
 
               <CustomInputGroup
-                name="address.landmark"
-                placeholder="Enter landmark"
-                title="Landmark"
-                onChange={handleChange("address.landmark")}
-                onBlur={handleBlur("address.landmark")}
-                value={values.address.landmark}
+                name="address.street"
+                placeholder="Enter street"
+                title="Street"
+                onChange={handleChange("address.street")}
+                onBlur={handleBlur("address.street")}
+                value={values.address.street}
+                textContentType="fullStreetAddress"
                 messages={
-                  customErrors.address?.landmark
+                  customErrors.address?.street
                     ? [
-                        {
-                          id: "address.landmark",
-                          text: customErrors.address?.landmark,
-                        },
-                      ]
+                      {
+                        id: "address.street",
+                        text: customErrors.address?.street,
+                      },
+                    ]
                     : undefined
                 }
-                optional
+                multiline
+                numberOfLines={10}
+                textTransformNormal
               />
-              <CustomInputGroup
-                name="address.building"
-                placeholder="Enter Building"
-                title="Building"
-                onChange={handleChange("address.building")}
-                onBlur={handleBlur("address.building")}
-                value={values.address.building}
-                messages={
-                  customErrors.address?.building
-                    ? [
-                        {
-                          id: "address.building",
-                          text: customErrors.address?.building,
-                        },
-                      ]
-                    : undefined
-                }
-                optional
-              />
+
               <BlueButton
                 title={
                   Object.keys(initialValues).length

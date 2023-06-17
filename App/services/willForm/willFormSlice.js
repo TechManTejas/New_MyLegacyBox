@@ -1,13 +1,9 @@
-import {
-  createEntityAdapter,
-  createSelector,
-  createSlice,
-} from "@reduxjs/toolkit";
+import { createEntityAdapter, createSelector, createSlice } from "@reduxjs/toolkit";
 
 const selectedAssetsAdapter = createEntityAdapter({
   selectId: ({ _id }) => _id,
   sortComparer: (a, b) => a._id.localeCompare(b._id),
-});
+})
 
 const initialState = {
   personalInfo: {},
@@ -20,58 +16,58 @@ const initialState = {
     declaration: "",
   },
   selectedAssets: selectedAssetsAdapter.getInitialState(),
-};
+}
 
 export const willFormSlice = createSlice({
   name: "willForm",
   initialState,
   reducers: {
     setPersonalInfoRedux: (state, action) => {
-      state.personalInfo = action.payload;
+      state.personalInfo = action.payload
     },
     setDeclarationInfoRedux: (state, action) => {
-      state.declarationInfo = action.payload;
+      state.declarationInfo = action.payload
     },
     addWitnessRedux: (state, action) => {
-      state.witnesses.push(action.payload);
+      state.witnesses.push(action.payload)
     },
     editWitnessByIndexRedux: (state, action) => {
-      state.witnesses[action.payload.index] = action.payload.witness;
-      return state;
+      state.witnesses[action.payload.index] = action.payload.witness
+      return state
     },
     addExecutorRedux: (state, action) => {
-      state.executors.push(action.payload);
+      state.executors.push(action.payload)
     },
     editExecutorByIndexRedux: (state, action) => {
-      state.executors[action.payload.index] = action.payload.executor;
-      return state;
+      state.executors[action.payload.index] = action.payload.executor
+      return state
     },
     addBeneficiaryRedux: (state, action) => {
-      state.beneficiaries.push(action.payload);
+      state.beneficiaries.push(action.payload)
     },
     editBeneficiaryByIndexRedux: (state, action) => {
-      state.beneficiaries[action.payload.index] = action.payload.benefciary;
+      state.beneficiaries[action.payload.index] = action.payload.benefciary
       return state;
     },
     setAssetRedux: (state, action) => {
-      state.assets = action.payload;
+      state.assets = action.payload
     },
     addAssetRedux: (state, action) => {
-      state.assets.push(action.payload);
+      state.assets.push(action.payload)
     },
     editAssetByIndexRedux: (state, action) => {
-      state.assets[action.payload.index] = action.payload.witness;
+      state.assets[action.payload.index] = action.payload.witness
       return state;
     },
     addSelectedAssetRedux: (state, action) => {
-      selectedAssetsAdapter.addOne(state.selectedAssets, action.payload);
+      selectedAssetsAdapter.addOne(state.selectedAssets, action.payload)
     },
     removeSelectedAssetRedux: (state, action) => {
-      selectedAssetsAdapter.removeOne(state.selectedAssets, action.payload);
+      selectedAssetsAdapter.removeOne(state.selectedAssets, action.payload)
     },
     clearWillFormRedux: () => initialState,
   },
-});
+})
 
 export const {
   setPersonalInfoRedux,
@@ -88,43 +84,47 @@ export const {
   addSelectedAssetRedux,
   removeSelectedAssetRedux,
   clearWillFormRedux,
-} = willFormSlice.actions;
+} = willFormSlice.actions
 
-const willFormSelector = (state) => state.willForm;
+const willFormSelector = (state) => state.willForm
 
-export const getWill = createSelector(willFormSelector, (willForm) => willForm);
+export const getWill = createSelector(willFormSelector, (willForm) => willForm)
 
 export const getPersonalInfoSelector = createSelector(
   willFormSelector,
   (willForm) => willForm.personalInfo
-);
+)
 
 export const getWitnessesSelector = createSelector(
   willFormSelector,
   (willForm) => willForm.witnesses
-);
+)
 
 export const getExecutorsSelector = createSelector(
   willFormSelector,
   (willForm) => willForm.executors
-);
+)
 
 export const getBeneficiariesSelector = createSelector(
   willFormSelector,
   (willForm) => willForm.beneficiaries
-);
+)
 
 export const getAssetsSelector = createSelector(
   willFormSelector,
   (willForm) => willForm.assets
-);
+)
+
+export const getDeclarationSelector = createSelector(
+  willFormSelector,
+  (willForm) => willForm.declarationInfo
+)
+
 
 const selectedAssetsSelector = selectedAssetsAdapter.getSelectors(
   (state) => state.willForm.selectedAssets
-);
+)
 
 export const getSelectedAssetsSelector = selectedAssetsSelector.selectAll;
-export const getSelectedAssetsEntitiesSelector =
-  selectedAssetsSelector.selectEntities;
-
+export const getSelectedAssetsEntitiesSelector = selectedAssetsSelector.selectEntities;
 export default willFormSlice.reducer;

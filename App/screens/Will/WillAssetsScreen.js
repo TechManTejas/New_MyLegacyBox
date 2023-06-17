@@ -7,7 +7,6 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 import { useTheme } from "../../theme/ThemeProvider";
-import { SCREEN_NAMES } from "../../constants/screenNames";
 import WillFormContainer from "../../components/Will/WillFormContainer";
 import { useGetBanksQuery } from "../../services/bank/bankSlice";
 import { useGetPostalsQuery } from "../../services/postal/postalSlice";
@@ -71,9 +70,7 @@ const WillAssetsScreen = () => {
     error: insuranceError,
   } = insurances;
 
-  const {
-    theme: { spacing, colors, fontFamily, fontSize },
-  } = useTheme();
+  const { theme: { spacing, colors, fontFamily, fontSize } } = useTheme()
 
   const financialData = useMemo(() => {
     return allFinancialHoldingData && allFinancialHoldingData.ids
@@ -143,13 +140,7 @@ const WillAssetsScreen = () => {
         : undefined;
 
     return result;
-  }, [financialData, bankData, postalData, insuranceData]);
-
-  const prevHandler = () => navigation.goBack();
-
-  const nextHandler = () => {
-    navigation.navigate(SCREEN_NAMES.willAssetInfoScreen);
-  };
+  }, [financialData, bankData, postalData, insuranceData])
 
   const pressHandler = (item, sectionTitle, itemTitle) => {
     const children = financialData.filter(
@@ -280,8 +271,7 @@ const WillAssetsScreen = () => {
   return (
     <View style={styles.container}>
       <WillFormContainer
-        prevHandler={prevHandler}
-        nextHandler={nextHandler}
+        Handler={() => navigation.goBack()}
         nextDisabled={Object.keys(selectedAssetsEntities).length < 1}
       >
         <View style={styles.content}>

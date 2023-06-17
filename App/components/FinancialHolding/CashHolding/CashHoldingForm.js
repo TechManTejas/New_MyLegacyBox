@@ -16,14 +16,7 @@ import CustomKeyboardAvoidingScrollView from "../../Common/CustomKeyboardAvoidin
 import { cashHoldingValidator } from "../../../utils/form/validators/cashHoldingValidator";
 import { CASH_TYPE_TO_TITLE_MAP } from "../../../constants/financialHoldings/cashHolding";
 
-const CashHoldingForm = ({
-  ctaCaption,
-  defaultBody,
-  apiCallback,
-  isLoading,
-  initialValues,
-  // parentId in default for add
-}) => {
+const CashHoldingForm = ({ ctaCaption, defaultBody, apiCallback, isLoading, initialValues }) => {
   const [customErrors, setCustomErrors] = useState({});
   const [globalErrorMessage, setGlobalErrorMessage] = useState("");
   const navigation = useNavigation();
@@ -32,9 +25,7 @@ const CashHoldingForm = ({
     property: "",
   });
 
-  const {
-    theme: { colors, spacing, fontSize, fontFamily },
-  } = useTheme();
+  const { theme: { colors, spacing, fontSize, fontFamily } } = useTheme();
 
   const customErrorWithValidation = useCallback(({ values, errors }) => {
     let customErrors;
@@ -158,11 +149,8 @@ const CashHoldingForm = ({
           city: initialValues?.address?.city || "",
           state: initialValues?.address?.state || "",
           pinCode: initialValues?.address?.pinCode || undefined,
-          contact: initialValues?.address?.contact || "",
           street: initialValues?.address?.street || "",
           country: initialValues?.address?.country || "",
-          landmark: initialValues?.address?.landmark || "",
-          building: initialValues?.address?.building || "",
         },
       }}
       validateOnChange={false}
@@ -205,11 +193,11 @@ const CashHoldingForm = ({
                 messages={
                   customErrors.nameOfParty
                     ? [
-                        {
-                          id: "nameOfParty",
-                          text: customErrors.nameOfParty,
-                        },
-                      ]
+                      {
+                        id: "nameOfParty",
+                        text: customErrors.nameOfParty,
+                      },
+                    ]
                     : undefined
                 }
                 textTransformNormal
@@ -225,11 +213,11 @@ const CashHoldingForm = ({
                 messages={
                   customErrors.phoneNumberOfParty
                     ? [
-                        {
-                          id: "phoneNumberOfParty",
-                          text: customErrors.phoneNumberOfParty,
-                        },
-                      ]
+                      {
+                        id: "phoneNumberOfParty",
+                        text: customErrors.phoneNumberOfParty,
+                      },
+                    ]
                     : undefined
                 }
                 textTransformNormal
@@ -243,11 +231,11 @@ const CashHoldingForm = ({
                 messages={
                   customErrors.cashType
                     ? [
-                        {
-                          id: "cashType",
-                          text: customErrors.cashType,
-                        },
-                      ]
+                      {
+                        id: "cashType",
+                        text: customErrors.cashType,
+                      },
+                    ]
                     : undefined
                 }
                 showSelectedIcon
@@ -269,23 +257,23 @@ const CashHoldingForm = ({
                 value={
                   values.dateOfTransaction
                     ? new Date(values.dateOfTransaction).toLocaleDateString(
-                        "en-us",
-                        {
-                          year: "numeric",
-                          month: "short",
-                          day: "2-digit",
-                        }
-                      )
+                      "en-us",
+                      {
+                        year: "numeric",
+                        month: "short",
+                        day: "2-digit",
+                      }
+                    )
                     : ""
                 }
                 messages={
                   customErrors.dateOfTransaction
                     ? [
-                        {
-                          id: "dateOfTransaction",
-                          text: customErrors.dateOfTransaction,
-                        },
-                      ]
+                      {
+                        id: "dateOfTransaction",
+                        text: customErrors.dateOfTransaction,
+                      },
+                    ]
                     : undefined
                 }
                 textTransformNormal
@@ -296,7 +284,7 @@ const CashHoldingForm = ({
                 placeholder="Enter the Amount"
                 title="Amount (in Rs)"
                 onChange={(value) => {
-                  if (value==" " || value=="") return
+                  if (value == " " || value == "") setFieldValue("amount", "")
                   else if (!isNaN(value)) setFieldValue("amount", + value)
                 }}
                 onBlur={handleBlur("amount")}
@@ -304,11 +292,11 @@ const CashHoldingForm = ({
                 messages={
                   customErrors.amount
                     ? [
-                        {
-                          id: "amount",
-                          text: customErrors.amount,
-                        },
-                      ]
+                      {
+                        id: "amount",
+                        text: customErrors.amount,
+                      },
+                    ]
                     : undefined
                 }
                 optional
@@ -334,11 +322,11 @@ const CashHoldingForm = ({
                     messages={
                       customErrors.address?.city
                         ? [
-                            {
-                              id: "address.city",
-                              text: customErrors.address?.city,
-                            },
-                          ]
+                          {
+                            id: "address.city",
+                            text: customErrors.address?.city,
+                          },
+                        ]
                         : undefined
                     }
                   />
@@ -355,11 +343,11 @@ const CashHoldingForm = ({
                     messages={
                       customErrors.address?.state
                         ? [
-                            {
-                              id: "address.state",
-                              text: customErrors.address?.state,
-                            },
-                          ]
+                          {
+                            id: "address.state",
+                            text: customErrors.address?.state,
+                          },
+                        ]
                         : undefined
                     }
                   />
@@ -372,7 +360,7 @@ const CashHoldingForm = ({
                     placeholder="Enter PIN code"
                     title="PIN Code"
                     onChangeText={(value) => {
-                      if (value==" " || value=="") return
+                      if (value == " " || value == "") return
                       else if (!isNaN(value)) setFieldValue("address.pinCode", + value)
                     }}
                     onBlur={handleBlur("address.pinCode")}
@@ -381,11 +369,11 @@ const CashHoldingForm = ({
                     messages={
                       customErrors.address?.pinCode
                         ? [
-                            {
-                              id: "address.pinCode",
-                              text: customErrors.address?.pinCode,
-                            },
-                          ]
+                          {
+                            id: "address.pinCode",
+                            text: customErrors.address?.pinCode,
+                          },
+                        ]
                         : undefined
                     }
                     textTransformNormal
@@ -403,39 +391,19 @@ const CashHoldingForm = ({
                     messages={
                       customErrors.address?.country
                         ? [
-                            {
-                              id: "address.country",
-                              text: customErrors.address?.country,
-                            },
-                          ]
+                          {
+                            id: "address.country",
+                            text: customErrors.address?.country,
+                          },
+                        ]
                         : undefined
                     }
                     optional
                   />
                 </View>
               </View>
-              <CustomInputGroup
-                name="address.contact"
-                placeholder="Enter contact"
-                title="Contact"
-                onChange={handleChange("address.contact")}
-                onBlur={handleBlur("address.contact")}
-                value={values.address.contact}
-                textContentType="telephoneNumber"
-                messages={
-                  customErrors.address?.contact
-                    ? [
-                        {
-                          id: "address.contact",
-                          text: customErrors.address?.contact,
-                        },
-                      ]
-                    : undefined
-                }
-                optional
-                textTransformNormal
-              />
-              <CustomInputGroup
+
+              {/* <CustomInputGroup
                 name="address.street"
                 placeholder="Enter street"
                 title="Street"
@@ -454,45 +422,29 @@ const CashHoldingForm = ({
                     : undefined
                 }
                 textTransformNormal
-              />
+              /> */}
 
               <CustomInputGroup
-                name="address.landmark"
-                placeholder="Enter landmark"
-                title="Landmark"
-                onChange={handleChange("address.landmark")}
-                onBlur={handleBlur("address.landmark")}
-                value={values.address.landmark}
+                name="address.street"
+                placeholder="Enter street"
+                title="Street"
+                onChange={handleChange("address.street")}
+                onBlur={handleBlur("address.street")}
+                value={values.address.street}
+                textContentType="fullStreetAddress"
                 messages={
-                  customErrors.address?.landmark
+                  customErrors.address?.street
                     ? [
-                        {
-                          id: "address.landmark",
-                          text: customErrors.address?.landmark,
-                        },
-                      ]
+                      {
+                        id: "address.street",
+                        text: customErrors.address?.street,
+                      },
+                    ]
                     : undefined
                 }
-                optional
-              />
-              <CustomInputGroup
-                name="address.building"
-                placeholder="Enter Building"
-                title="Building"
-                onChange={handleChange("address.building")}
-                onBlur={handleBlur("address.building")}
-                value={values.address.building}
-                messages={
-                  customErrors.address?.building
-                    ? [
-                        {
-                          id: "address.building",
-                          text: customErrors.address?.building,
-                        },
-                      ]
-                    : undefined
-                }
-                optional
+                multiline
+                numberOfLines={10}
+                textTransformNormal
               />
 
               <View style={styles.buttonContainer}>

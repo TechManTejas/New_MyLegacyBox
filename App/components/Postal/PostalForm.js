@@ -10,13 +10,7 @@ import { useNavigation } from "@react-navigation/native";
 import CustomKeyboardAvoidingScrollView from "../Common/CustomKeyboardAvoidingScrollView";
 import { postalValidator } from "../../utils/form/validators/postalValidator";
 
-const PostalForm = ({
-  ctaCaption,
-  defaultBody,
-  apiCallback,
-  isLoading,
-  initialValues,
-}) => {
+const PostalForm = ({ ctaCaption, defaultBody, apiCallback, isLoading, initialValues }) => {
   const navigation = useNavigation();
   const [customErrors, setCustomErrors] = useState({});
   const [globalErrorMessage, setGlobalErrorMessage] = useState("");
@@ -135,11 +129,8 @@ const PostalForm = ({
           city: initialValues?.address?.city || "",
           state: initialValues?.address?.state || "",
           pinCode: initialValues?.address?.pinCode || undefined,
-          contact: initialValues?.address?.contact || "",
           street: initialValues?.address?.street || "",
           country: initialValues?.address?.country || "",
-          landmark: initialValues?.address?.landmark || "",
-          building: initialValues?.address?.building || "",
         },
       }}
       validateOnChange={false}
@@ -247,15 +238,16 @@ const PostalForm = ({
                     messages={
                       customErrors.address?.city
                         ? [
-                            {
-                              id: "address.city",
-                              text: customErrors.address?.city,
-                            },
-                          ]
+                          {
+                            id: "address.city",
+                            text: customErrors.address?.city,
+                          },
+                        ]
                         : undefined
                     }
                   />
                 </View>
+
                 <View style={[styles.fullWidth, styles.leftPadded]}>
                   <CustomInputGroup
                     name="address.state"
@@ -268,15 +260,16 @@ const PostalForm = ({
                     messages={
                       customErrors.address?.state
                         ? [
-                            {
-                              id: "address.state",
-                              text: customErrors.address?.state,
-                            },
-                          ]
+                          {
+                            id: "address.state",
+                            text: customErrors.address?.state,
+                          },
+                        ]
                         : undefined
                     }
                   />
                 </View>
+
               </View>
               <View style={styles.row}>
                 <View style={styles.fullWidth}>
@@ -285,7 +278,7 @@ const PostalForm = ({
                     placeholder="Enter PIN code"
                     title="PIN Code"
                     onChangeText={(value) => {
-                      if (value==" " || value=="") return
+                      if (value == " " || value == "") setFieldValue("address.pinCode", "")
                       else if (!isNaN(value)) setFieldValue("address.pinCode", + value)
                     }}
                     onBlur={handleBlur("address.pinCode")}
@@ -294,11 +287,11 @@ const PostalForm = ({
                     messages={
                       customErrors.address?.pinCode
                         ? [
-                            {
-                              id: "address.pinCode",
-                              text: customErrors.address?.pinCode,
-                            },
-                          ]
+                          {
+                            id: "address.pinCode",
+                            text: customErrors.address?.pinCode,
+                          },
+                        ]
                         : undefined
                     }
                     textTransformNormal
@@ -316,39 +309,18 @@ const PostalForm = ({
                     messages={
                       customErrors.address?.country
                         ? [
-                            {
-                              id: "address.country",
-                              text: customErrors.address?.country,
-                            },
-                          ]
+                          {
+                            id: "address.country",
+                            text: customErrors.address?.country,
+                          },
+                        ]
                         : undefined
                     }
                     optional
                   />
                 </View>
               </View>
-              <CustomInputGroup
-                name="address.contact"
-                placeholder="Enter contact"
-                title="Contact"
-                onChange={handleChange("address.contact")}
-                onBlur={handleBlur("address.contact")}
-                value={values.address.contact}
-                textContentType="telephoneNumber"
-                messages={
-                  customErrors.address?.contact
-                    ? [
-                        {
-                          id: "address.contact",
-                          text: customErrors.address?.contact,
-                        },
-                      ]
-                    : undefined
-                }
-                optional
-                textTransformNormal
-              />
-              <CustomInputGroup
+              {/* <CustomInputGroup
                 name="address.street"
                 placeholder="Enter street"
                 title="Street"
@@ -367,45 +339,28 @@ const PostalForm = ({
                     : undefined
                 }
                 textTransformNormal
-              />
-
+              /> */}
               <CustomInputGroup
-                name="address.landmark"
-                placeholder="Enter landmark"
-                title="Landmark"
-                onChange={handleChange("address.landmark")}
-                onBlur={handleBlur("address.landmark")}
-                value={values.address.landmark}
+                name="address.street"
+                placeholder="Enter street"
+                title="Street"
+                onChange={handleChange("address.street")}
+                onBlur={handleBlur("address.street")}
+                value={values.address.street}
+                textContentType="fullStreetAddress"
                 messages={
-                  customErrors.address?.landmark
+                  customErrors.address?.street
                     ? [
-                        {
-                          id: "address.landmark",
-                          text: customErrors.address?.landmark,
-                        },
-                      ]
+                      {
+                        id: "address.street",
+                        text: customErrors.address?.street,
+                      },
+                    ]
                     : undefined
                 }
-                optional
-              />
-              <CustomInputGroup
-                name="address.building"
-                placeholder="Enter Building"
-                title="Building"
-                onChange={handleChange("address.building")}
-                onBlur={handleBlur("address.building")}
-                value={values.address.building}
-                messages={
-                  customErrors.address?.building
-                    ? [
-                        {
-                          id: "address.building",
-                          text: customErrors.address?.building,
-                        },
-                      ]
-                    : undefined
-                }
-                optional
+                multiline
+                numberOfLines={10}
+                textTransformNormal
               />
               <BlueButton
                 disabled={isLoading}

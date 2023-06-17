@@ -20,14 +20,7 @@ import {
   REAL_ESTATE_PROPERTY_AREA_UNIT_TO_TITLE_MAP,
 } from "../../../constants/financialHoldings/realEstateHolding";
 
-const RealEstateHoldingForm = ({
-  ctaCaption,
-  defaultBody,
-  apiCallback,
-  isLoading,
-  initialValues,
-  // parentId in default for add
-}) => {
+const RealEstateHoldingForm = ({ ctaCaption, defaultBody, apiCallback, isLoading, initialValues }) => {
   const [customErrors, setCustomErrors] = useState({});
   const [globalErrorMessage, setGlobalErrorMessage] = useState("");
   const navigation = useNavigation();
@@ -160,11 +153,8 @@ const RealEstateHoldingForm = ({
           city: initialValues?.address?.city || "",
           state: initialValues?.address?.state || "",
           pinCode: initialValues?.address?.pinCode || undefined,
-          contact: initialValues?.address?.contact || "",
           street: initialValues?.address?.street || "",
           country: initialValues?.address?.country || "",
-          landmark: initialValues?.address?.landmark || "",
-          building: initialValues?.address?.building || "",
         },
       }}
       validateOnChange={false}
@@ -208,11 +198,11 @@ const RealEstateHoldingForm = ({
                 messages={
                   customErrors.propertyName
                     ? [
-                        {
-                          id: "propertyName",
-                          text: customErrors.propertyName,
-                        },
-                      ]
+                      {
+                        id: "propertyName",
+                        text: customErrors.propertyName,
+                      },
+                    ]
                     : undefined
                 }
                 textTransformNormal
@@ -234,11 +224,11 @@ const RealEstateHoldingForm = ({
                 messages={
                   customErrors.ownershipStatus
                     ? [
-                        {
-                          id: "ownershipStatus",
-                          text: customErrors.ownershipStatus,
-                        },
-                      ]
+                      {
+                        id: "ownershipStatus",
+                        text: customErrors.ownershipStatus,
+                      },
+                    ]
                     : undefined
                 }
                 showSelectedIcon
@@ -249,7 +239,7 @@ const RealEstateHoldingForm = ({
                 placeholder="Enter the ownership %"
                 title="Ownership %"
                 onChange={(value) => {
-                  if (value==" " || value=="") return
+                  if (value == " " || value == "") setFieldValue("ownershipPercentage", "")
                   else if (!isNaN(value)) setFieldValue("ownershipPercentage", + value)
                 }}
                 onBlur={handleBlur("ownershipPercentage")}
@@ -257,11 +247,11 @@ const RealEstateHoldingForm = ({
                 messages={
                   customErrors.ownershipPercentage
                     ? [
-                        {
-                          id: "ownershipPercentage",
-                          text: customErrors.ownershipPercentage,
-                        },
-                      ]
+                      {
+                        id: "ownershipPercentage",
+                        text: customErrors.ownershipPercentage,
+                      },
+                    ]
                     : undefined
                 }
                 disabled={
@@ -278,7 +268,7 @@ const RealEstateHoldingForm = ({
                     placeholder="Enter the Property Area"
                     title="Area"
                     onChange={(value) => {
-                      if (value==" " || value=="") return
+                      if (value == " " || value == "") setFieldValue("propertyArea", "")
                       else if (!isNaN(value)) setFieldValue("propertyArea", + value)
                     }}
                     onBlur={handleBlur("propertyArea")}
@@ -286,11 +276,11 @@ const RealEstateHoldingForm = ({
                     messages={
                       customErrors.propertyArea
                         ? [
-                            {
-                              id: "propertyArea",
-                              text: customErrors.propertyArea,
-                            },
-                          ]
+                          {
+                            id: "propertyArea",
+                            text: customErrors.propertyArea,
+                          },
+                        ]
                         : undefined
                     }
                     optional
@@ -309,11 +299,11 @@ const RealEstateHoldingForm = ({
                     messages={
                       customErrors.propertyAreaUnit
                         ? [
-                            {
-                              id: "propertyAreaUnit",
-                              text: customErrors.propertyAreaUnit,
-                            },
-                          ]
+                          {
+                            id: "propertyAreaUnit",
+                            text: customErrors.propertyAreaUnit,
+                          },
+                        ]
                         : undefined
                     }
                     optional
@@ -327,7 +317,7 @@ const RealEstateHoldingForm = ({
                 placeholder="Enter the Property value (in Rs.)"
                 title="Property value (in Rs.)"
                 onChange={(value) => {
-                  if (value==" " || value=="") return
+                  if (value == " " || value == "") setFieldValue("propertyValue", "")
                   else if (!isNaN(value)) setFieldValue("propertyValue", + value)
                 }}
                 onBlur={handleBlur("propertyValue")}
@@ -335,11 +325,11 @@ const RealEstateHoldingForm = ({
                 messages={
                   customErrors.propertyValue
                     ? [
-                        {
-                          id: "propertyValue",
-                          text: customErrors.propertyValue,
-                        },
-                      ]
+                      {
+                        id: "propertyValue",
+                        text: customErrors.propertyValue,
+                      },
+                    ]
                     : undefined
                 }
                 optional
@@ -362,23 +352,23 @@ const RealEstateHoldingForm = ({
                 value={
                   values.dateOfPurchase
                     ? new Date(values.dateOfPurchase).toLocaleDateString(
-                        "en-us",
-                        {
-                          year: "numeric",
-                          month: "short",
-                          day: "2-digit",
-                        }
-                      )
+                      "en-us",
+                      {
+                        year: "numeric",
+                        month: "short",
+                        day: "2-digit",
+                      }
+                    )
                     : ""
                 }
                 messages={
                   customErrors.dateOfPurchase
                     ? [
-                        {
-                          id: "dateOfPurchase",
-                          text: customErrors.dateOfPurchase,
-                        },
-                      ]
+                      {
+                        id: "dateOfPurchase",
+                        text: customErrors.dateOfPurchase,
+                      },
+                    ]
                     : undefined
                 }
                 optional
@@ -394,11 +384,11 @@ const RealEstateHoldingForm = ({
                 messages={
                   customErrors.description
                     ? [
-                        {
-                          id: "description",
-                          text: customErrors.description,
-                        },
-                      ]
+                      {
+                        id: "description",
+                        text: customErrors.description,
+                      },
+                    ]
                     : undefined
                 }
                 optional
@@ -421,11 +411,11 @@ const RealEstateHoldingForm = ({
                     messages={
                       customErrors.address?.city
                         ? [
-                            {
-                              id: "address.city",
-                              text: customErrors.address?.city,
-                            },
-                          ]
+                          {
+                            id: "address.city",
+                            text: customErrors.address?.city,
+                          },
+                        ]
                         : undefined
                     }
                   />
@@ -442,11 +432,11 @@ const RealEstateHoldingForm = ({
                     messages={
                       customErrors.address?.state
                         ? [
-                            {
-                              id: "address.state",
-                              text: customErrors.address?.state,
-                            },
-                          ]
+                          {
+                            id: "address.state",
+                            text: customErrors.address?.state,
+                          },
+                        ]
                         : undefined
                     }
                   />
@@ -459,7 +449,7 @@ const RealEstateHoldingForm = ({
                     placeholder="Enter PIN code"
                     title="PIN Code"
                     onChangeText={(value) => {
-                      if (value==" " || value=="") return
+                      if (value == " " || value == "") setFieldValue("address.pinCode", "")
                       else if (!isNaN(value)) setFieldValue("address.pinCode", + value)
                     }}
                     onBlur={handleBlur("address.pinCode")}
@@ -468,11 +458,11 @@ const RealEstateHoldingForm = ({
                     messages={
                       customErrors.address?.pinCode
                         ? [
-                            {
-                              id: "address.pinCode",
-                              text: customErrors.address?.pinCode,
-                            },
-                          ]
+                          {
+                            id: "address.pinCode",
+                            text: customErrors.address?.pinCode,
+                          },
+                        ]
                         : undefined
                     }
                     textTransformNormal
@@ -490,39 +480,19 @@ const RealEstateHoldingForm = ({
                     messages={
                       customErrors.address?.country
                         ? [
-                            {
-                              id: "address.country",
-                              text: customErrors.address?.country,
-                            },
-                          ]
+                          {
+                            id: "address.country",
+                            text: customErrors.address?.country,
+                          },
+                        ]
                         : undefined
                     }
                     optional
                   />
                 </View>
               </View>
-              <CustomInputGroup
-                name="address.contact"
-                placeholder="Enter contact"
-                title="Contact"
-                onChange={handleChange("address.contact")}
-                onBlur={handleBlur("address.contact")}
-                value={values.address.contact}
-                textContentType="telephoneNumber"
-                messages={
-                  customErrors.address?.contact
-                    ? [
-                        {
-                          id: "address.contact",
-                          text: customErrors.address?.contact,
-                        },
-                      ]
-                    : undefined
-                }
-                optional
-                textTransformNormal
-              />
-              <CustomInputGroup
+
+              {/* <CustomInputGroup
                 name="address.street"
                 placeholder="Enter street"
                 title="Street"
@@ -541,45 +511,29 @@ const RealEstateHoldingForm = ({
                     : undefined
                 }
                 textTransformNormal
-              />
+              /> */}
 
               <CustomInputGroup
-                name="address.landmark"
-                placeholder="Enter landmark"
-                title="Landmark"
-                onChange={handleChange("address.landmark")}
-                onBlur={handleBlur("address.landmark")}
-                value={values.address.landmark}
+                name="address.street"
+                placeholder="Enter street"
+                title="Street"
+                onChange={handleChange("address.street")}
+                onBlur={handleBlur("address.street")}
+                value={values.address.street}
+                textContentType="fullStreetAddress"
                 messages={
-                  customErrors.address?.landmark
+                  customErrors.address?.street
                     ? [
-                        {
-                          id: "address.landmark",
-                          text: customErrors.address?.landmark,
-                        },
-                      ]
+                      {
+                        id: "address.street",
+                        text: customErrors.address?.street,
+                      },
+                    ]
                     : undefined
                 }
-                optional
-              />
-              <CustomInputGroup
-                name="address.building"
-                placeholder="Enter Building"
-                title="Building"
-                onChange={handleChange("address.building")}
-                onBlur={handleBlur("address.building")}
-                value={values.address.building}
-                messages={
-                  customErrors.address?.building
-                    ? [
-                        {
-                          id: "address.building",
-                          text: customErrors.address?.building,
-                        },
-                      ]
-                    : undefined
-                }
-                optional
+                multiline
+                numberOfLines={10}
+                textTransformNormal
               />
 
               <View style={styles.buttonContainer}>

@@ -18,67 +18,73 @@ import { toFormikValidationSchema } from "zod-formik-adapter";
 import CustomInputGroup from "../Form/CustomInputGroup";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { setPersonalInfoRedux } from "../../services/willForm/willFormSlice";
-import { SCREEN_NAMES } from "../../constants/screenNames";
 
 const WillPersonalInfoForm = ({ initialValues, defaultBody }) => {
-  const navigation = useNavigation();
-  const dispatch = useDispatch();
-  const [customErrors, setCustomErrors] = useState({});
-  const [globalErrorMessage, setGlobalErrorMessage] = useState("");
+
+  const navigation = useNavigation()
+
+  const dispatch = useDispatch()
+
+  const [customErrors, setCustomErrors] = useState({})
+
+  const [globalErrorMessage, setGlobalErrorMessage] = useState("")
+
   const [datePickerOptions, setDatePickerOptions] = useState({
     show: false,
     property: "",
-  });
+  })
 
   const formRef = useRef();
 
-  const {
-    theme: { colors, spacing, fontSize, fontFamily },
-  } = useTheme();
+  const { theme: { colors, spacing, fontSize, fontFamily } } = useTheme()
 
   const customErrorWithValidation = useCallback(({ values, errors }) => {
-    let customErrors;
-    let isValid;
 
-    customErrors = { ...errors };
-    isValid = !Boolean(Object.keys(customErrors).length);
+    let customErrors
+    let isValid
 
-    setCustomErrors(customErrors);
+    customErrors = { ...errors }
+    isValid = !Boolean(Object.keys(customErrors).length)
 
-    if (Object.keys(customErrors).length) {
-      setGlobalErrorMessage("Invalid / Missing entries found");
-    }
+    setCustomErrors(customErrors)
 
-    return isValid;
-  }, []);
+    if (Object.keys(customErrors).length) setGlobalErrorMessage("Invalid / Missing entries found")
+
+    return isValid
+
+  }, [])
 
   const onSubmit = useCallback(async ({ values, validateForm }) => {
-    let validationErrors;
 
-    setGlobalErrorMessage("");
+    let validationErrors
+
+    setGlobalErrorMessage("")
 
     try {
-      validationErrors = await validateForm(values);
-    } catch (error) {
-      setGlobalErrorMessage(error.message);
+      validationErrors = await validateForm(values)
+    } 
+    catch (error) {
+      setGlobalErrorMessage(error.message)
     }
 
     const isValid = customErrorWithValidation({
       values,
       errors: validationErrors,
-    });
+    })
 
-    if (!isValid) return;
+    if (!isValid) return
 
-    const cleanedValues = cleanObjectAndTrim({ ...values });
-    cleanedValues.dateOfBirth = cleanedValues.dateOfBirth.toISOString();
+    const cleanedValues = cleanObjectAndTrim({ ...values })
+    cleanedValues.dateOfBirth = cleanedValues.dateOfBirth.toISOString()
 
     try {
-      dispatch(setPersonalInfoRedux({ ...cleanedValues, ...defaultBody }));
-      navigation.navigate(SCREEN_NAMES.willWitnessesScreen);
-    } catch (error) {
-      setGlobalErrorMessage(error?.data?.error?.message || error.message);
+      dispatch(setPersonalInfoRedux({ ...cleanedValues, ...defaultBody }))
+      navigation.goBack()
+    } 
+    catch (error) {
+      setGlobalErrorMessage(error?.data?.error?.message || error.message)
     }
+
   }, []);
 
   const styles = StyleSheet.create({
@@ -129,8 +135,7 @@ const WillPersonalInfoForm = ({ initialValues, defaultBody }) => {
 
   return (
     <WillFormContainer
-      prevDisabled
-      nextHandler={() =>
+      Handler={() =>
         onSubmit({
           values: formRef.current.values,
           validateForm: formRef.current.validateForm,
@@ -151,11 +156,8 @@ const WillPersonalInfoForm = ({ initialValues, defaultBody }) => {
             city: initialValues?.address?.city || "",
             state: initialValues?.address?.state || "",
             pinCode: initialValues?.address?.pinCode || undefined,
-            contact: initialValues?.address?.contact || "",
             street: initialValues?.address?.street || "",
             country: initialValues?.address?.country || "",
-            landmark: initialValues?.address?.landmark || "",
-            building: initialValues?.address?.building || "",
           },
         }}
         innerRef={formRef}
@@ -347,7 +349,7 @@ const WillPersonalInfoForm = ({ initialValues, defaultBody }) => {
                       placeholder="Enter PIN code"
                       title="PIN Code"
                       onChangeText={(value) => {
-                        if (value==" " || value=="") return
+                        if (value==" " || value=="") setFieldValue("address.pinCode", "")
                         else if (!isNaN(value)) setFieldValue("address.pinCode", + value)
                       }}
                       onBlur={handleBlur("address.pinCode")}
@@ -389,28 +391,8 @@ const WillPersonalInfoForm = ({ initialValues, defaultBody }) => {
                     />
                   </View>
                 </View>
-                <CustomInputGroup
-                  name="address.contact"
-                  placeholder="Enter contact"
-                  title="Contact"
-                  onChange={handleChange("address.contact")}
-                  onBlur={handleBlur("address.contact")}
-                  value={values.address.contact}
-                  textContentType="telephoneNumber"
-                  messages={
-                    customErrors.address?.contact
-                      ? [
-                          {
-                            id: "address.contact",
-                            text: customErrors.address?.contact,
-                          },
-                        ]
-                      : undefined
-                  }
-                  optional
-                  textTransformNormal
-                />
-                <CustomInputGroup
+
+                {/* <CustomInputGroup
                   name="address.street"
                   placeholder="Enter street"
                   title="Street"
@@ -429,46 +411,31 @@ const WillPersonalInfoForm = ({ initialValues, defaultBody }) => {
                       : undefined
                   }
                   textTransformNormal
-                />
+                /> */}
 
                 <CustomInputGroup
-                  name="address.landmark"
-                  placeholder="Enter landmark"
-                  title="Landmark"
-                  onChange={handleChange("address.landmark")}
-                  onBlur={handleBlur("address.landmark")}
-                  value={values.address.landmark}
-                  messages={
-                    customErrors.address?.landmark
-                      ? [
-                          {
-                            id: "address.landmark",
-                            text: customErrors.address?.landmark,
-                          },
-                        ]
-                      : undefined
-                  }
-                  optional
-                />
-                <CustomInputGroup
-                  name="address.building"
-                  placeholder="Enter Building"
-                  title="Building"
-                  onChange={handleChange("address.building")}
-                  onBlur={handleBlur("address.building")}
-                  value={values.address.building}
-                  messages={
-                    customErrors.address?.building
-                      ? [
-                          {
-                            id: "address.building",
-                            text: customErrors.address?.building,
-                          },
-                        ]
-                      : undefined
-                  }
-                  optional
-                />
+                    name="address.street"
+                    placeholder="Enter street"
+                    title="Street"
+                    onChange={handleChange("address.street")}
+                    onBlur={handleBlur("address.street")}
+                    value={values.address.street}
+                    textContentType="fullStreetAddress"
+                    messages={
+                      customErrors.address?.street
+                        ? [
+                            {
+                              id: "address.street",
+                              text: customErrors.address?.street,
+                            },
+                          ]
+                        : undefined
+                    }
+                    multiline
+                    numberOfLines={10}
+                    textTransformNormal
+                  />
+
                 {globalErrorMessage ? (
                   <View style={styles.marginBottomSmall}>
                     <Text style={styles.errorMessage}>
@@ -477,7 +444,9 @@ const WillPersonalInfoForm = ({ initialValues, defaultBody }) => {
                   </View>
                 ) : null}
               </View>
+
             </CustomKeyboardAvoidingScrollView>
+
           );
         }}
       </Formik>
