@@ -236,6 +236,9 @@ const BankForm = ({ ctaCaption, defaultBody, apiCallback, isLoading, initialValu
               />
               <View style={[styles.sectionTitleContainer, styles.row]}>
                 <Text style={styles.sectionTitle}>Address</Text>
+                <Text style={[styles.sectionSubTitle, styles.leftPadded]}>
+                  optional
+                </Text>
               </View>
               <View style={styles.row}>
                 <View style={styles.fullWidth}>
