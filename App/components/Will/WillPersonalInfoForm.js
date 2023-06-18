@@ -62,7 +62,7 @@ const WillPersonalInfoForm = ({ initialValues, defaultBody }) => {
 
     try {
       validationErrors = await validateForm(values)
-    } 
+    }
     catch (error) {
       setGlobalErrorMessage(error.message)
     }
@@ -80,7 +80,7 @@ const WillPersonalInfoForm = ({ initialValues, defaultBody }) => {
     try {
       dispatch(setPersonalInfoRedux({ ...cleanedValues, ...defaultBody }))
       navigation.goBack()
-    } 
+    }
     catch (error) {
       setGlobalErrorMessage(error?.data?.error?.message || error.message)
     }
@@ -171,13 +171,13 @@ const WillPersonalInfoForm = ({ initialValues, defaultBody }) => {
 
                 {datePickerOptions.show &&
                   <DateTimePicker
-                    value={values[datePickerOptions.property]? values[datePickerOptions.property]: new Date()}
+                    value={values[datePickerOptions.property] ? values[datePickerOptions.property] : new Date()}
                     mode="date"
                     display="default"
                     onChange={(event, selectedDate) => {
                       setDatePickerOptions({ show: false, property: datePickerOptions.property })
-                      if (event.type === "set") { 
-                        setFieldValue(datePickerOptions.property, selectedDate) 
+                      if (event.type === "set") {
+                        setFieldValue(datePickerOptions.property, selectedDate)
                         return
                       }
                     }}
@@ -209,11 +209,11 @@ const WillPersonalInfoForm = ({ initialValues, defaultBody }) => {
                   messages={
                     customErrors.gender
                       ? [
-                          {
-                            id: "gender",
-                            text: customErrors.gender,
-                          },
-                        ]
+                        {
+                          id: "gender",
+                          text: customErrors.gender,
+                        },
+                      ]
                       : undefined
                   }
                   showSelectedIcon
@@ -249,23 +249,23 @@ const WillPersonalInfoForm = ({ initialValues, defaultBody }) => {
                   value={
                     values.dateOfBirth
                       ? new Date(values.dateOfBirth).toLocaleDateString(
-                          "en-us",
-                          {
-                            year: "numeric",
-                            month: "short",
-                            day: "2-digit",
-                          }
-                        )
+                        "en-us",
+                        {
+                          year: "numeric",
+                          month: "short",
+                          day: "2-digit",
+                        }
+                      )
                       : ""
                   }
                   messages={
                     customErrors.dateOfBirth
                       ? [
-                          {
-                            id: "dateOfBirth",
-                            text: customErrors.dateOfBirth,
-                          },
-                        ]
+                        {
+                          id: "dateOfBirth",
+                          text: customErrors.dateOfBirth,
+                        },
+                      ]
                       : undefined
                   }
                   textTransformNormal
@@ -280,11 +280,11 @@ const WillPersonalInfoForm = ({ initialValues, defaultBody }) => {
                   messages={
                     customErrors.aadharNumber
                       ? [
-                          {
-                            id: "aadharNumber",
-                            text: customErrors.aadharNumber,
-                          },
-                        ]
+                        {
+                          id: "aadharNumber",
+                          text: customErrors.aadharNumber,
+                        },
+                      ]
                       : undefined
                   }
                   textTransformNormal
@@ -296,7 +296,7 @@ const WillPersonalInfoForm = ({ initialValues, defaultBody }) => {
                 <View style={styles.row}>
                   <View style={styles.fullWidth}>
                     <CustomInputGroup
-        
+
                       name="address.city"
                       placeholder="Enter City"
                       title="City"
@@ -307,11 +307,11 @@ const WillPersonalInfoForm = ({ initialValues, defaultBody }) => {
                       messages={
                         customErrors.address?.city
                           ? [
-                              {
-                                id: "address.city",
-                                text: customErrors.address?.city,
-                              },
-                            ]
+                            {
+                              id: "address.city",
+                              text: customErrors.address?.city,
+                            },
+                          ]
                           : undefined
                       }
                     />
@@ -328,11 +328,11 @@ const WillPersonalInfoForm = ({ initialValues, defaultBody }) => {
                       messages={
                         customErrors.address?.state
                           ? [
-                              {
-                                id: "address.state",
-                                text: customErrors.address?.state,
-                              },
-                            ]
+                            {
+                              id: "address.state",
+                              text: customErrors.address?.state,
+                            },
+                          ]
                           : undefined
                       }
                     />
@@ -345,7 +345,7 @@ const WillPersonalInfoForm = ({ initialValues, defaultBody }) => {
                       placeholder="Enter PIN code"
                       title="PIN Code"
                       onChangeText={(value) => {
-                        if (value==" " || value=="") setFieldValue("address.pinCode", "")
+                        if (value == " " || value == "") setFieldValue("address.pinCode", "")
                         else if (!isNaN(value)) setFieldValue("address.pinCode", + value)
                       }}
                       onBlur={handleBlur("address.pinCode")}
@@ -354,11 +354,11 @@ const WillPersonalInfoForm = ({ initialValues, defaultBody }) => {
                       messages={
                         customErrors.address?.pinCode
                           ? [
-                              {
-                                id: "address.pinCode",
-                                text: customErrors.address?.pinCode,
-                              },
-                            ]
+                            {
+                              id: "address.pinCode",
+                              text: customErrors.address?.pinCode,
+                            },
+                          ]
                           : undefined
                       }
                       textTransformNormal
@@ -376,11 +376,11 @@ const WillPersonalInfoForm = ({ initialValues, defaultBody }) => {
                       messages={
                         customErrors.address?.country
                           ? [
-                              {
-                                id: "address.country",
-                                text: customErrors.address?.country,
-                              },
-                            ]
+                            {
+                              id: "address.country",
+                              text: customErrors.address?.country,
+                            },
+                          ]
                           : undefined
                       }
                       optional
@@ -410,27 +410,27 @@ const WillPersonalInfoForm = ({ initialValues, defaultBody }) => {
                 /> */}
 
                 <CustomInputGroup
-                    name="address.street"
-                    placeholder="Enter street"
-                    title="Street"
-                    onChange={handleChange("address.street")}
-                    onBlur={handleBlur("address.street")}
-                    value={values.address.street}
-                    textContentType="fullStreetAddress"
-                    messages={
-                      customErrors.address?.street
-                        ? [
-                            {
-                              id: "address.street",
-                              text: customErrors.address?.street,
-                            },
-                          ]
-                        : undefined
-                    }
-                    multiline
-                    numberOfLines={10}
-                    textTransformNormal
-                  />
+                  name="address.street"
+                  placeholder="Enter street"
+                  title="Street"
+                  onChange={handleChange("address.street")}
+                  onBlur={handleBlur("address.street")}
+                  value={values.address.street}
+                  textContentType="fullStreetAddress"
+                  messages={
+                    customErrors.address?.street
+                      ? [
+                        {
+                          id: "address.street",
+                          text: customErrors.address?.street,
+                        },
+                      ]
+                      : undefined
+                  }
+                  multiline
+                  numberOfLines={10}
+                  textTransformNormal
+                />
 
                 {globalErrorMessage ? (
                   <View style={styles.marginBottomSmall}>
