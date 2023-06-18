@@ -93,6 +93,9 @@ const WillPersonalInfoForm = ({ initialValues, defaultBody }) => {
       paddingVertical: spacing.lg,
       backgroundColor: colors.white100,
     },
+    halfWidth: {
+      width: "50%"
+    },
     sectionTitleContainer: {
       borderBottomWidth: StyleSheet.hairlineWidth,
       borderColor: colors.black200,
@@ -293,10 +296,10 @@ const WillPersonalInfoForm = ({ initialValues, defaultBody }) => {
                 <View style={[styles.sectionTitleContainer, styles.row]}>
                   <Text style={styles.sectionTitle}>Address</Text>
                 </View>
-                <View style={styles.row}>
-                  <View style={styles.fullWidth}>
-                    <CustomInputGroup
 
+                <View style={styles.row}>
+                  <View style={styles.halfWidth}>
+                    <CustomInputGroup
                       name="address.city"
                       placeholder="Enter City"
                       title="City"
@@ -316,7 +319,7 @@ const WillPersonalInfoForm = ({ initialValues, defaultBody }) => {
                       }
                     />
                   </View>
-                  <View style={[styles.fullWidth, styles.leftPadded]}>
+                  <View style={[styles.halfWidth, styles.leftPadded]}>
                     <CustomInputGroup
                       name="address.state"
                       placeholder="Enter state"
@@ -338,8 +341,9 @@ const WillPersonalInfoForm = ({ initialValues, defaultBody }) => {
                     />
                   </View>
                 </View>
+
                 <View style={styles.row}>
-                  <View style={styles.fullWidth}>
+                  <View style={styles.halfWidth}>
                     <CustomInputGroup
                       name="address.pinCode"
                       placeholder="Enter PIN code"
@@ -364,7 +368,7 @@ const WillPersonalInfoForm = ({ initialValues, defaultBody }) => {
                       textTransformNormal
                     />
                   </View>
-                  <View style={[styles.fullWidth, styles.leftPadded]}>
+                  <View style={[styles.halfWidth, styles.leftPadded]}>
                     <CustomInputGroup
                       name="address.country"
                       placeholder="Enter country"
@@ -387,27 +391,6 @@ const WillPersonalInfoForm = ({ initialValues, defaultBody }) => {
                     />
                   </View>
                 </View>
-
-                {/* <CustomInputGroup
-                  name="address.street"
-                  placeholder="Enter street"
-                  title="Street"
-                  onChange={handleChange("address.street")}
-                  onBlur={handleBlur("address.street")}
-                  value={values.address.street}
-                  textContentType="fullStreetAddress"
-                  messages={
-                    customErrors.address?.street
-                      ? [
-                          {
-                            id: "address.street",
-                            text: customErrors.address?.street,
-                          },
-                        ]
-                      : undefined
-                  }
-                  textTransformNormal
-                /> */}
 
                 <CustomInputGroup
                   name="address.street"

@@ -121,6 +121,9 @@ const NomineeForm = ({ ctaCaption, defaultBody, apiCallback, isLoading, initialV
       color: colors.red,
       textAlign: "center",
     },
+    halfWidth: {
+      width: "50%"
+    },
   });
 
   return (
@@ -241,8 +244,9 @@ const NomineeForm = ({ ctaCaption, defaultBody, apiCallback, isLoading, initialV
                   optional
                 </Text>
               </View>
+
               <View style={styles.row}>
-                <View style={styles.fullWidth}>
+                <View style={styles.halfWidth}>
                   <CustomInputGroup
                     name="address.city"
                     placeholder="Enter City"
@@ -263,7 +267,7 @@ const NomineeForm = ({ ctaCaption, defaultBody, apiCallback, isLoading, initialV
                     }
                   />
                 </View>
-                <View style={[styles.fullWidth, styles.leftPadded]}>
+                <View style={[styles.halfWidth, styles.leftPadded]}>
                   <CustomInputGroup
                     name="address.state"
                     placeholder="Enter state"
@@ -285,8 +289,9 @@ const NomineeForm = ({ ctaCaption, defaultBody, apiCallback, isLoading, initialV
                   />
                 </View>
               </View>
+
               <View style={styles.row}>
-                <View style={styles.fullWidth}>
+                <View style={styles.halfWidth}>
                   <CustomInputGroup
                     name="address.pinCode"
                     placeholder="Enter PIN code"
@@ -311,7 +316,7 @@ const NomineeForm = ({ ctaCaption, defaultBody, apiCallback, isLoading, initialV
                     textTransformNormal
                   />
                 </View>
-                <View style={[styles.fullWidth, styles.leftPadded]}>
+                <View style={[styles.halfWidth, styles.leftPadded]}>
                   <CustomInputGroup
                     name="address.country"
                     placeholder="Enter country"
@@ -334,27 +339,6 @@ const NomineeForm = ({ ctaCaption, defaultBody, apiCallback, isLoading, initialV
                   />
                 </View>
               </View>
-
-              {/* <CustomInputGroup
-                name="address.street"
-                placeholder="Enter street"
-                title="Street"
-                onChange={handleChange("address.street")}
-                onBlur={handleBlur("address.street")}
-                value={values.address.street}
-                textContentType="fullStreetAddress"
-                messages={
-                  customErrors.address?.street
-                    ? [
-                        {
-                          id: "address.street",
-                          text: customErrors.address?.street,
-                        },
-                      ]
-                    : undefined
-                }
-                textTransformNormal
-              /> */}
 
               <CustomInputGroup
                 name="address.street"

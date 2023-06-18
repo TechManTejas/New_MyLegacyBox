@@ -132,6 +132,9 @@ const CashHoldingForm = ({ ctaCaption, defaultBody, apiCallback, isLoading, init
       color: colors.red,
       textAlign: "center",
     },
+    halfWidth: {
+      width: "50%"
+    },
   });
 
   return (
@@ -304,8 +307,9 @@ const CashHoldingForm = ({ ctaCaption, defaultBody, apiCallback, isLoading, init
                   optional
                 </Text>
               </View>
+
               <View style={styles.row}>
-                <View style={styles.fullWidth}>
+                <View style={styles.halfWidth}>
                   <CustomInputGroup
                     name="address.city"
                     placeholder="Enter City"
@@ -326,7 +330,7 @@ const CashHoldingForm = ({ ctaCaption, defaultBody, apiCallback, isLoading, init
                     }
                   />
                 </View>
-                <View style={[styles.fullWidth, styles.leftPadded]}>
+                <View style={[styles.halfWidth, styles.leftPadded]}>
                   <CustomInputGroup
                     name="address.state"
                     placeholder="Enter state"
@@ -348,8 +352,9 @@ const CashHoldingForm = ({ ctaCaption, defaultBody, apiCallback, isLoading, init
                   />
                 </View>
               </View>
+
               <View style={styles.row}>
-                <View style={styles.fullWidth}>
+                <View style={styles.halfWidth}>
                   <CustomInputGroup
                     name="address.pinCode"
                     placeholder="Enter PIN code"
@@ -374,7 +379,7 @@ const CashHoldingForm = ({ ctaCaption, defaultBody, apiCallback, isLoading, init
                     textTransformNormal
                   />
                 </View>
-                <View style={[styles.fullWidth, styles.leftPadded]}>
+                <View style={[styles.halfWidth, styles.leftPadded]}>
                   <CustomInputGroup
                     name="address.country"
                     placeholder="Enter country"
@@ -397,27 +402,6 @@ const CashHoldingForm = ({ ctaCaption, defaultBody, apiCallback, isLoading, init
                   />
                 </View>
               </View>
-
-              {/* <CustomInputGroup
-                name="address.street"
-                placeholder="Enter street"
-                title="Street"
-                onChange={handleChange("address.street")}
-                onBlur={handleBlur("address.street")}
-                value={values.address.street}
-                textContentType="fullStreetAddress"
-                messages={
-                  customErrors.address?.street
-                    ? [
-                        {
-                          id: "address.street",
-                          text: customErrors.address?.street,
-                        },
-                      ]
-                    : undefined
-                }
-                textTransformNormal
-              /> */}
 
               <CustomInputGroup
                 name="address.street"

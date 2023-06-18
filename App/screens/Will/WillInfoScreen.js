@@ -114,7 +114,7 @@ const WillInfoScreen = () => {
                 <WillSectionCard
                     sectiontitle={`Executor (${executors.length}/2) (optional)`}
                     tickCondition={executors.length == 2}
-                    title={"Add Witness"}
+                    title={"Add Executors"}
                     subtitle={"It is mandatory to add two witnesses"}
                     disableCondition={executors.length == 2}
                     screenName={SCREEN_NAMES.willExecutorInfoScreen}

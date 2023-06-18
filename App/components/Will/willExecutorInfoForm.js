@@ -126,6 +126,9 @@ const WillExecutorInfoForm = ({ initialValues, defaultBody, index }) => {
       color: colors.red,
       textAlign: "center",
     },
+    halfWidth: {
+      width: "50%"
+    },
   });
 
   return (
@@ -239,8 +242,9 @@ const WillExecutorInfoForm = ({ initialValues, defaultBody, index }) => {
               <View style={[styles.sectionTitleContainer, styles.row]}>
                 <Text style={styles.sectionTitle}>Address</Text>
               </View>
+
               <View style={styles.row}>
-                <View style={styles.fullWidth}>
+                <View style={styles.halfWidth}>
                   <CustomInputGroup
                     name="address.city"
                     placeholder="Enter City"
@@ -261,7 +265,7 @@ const WillExecutorInfoForm = ({ initialValues, defaultBody, index }) => {
                     }
                   />
                 </View>
-                <View style={[styles.fullWidth, styles.leftPadded]}>
+                <View style={[styles.halfWidth, styles.leftPadded]}>
                   <CustomInputGroup
                     name="address.state"
                     placeholder="Enter state"
@@ -283,8 +287,9 @@ const WillExecutorInfoForm = ({ initialValues, defaultBody, index }) => {
                   />
                 </View>
               </View>
+
               <View style={styles.row}>
-                <View style={styles.fullWidth}>
+                <View style={styles.halfWidth}>
                   <CustomInputGroup
                     name="address.pinCode"
                     placeholder="Enter PIN code"
@@ -309,7 +314,7 @@ const WillExecutorInfoForm = ({ initialValues, defaultBody, index }) => {
                     textTransformNormal
                   />
                 </View>
-                <View style={[styles.fullWidth, styles.leftPadded]}>
+                <View style={[styles.halfWidth, styles.leftPadded]}>
                   <CustomInputGroup
                     name="address.country"
                     placeholder="Enter country"

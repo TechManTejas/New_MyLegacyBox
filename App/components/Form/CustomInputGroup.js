@@ -149,7 +149,7 @@ const CustomInputGroup = ({
         ) : null}
         <TextInput
           onPressIn={onPressIn}
-          style={[styles.input, multiline && styles.multilineInput, { width: "30%" }]}
+          style={[styles.input, multiline && styles.multilineInput]}
           onFocus={onFocus}
           numberOfLines={multiline ? numberOfLines : 1}
           onChange={onChange}
