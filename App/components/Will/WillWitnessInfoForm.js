@@ -322,8 +322,8 @@ const WillWitnessInfoForm = ({ initialValues, defaultBody, index }) => {
 
               <CustomInputGroup
                 name="address.street"
-                placeholder="Enter street"
-                title="Street"
+                placeholder="Enter the address"
+                title="Address Line 1"
                 onChange={handleChange("address.street")}
                 onBlur={handleBlur("address.street")}
                 value={values.address.street}

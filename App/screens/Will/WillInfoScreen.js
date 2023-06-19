@@ -9,16 +9,20 @@ import {
     getExecutorsSelector,
     getSelectedAssetsSelector,
     getAssetsSelector,
-    getDeclarationSelector
+    getDeclarationSelector,
+    clearAssets
 } from "../../services/willForm/willFormSlice";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import BlueButton from "../../components/Common/Button/BlueButton";
 import WillAssetDistributionCard from "../../components/Will/WillAssetDistributionCard";
 import WillSectionCard from "../../components/Will/WillSectionCard";
+import { useEffect } from "react";
 
 const WillInfoScreen = () => {
 
     const { theme: { spacing, colors } } = useTheme()
+
+    const dispatch = useDispatch();
 
     const personalInfo = useSelector((state) => getPersonalInfoSelector(state))
     const witnesses = useSelector((state) => getWitnessesSelector(state))
@@ -41,6 +45,10 @@ const WillInfoScreen = () => {
             marginHorizontal: spacing.lg
         }
     })
+
+    useEffect(() => {
+        if ( beneficiaries.length != 0 ) dispatch(clearAssets())
+    }, [beneficiaries])
 
     return (
         <ScrollView>
@@ -82,11 +90,11 @@ const WillInfoScreen = () => {
                     initialValues={witnessValues}
                     index={undefined}
                     warnCondition={witnesses.length != 2}
-                    warnMsg={"Warning: Beneficiaries and Witnesses should be different individuals"}
+                    warnMsg={"Advisory: To avoid any future conflict, a witness should not be a beneficiary”"}
                     array={witnesses}
                 />
             </View>
-
+{/* 
             <View style={styles.section}>
                 <WillSectionCard
                     sectiontitle={"Assets"}
@@ -96,16 +104,20 @@ const WillInfoScreen = () => {
                     disableCondition={witnesses.length != 2}
                     screenName={SCREEN_NAMES.willAssetsScreen}
                 />
-            </View>
+            </View> */}
 
             <View style={styles.section}>
                 <WillSectionCard
-                    sectiontitle={"Asset Allocation"}
+                    sectiontitle={"My Asset Distribution"}
                     tickCondition={assetsDistribution.length > 0}
                     title={"Allocate Assets"}
-                    subtitle={"It is mandatory to allocate assets"}
-                    disableCondition={assets.length < 1}
-                    screenName={SCREEN_NAMES.willAssetInfoScreen}
+                    subtitle={"Distribute your assets as per your wish"}
+                    disableCondition={witnesses.length != 2}
+                    screenName={SCREEN_NAMES.willAssetsScreen}
+                    warnCondition={true}
+                    warnMsg={"Warning: Modifying beneficiary or selected assets will require re allocation"}
+                    showEditIcon={true}
+                    dataFilled={assetsDistribution.length > 0}
                 />
                 <WillAssetDistributionCard />
             </View>
@@ -121,7 +133,7 @@ const WillInfoScreen = () => {
                     initialValues={executorValues}
                     index={undefined}
                     warnCondition={executors.length != 2}
-                    warnMsg={"Warning: Beneficiaries, Witnesses and Executors should be different individuals."}
+                    warnMsg={"Advisory: To avoid any future conflict, an executor should not be a beneficiary or a witness"}
                     array={executors}
                 />
             </View>

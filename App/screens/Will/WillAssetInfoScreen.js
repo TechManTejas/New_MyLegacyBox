@@ -10,6 +10,7 @@ import WillAssetInfoForm from "../../components/Will/WillAssetInfoForm";
 import CustomActivityIndicator from "../../components/Common/CustomActivityIndicator";
 
 const WillAssetInfoScreen = () => {
+
   const [initialValues, setInitialValues] = useState(undefined);
   const [sectionTitles, setSectionTitles] = useState(undefined);
 
@@ -67,10 +68,7 @@ const WillAssetInfoScreen = () => {
       {!(initialValues && sectionTitles) ? (
         <CustomActivityIndicator />
       ) : (
-        <WillAssetInfoForm
-          initialValues={initialValues}
-          sectionTitles={sectionTitles}
-        />
+        <WillAssetInfoForm initialValues={initialValues} sectionTitles={sectionTitles}/>
       )}
     </View>
   );

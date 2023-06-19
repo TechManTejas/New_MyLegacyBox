@@ -65,6 +65,10 @@ export const willFormSlice = createSlice({
     removeSelectedAssetRedux: (state, action) => {
       selectedAssetsAdapter.removeOne(state.selectedAssets, action.payload)
     },
+    clearAssets: (state, action) => {
+      state.assets = [];
+      return state;
+    },
     clearWillFormRedux: () => initialState,
   },
 })
@@ -84,6 +88,7 @@ export const {
   addSelectedAssetRedux,
   removeSelectedAssetRedux,
   clearWillFormRedux,
+  clearAssets
 } = willFormSlice.actions
 
 const willFormSelector = (state) => state.willForm

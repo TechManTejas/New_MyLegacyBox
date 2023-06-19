@@ -43,7 +43,8 @@ export const willExecutorInfoValidator = z
     })
     .refine(value => /^\d{12}$/.test(value), {
       message: "Number should be of 12 digits"
-    }),
+    })
+    .optional(),
 
     address: addressValidator,
 

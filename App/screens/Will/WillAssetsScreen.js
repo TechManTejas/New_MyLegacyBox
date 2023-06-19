@@ -23,15 +23,14 @@ import { addSelectedAssetRedux } from "../../services/willForm/willFormSlice";
 import { PROVIDENT_FUND_TYPE_TO_TITLE_MAP } from "../../constants/financialHoldings/providentFundHolding";
 import { useMemo } from "react";
 import { BANK_ACCOUNT_OWNERSHIP_MAP } from "../../constants/financialHoldings/bankHolding";
+import { SCREEN_NAMES } from "../../constants/screenNames";
 
 const WillAssetsScreen = () => {
   const navigation = useNavigation();
 
   const dispatch = useDispatch();
 
-  const selectedAssetsEntities = useSelector((state) =>
-    getSelectedAssetsEntitiesSelector(state)
-  );
+  const selectedAssetsEntities = useSelector((state) => getSelectedAssetsEntitiesSelector(state));
 
   const allFinancialHolding = useGetAllFinancialHoldingsQuery();
   const banks = useGetBanksQuery();
@@ -149,7 +148,8 @@ const WillAssetsScreen = () => {
 
     if (selectedAssetsEntities[item._id]) {
       dispatch(removeSelectedAssetRedux(item._id));
-    } else {
+    } 
+    else {
       dispatch(
         addSelectedAssetRedux({
           _id: item._id,
@@ -161,6 +161,7 @@ const WillAssetsScreen = () => {
         })
       );
     }
+    
   };
 
   const getItemTitleAndSubTitle = (item, sectionTitle) => {
@@ -271,7 +272,7 @@ const WillAssetsScreen = () => {
   return (
     <View style={styles.container}>
       <WillFormContainer
-        Handler={() => navigation.goBack()}
+        Handler={() => navigation.navigate(SCREEN_NAMES.willAssetInfoScreen)}
         nextDisabled={Object.keys(selectedAssetsEntities).length < 1}
       >
         <View style={styles.content}>

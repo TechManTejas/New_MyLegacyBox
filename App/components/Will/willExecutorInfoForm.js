@@ -225,6 +225,7 @@ const WillExecutorInfoForm = ({ initialValues, defaultBody, index }) => {
               />
 
               <CustomInputGroup
+                optional
                 name="aadharNumber"
                 placeholder="Enter your Aadhar number"
                 title="Aadhar Number"
@@ -238,6 +239,7 @@ const WillExecutorInfoForm = ({ initialValues, defaultBody, index }) => {
                 }
                 textTransformNormal
               />
+
 
               <View style={[styles.sectionTitleContainer, styles.row]}>
                 <Text style={styles.sectionTitle}>Address</Text>
@@ -338,31 +340,10 @@ const WillExecutorInfoForm = ({ initialValues, defaultBody, index }) => {
                 </View>
               </View>
 
-              {/* <CustomInputGroup
-                name="address.street"
-                placeholder="Enter street"
-                title="Street"
-                onChange={handleChange("address.street")}
-                onBlur={handleBlur("address.street")}
-                value={values.address.street}
-                textContentType="fullStreetAddress"
-                messages={
-                  customErrors.address?.street
-                    ? [
-                        {
-                          id: "address.street",
-                          text: customErrors.address?.street,
-                        },
-                      ]
-                    : undefined
-                }
-                textTransformNormal
-              /> */}
-
               <CustomInputGroup
                 name="address.street"
-                placeholder="Enter street"
-                title="Street"
+                placeholder="Enter the address"
+                title="Address Line 1"
                 onChange={handleChange("address.street")}
                 onBlur={handleBlur("address.street")}
                 value={values.address.street}

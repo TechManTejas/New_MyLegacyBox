@@ -240,7 +240,7 @@ const BankForm = ({ ctaCaption, defaultBody, apiCallback, isLoading, initialValu
                   optional
                 </Text>
               </View>
-              
+
               <View style={styles.row}>
                 <View style={styles.halfWidth}>
                   <CustomInputGroup
@@ -338,8 +338,8 @@ const BankForm = ({ ctaCaption, defaultBody, apiCallback, isLoading, initialValu
 
               <CustomInputGroup
                 name="address.street"
-                placeholder="Enter street"
-                title="Street"
+                placeholder="Enter the address"
+                title="Address Line 1"
                 onChange={handleChange("address.street")}
                 onBlur={handleBlur("address.street")}
                 value={values.address.street}

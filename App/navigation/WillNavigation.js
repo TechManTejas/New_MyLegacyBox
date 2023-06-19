@@ -58,7 +58,7 @@ const WillNavigation = () => {
           component={WillInfoScreen}
           options={{
             headerShown: true,
-            title: "Will",
+            title: "My Will",
           }}
         />
 
@@ -72,32 +72,32 @@ const WillNavigation = () => {
           }}
         />
 
-        <Stack.Screen
+        {/* <Stack.Screen
           name={SCREEN_NAMES.willWitnessesScreen}
           component={WillWitnessesScreen}
           options={{
             headerShown: true,
             title: "Witnesses",
           }}
-        />
+        /> */}
 
         <Stack.Screen
           name={SCREEN_NAMES.willWitnessInfoScreen}
           component={WillWitnessInfoScreen}
           options={{
             headerShown: true,
-            title: "Witness Information",
+            title: "Witness to my Will",
           }}
         />
 
-        <Stack.Screen
+        {/* <Stack.Screen
           name={SCREEN_NAMES.willBeneficiariesScreen}
           component={WillBeneficiariesScreen}
           options={{
             headerShown: true,
             title: "Beneficiaries",
           }}
-        />
+        /> */}
 
         <Stack.Screen
           name={SCREEN_NAMES.willBeneficiaryInfoScreen}
@@ -113,7 +113,7 @@ const WillNavigation = () => {
           component={WillAssetsScreen}
           options={{
             headerShown: true,
-            title: "Assets Selection",
+            title: "My Assets",
           }}
         />
 
@@ -126,21 +126,21 @@ const WillNavigation = () => {
           }}
         />
 
-        <Stack.Screen
+        {/* <Stack.Screen
           name={SCREEN_NAMES.willExecutorScreen}
           component={WillExecutorScreen}
           options={{
             headerShown: true,
             title: "Executors (Optional)",
           }}
-        />
+        /> */}
 
         <Stack.Screen
           name={SCREEN_NAMES.willExecutorInfoScreen}
           component={WillExecutorInfoScreen}
           options={{
             headerShown: true,
-            title: "Executors Information",
+            title: "Executor of my Will",
           }}
         />
 

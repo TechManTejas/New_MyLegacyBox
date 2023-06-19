@@ -11,9 +11,7 @@ import SecurityFeatureCard from "../components/Home/SecurityFeatureCard";
 
 const HomeScreen = () => {
   const { sessionToken } = useAuth();
-  const {
-    theme: { spacing, colors },
-  } = useTheme();
+  const { theme: { spacing, colors, fontFamily, fontSize } } = useTheme();
 
   console.log("Session Token : ", sessionToken);
 
@@ -22,6 +20,15 @@ const HomeScreen = () => {
       paddingHorizontal: spacing.lg,
       paddingBottom: spacing.u56 + spacing.sm,
     },
+    header: {
+      // paddingVertical: spacing.md
+    },
+    headertext: {
+      // textAlign: "center",
+      color: colors.blue500,
+      fontFamily: fontFamily.semiBold,
+      fontSize: fontSize.lg
+    }
   });
 
   return (
@@ -33,6 +40,9 @@ const HomeScreen = () => {
             backgroundColor={colors.white100}
           />
           <HomeHeader />
+          <View style={styles.header}>
+            <Text style={styles.headertext}>My Smartbox</Text>
+          </View>
           <MajorMenu title="home" menuData={HOME_MAJOR_MENU_DATA} />
           <MinorMenu title="home" centered menuData={HOME_MINOR_MENU_DATA} />
           <SecurityFeatureCard/>

@@ -11,7 +11,9 @@ import { SCREEN_NAMES } from "../../constants/screenNames";
 import WillFormContainer from "./WillFormContainer";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  getAssetsSelector,
   getSelectedAssetsEntitiesSelector,
+  getSelectedAssetsSelector,
   setAssetRedux,
 } from "../../services/willForm/willFormSlice";
 
@@ -22,6 +24,7 @@ const WillAssetInfoForm = ({ initialValues, sectionTitles }) => {
   const formRef = useRef();
 
   const selectedAssetsEntities = useSelector((state) => getSelectedAssetsEntitiesSelector(state));
+  const assets = useSelector((state) => getAssetsSelector(state))
 
   const dispatch = useDispatch();
 
@@ -122,9 +125,11 @@ const WillAssetInfoForm = ({ initialValues, sectionTitles }) => {
 
     const allocationValues = Object.values(selectedAssetsEntities).map((asset) => ({ ...asset, allocations: values[asset._id] }));
 
+    console.log(allocationValues);
+
     dispatch(setAssetRedux(allocationValues));
 
-    navigation.goBack()
+    navigation.navigate(SCREEN_NAMES.willInfoScreen)
 
   }, []);
 

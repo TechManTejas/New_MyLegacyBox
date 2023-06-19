@@ -97,6 +97,7 @@ const BottomTabNavigation = () => {
         tabBarActiveTintColor: colors.blue500,
       })}
     >
+
       <BottomTab.Screen
         name={SCREEN_NAMES.homeNavigator}
         component={HomeNavigation}
@@ -139,11 +140,12 @@ const BottomTabNavigation = () => {
           ),
         }}
       />
+
       <BottomTab.Screen
         name={SCREEN_NAMES.willNavigator}
         component={WillNavigation}
         options={({ route }) => ({
-          title: "E-Will",
+          title: "My Will",
           tabBarStyle: [
             {
               display: shouldShowTabBarBottom(route, SCREEN_NAMES.nomineeScreen)
@@ -161,7 +163,7 @@ const BottomTabNavigation = () => {
                     color={styles.centerTabIcon.color}
                   />
                 </View>
-                <Text style={styles.centerTabLabel}>E-Will</Text>
+                <Text style={styles.centerTabLabel}>My Will</Text>
               </View>
             </View>
           ),
@@ -169,6 +171,7 @@ const BottomTabNavigation = () => {
           tabBarLabelStyle: { display: "none" },
         })}
       />
+
       <BottomTab.Screen
         name={SCREEN_NAMES.nomineeNavigator}
         component={NomineeNavigation}
@@ -192,6 +195,7 @@ const BottomTabNavigation = () => {
           ),
         })}
       />
+
     </BottomTab.Navigator>
   );
 };
