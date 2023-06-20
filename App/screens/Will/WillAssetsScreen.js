@@ -274,6 +274,7 @@ const WillAssetsScreen = () => {
       <WillFormContainer
         Handler={() => navigation.navigate(SCREEN_NAMES.willAssetInfoScreen)}
         nextDisabled={Object.keys(selectedAssetsEntities).length < 1}
+        title="Next"
       >
         <View style={styles.content}>
           <SectionList

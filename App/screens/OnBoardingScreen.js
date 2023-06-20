@@ -7,9 +7,8 @@ import { useTheme } from "../theme/ThemeProvider";
 import CustomSafeView from "../components/Common/CustomSafeView";
 
 const OnBoardingScreen = () => {
-  const {
-    theme: { colors },
-  } = useTheme();
+
+  const { theme: { colors } } = useTheme();
 
   const isFoucused = useIsFocused();
 
@@ -20,7 +19,6 @@ const OnBoardingScreen = () => {
     list: {
       flex: 1,
     },
-
   });
 
   return (

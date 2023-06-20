@@ -1,5 +1,5 @@
 import React, { useCallback } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Linking, StyleSheet, Text, View } from "react-native";
 import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
@@ -137,8 +137,14 @@ const BottomTabNavigation = () => {
                 focused ? styles.iconColorFoucsed.color : styles.iconColor.color
               }
             />
-          ),
+          )
         }}
+        listeners={() => ({
+          tabPress: (e) => {
+            e.preventDefault()
+            Linking.openURL("https://www.oiconomos.com/blog")
+          }
+        })}
       />
 
       <BottomTab.Screen

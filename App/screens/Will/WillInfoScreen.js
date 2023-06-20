@@ -48,6 +48,12 @@ const WillInfoScreen = () => {
         if ( beneficiaries.length != 0 ) dispatch(clearAssets())
     }, [beneficiaries])
 
+    const generateWillActivate =    (Object.keys(personalInfo).length != 0) && 
+                                    (beneficiaries.length >= 1) && 
+                                    (witnesses.length == 2) &&
+                                    (assetsDistribution.length > 0) &&
+                                    (declarationInfo.declaration != '')
+
     return (
         <ScrollView>
             
@@ -59,7 +65,7 @@ const WillInfoScreen = () => {
                     subtitle={"Testator information is mandatory"}
                     screenName={SCREEN_NAMES.willPersonalInfoScreen}
                     showEditIcon={true}
-                    dataFilled={Object.keys(personalInfo).length != 0 ? true : false}
+                    dataFilled={Object.keys(personalInfo).length != 0}
                 />
             </View>
 
@@ -136,7 +142,7 @@ const WillInfoScreen = () => {
                 />
                 <View style={{ marginTop: spacing.lg }} />
                 <BlueButton
-                    disabled={declarationInfo.declaration != '' ? false : true}
+                    disabled={!generateWillActivate}
                     title="Generate Will"
                     onPress={() => navigator.navigate(SCREEN_NAMES.willGenerationScreen)}
                 />

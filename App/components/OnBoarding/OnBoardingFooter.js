@@ -1,23 +1,19 @@
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
-import { StyleSheet, Text, View } from "react-native";
+import { Linking, StyleSheet, Text, View } from "react-native";
 import { useTheme } from "../../theme/ThemeProvider";
 import { SCREEN_NAMES } from "../../constants/screenNames";
 import BlueButton from "../Common/Button/BlueButton";
 
 const OnBoardingFooter = () => {
   const navigation = useNavigation();
-  const {
-    theme: { spacing, colors, fontFamily, fontSize },
-  } = useTheme();
+  const { theme: { spacing, colors, fontFamily, fontSize } } = useTheme();
 
   const styles = StyleSheet.create({
     footerContainer: {
-      // flex: 1,
       backgroundColor: colors.white400,
     },
     footer: {
-      // flex: 1,
       borderWidth: StyleSheet.hairlineWidth,
       borderColor: colors.blue200,
       backgroundColor: colors.white100,
@@ -25,7 +21,6 @@ const OnBoardingFooter = () => {
       borderTopRightRadius: spacing.xl,
     },
     container: {
-      // flex: 1,
       paddingVertical: spacing.md,
       paddingHorizontal: spacing.md,
     },
@@ -81,8 +76,12 @@ const OnBoardingFooter = () => {
           </View>
           <Text style={styles.caption}>
             By signing up you agree to our{" "}
-            <Text style={styles.captionBold}>Terms & Conditions</Text> and{" "}
-            <Text style={styles.captionBold}>Privacy Policy</Text>
+            <Text style={styles.captionBold} onPress={() => Linking.openURL("https://www.oiconomos.com/privacy-policy")}>
+              Terms & Conditions
+            </Text> and{" "}
+            <Text style={styles.captionBold} onPress={() => Linking.openURL("https://www.oiconomos.com/privacy-policy")}>
+              Privacy Policy
+            </Text>
           </Text>
         </View>
       </View>
