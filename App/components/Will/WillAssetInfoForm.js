@@ -10,10 +10,7 @@ import CustomInputGroup from "../Form/CustomInputGroup";
 import { SCREEN_NAMES } from "../../constants/screenNames";
 import WillFormContainer from "./WillFormContainer";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getSelectedAssetsEntitiesSelector,
-  setAssetRedux,
-} from "../../services/willForm/willFormSlice";
+import { getSelectedAssetsEntitiesSelector, setAssetRedux } from "../../services/willForm/willFormSlice";
 
 const WillAssetInfoForm = ({ initialValues, sectionTitles }) => {
   const navigation = useNavigation();
@@ -124,7 +121,7 @@ const WillAssetInfoForm = ({ initialValues, sectionTitles }) => {
 
     dispatch(setAssetRedux(allocationValues));
 
-    navigation.goBack()
+    navigation.navigate(SCREEN_NAMES.willInfoScreen)
 
   }, []);
 

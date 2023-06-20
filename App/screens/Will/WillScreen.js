@@ -63,7 +63,7 @@ const WillScreen = () => {
         />
       </View>
       <View style={styles.footer}>
-        <BlueButton outline title="Create a Will" onPress={pressHandler} />
+        <BlueButton outline title="Create my Will" onPress={pressHandler} />
       </View>
     </View>
   );

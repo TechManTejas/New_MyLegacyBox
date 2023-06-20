@@ -112,6 +112,9 @@ const InsuranceForm = ({ ctaCaption, defaultBody, apiCallback, isLoading, initia
       color: colors.red,
       textAlign: "center",
     },
+    halfWidth: {
+      width: "50%"
+    },
   });
 
   return (
@@ -185,7 +188,7 @@ const InsuranceForm = ({ ctaCaption, defaultBody, apiCallback, isLoading, initia
               <CustomInputGroup
                 name="pocNumber"
                 placeholder="Phone number of point of contact"
-                title="Point of contact's number"ho
+                title="Point of contact's number" ho
                 onChange={handleChange("pocNumber")}
                 onBlur={handleBlur("pocNumber")}
                 value={values.pocNumber}
@@ -204,8 +207,9 @@ const InsuranceForm = ({ ctaCaption, defaultBody, apiCallback, isLoading, initia
                   optional
                 </Text>
               </View>
+
               <View style={styles.row}>
-                <View style={styles.fullWidth}>
+                <View style={styles.halfWidth}>
                   <CustomInputGroup
                     name="address.city"
                     placeholder="Enter City"
@@ -217,16 +221,16 @@ const InsuranceForm = ({ ctaCaption, defaultBody, apiCallback, isLoading, initia
                     messages={
                       customErrors.address?.city
                         ? [
-                            {
-                              id: "address.city",
-                              text: customErrors.address?.city,
-                            },
-                          ]
+                          {
+                            id: "address.city",
+                            text: customErrors.address?.city,
+                          },
+                        ]
                         : undefined
                     }
                   />
                 </View>
-                <View style={[styles.fullWidth, styles.leftPadded]}>
+                <View style={[styles.halfWidth, styles.leftPadded]}>
                   <CustomInputGroup
                     name="address.state"
                     placeholder="Enter state"
@@ -238,24 +242,25 @@ const InsuranceForm = ({ ctaCaption, defaultBody, apiCallback, isLoading, initia
                     messages={
                       customErrors.address?.state
                         ? [
-                            {
-                              id: "address.state",
-                              text: customErrors.address?.state,
-                            },
-                          ]
+                          {
+                            id: "address.state",
+                            text: customErrors.address?.state,
+                          },
+                        ]
                         : undefined
                     }
                   />
                 </View>
               </View>
+
               <View style={styles.row}>
-                <View style={styles.fullWidth}>
+                <View style={styles.halfWidth}>
                   <CustomInputGroup
                     name="address.pinCode"
                     placeholder="Enter PIN code"
                     title="PIN Code"
                     onChangeText={(value) => {
-                      if (value==" " || value=="") setFieldValue("address.pinCode", "")
+                      if (value == " " || value == "") setFieldValue("address.pinCode", "")
                       else if (!isNaN(value)) setFieldValue("address.pinCode", + value)
                     }}
                     onBlur={handleBlur("address.pinCode")}
@@ -264,17 +269,17 @@ const InsuranceForm = ({ ctaCaption, defaultBody, apiCallback, isLoading, initia
                     messages={
                       customErrors.address?.pinCode
                         ? [
-                            {
-                              id: "address.pinCode",
-                              text: customErrors.address?.pinCode,
-                            },
-                          ]
+                          {
+                            id: "address.pinCode",
+                            text: customErrors.address?.pinCode,
+                          },
+                        ]
                         : undefined
                     }
                     textTransformNormal
                   />
                 </View>
-                <View style={[styles.fullWidth, styles.leftPadded]}>
+                <View style={[styles.halfWidth, styles.leftPadded]}>
                   <CustomInputGroup
                     name="address.country"
                     placeholder="Enter country"
@@ -286,11 +291,11 @@ const InsuranceForm = ({ ctaCaption, defaultBody, apiCallback, isLoading, initia
                     messages={
                       customErrors.address?.country
                         ? [
-                            {
-                              id: "address.country",
-                              text: customErrors.address?.country,
-                            },
-                          ]
+                          {
+                            id: "address.country",
+                            text: customErrors.address?.country,
+                          },
+                        ]
                         : undefined
                     }
                     optional
@@ -298,10 +303,10 @@ const InsuranceForm = ({ ctaCaption, defaultBody, apiCallback, isLoading, initia
                 </View>
               </View>
 
-              {/* <CustomInputGroup
+              <CustomInputGroup
                 name="address.street"
-                placeholder="Enter street"
-                title="Street"
+                placeholder="Enter the address"
+                title="Address Line 1"
                 onChange={handleChange("address.street")}
                 onBlur={handleBlur("address.street")}
                 value={values.address.street}
@@ -309,38 +314,17 @@ const InsuranceForm = ({ ctaCaption, defaultBody, apiCallback, isLoading, initia
                 messages={
                   customErrors.address?.street
                     ? [
-                        {
-                          id: "address.street",
-                          text: customErrors.address?.street,
-                        },
-                      ]
+                      {
+                        id: "address.street",
+                        text: customErrors.address?.street,
+                      },
+                    ]
                     : undefined
                 }
+                multiline
+                numberOfLines={10}
                 textTransformNormal
-              /> */}
-
-<CustomInputGroup
-                    name="address.street"
-                    placeholder="Enter street"
-                    title="Street"
-                    onChange={handleChange("address.street")}
-                    onBlur={handleBlur("address.street")}
-                    value={values.address.street}
-                    textContentType="fullStreetAddress"
-                    messages={
-                      customErrors.address?.street
-                        ? [
-                            {
-                              id: "address.street",
-                              text: customErrors.address?.street,
-                            },
-                          ]
-                        : undefined
-                    }
-                    multiline
-                    numberOfLines={10}
-                    textTransformNormal
-                  />
+              />
 
               <BlueButton
                 disabled={isLoading}

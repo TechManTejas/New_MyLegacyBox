@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet } from "react-native";
+import { Linking, StyleSheet, Text, View } from "react-native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { SCREEN_NAMES } from "../constants/screenNames";
 import DrawerScreen from "../screens/DrawerScreen";
@@ -12,9 +12,8 @@ import CustomHeaderTitle from "../components/Common/CustomHeaderTitle";
 const Drawer = createDrawerNavigator();
 
 const DrawerNavigation = () => {
-  const {
-    theme: { spacing, colors, fontSize, fontFamily },
-  } = useTheme();
+
+  const { theme: { spacing, colors, fontSize, fontFamily } } = useTheme();
 
   const styles = StyleSheet.create({
     headerStyle: {
@@ -56,6 +55,58 @@ const DrawerNavigation = () => {
         options={{
           title: "Feedback",
         }}
+      />
+      <Drawer.Screen
+        name={"tab2"}
+        component={FeedbackScreen}
+        options={{
+          title: "About us",
+        }}
+        listeners={() => ({
+          drawerItemPress: (e) => {
+            e.preventDefault()
+            Linking.openURL("https://www.oiconomos.com/")
+          }
+        })}
+      />
+      <Drawer.Screen
+        name={"tab3"}
+        component={FeedbackScreen}
+        options={{
+          title: "Privacy Policy",
+        }}
+        listeners={() => ({
+          drawerItemPress: (e) => {
+            e.preventDefault()
+            Linking.openURL("https://www.oiconomos.com/privacy-policy")
+          }
+        })}
+      />
+      <Drawer.Screen
+        name={"tab4"}
+        component={FeedbackScreen}
+        options={{
+          title: "FAQ",
+        }}
+        listeners={() => ({
+          drawerItemPress: (e) => {
+            e.preventDefault()
+            Linking.openURL("https://www.oiconomos.com/faq")
+          }
+        })}
+      />
+      <Drawer.Screen
+        name={"tab5"}
+        component={FeedbackScreen}
+        options={{
+          title: "Contact Us",
+        }}
+        listeners={() => ({
+          drawerItemPress: (e) => {
+            e.preventDefault()
+            Linking.openURL("https://www.oiconomos.com/")
+          }
+        })}
       />
     </Drawer.Navigator>
   );

@@ -146,26 +146,21 @@ const InsuranceHoldingForm = ({
         return (
           <CustomKeyboardAvoidingScrollView>
             <View style={styles.container}>
-              {datePickerOptions.show ? (
+
+              {datePickerOptions.show &&
                 <DateTimePicker
-                  value={
-                    values[datePickerOptions.property]
-                      ? values[datePickerOptions.property]
-                      : new Date()
-                  }
+                  value={values[datePickerOptions.property] ? values[datePickerOptions.property] : new Date()}
                   mode="date"
                   display="default"
                   onChange={(event, selectedDate) => {
-                    if (event.type === "set")
-                      setFieldValue(datePickerOptions.property, selectedDate);
-
-                    setDatePickerOptions((datePickerOptions) => ({
-                      show: false,
-                      property: datePickerOptions.property,
-                    }));
+                    setDatePickerOptions({ show: false, property: datePickerOptions.property })
+                    if (event.type === "set") {
+                      setFieldValue(datePickerOptions.property, selectedDate)
+                      return
+                    }
                   }}
-                />
-              ) : null}
+                />}
+                
               <CustomInputGroup
                 name="policyName"
                 placeholder="Enter your Policy Name"
@@ -218,11 +213,11 @@ const InsuranceHoldingForm = ({
                 messages={
                   customErrors.policyType
                     ? [
-                        {
-                          id: "policyType",
-                          text: customErrors.policyType,
-                        },
-                      ]
+                      {
+                        id: "policyType",
+                        text: customErrors.policyType,
+                      },
+                    ]
                     : undefined
                 }
                 showSelectedIcon
@@ -238,11 +233,11 @@ const InsuranceHoldingForm = ({
                 messages={
                   customErrors.beneficiary
                     ? [
-                        {
-                          id: "beneficiary",
-                          text: customErrors.beneficiary,
-                        },
-                      ]
+                      {
+                        id: "beneficiary",
+                        text: customErrors.beneficiary,
+                      },
+                    ]
                     : undefined
                 }
                 showSelectedIcon
@@ -259,11 +254,11 @@ const InsuranceHoldingForm = ({
                 messages={
                   customErrors.premiumFrequency
                     ? [
-                        {
-                          id: "premiumFrequency",
-                          text: customErrors.premiumFrequency,
-                        },
-                      ]
+                      {
+                        id: "premiumFrequency",
+                        text: customErrors.premiumFrequency,
+                      },
+                    ]
                     : undefined
                 }
                 showSelectedIcon
@@ -287,23 +282,23 @@ const InsuranceHoldingForm = ({
                     value={
                       values.dateOfPremium
                         ? new Date(values.dateOfPremium).toLocaleDateString(
-                            "en-us",
-                            {
-                              year: "numeric",
-                              month: "short",
-                              day: "2-digit",
-                            }
-                          )
+                          "en-us",
+                          {
+                            year: "numeric",
+                            month: "short",
+                            day: "2-digit",
+                          }
+                        )
                         : ""
                     }
                     messages={
                       customErrors.dateOfPremium
                         ? [
-                            {
-                              id: "dateOfPremium",
-                              text: customErrors.dateOfPremium,
-                            },
-                          ]
+                          {
+                            id: "dateOfPremium",
+                            text: customErrors.dateOfPremium,
+                          },
+                        ]
                         : undefined
                     }
                     textTransformNormal
@@ -325,23 +320,23 @@ const InsuranceHoldingForm = ({
                     value={
                       values.dateOfMaturity
                         ? new Date(values.dateOfMaturity).toLocaleDateString(
-                            "en-us",
-                            {
-                              year: "numeric",
-                              month: "short",
-                              day: "2-digit",
-                            }
-                          )
+                          "en-us",
+                          {
+                            year: "numeric",
+                            month: "short",
+                            day: "2-digit",
+                          }
+                        )
                         : ""
                     }
                     messages={
                       customErrors.dateOfMaturity
                         ? [
-                            {
-                              id: "dateOfMaturity",
-                              text: customErrors.dateOfMaturity,
-                            },
-                          ]
+                          {
+                            id: "dateOfMaturity",
+                            text: customErrors.dateOfMaturity,
+                          },
+                        ]
                         : undefined
                     }
                     textTransformNormal
@@ -354,7 +349,7 @@ const InsuranceHoldingForm = ({
                 placeholder="Enter the Policy Amount"
                 title="Policy Amount (in Rs)"
                 onChange={(value) => {
-                  if (value==" " || value=="") setFieldValue("policyAmount", "")
+                  if (value == " " || value == "") setFieldValue("policyAmount", "")
                   else if (!isNaN(value)) setFieldValue("policyAmount", + value)
                 }}
                 onBlur={handleBlur("policyAmount")}
@@ -362,11 +357,11 @@ const InsuranceHoldingForm = ({
                 messages={
                   customErrors.policyAmount
                     ? [
-                        {
-                          id: "policyAmount",
-                          text: customErrors.policyAmount,
-                        },
-                      ]
+                      {
+                        id: "policyAmount",
+                        text: customErrors.policyAmount,
+                      },
+                    ]
                     : undefined
                 }
                 optional
@@ -378,7 +373,7 @@ const InsuranceHoldingForm = ({
                 placeholder="Enter the Premium Amount"
                 title="Premium Amount (in Rs)"
                 onChange={(value) => {
-                  if (value==" " || value=="") setFieldValue("premiumAmount", "")
+                  if (value == " " || value == "") setFieldValue("premiumAmount", "")
                   else if (!isNaN(value)) setFieldValue("premiumAmount", + value)
                 }}
                 onBlur={handleBlur("premiumAmount")}
@@ -386,11 +381,11 @@ const InsuranceHoldingForm = ({
                 messages={
                   customErrors.premiumAmount
                     ? [
-                        {
-                          id: "premiumAmount",
-                          text: customErrors.premiumAmount,
-                        },
-                      ]
+                      {
+                        id: "premiumAmount",
+                        text: customErrors.premiumAmount,
+                      },
+                    ]
                     : undefined
                 }
                 optional

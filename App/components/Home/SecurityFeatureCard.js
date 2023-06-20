@@ -4,9 +4,7 @@ import { StyleSheet, Text, View } from 'react-native';
 
 const SecurityFeatureCard = () => {
 
-    const {
-        theme: { spacing, colors, fontSize },
-    } = useTheme();
+    const { theme: { spacing, colors, fontSize, fontFamily } } = useTheme()
 
     const style = StyleSheet.create({
         main: {
@@ -19,7 +17,8 @@ const SecurityFeatureCard = () => {
             textAlign: "center",
             color: colors.blue500,
             fontSize: fontSize.lg,
-            fontWeight: "800",
+            fontFamily: fontFamily.semiBold,
+            lineHeight: spacing.xl,
             padding: 10,
         },
         featureicontext: {
@@ -32,7 +31,7 @@ const SecurityFeatureCard = () => {
         text: {
             color: colors.blue400,
             marginLeft: spacing.md,
-            fontWeight: "500",
+            fontFamily: fontFamily.regular
         },
         col: {
             display: "flex",

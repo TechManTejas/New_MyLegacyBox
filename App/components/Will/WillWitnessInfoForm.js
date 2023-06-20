@@ -124,6 +124,9 @@ const WillWitnessInfoForm = ({ initialValues, defaultBody, index }) => {
       color: colors.red,
       textAlign: "center",
     },
+    halfWidth: {
+      width: "50%"
+    },
   });
 
   return (
@@ -221,8 +224,9 @@ const WillWitnessInfoForm = ({ initialValues, defaultBody, index }) => {
               <View style={[styles.sectionTitleContainer, styles.row]}>
                 <Text style={styles.sectionTitle}>Address</Text>
               </View>
+
               <View style={styles.row}>
-                <View style={styles.fullWidth}>
+                <View style={styles.halfWidth}>
                   <CustomInputGroup
                     name="address.city"
                     placeholder="Enter City"
@@ -243,7 +247,7 @@ const WillWitnessInfoForm = ({ initialValues, defaultBody, index }) => {
                     }
                   />
                 </View>
-                <View style={[styles.fullWidth, styles.leftPadded]}>
+                <View style={[styles.halfWidth, styles.leftPadded]}>
                   <CustomInputGroup
                     name="address.state"
                     placeholder="Enter state"
@@ -265,8 +269,9 @@ const WillWitnessInfoForm = ({ initialValues, defaultBody, index }) => {
                   />
                 </View>
               </View>
+
               <View style={styles.row}>
-                <View style={styles.fullWidth}>
+                <View style={styles.halfWidth}>
                   <CustomInputGroup
                     name="address.pinCode"
                     placeholder="Enter PIN code"
@@ -291,7 +296,7 @@ const WillWitnessInfoForm = ({ initialValues, defaultBody, index }) => {
                     textTransformNormal
                   />
                 </View>
-                <View style={[styles.fullWidth, styles.leftPadded]}>
+                <View style={[styles.halfWidth, styles.leftPadded]}>
                   <CustomInputGroup
                     name="address.country"
                     placeholder="Enter country"
@@ -315,31 +320,10 @@ const WillWitnessInfoForm = ({ initialValues, defaultBody, index }) => {
                 </View>
               </View>
 
-              {/* <CustomInputGroup
-                name="address.street"
-                placeholder="Enter street"
-                title="Street"
-                onChange={handleChange("address.street")}
-                onBlur={handleBlur("address.street")}
-                value={values.address.street}
-                textContentType="fullStreetAddress"
-                messages={
-                  customErrors.address?.street
-                    ? [
-                        {
-                          id: "address.street",
-                          text: customErrors.address?.street,
-                        },
-                      ]
-                    : undefined
-                }
-                textTransformNormal
-              /> */}
-
               <CustomInputGroup
                 name="address.street"
-                placeholder="Enter street"
-                title="Street"
+                placeholder="Enter the address"
+                title="Address Line 1"
                 onChange={handleChange("address.street")}
                 onBlur={handleBlur("address.street")}
                 value={values.address.street}

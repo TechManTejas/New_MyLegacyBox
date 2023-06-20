@@ -22,9 +22,7 @@ import WillInfoScreen from "../screens/Will/WillInfoScreen";
 const Stack = createStackNavigator();
 
 const WillNavigation = () => {
-  const {
-    theme: { colors },
-  } = useTheme();
+  const { theme: { colors } } = useTheme();
 
   const styles = StyleSheet.create({
     headerStyle: {
@@ -58,7 +56,7 @@ const WillNavigation = () => {
           component={WillInfoScreen}
           options={{
             headerShown: true,
-            title: "Will",
+            title: "My Will",
           }}
         />
 
@@ -73,29 +71,11 @@ const WillNavigation = () => {
         />
 
         <Stack.Screen
-          name={SCREEN_NAMES.willWitnessesScreen}
-          component={WillWitnessesScreen}
-          options={{
-            headerShown: true,
-            title: "Witnesses",
-          }}
-        />
-
-        <Stack.Screen
           name={SCREEN_NAMES.willWitnessInfoScreen}
           component={WillWitnessInfoScreen}
           options={{
             headerShown: true,
-            title: "Witness Information",
-          }}
-        />
-
-        <Stack.Screen
-          name={SCREEN_NAMES.willBeneficiariesScreen}
-          component={WillBeneficiariesScreen}
-          options={{
-            headerShown: true,
-            title: "Beneficiaries",
+            title: "Witness to my Will",
           }}
         />
 
@@ -113,7 +93,7 @@ const WillNavigation = () => {
           component={WillAssetsScreen}
           options={{
             headerShown: true,
-            title: "Assets Selection",
+            title: "My Assets",
           }}
         />
 
@@ -127,20 +107,11 @@ const WillNavigation = () => {
         />
 
         <Stack.Screen
-          name={SCREEN_NAMES.willExecutorScreen}
-          component={WillExecutorScreen}
-          options={{
-            headerShown: true,
-            title: "Executors (Optional)",
-          }}
-        />
-
-        <Stack.Screen
           name={SCREEN_NAMES.willExecutorInfoScreen}
           component={WillExecutorInfoScreen}
           options={{
             headerShown: true,
-            title: "Executors Information",
+            title: "Executor of my Will",
           }}
         />
 

@@ -3,19 +3,18 @@ import { Pressable, StyleSheet, Text, View } from "react-native";
 import { useAuth } from "../../authentication/AuthProvider";
 import { useTheme } from "../../theme/ThemeProvider";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
+import { FontAwesome } from '@expo/vector-icons'; 
 import { useNavigation } from "@react-navigation/native";
 
 const HomeHeader = () => {
-  const {
-    theme: { colors, spacing, fontFamily, fontSize },
-  } = useTheme();
+  const { theme: { colors, spacing, fontFamily, fontSize } } = useTheme();
   const { session } = useAuth();
   const navigation = useNavigation();
 
   const styles = StyleSheet.create({
     container: {
       paddingTop: spacing.xxl,
-      paddingBottom: spacing.xxl,
+      paddingBottom: spacing.lg,
       flexDirection: "row",
       justifyContent: "space-between",
       alignItems: "flex-start",
@@ -63,11 +62,7 @@ const HomeHeader = () => {
         }}
       >
         <View>
-          <FontAwesome5
-            name="user-ninja"
-            color={colors.blue400}
-            size={fontSize.xxxl}
-          />
+          <FontAwesome name="user-circle" size={fontSize.xxxl} color={colors.blue400} />
         </View>
       </Pressable>
     </View>

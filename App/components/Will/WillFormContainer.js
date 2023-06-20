@@ -3,7 +3,7 @@ import React from "react";
 import BlueButton from "../Common/Button/BlueButton";
 import { useTheme } from "../../theme/ThemeProvider";
 
-const WillFormContainer = ({ children, Handler, nextDisabled }) => {
+const WillFormContainer = ({ children, Handler, nextDisabled, title }) => {
 
   const { theme: { spacing, colors }} = useTheme()
 
@@ -33,7 +33,7 @@ const WillFormContainer = ({ children, Handler, nextDisabled }) => {
       <View style={styles.formContainer}>{children}</View>
       <View style={styles.footer}>
         <BlueButton
-          title="Done"
+          title={ title ? title : "Done"}
           expandHorizontal
           onPress={Handler}
           disabled={nextDisabled}

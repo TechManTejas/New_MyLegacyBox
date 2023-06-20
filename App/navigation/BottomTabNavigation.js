@@ -1,5 +1,5 @@
 import React, { useCallback } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Linking, StyleSheet, Text, View } from "react-native";
 import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
@@ -97,6 +97,7 @@ const BottomTabNavigation = () => {
         tabBarActiveTintColor: colors.blue500,
       })}
     >
+
       <BottomTab.Screen
         name={SCREEN_NAMES.homeNavigator}
         component={HomeNavigation}
@@ -136,14 +137,21 @@ const BottomTabNavigation = () => {
                 focused ? styles.iconColorFoucsed.color : styles.iconColor.color
               }
             />
-          ),
+          )
         }}
+        listeners={() => ({
+          tabPress: (e) => {
+            e.preventDefault()
+            Linking.openURL("https://www.oiconomos.com/blog")
+          }
+        })}
       />
+
       <BottomTab.Screen
         name={SCREEN_NAMES.willNavigator}
         component={WillNavigation}
         options={({ route }) => ({
-          title: "E-Will",
+          title: "My Will",
           tabBarStyle: [
             {
               display: shouldShowTabBarBottom(route, SCREEN_NAMES.nomineeScreen)
@@ -161,7 +169,7 @@ const BottomTabNavigation = () => {
                     color={styles.centerTabIcon.color}
                   />
                 </View>
-                <Text style={styles.centerTabLabel}>E-Will</Text>
+                <Text style={styles.centerTabLabel}>My Will</Text>
               </View>
             </View>
           ),
@@ -169,6 +177,7 @@ const BottomTabNavigation = () => {
           tabBarLabelStyle: { display: "none" },
         })}
       />
+
       <BottomTab.Screen
         name={SCREEN_NAMES.nomineeNavigator}
         component={NomineeNavigation}
@@ -192,6 +201,7 @@ const BottomTabNavigation = () => {
           ),
         })}
       />
+
     </BottomTab.Navigator>
   );
 };
