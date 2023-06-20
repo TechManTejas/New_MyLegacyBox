@@ -22,9 +22,7 @@ import WillInfoScreen from "../screens/Will/WillInfoScreen";
 const Stack = createStackNavigator();
 
 const WillNavigation = () => {
-  const {
-    theme: { colors },
-  } = useTheme();
+  const { theme: { colors } } = useTheme();
 
   const styles = StyleSheet.create({
     headerStyle: {
@@ -72,15 +70,6 @@ const WillNavigation = () => {
           }}
         />
 
-        {/* <Stack.Screen
-          name={SCREEN_NAMES.willWitnessesScreen}
-          component={WillWitnessesScreen}
-          options={{
-            headerShown: true,
-            title: "Witnesses",
-          }}
-        /> */}
-
         <Stack.Screen
           name={SCREEN_NAMES.willWitnessInfoScreen}
           component={WillWitnessInfoScreen}
@@ -89,15 +78,6 @@ const WillNavigation = () => {
             title: "Witness to my Will",
           }}
         />
-
-        {/* <Stack.Screen
-          name={SCREEN_NAMES.willBeneficiariesScreen}
-          component={WillBeneficiariesScreen}
-          options={{
-            headerShown: true,
-            title: "Beneficiaries",
-          }}
-        /> */}
 
         <Stack.Screen
           name={SCREEN_NAMES.willBeneficiaryInfoScreen}
@@ -125,15 +105,6 @@ const WillNavigation = () => {
             title: "Asset Allocation",
           }}
         />
-
-        {/* <Stack.Screen
-          name={SCREEN_NAMES.willExecutorScreen}
-          component={WillExecutorScreen}
-          options={{
-            headerShown: true,
-            title: "Executors (Optional)",
-          }}
-        /> */}
 
         <Stack.Screen
           name={SCREEN_NAMES.willExecutorInfoScreen}

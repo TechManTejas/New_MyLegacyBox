@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useTheme } from "../../theme/ThemeProvider";
 import { useSelector } from "react-redux";
 import {
+  getAssetsSelector,
   getBeneficiariesSelector,
   getSelectedAssetsEntitiesSelector,
 } from "../../services/willForm/willFormSlice";
@@ -18,6 +19,8 @@ const WillAssetInfoScreen = () => {
 
   const beneficiaries = useSelector((state) => getBeneficiariesSelector(state))
 
+  const assetsDistribution = useSelector((state) => getAssetsSelector(state))
+
   const { theme: { colors } } = useTheme()
 
   const styles = StyleSheet.create({
@@ -25,19 +28,23 @@ const WillAssetInfoScreen = () => {
       flex: 1,
       backgroundColor: colors.white100,
     },
-  });
+  })
 
   useEffect(() => {
-    const initialValuesMap = Object.keys(selectedAssetsEntities).reduce(
-      (acc, v) => {
-        acc[v] = beneficiaries.reduce((internalAcc, { name }) => {
-          internalAcc[name] = undefined;
-          return internalAcc;
-        }, {});
-        return acc;
-      },
-      {}
-    );
+
+    const valuesMap = assetsDistribution.reduce((acc, { _id, allocations }) => {
+      acc[_id] = allocations
+      return acc
+    }, {})
+
+    const initialValuesMap = Object.keys(selectedAssetsEntities).reduce((acc, v) => {
+      acc[v] = beneficiaries.reduce((internalAcc, { name }) => {
+        if ( v in valuesMap ) internalAcc[name] = valuesMap[v][name]
+        else internalAcc[name] = undefined
+        return internalAcc
+      }, {})
+      return acc
+    }, {})
 
     const sectionTitleMap = Object.keys(selectedAssetsEntities).reduce(
       (acc, v) => {
@@ -61,15 +68,16 @@ const WillAssetInfoScreen = () => {
 
     setInitialValues(initialValuesMap);
     setSectionTitles(sectionTitleMap);
+
   }, [selectedAssetsEntities, beneficiaries]);
 
   return (
     <View style={styles.container}>
-      {!(initialValues && sectionTitles) ? (
-        <CustomActivityIndicator />
-      ) : (
-        <WillAssetInfoForm initialValues={initialValues} sectionTitles={sectionTitles}/>
-      )}
+      {
+        !(initialValues && sectionTitles) ?
+          <CustomActivityIndicator /> :
+          <WillAssetInfoForm initialValues={initialValues} sectionTitles={sectionTitles} />
+      }
     </View>
   );
 };

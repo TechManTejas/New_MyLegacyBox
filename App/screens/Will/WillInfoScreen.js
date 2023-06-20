@@ -7,7 +7,6 @@ import {
     getPersonalInfoSelector,
     getWitnessesSelector,
     getExecutorsSelector,
-    getSelectedAssetsSelector,
     getAssetsSelector,
     getDeclarationSelector,
     clearAssets
@@ -27,7 +26,6 @@ const WillInfoScreen = () => {
     const personalInfo = useSelector((state) => getPersonalInfoSelector(state))
     const witnesses = useSelector((state) => getWitnessesSelector(state))
     const beneficiaries = useSelector((state) => getBeneficiariesSelector(state))
-    const assets = useSelector((state) => getSelectedAssetsSelector(state))
     const executors = useSelector((state) => getExecutorsSelector(state))
     const assetsDistribution = useSelector((state) => getAssetsSelector(state))
     const declarationInfo = useSelector((state) => getDeclarationSelector(state))
@@ -94,17 +92,6 @@ const WillInfoScreen = () => {
                     array={witnesses}
                 />
             </View>
-{/* 
-            <View style={styles.section}>
-                <WillSectionCard
-                    sectiontitle={"Assets"}
-                    tickCondition={assets.length >= 1}
-                    title={`Select Assets (${assets.length})`}
-                    subtitle={"It is mandatory to Select at least one asset"}
-                    disableCondition={witnesses.length != 2}
-                    screenName={SCREEN_NAMES.willAssetsScreen}
-                />
-            </View> */}
 
             <View style={styles.section}>
                 <WillSectionCard
