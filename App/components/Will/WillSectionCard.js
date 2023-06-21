@@ -17,7 +17,8 @@ const WillSectionCard = ({
     warnMsg,
     array,
     showEditIcon,
-    dataFilled
+    dataFilled,
+    optional
 }) => {
 
     const { theme: { spacing, colors, fontSize, fontFamily } } = useTheme()
@@ -28,13 +29,14 @@ const WillSectionCard = ({
         sectiontitle: {
             marginHorizontal: spacing.md,
             fontFamily: fontFamily.semiBold,
-            fontSize: fontSize.xl
+            fontSize: fontSize.xl,
+            lineHeight: spacing.xl
         },
         warning: {
             color: colors.red700,
             fontSize: fontSize.sm,
-            paddingTop: 5,
-            fontFamily: fontFamily.regular
+            // paddingTop: 5,
+            fontFamily: fontFamily.regular,
         },
         icon: {
             fontSize: fontSize.xl,
@@ -47,7 +49,8 @@ const WillSectionCard = ({
             borderColor: colors.blue400,
             borderWidth: 0.5,
             marginTop: spacing.sm,
-            backgroundColor: colors.blue100
+            backgroundColor: colors.blue100,
+            marginBottom: spacing.md
         },
         enabledtext: {
             color: colors.blue600,
@@ -67,6 +70,7 @@ const WillSectionCard = ({
             borderColor: colors.black200,
             borderWidth: 0.5,
             marginTop: spacing.sm,
+            marginBottom: spacing.md
         },
         disabledtext: {
             color: colors.black400,
@@ -92,7 +96,16 @@ const WillSectionCard = ({
             alignItems: "center",
             justifyContent: "space-between",
             borderColor: colors.black200,
-        }
+        },
+        sectionSubTitle: {
+            fontFamily: fontFamily.regular,
+            fontSize: fontSize.sm,
+            // lineHeight: fontSize.md,
+            color: colors.black300,
+        },
+        leftPadded: {
+            paddingLeft: spacing.sm,
+        },
     })
 
     const CheckIcon = <FontAwesome name="check-circle" size={styles.icon.fontSize} color={styles.icon.color} />
@@ -102,6 +115,9 @@ const WillSectionCard = ({
         <>
             <Text style={styles.sectiontitle}>
                 <Text>{sectiontitle}</Text> {tickCondition && CheckIcon}
+                <Text style={[styles.sectionSubTitle, styles.leftPadded]}>
+                  { optional && "optional" }
+                </Text>
             </Text>
             <Pressable
                 disabled={disableCondition ? true : false}
@@ -116,7 +132,7 @@ const WillSectionCard = ({
                     { showEditIcon && dataFilled && PenIcon }
                 </View>
                 
-                {warnCondition && <Text style={styles.warning}>{warnMsg}</Text>}
+                {warnCondition && !disableCondition && <Text style={styles.warning}>{warnMsg}</Text>}
             </Pressable>
             {
                 array && array.map((item, index) => {
