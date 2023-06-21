@@ -37,8 +37,9 @@ const WillInfoScreen = () => {
 
     const styles = StyleSheet.create({
         section: {
-            paddingVertical: spacing.lg,
-            borderBottomWidth: 1,
+            // paddingVertical: spacing.sm,
+            paddingTop: spacing.lg,
+            borderBottomWidth: StyleSheet.hairlineWidth,
             borderBottomColor: colors.black200,
             marginHorizontal: spacing.lg
         }
@@ -59,7 +60,7 @@ const WillInfoScreen = () => {
             
             <View style={styles.section}>
                 <WillSectionCard
-                    sectiontitle={"Testator Information"}
+                    sectiontitle={"My Details"}
                     tickCondition={Object.keys(personalInfo).length != 0}
                     title={Object.keys(personalInfo).length != 0 ? personalInfo.name :"Add Testator Information"}
                     subtitle={"Testator information is mandatory"}
@@ -71,7 +72,7 @@ const WillInfoScreen = () => {
 
             <View style={styles.section}>
                 <WillSectionCard
-                    sectiontitle={"Beneficiaries"}
+                    sectiontitle={"My Beneficiaries"}
                     tickCondition={beneficiaries.length >= 1}
                     title={"Add Beneficiary"}
                     subtitle={"It is mandatory to add at least one beneficiary"}
@@ -85,7 +86,7 @@ const WillInfoScreen = () => {
 
             <View style={styles.section}>
                 <WillSectionCard
-                    sectiontitle={`Witnesses (${witnesses.length}/2)`}
+                    sectiontitle={`My Witnesses (${witnesses.length}/2)`}
                     tickCondition={witnesses.length == 2}
                     title={"Add Witness"}
                     subtitle={"It is mandatory to add two witnesses"}
@@ -94,7 +95,7 @@ const WillInfoScreen = () => {
                     initialValues={witnessValues}
                     index={undefined}
                     warnCondition={witnesses.length != 2}
-                    warnMsg={"Advisory: To avoid any future conflict, a witness should not be a beneficiary”"}
+                    warnMsg={"Advisory: To avoid any future conflict, a witness should not be a beneficiary"}
                     array={witnesses}
                 />
             </View>
@@ -117,7 +118,7 @@ const WillInfoScreen = () => {
 
             <View style={styles.section}>
                 <WillSectionCard
-                    sectiontitle={`Executor (${executors.length}/2) (optional)`}
+                    sectiontitle={`My Executors (${executors.length}/2)`}
                     tickCondition={executors.length == 2}
                     title={"Add Executors"}
                     subtitle={"It is mandatory to add two witnesses"}
@@ -128,6 +129,7 @@ const WillInfoScreen = () => {
                     warnCondition={executors.length != 2}
                     warnMsg={"Advisory: To avoid any future conflict, an executor should not be a beneficiary or a witness"}
                     array={executors}
+                    optional={true}
                 />
             </View>
 

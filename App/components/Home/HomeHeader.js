@@ -35,11 +35,13 @@ const HomeHeader = () => {
       color: colors.black400,
     },
     iconContainer: {
-      borderWidth: spacing.xxxs,
-      padding: spacing.sm,
-      borderRadius: spacing.sm,
-      borderColor: colors.blue300,
-      borderStyle: "dashed",
+      // borderWidth: spacing.xxxs,
+      paddingHorizontal: spacing.xs,
+      paddingTop: spacing.xs,
+      paddingBottom: spacing.sm,
+      // borderRadius: spacing.sm,
+      // borderColor: colors.blue300,
+      // borderStyle: "dashed",
       backgroundColor: colors.white100,
     },
   });
