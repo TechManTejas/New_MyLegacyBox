@@ -95,7 +95,7 @@ const WillInfoScreen = () => {
                     initialValues={witnessValues}
                     index={undefined}
                     warnCondition={witnesses.length != 2}
-                    warnMsg={"Advisory: To avoid any future conflict, a witness should not be a beneficiary"}
+                    warnMsg={"To avoid any future conflict, a witness should not be a beneficiary"}
                     array={witnesses}
                 />
             </View>
@@ -109,7 +109,7 @@ const WillInfoScreen = () => {
                     disableCondition={witnesses.length != 2}
                     screenName={SCREEN_NAMES.willAssetsScreen}
                     warnCondition={true}
-                    warnMsg={"Warning: Modifying beneficiary or selected assets will require re allocation"}
+                    warnMsg={"Modifying beneficiary or selected assets will require re allocation"}
                     showEditIcon={true}
                     dataFilled={assetsDistribution.length > 0}
                 />
@@ -127,7 +127,7 @@ const WillInfoScreen = () => {
                     initialValues={executorValues}
                     index={undefined}
                     warnCondition={executors.length != 2}
-                    warnMsg={"Advisory: To avoid any future conflict, an executor should not be a beneficiary or a witness"}
+                    warnMsg={"To avoid any future conflict, an executor should not be a beneficiary or a witness"}
                     array={executors}
                     optional={true}
                 />

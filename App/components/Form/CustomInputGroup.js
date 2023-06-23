@@ -66,11 +66,11 @@ const CustomInputGroup = ({
     inputContainer: {
       flexDirection: "row",
       elevation: 1,
-      shadowColor: colors.black400,
+      shadowColor: colors.black200,
       backgroundColor: colors.white100,
-      borderWidth: 1,
-      borderColor: colors.black200,
-      borderRadius: spacing.xs,
+      borderWidth: StyleSheet.hairlineWidth,
+      borderColor: colors.black100,
+      borderRadius: spacing.md,
       paddingVertical: spacing.xs,
     },
     multilineInputContainer: {
@@ -88,10 +88,13 @@ const CustomInputGroup = ({
     input: {
       flexGrow: 1,
       fontFamily: fontFamily.regular,
-      fontSize: fontSize.sm,
+      fontSize: fontSize.md,
       color: colors.black500,
-      lineHeight: fontSize.md,
-      paddingHorizontal: spacing.sm,
+      lineHeight: fontSize.default,
+      // paddingHorizontal: spacing.sm,
+      paddingHorizontal: spacing.lg,
+      height: 40,
+      // borderRadius: 20
     },
     multilineInput: {
       textAlignVertical: "top",

@@ -44,6 +44,7 @@ const MenuCard = ({
     },
     container: {
       height: menuSpacing.container.height,
+      elevation: 4,
       borderRadius: menuSpacing.container.borderRadius,
       backgroundColor: menuColors.container.backgroundColor,
       borderStyle: "dashed",

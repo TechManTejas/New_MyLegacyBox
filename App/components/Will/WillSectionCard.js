@@ -3,6 +3,7 @@ import { useTheme } from "../../theme/ThemeProvider"
 import { useNavigation } from "@react-navigation/native"
 import FontAwesome from "@expo/vector-icons/FontAwesome"
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5"
+import { Feather } from '@expo/vector-icons'; 
 
 const WillSectionCard = ({
     sectiontitle,
@@ -132,7 +133,11 @@ const WillSectionCard = ({
                     { showEditIcon && dataFilled && PenIcon }
                 </View>
                 
-                {warnCondition && !disableCondition && <Text style={styles.warning}>{warnMsg}</Text>}
+                {   warnCondition && !disableCondition && 
+                    <Text style={styles.warning}> 
+                        <Feather name="info" size={10} color={ colors.red700 } /> {warnMsg}
+                    </Text>
+                    }
             </Pressable>
             {
                 array && array.map((item, index) => {

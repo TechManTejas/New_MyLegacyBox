@@ -33,7 +33,7 @@ const WillFormContainer = ({ children, Handler, nextDisabled, title }) => {
       <View style={styles.formContainer}>{children}</View>
       <View style={styles.footer}>
         <BlueButton
-          title={ title ? title : "Done"}
+          title={ title ? title : "Confirm"}
           expandHorizontal
           onPress={Handler}
           disabled={nextDisabled}

@@ -23,14 +23,14 @@ const WillItem = ({ will }) => {
 
   const styles = StyleSheet.create({
     actionContainer: {
+      elevation: 2,
       flexDirection: "row",
       padding: spacing.lg,
-      borderWidth: spacing.xxxs,
-      borderColor: colors.black200,
       borderRadius: spacing.md,
       justifyContent: "center",
       alignItems: "center",
       marginBottom: spacing.sm,
+      backgroundColor: "white"
     },
     action: {
       flexGrow: 1,

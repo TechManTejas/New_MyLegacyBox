@@ -61,7 +61,7 @@ export const getMenuVariantColor = (colorVariant, isDark, theme) => {
     default:
       variantColors = StyleSheet.create({
         container: {
-          backgroundColor: isDark ? colors.blue : colors.white500,
+          backgroundColor: isDark ? colors.blue : colors.white100,
         },
         iconContainer: {
           color: isDark ? colors.white100 : colors.blue500,
