@@ -1,12 +1,10 @@
-import React from "react";
 import { Pressable, StyleSheet } from "react-native";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import { useTheme } from "../../theme/ThemeProvider";
 
 const CustomHeaderLeftIcon = ({ navigation }) => {
-  const {
-    theme: { colors, spacing, fontFamily, fontSize },
-  } = useTheme();
+
+  const { theme: { colors, spacing, fontSize } } = useTheme();
 
   const styles = StyleSheet.create({
     headerLeftIcon: {

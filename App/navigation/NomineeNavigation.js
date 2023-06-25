@@ -7,13 +7,13 @@ import { useTheme } from "../theme/ThemeProvider";
 import CustomHeaderLeftIcon from "../components/Common/CustomHeaderLeftIcon";
 import CustomHeaderTitle from "../components/Common/CustomHeaderTitle";
 import { StyleSheet } from "react-native";
+import CustomHeaderRightIcon from "../components/Common/CustomHeaderRightIcon";
 
 const Stack = createStackNavigator();
 
 const NomineeNavigation = () => {
-  const {
-    theme: { colors },
-  } = useTheme();
+
+  const { theme: { colors } } = useTheme();
 
   const styles = StyleSheet.create({
     headerStyle: {
@@ -27,6 +27,7 @@ const NomineeNavigation = () => {
       screenOptions={({ navigation }) => ({
         headerStyle: styles.headerStyle,
         headerLeft: () => <CustomHeaderLeftIcon navigation={navigation} />,
+        headerRight: () => <CustomHeaderRightIcon navigation={navigation} />,
         headerTitleAlign: "center",
         headerTitle: (props) => <CustomHeaderTitle {...props} />,
       })}

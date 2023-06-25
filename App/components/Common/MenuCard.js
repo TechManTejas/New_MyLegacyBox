@@ -1,12 +1,7 @@
 import { useNavigation } from "@react-navigation/native";
-import React from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { useTheme } from "../../theme/ThemeProvider";
-import {
-  getMenuVariantColor,
-  getMenuVariantFontSizes,
-  getMenuVariantSpacing,
-} from "../../utils/menu";
+import { getMenuVariantColor, getMenuVariantFontSizes, getMenuVariantSpacing } from "../../utils/menu";
 
 const MenuCard = ({
   isDark,
@@ -44,7 +39,7 @@ const MenuCard = ({
     },
     container: {
       height: menuSpacing.container.height,
-      elevation: 4,
+      elevation: 3,
       borderRadius: menuSpacing.container.borderRadius,
       backgroundColor: menuColors.container.backgroundColor,
       borderStyle: "dashed",

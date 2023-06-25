@@ -36,12 +36,21 @@ const WillSectionCard = ({
         warning: {
             color: colors.red700,
             fontSize: fontSize.sm,
-            // paddingTop: 5,
             fontFamily: fontFamily.regular,
+            paddingLeft: spacing.sm
+        },
+        warningContainer: {
+            display: "flex",
+            alignItems: "flex-start",
+            flexDirection: "row",
+            justifyContent: "center"
         },
         icon: {
             fontSize: fontSize.xl,
             color: colors.green600,
+        },
+        warningIconContainer: {
+            paddingTop: 2
         },
         enabledbutton: {
             padding: spacing.sm,
@@ -101,7 +110,6 @@ const WillSectionCard = ({
         sectionSubTitle: {
             fontFamily: fontFamily.regular,
             fontSize: fontSize.sm,
-            // lineHeight: fontSize.md,
             color: colors.black300,
         },
         leftPadded: {
@@ -133,11 +141,16 @@ const WillSectionCard = ({
                     { showEditIcon && dataFilled && PenIcon }
                 </View>
                 
-                {   warnCondition && !disableCondition && 
-                    <Text style={styles.warning}> 
-                        <Feather name="info" size={10} color={ colors.red700 } /> {warnMsg}
-                    </Text>
-                    }
+                {   
+                    warnCondition && !disableCondition && 
+                    <View style={styles.warningContainer}> 
+                        <View style={styles.warningIconContainer}>
+                            <Feather name="info" size={10} color={ colors.red700 } /> 
+                        </View>
+                        <Text style={styles.warning}>{warnMsg}</Text>
+                    </View>
+                }
+
             </Pressable>
             {
                 array && array.map((item, index) => {

@@ -63,7 +63,7 @@ const WillInfoScreen = () => {
                     sectiontitle={"My Details"}
                     tickCondition={Object.keys(personalInfo).length != 0}
                     title={Object.keys(personalInfo).length != 0 ? personalInfo.name :"Add Testator Information"}
-                    subtitle={"Testator information is mandatory"}
+                    subtitle={"A Testator is a person who writes a Will"}
                     screenName={SCREEN_NAMES.willPersonalInfoScreen}
                     showEditIcon={true}
                     dataFilled={Object.keys(personalInfo).length != 0}
@@ -75,7 +75,7 @@ const WillInfoScreen = () => {
                     sectiontitle={"My Beneficiaries"}
                     tickCondition={beneficiaries.length >= 1}
                     title={"Add Beneficiary"}
-                    subtitle={"It is mandatory to add at least one beneficiary"}
+                    subtitle={"A person(s) who inherits the assets under a Will"}
                     disableCondition={Object.keys(personalInfo).length == 0}
                     screenName={SCREEN_NAMES.willBeneficiaryInfoScreen}
                     initialValues={{}}
@@ -89,7 +89,7 @@ const WillInfoScreen = () => {
                     sectiontitle={`My Witnesses (${witnesses.length}/2)`}
                     tickCondition={witnesses.length == 2}
                     title={"Add Witness"}
-                    subtitle={"It is mandatory to add two witnesses"}
+                    subtitle={"A person who testifies to the authenticity of the Will"}
                     disableCondition={beneficiaries.length < 1 || witnesses.length == 2}
                     screenName={SCREEN_NAMES.willWitnessInfoScreen}
                     initialValues={witnessValues}
@@ -104,7 +104,7 @@ const WillInfoScreen = () => {
                 <WillSectionCard
                     sectiontitle={"My Asset Distribution"}
                     tickCondition={assetsDistribution.length > 0}
-                    title={"Allocate Assets"}
+                    title={"Distribute Assets"}
                     subtitle={"Distribute your assets as per your wish"}
                     disableCondition={witnesses.length != 2}
                     screenName={SCREEN_NAMES.willAssetsScreen}
@@ -121,7 +121,7 @@ const WillInfoScreen = () => {
                     sectiontitle={`My Executors (${executors.length}/2)`}
                     tickCondition={executors.length == 2}
                     title={"Add Executors"}
-                    subtitle={"It is mandatory to add two witnesses"}
+                    subtitle={"Executor handles wealth distribution of the Testator"}
                     disableCondition={executors.length == 2}
                     screenName={SCREEN_NAMES.willExecutorInfoScreen}
                     initialValues={executorValues}
@@ -138,7 +138,7 @@ const WillInfoScreen = () => {
                     sectiontitle={"Declaration"}
                     tickCondition={declarationInfo.declaration != ''}
                     title={"Approve declaration"}
-                    subtitle={"Without declaration will wont be created"}
+                    subtitle={"To generate a Will, a declaration must be approved"}
                     disableCondition={assetsDistribution.length < 1}
                     screenName={SCREEN_NAMES.willDeclarationScreen}
                 />

@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import { useCallback } from "react";
 import { Linking, StyleSheet, Text, View } from "react-native";
 import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -14,9 +14,8 @@ import WillNavigation from "./WillNavigation";
 const BottomTab = createBottomTabNavigator();
 
 const BottomTabNavigation = () => {
-  const {
-    theme: { spacing, colors, fontSize, fontFamily },
-  } = useTheme();
+
+  const { theme: { spacing, colors, fontSize, fontFamily } } = useTheme();
 
   const shouldShowTabBarBottom = useCallback((route, initialScreen) => {
     const routeName = getFocusedRouteNameFromRoute(route) || initialScreen;
@@ -48,7 +47,6 @@ const BottomTabNavigation = () => {
       fontFamily: fontFamily.regular,
       paddingBottom: spacing.xs,
     },
-    // center tab
     centerTabContainer: {
       position: "absolute",
       left: 0,
