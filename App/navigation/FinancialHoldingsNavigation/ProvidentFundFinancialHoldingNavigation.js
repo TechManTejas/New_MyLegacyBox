@@ -19,7 +19,7 @@ const ProvidentFundFinancialHoldingNavigation = ({ Stack }) => {
         component={UpdateProvidentFundHoldingForm}
         options={{
           headerShown: true,
-          title: "Update PF holding",
+          title: "Update PF Account",
         }}
       />
     </Stack.Group>

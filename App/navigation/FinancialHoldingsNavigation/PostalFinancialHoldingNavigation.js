@@ -11,7 +11,7 @@ const PostalFinancialHoldingNavigation = ({ Stack }) => {
         component={AddPostalHoldingForm}
         options={({ route }) => ({
           headerShown: true,
-          title: `Add Holding for ${
+          title: `Add Account for ${
             route.params?.parentName ? route.params?.parentName : ""
           }`,
         })}
@@ -21,7 +21,7 @@ const PostalFinancialHoldingNavigation = ({ Stack }) => {
         component={UpdatePostalHoldingForm}
         options={{
           headerShown: true,
-          title: "Update postal holding",
+          title: "Update Account Details",
         }}
       />
     </Stack.Group>

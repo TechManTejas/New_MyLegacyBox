@@ -141,7 +141,7 @@ const InsuranceForm = ({ ctaCaption, defaultBody, apiCallback, isLoading, initia
           <CustomKeyboardAvoidingScrollView keyboardVerticalOffset={100}>
             <View style={styles.container}>
               <View style={styles.sectionTitleContainer}>
-                <Text style={styles.sectionTitle}>Insurance Details</Text>
+                <Text style={styles.sectionTitle}>Insurer Details</Text>
               </View>
               <CustomInputGroup
                 name="companyName"

@@ -21,12 +21,12 @@ const CustomDropDownInput = ({
 }) => {
   const [isFocus, setIsFocus] = useState(false);
 
-  const {
-    theme: { colors, spacing, fontSize, fontFamily },
-  } = useTheme();
+  const { theme: { colors, spacing, fontSize, fontFamily } } = useTheme();
+
   const styles = StyleSheet.create({
     container: {
       marginBottom: spacing.lg,
+      
     },
     labelContainer: {
       flexDirection: "row",
@@ -56,12 +56,14 @@ const CustomDropDownInput = ({
     dropdownContainer: {
       elevation: 1,
       shadowColor: colors.black100,
-      backgroundColor: colors.white100,
+      // backgroundColor: colors.white100,
       borderWidth: StyleSheet.hairlineWidth,
-      borderColor: colors.black100,
+      // borderColor: colors.black100,
       borderRadius: spacing.md,
       height: 47,
       paddingHorizontal: spacing.sm,
+      backgroundColor: colors.white400,
+      borderColor: colors.white500,
     },
     selectedTextStyle: {
       fontFamily: fontFamily.regular,
@@ -73,8 +75,8 @@ const CustomDropDownInput = ({
     itemContainerStyle: {
       borderBottomWidth: StyleSheet.hairlineWidth,
       borderBottomColor: colors.black200,
-      paddingVertical: spacing.md,
-      paddingHorizontal: spacing.sm,
+      paddingVertical: spacing.lg,
+      paddingHorizontal: spacing.lg,
     },
     itemWrapper: {
       flexDirection: "row",
@@ -88,10 +90,10 @@ const CustomDropDownInput = ({
       lineHeight: fontSize.default,
     },
     activeItem: {
-      backgroundColor: colors.blue100,
+      backgroundColor: colors.white400,
     },
     activeItemIcon: {
-      color: colors.blue,
+      color: colors.blue400,
       fontSize: fontSize.md,
     },
   });

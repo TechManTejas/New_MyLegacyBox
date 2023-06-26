@@ -25,7 +25,7 @@ export const REAL_ESTATE_PROPERTY_AREA_UNIT_MAP = {
 export const REAL_ESTATE_TYPE_TO_TITLE_MAP = {
   [REAL_ESTATE_TYPE_MAP.land]: "Land",
   [REAL_ESTATE_TYPE_MAP.residential]: "Residential",
-  [REAL_ESTATE_TYPE_MAP.commercial]: "Commercial",
+  [REAL_ESTATE_TYPE_MAP.commercial]: "Commercial Property",
   [REAL_ESTATE_TYPE_MAP.other]: "Other",
 };
 

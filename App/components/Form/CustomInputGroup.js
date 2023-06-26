@@ -67,9 +67,9 @@ const CustomInputGroup = ({
       flexDirection: "row",
       elevation: 1,
       shadowColor: colors.black200,
-      backgroundColor: colors.white100,
       borderWidth: StyleSheet.hairlineWidth,
-      borderColor: colors.black100,
+      backgroundColor: colors.white400,
+      borderColor: colors.white500,
       borderRadius: spacing.md,
       paddingVertical: spacing.xs,
     },
@@ -94,6 +94,7 @@ const CustomInputGroup = ({
       // paddingHorizontal: spacing.sm,
       paddingHorizontal: spacing.lg,
       height: 40,
+      
       // borderRadius: 20
     },
     multilineInput: {

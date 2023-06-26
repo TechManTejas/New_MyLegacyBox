@@ -55,7 +55,7 @@ const InsuranceListScreen = () => {
           outline
           Icon={FontAwesome5}
           iconName="plus"
-          title="Add Insurance"
+          title="Add Insurer"
           onPress={() => navigation.navigate(SCREEN_NAMES.addinsuranceScreen)}
         />
       </View>

@@ -76,7 +76,7 @@ const InsuranceScreen = ({ route }) => {
           outline
           Icon={FontAwesome5}
           iconName="plus"
-          title="Add Holding"
+          title="Add Policy"
           onPress={pressHandler}
         />
       </View>

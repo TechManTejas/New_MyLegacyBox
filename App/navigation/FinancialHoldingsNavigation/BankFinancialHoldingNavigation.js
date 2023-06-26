@@ -21,7 +21,7 @@ const BankFinancialHoldingNavigation = ({ Stack }) => {
         component={UpdateBankHoldingForm}
         options={{
           headerShown: true,
-          title: "Update bank holding",
+          title: "Update Account Details",
         }}
       />
     </Stack.Group>

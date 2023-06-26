@@ -78,7 +78,7 @@ const PostalScreen = ({ route }) => {
           outline
           Icon={FontAwesome5}
           iconName="plus"
-          title="Add Holding"
+          title="Add Account"
           onPress={pressHandler}
         />
       </View>

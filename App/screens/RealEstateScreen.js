@@ -74,7 +74,7 @@ const RealEstateScreen = () => {
           outline
           Icon={FontAwesome5}
           iconName="plus"
-          title="Add Holding"
+          title="Add Property"
           onPress={pressHandler}
         />
       </View>
