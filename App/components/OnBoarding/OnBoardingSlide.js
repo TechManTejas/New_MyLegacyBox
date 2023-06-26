@@ -10,9 +10,7 @@ import { useTheme } from "../../theme/ThemeProvider";
 
 const OnBoardingSlide = ({ item }) => {
   const { width } = useWindowDimensions();
-  const {
-    theme: { colors, spacing, fontFamily, fontSize },
-  } = useTheme();
+  const { theme: { colors, spacing, fontFamily, fontSize } } = useTheme();
 
   const styles = StyleSheet.create({
     container: {

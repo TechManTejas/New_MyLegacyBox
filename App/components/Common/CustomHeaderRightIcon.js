@@ -3,7 +3,7 @@ import { useTheme } from "../../theme/ThemeProvider";
 import { FontAwesome5 } from '@expo/vector-icons'; 
 import CustomToolTip from "./CustomToolTip";
 
-const CustomHeaderRightIcon = () => {
+const CustomHeaderRightIcon = ({ message }) => {
 
     const { theme: { colors, spacing, fontSize, fontFamily } } = useTheme();
 
@@ -21,16 +21,22 @@ const CustomHeaderRightIcon = () => {
             color: colors.blue500
         }
     });
-
-    const TooltipMessage = <View>
-        <Text style={styles.toolTipMessage}>
-            A nominee is a person whom the user has chosen to receive his/her database discreetly after him/her.
-        </Text>
-    </View>
-
+    
     return <CustomToolTip 
-        icon={<FontAwesome5 name="info" size={styles.headerRightIcon.fontSize} color={styles.headerRightIcon.color} />}
-        message={TooltipMessage}
+        icon={
+            <FontAwesome5 
+                name="info" 
+                size={styles.headerRightIcon.fontSize} 
+                color={styles.headerRightIcon.color}
+            />
+        }
+        message={
+            <View>
+                <Text style={styles.toolTipMessage}>
+                    {message}
+                </Text>
+            </View>
+        }
         position={"left"}
         style={styles.headerRightIcon}
     />

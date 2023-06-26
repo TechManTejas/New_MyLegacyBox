@@ -51,44 +51,54 @@ const Carousel = ({ carouselData }) => {
         indicatorContainer: {
             flexDirection: "row",
             justifyContent: "center",
-            marginBottom: spacing.x4l,
+            marginVertical: spacing.xs
         },
         indicator: {
-            height: 2.5,
+            height: 10,
             width: 10,
             backgroundColor: colors.black300,
             marginHorizontal: spacing.xxs,
-            borderRadius: spacing.xxs,
+            borderRadius: spacing.xl,
         },
         indicatorActive: {
-            backgroundColor: colors.blue,
-            width: 25,
+            backgroundColor: colors.blue
         },
 
     })
 
     const flatListRef = useRef(null)
 
-    const [index, setIndex] = useState(0)
+    const [carouselIndex, setCarouselIndex] = useState(0)
 
-    const [visibleItemIndex, setVisibleItemIndex] = useState(0);
+    const [visibleItemIndex, setVisibleItemIndex] = useState(0)
+
     const onViewCallBackRef = useRef(({ viewableItems }) => {
-        setVisibleItemIndex(viewableItems[0].index);
-      }, []);
+        console.log(viewableItems);
+        setVisibleItemIndex(viewableItems[0].index)
+    }, [])
 
     // useEffect(() => {
 
     //     const interval = setInterval(() => {
-    //         flatListRef.current.scrollToIndex({ index, animated: true })
-    //         setIndex((index + 1) % carouselData.length)
+    //         setCarouselIndex((carouselIndex + 1) % carouselData.length)
+    //         flatListRef.current.scrollToIndex({ index: carouselIndex, animated: true })
     //     }, 5000)
 
     //     return () => clearInterval(interval)
 
-    // }, [index])
+    // }, [carouselIndex])
 
     return (
         <View>
+            <View style={styles.indicatorContainer}>
+                {carouselData.map((_, index) => {
+                    console.log(index);
+                    return <View
+                        key={index}
+                        style={[styles.indicator, visibleItemIndex === index && styles.indicatorActive]}
+                    />
+                    })}
+            </View>
             <FlatList
                 ref={flatListRef}
                 onViewableItemsChanged={onViewCallBackRef.current}
@@ -119,17 +129,6 @@ const Carousel = ({ carouselData }) => {
                     )
                 }}
             />
-                  {/* <View style={styles.indicatorContainer}>
-        {carouselData.map((_, index) => (
-          <View
-            key={index}
-            style={[
-              styles.indicator,
-              visibleItemIndex === index && styles.indicatorActive,
-            ]}
-          />
-        ))}
-      </View> */}
         </View>
     )
 }
