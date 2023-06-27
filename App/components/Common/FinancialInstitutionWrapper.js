@@ -1,9 +1,10 @@
 import { View, Text, Pressable, StyleSheet } from "react-native";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import { useTheme } from "../../theme/ThemeProvider";
-import { Ionicons } from '@expo/vector-icons'; 
+import { Entypo } from '@expo/vector-icons'; 
+import { Octicons } from '@expo/vector-icons';
 
-const FinancialInstitutionWrapper = ({ children, address, pressHandler, companyName }) => {
+const FinancialInstitutionWrapper = ({ children, address, pressHandler, title }) => {
 
   const { theme: { colors, fontFamily, fontSize, spacing } } = useTheme();
 
@@ -32,7 +33,10 @@ const FinancialInstitutionWrapper = ({ children, address, pressHandler, companyN
       fontFamily: fontFamily.semiBold,
       fontSize: fontSize.default,
       lineHeight: fontSize.xl,
-      color: colors.black300
+      color: colors.black300,
+      display: "flex",
+      flexDirection: "row",
+      alignItems: "center",
     },
     addressTitle: {
       fontFamily: fontFamily.semiBold,
@@ -54,15 +58,15 @@ const FinancialInstitutionWrapper = ({ children, address, pressHandler, companyN
       color: colors.blue,
     },
     devider: {
-      borderBottomWidth: 1,
-      borderStyle: "dashed",
+      borderBottomWidth: StyleSheet.hairlineWidth,
       borderColor: colors.black200,
       marginVertical: spacing.sm,
     },
     addressStreet: {
-      marginTop: spacing.xs,
       color: colors.black300,
-      fontSize: fontSize.md
+      fontSize: fontSize.md,
+      fontFamily: fontFamily.regular,
+      paddingLeft: spacing.lg
     }
   });
 
@@ -72,10 +76,13 @@ const FinancialInstitutionWrapper = ({ children, address, pressHandler, companyN
       <View style={styles.viewContainer}>
         {address ? (
           <View style={styles.addressContainer}>
-            <Text style={styles.addressTitle}>{companyName}</Text>
-            <Text style={styles.addressContent}>
-              <Ionicons name="navigate" size={15} /> {address.city}, {address.state}, {address.pinCode}
-            </Text>
+            <Text style={styles.addressTitle}>{title}</Text>
+            <View style={styles.addressContent}>
+              <Entypo color={colors.black400} name="location-pin" style={{paddingRight: spacing.xxs }} size={fontSize.default} />
+              <Text style={{ fontFamily: fontFamily.regular, fontSize: fontSize.default, lineHeight: fontSize.xl, color: colors.black300, }}>{address.city}</Text> 
+              <Octicons color={colors.black400} style={{ paddingHorizontal: spacing.sm }} name="dot-fill" size={fontSize.md} /> 
+              <Text style={{ fontFamily: fontFamily.regular, fontSize: fontSize.default, lineHeight: fontSize.xl, color: colors.black300,  }}>{address.state}, {address.pinCode}</Text>
+            </View>
             <Text style={styles.addressStreet}>{address.street}</Text>
           </View>
         ) : (

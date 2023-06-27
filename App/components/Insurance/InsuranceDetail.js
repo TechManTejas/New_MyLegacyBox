@@ -5,6 +5,7 @@ import { SCREEN_NAMES } from "../../constants/screenNames";
 import FinancialInstitutionWrapper from "../Common/FinancialInstitutionWrapper";
 
 const InsuranceDetail = ({ insurance }) => {
+  
   const navigation = useNavigation();
 
   const { customerId, poc, pocNumber, address, companyName } = insurance;
@@ -77,7 +78,7 @@ const InsuranceDetail = ({ insurance }) => {
       fontFamily: fontFamily.regular,
       fontSize: fontSize.md,
       lineHeight: fontSize.default,
-      color: colors.black400,
+      color: colors.black300,
       marginBottom: spacing.xs,
     },
   });

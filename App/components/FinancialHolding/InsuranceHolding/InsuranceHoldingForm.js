@@ -1,13 +1,10 @@
-import React, { useCallback, useState } from "react";
+import { useCallback, useState } from "react";
 import { View, Text, StyleSheet, Keyboard } from "react-native";
 import { Formik } from "formik";
 import { toFormikValidationSchema } from "zod-formik-adapter";
 import CustomInputGroup from "../../Form/CustomInputGroup";
 import DateTimePicker from "@react-native-community/datetimepicker";
-import {
-  cleanObjectAndTrim,
-  objectToDropDownLabelAndValues,
-} from "../../../utils/manipulators";
+import { cleanObjectAndTrim, objectToDropDownLabelAndValues } from "../../../utils/manipulators";
 import { useTheme } from "../../../theme/ThemeProvider";
 import BlueButton from "../../Common/Button/BlueButton";
 import { useNavigation } from "@react-navigation/native";
@@ -21,25 +18,14 @@ import {
 } from "../../../constants/financialHoldings/insuranceHolding";
 import { insuranceHoldingValidator } from "../../../utils/form/validators/insuranceHoldingValidator";
 
-const InsuranceHoldingForm = ({
-  ctaCaption,
-  defaultBody,
-  apiCallback,
-  isLoading,
-  initialValues,
-  // parentId in default for add
-}) => {
+const InsuranceHoldingForm = ({ ctaCaption, defaultBody, apiCallback, isLoading, initialValues }) => {
+
   const [customErrors, setCustomErrors] = useState({});
   const [globalErrorMessage, setGlobalErrorMessage] = useState("");
   const navigation = useNavigation();
-  const [datePickerOptions, setDatePickerOptions] = useState({
-    show: false,
-    property: "",
-  });
+  const [datePickerOptions, setDatePickerOptions] = useState({ show: false, property: "" });
 
-  const {
-    theme: { colors, spacing, fontSize, fontFamily },
-  } = useTheme();
+  const { theme: { colors, spacing, fontSize, fontFamily } } = useTheme();
 
   const customErrorWithValidation = useCallback(({ values, errors }) => {
     let customErrors;

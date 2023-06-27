@@ -4,7 +4,7 @@ import { useNavigation } from "@react-navigation/native";
 import { SCREEN_NAMES } from "../../constants/screenNames";
 import { FontAwesome5 } from '@expo/vector-icons';
 
-const BankItem = ({ hideCarret, ...bank }) => {
+const BankItem = ({ ...bank }) => {
 
   const { _id, name, ifsc, branchName, poc, pocNumber, address } = bank;
 
@@ -56,7 +56,7 @@ const BankItem = ({ hideCarret, ...bank }) => {
       color: colors.black300,
     },
     poc: {
-      fontFamily: fontFamily.semiBold,
+      fontFamily: fontFamily.regular,
       fontSize: fontSize.md,
       lineHeight: fontSize.default,
       color: colors.black300,
@@ -88,7 +88,6 @@ const BankItem = ({ hideCarret, ...bank }) => {
 
   return (
     <View style={styles.container}>
-
 
       <View style={styles.content}>
 

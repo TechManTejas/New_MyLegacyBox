@@ -1,4 +1,3 @@
-import React from "react";
 import { View, StyleSheet, FlatList } from "react-native";
 import { useTheme } from "../theme/ThemeProvider";
 import { useGetFinancialHoldingForInsuranceQuery } from "../services/financialHolding/financialHoldingSlice";
@@ -12,9 +11,10 @@ import { useSelector } from "react-redux";
 import { selectInsuranceById } from "../services/insurance/insuranceSlice";
 import InsuranceDetail from "../components/Insurance/InsuranceDetail";
 import InsuranceFinancialHoldingItem from "../components/FinancialHolding/InsuranceHolding/InsuranceFinancialHoldingItem";
+import FinancialInstitutionInfoCard from "../components/Common/FinancialInstitutionInfoCard";
 
 const InsuranceScreen = ({ route }) => {
-  
+
   const navigation = useNavigation();
   const { _id } = route.params;
   const insurance = useSelector((state) => selectInsuranceById(state, _id));
@@ -24,7 +24,7 @@ const InsuranceScreen = ({ route }) => {
   const { theme: { spacing, colors } } = useTheme();
 
   const pressHandler = () => {
-    navigation.navigate(SCREEN_NAMES.addInsuranceFinancialHoldingScreen, { parentId: insurance._id, parentName: `${insurance.companyName}` });
+    navigation.navigate(SCREEN_NAMES.addInsuranceFinancialHoldingScreen, { parentId: insurance._id, parentName: insurance.companyName });
   };
 
   const styles = StyleSheet.create({
@@ -55,13 +55,18 @@ const InsuranceScreen = ({ route }) => {
     <View style={styles.container}>
       <View style={styles.listContainer}>
         <FlatList
-          ListHeaderComponent={<InsuranceDetail insurance={insurance} />}
+          ListHeaderComponent={
+            <FinancialInstitutionInfoCard  
+              updateScreenName={SCREEN_NAMES.updateinsuranceScreen} 
+              institute={insurance} 
+              type="insurance"
+              instituteTitle={insurance.companyName}
+            />}
+          // ListHeaderComponent={<InsuranceDetail insurance={insurance} />}
           ListHeaderComponentStyle={styles.listHeader}
           contentContainerStyle={styles.listContentContainer}
           data={data.ids.map((id) => data.entities[id])}
-          renderItem={({ item }) => (
-            <InsuranceFinancialHoldingItem financialHolding={item} />
-          )}
+          renderItem={({ item }) => <InsuranceFinancialHoldingItem financialHolding={item} />}
           keyExtractor={({ _id }) => _id}
           ListEmptyComponent={() => <Empty message="No holdings available" />}
         />

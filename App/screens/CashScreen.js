@@ -1,4 +1,3 @@
-import React from "react";
 import { View, StyleSheet, FlatList } from "react-native";
 import { useTheme } from "../theme/ThemeProvider";
 import { useGetFinancialHoldingForCashQuery } from "../services/financialHolding/financialHoldingSlice";
@@ -11,15 +10,12 @@ import { SCREEN_NAMES } from "../constants/screenNames";
 import CashFinancialHoldingItem from "../components/FinancialHolding/CashHolding/CashFinancialHoldingItem";
 
 const CashScreen = () => {
+  
   const navigation = useNavigation();
 
-  // pass empty object as you dont have filter
-  const { data, isLoading, isFetching, isError, error } =
-    useGetFinancialHoldingForCashQuery();
+  const { data, isLoading, isFetching } = useGetFinancialHoldingForCashQuery();
 
-  const {
-    theme: { spacing, colors },
-  } = useTheme();
+  const { theme: { spacing, colors } } = useTheme();
 
   const pressHandler = () => {
     navigation.navigate(SCREEN_NAMES.addCashFinancialHoldingScreen);

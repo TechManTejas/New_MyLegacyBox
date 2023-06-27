@@ -1,9 +1,9 @@
 import { useRoute } from "@react-navigation/native";
-import React from "react";
 import { useUpdateBankMutation } from "../../services/bank/bankSlice";
 import BankForm from "./BankForm";
 
 const UpdateBankForm = () => {
+
   const [updateBank, { isLoading }] = useUpdateBankMutation();
 
   const route = useRoute();

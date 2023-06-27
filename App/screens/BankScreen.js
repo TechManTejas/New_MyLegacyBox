@@ -1,5 +1,4 @@
-import React from "react";
-import { View, Text, StyleSheet, FlatList } from "react-native";
+import { View, StyleSheet, FlatList } from "react-native";
 import { useTheme } from "../theme/ThemeProvider";
 import { useGetFinancialHoldingForBankQuery } from "../services/financialHolding/financialHoldingSlice";
 import CustomActivityIndicator from "../components/Common/CustomActivityIndicator";
@@ -12,10 +11,13 @@ import { SCREEN_NAMES } from "../constants/screenNames";
 import { useSelector } from "react-redux";
 import { selectBankById } from "../services/bank/bankSlice";
 import BankFinancialHoldingItem from "../components/FinancialHolding/BankHolding/BankFinancialHoldingItem";
+import FinancialInstitutionInfoCard from "../components/Common/FinancialInstitutionInfoCard";
 
 const BankScreen = ({ route }) => {
+
   const navigation = useNavigation();
   const { _id } = route.params;
+
   const bank = useSelector((state) => selectBankById(state, _id));
 
   const { data, isLoading, isFetching } = useGetFinancialHoldingForBankQuery(_id);
@@ -51,13 +53,21 @@ const BankScreen = ({ route }) => {
     },
   });
 
-  if (isLoading || isFetching) return <CustomActivityIndicator />;
+  if (isLoading || isFetching) return <CustomActivityIndicator />
 
   return (
     <View style={styles.container}>
       <View style={styles.listContainer}>
         <FlatList
-          ListHeaderComponent={<BankDetail bank={bank} />}
+          ListHeaderComponent={
+            <FinancialInstitutionInfoCard 
+              updateScreenName={SCREEN_NAMES.updateBankScreen} 
+              institute={bank} 
+              type="bank"
+              instituteTitle={`${bank.name}, ${bank.branchName}`} 
+            />
+          }
+          // ListHeaderComponent={<BankDetail bank={bank} />}
           ListHeaderComponentStyle={styles.listHeader}
           contentContainerStyle={styles.listContentContainer}
           data={data.ids.map((id) => data.entities[id])}
