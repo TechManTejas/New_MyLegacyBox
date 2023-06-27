@@ -71,7 +71,7 @@ const BankItem = ({ hideCarret, ...bank }) => {
       marginTop: spacing.md,
       paddingHorizontal: spacing.sm,
       paddingVertical: spacing.xs,
-      borderTopRightRadius: spacing.xs,      
+      borderTopRightRadius: spacing.xs,
       borderBottomLeftRadius: spacing.xs,
     },
     city: {
@@ -90,48 +90,50 @@ const BankItem = ({ hideCarret, ...bank }) => {
     <View style={styles.container}>
 
 
-        <View style={styles.content}>
+      <View style={styles.content}>
 
-          <View>
+        <View>
 
-            <View style={styles.col}>
+          <View style={styles.col}>
 
-              <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "baseline" }}>
+            <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "baseline" }}>
 
-                <Text style={styles.name}>{name}, {branchName}</Text>
+              <Text style={styles.name}>{name}, {branchName}</Text>
 
-                <Pressable onPress={pressHandler} style={{ flexDirection: "row", alignItems: "center", backgroundColor: colors.blue500, borderRadius: 5, paddingVertical: 2 ,paddingHorizontal: spacing.sm }}>
-                  <Text style={{ color: colors.white, paddingRight:10, paddingTop: 2, fontFamily: fontFamily.semiBold, fontSize: fontSize.md }}>View</Text>
-                  <FontAwesome5 name="arrow-right" size={10} color="white" />
-                </Pressable>
-
-              </View>
-
-              <Text style={styles.ifsc}>{ifsc}</Text>
+              <Pressable onPress={pressHandler} style={{ flexDirection: "row", alignItems: "center", backgroundColor: colors.blue500, borderRadius: 5, paddingVertical: 2, paddingHorizontal: spacing.sm }}>
+                <Text style={{ color: colors.white, paddingRight: 10, paddingTop: 2, fontFamily: fontFamily.semiBold, fontSize: fontSize.md }}>View</Text>
+                <FontAwesome5 name="arrow-right" size={10} color="white" />
+              </Pressable>
 
             </View>
 
-            <View style={styles.row}>
-              <View style={styles.iconTextContainer}>
-                <FontAwesome5 name="user-tie" size={14} color={styles.poc.color} /> 
-                <Text style={styles.poc}>{poc || "Not available"}</Text>
-              </View>
-              <View style={styles.iconTextContainer}>
-                <FontAwesome5 name="phone" size={14} color={styles.poc.color} />
-                <Text style={styles.poc}>{pocNumber || "Not available"}</Text>
-              </View>
-            </View>
-      
+            <Text style={styles.ifsc}>{ifsc}</Text>
+
           </View>
 
-          {
-            address?.city && 
-            <View style={styles.footer}>
-              <Text style={styles.city}>{address?.city.toUpperCase()}</Text>
+          <View style={styles.row}>
+            <View style={styles.iconTextContainer}>
+              <FontAwesome5 name="user-tie" size={14} color={styles.poc.color} />
+              <Text style={styles.poc}>{poc || "Not available"}</Text>
             </View>
-          }
+            <View style={styles.iconTextContainer}>
+              <FontAwesome5 name="phone" size={14} color={styles.poc.color} />
+              <Text style={styles.poc}>{pocNumber || "Not available"}</Text>
+            </View>
+          </View>
 
         </View>
+
+        {
+          (address?.city) ?
+            <View style={styles.footer}>
+              <Text style={styles.city}>{address?.city.toUpperCase()}</Text>
+            </View> : <View style={styles.footer}>
+              <Text style={styles.city}>N/A</Text>
+            </View>
+        }
+
+      </View>
 
     </View>
   );
