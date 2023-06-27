@@ -19,7 +19,7 @@ const Carousel = ({ carouselData }) => {
             margin: 1
         },
         img: {
-            width: width - 35,
+            width: 351,
         },
 
         cardtext: {
@@ -73,7 +73,7 @@ const Carousel = ({ carouselData }) => {
     const [visibleItemIndex, setVisibleItemIndex] = useState(0)
 
     const onViewCallBackRef = useRef(({ viewableItems }) => {
-        console.log(viewableItems);
+        // console.log(viewableItems);
         setVisibleItemIndex(viewableItems[0].index)
     }, [])
 
@@ -92,7 +92,7 @@ const Carousel = ({ carouselData }) => {
         <View>
             <View style={styles.indicatorContainer}>
                 {carouselData.map((_, index) => {
-                    console.log(index);
+                    // console.log(index);
                     return <View
                         key={index}
                         style={[styles.indicator, visibleItemIndex === index && styles.indicatorActive]}

@@ -10,6 +10,7 @@ const MenuCard = ({
   cardsInRow,
   index,
   title,
+  Icon,
   iconName,
   IconComponent,
   iconSizeMultiplier,
@@ -72,11 +73,13 @@ const MenuCard = ({
         onPress={!disabled ? pressHandler : () => {}}
       >
         <View style={styles.iconContainer}>
-          <IconComponent
+          
+          { (IconComponent) ? <IconComponent
             name={iconName}
             color={styles.iconContainer.color}
             size={styles.iconContainer.fontSize}
-          />
+          /> : Icon }
+
         </View>
         <Text style={styles.label}>{title}</Text>
       </Pressable>

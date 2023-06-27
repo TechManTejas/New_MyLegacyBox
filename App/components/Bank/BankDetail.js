@@ -8,7 +8,7 @@ import FinancialInstitutionWrapper from "../Common/FinancialInstitutionWrapper";
 const BankDetail = ({ bank }) => {
   const navigation = useNavigation();
 
-  const { customerId, ifsc, poc, pocNumber, address } = bank;
+  const { customerId, ifsc, poc, pocNumber, address, companyName } = bank;
 
   const {
     theme: { colors, fontFamily, fontSize, spacing },

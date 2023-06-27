@@ -1,17 +1,19 @@
-import React from "react";
 import { View, Text, Pressable, StyleSheet } from "react-native";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import { useTheme } from "../../theme/ThemeProvider";
+import { Ionicons } from '@expo/vector-icons'; 
 
-const FinancialInstitutionWrapper = ({ children, address, pressHandler }) => {
-  const {
-    theme: { colors, fontFamily, fontSize, spacing },
-  } = useTheme();
+const FinancialInstitutionWrapper = ({ children, address, pressHandler, companyName }) => {
+
+  const { theme: { colors, fontFamily, fontSize, spacing } } = useTheme();
 
   const styles = StyleSheet.create({
     container: {
       marginBottom: spacing.lg,
-      borderRadius: spacing.sm,
+      borderRadius: spacing.xs,
+      borderWidth: StyleSheet.hairlineWidth, 
+      borderColor: colors.black200,
+      padding: spacing.md
     },
     viewContainer: {
       flex: 1,
@@ -27,14 +29,16 @@ const FinancialInstitutionWrapper = ({ children, address, pressHandler }) => {
       flex: 1,
     },
     addressContent: {
-      fontFamily: fontFamily.regular,
+      fontFamily: fontFamily.semiBold,
       fontSize: fontSize.default,
       lineHeight: fontSize.xl,
+      color: colors.black300
     },
     addressTitle: {
       fontFamily: fontFamily.semiBold,
-      color: colors.black500,
-      lineHeight: fontSize.lg,
+      color: colors.blue500,
+      lineHeight: fontSize.xxl,
+      fontSize: fontSize.xl
     },
     buttonContainer: {
       paddingBottom: spacing.sm,
@@ -49,18 +53,30 @@ const FinancialInstitutionWrapper = ({ children, address, pressHandler }) => {
     buttonText: {
       color: colors.blue,
     },
+    devider: {
+      borderBottomWidth: 1,
+      borderStyle: "dashed",
+      borderColor: colors.black200,
+      marginVertical: spacing.sm,
+    },
+    addressStreet: {
+      marginTop: spacing.xs,
+      color: colors.black300,
+      fontSize: fontSize.md
+    }
   });
 
   return (
     <View style={styles.container}>
+
       <View style={styles.viewContainer}>
         {address ? (
           <View style={styles.addressContainer}>
-            <Text style={styles.addressTitle}>Address</Text>
-            <Text style={styles.addressContent}>{address.street}</Text>
+            <Text style={styles.addressTitle}>{companyName}</Text>
             <Text style={styles.addressContent}>
-              {address.city}, {address.state} - {address.pinCode}
+              <Ionicons name="navigate" size={15} /> {address.city}, {address.state}, {address.pinCode}
             </Text>
+            <Text style={styles.addressStreet}>{address.street}</Text>
           </View>
         ) : (
           <View style={styles.addressContainer}>
@@ -69,15 +85,17 @@ const FinancialInstitutionWrapper = ({ children, address, pressHandler }) => {
           </View>
         )}
 
-        <View style={styles.buttonContainer}>
-          <Pressable style={styles.button} onPress={pressHandler}>
-            <Text style={styles.buttonText}>
-              Edit <FontAwesome5 name="edit" color={styles.buttonText.color} />
-            </Text>
-          </Pressable>
-        </View>
+        <Pressable onPress={pressHandler} style={{ flexDirection: "row", alignItems: "center", backgroundColor: colors.blue500, borderRadius: 5, paddingVertical: 2, paddingHorizontal: spacing.sm }}>
+          <Text style={{ color: colors.white, paddingRight: 10, paddingTop: 2, fontFamily: fontFamily.semiBold, fontSize: fontSize.md }}>Edit</Text>
+          <FontAwesome5 name="pen" size={10} color="white" />
+        </Pressable>
+
       </View>
+
+      <View style={styles.devider} />
+
       <View style={styles.childContainer}>{children}</View>
+
     </View>
   );
 };

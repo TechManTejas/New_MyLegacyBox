@@ -14,22 +14,17 @@ import InsuranceDetail from "../components/Insurance/InsuranceDetail";
 import InsuranceFinancialHoldingItem from "../components/FinancialHolding/InsuranceHolding/InsuranceFinancialHoldingItem";
 
 const InsuranceScreen = ({ route }) => {
+  
   const navigation = useNavigation();
   const { _id } = route.params;
   const insurance = useSelector((state) => selectInsuranceById(state, _id));
 
-  const { data, isLoading, isFetching, isError, error } =
-    useGetFinancialHoldingForInsuranceQuery(_id);
+  const { data, isLoading, isFetching } = useGetFinancialHoldingForInsuranceQuery(_id);
 
-  const {
-    theme: { spacing, colors },
-  } = useTheme();
+  const { theme: { spacing, colors } } = useTheme();
 
   const pressHandler = () => {
-    navigation.navigate(SCREEN_NAMES.addInsuranceFinancialHoldingScreen, {
-      parentId: insurance._id,
-      parentName: `${insurance.companyName}`,
-    });
+    navigation.navigate(SCREEN_NAMES.addInsuranceFinancialHoldingScreen, { parentId: insurance._id, parentName: `${insurance.companyName}` });
   };
 
   const styles = StyleSheet.create({

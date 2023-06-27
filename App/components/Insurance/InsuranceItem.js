@@ -6,19 +6,15 @@ import { useNavigation } from "@react-navigation/native";
 import { SCREEN_NAMES } from "../../constants/screenNames";
 
 const InsuranceItem = ({ hideCarret, ...insurance }) => {
+
   const { _id, companyName, poc, pocNumber, address } = insurance;
 
-  const {
-    theme: { colors, fontFamily, fontSize, spacing },
-  } = useTheme();
+  const { theme: { colors, fontFamily, fontSize, spacing } } = useTheme();
 
   const navigation = useNavigation();
 
   const pressHandler = () => {
-    navigation.navigate(SCREEN_NAMES.insuranceScreen, {
-      _id,
-      insurance,
-    });
+    navigation.navigate(SCREEN_NAMES.insuranceScreen, { _id, insurance });
   };
 
   const styles = StyleSheet.create({
@@ -26,7 +22,7 @@ const InsuranceItem = ({ hideCarret, ...insurance }) => {
       marginBottom: spacing.md,
       borderWidth: spacing.xxxs,
       borderColor: colors.black100,
-      borderRadius: spacing.sm,
+      borderRadius: spacing.xs,
     },
     pressableContainer: {
       width: "100%",
@@ -46,9 +42,9 @@ const InsuranceItem = ({ hideCarret, ...insurance }) => {
     },
     name: {
       fontFamily: fontFamily.semiBold,
-      color: colors.blue400,
-      fontSize: fontSize.default,
-      lineHeight: fontSize.lg,
+      color: colors.blue500,
+      fontSize: fontSize.xl,
+      lineHeight: fontSize.xxl,
     },
     ifsc: {
       fontFamily: fontFamily.regular,
@@ -58,10 +54,11 @@ const InsuranceItem = ({ hideCarret, ...insurance }) => {
       color: colors.black300,
     },
     poc: {
-      fontFamily: fontFamily.regular,
+      fontFamily: fontFamily.semiBold,
       fontSize: fontSize.md,
       lineHeight: fontSize.default,
-      color: colors.black400,
+      color: colors.black300,
+      paddingLeft: spacing.xs
     },
     footer: {
       backgroundColor: colors.black700,
@@ -72,58 +69,62 @@ const InsuranceItem = ({ hideCarret, ...insurance }) => {
       marginTop: spacing.md,
       paddingHorizontal: spacing.sm,
       paddingVertical: spacing.xs,
-      borderTopRightRadius: spacing.sm,
-      borderBottomLeftRadius: spacing.sm,
+      borderTopRightRadius: spacing.xs,
+      borderBottomLeftRadius: spacing.xs,
     },
     city: {
       fontFamily: fontFamily.semiBold,
       fontSize: fontSize.sm,
       color: colors.white100,
     },
-    iconContainer: {
-      paddingHorizontal: spacing.sm,
+    iconTextContainer: {
+      flexDirection: "row",
+      paddingRight: spacing.lg,
+      alignItems: "baseline"
     },
-    icon: {
-      fontSize: fontSize.default,
-      color: colors.black300,
+    col: {
+      paddingHorizontal: spacing.md,
+      marginBottom: spacing.xs,
     },
   });
 
   return (
     <View style={styles.container}>
-      <Pressable style={styles.pressableContainer} onPress={pressHandler}>
         <View style={styles.content}>
+
           <View>
-            <View style={styles.row}>
-              <Text style={styles.name}>{companyName}</Text>
+
+            <View style={styles.col}>
+              <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "baseline" }}>
+                <Text style={styles.name}>{companyName}</Text>
+                <Pressable onPress={pressHandler} style={{ flexDirection: "row", alignItems: "center", backgroundColor: colors.blue500, borderRadius: 5, paddingVertical: 2, paddingHorizontal: spacing.sm }}>
+                  <Text style={{ color: colors.white, paddingRight: 10, paddingTop: 2, fontFamily: fontFamily.semiBold, fontSize: fontSize.md }}>View</Text>
+                  <FontAwesome5 name="arrow-right" size={10} color="white" />
+                </Pressable>
+              </View>
             </View>
 
             <View style={styles.row}>
-              <Text style={styles.poc}>RM : {poc ? poc : "Not available"}</Text>
+              <View style={styles.iconTextContainer}>
+                <FontAwesome5 name="user-tie" size={14} color={styles.poc.color} />
+                <Text style={styles.poc}>{poc || "Not available"}</Text>
+              </View>
+              <View style={styles.iconTextContainer}>
+                <FontAwesome5 name="phone" size={14} color={styles.poc.color} />
+                <Text style={styles.poc}>{pocNumber || "Not available"}</Text>
+              </View>
             </View>
 
-            <View style={styles.row}>
-              <Text style={styles.poc}>
-                Phone : {pocNumber ? pocNumber : "Not available"}
-              </Text>
-            </View>
           </View>
-          {address?.city ? (
+
+          {
+            address?.city &&
             <View style={styles.footer}>
               <Text style={styles.city}>{address?.city}</Text>
             </View>
-          ) : null}
+          }
+
         </View>
-        {!hideCarret ? (
-          <View style={styles.iconContainer}>
-            <FontAwesome5
-              name="chevron-right"
-              size={styles.icon.fontSize}
-              color={styles.icon.color}
-            />
-          </View>
-        ) : null}
-      </Pressable>
     </View>
   );
 };

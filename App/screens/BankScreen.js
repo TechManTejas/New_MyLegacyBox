@@ -18,12 +18,9 @@ const BankScreen = ({ route }) => {
   const { _id } = route.params;
   const bank = useSelector((state) => selectBankById(state, _id));
 
-  const { data, isLoading, isFetching, isError, error } =
-    useGetFinancialHoldingForBankQuery(_id);
+  const { data, isLoading, isFetching } = useGetFinancialHoldingForBankQuery(_id);
 
-  const {
-    theme: { spacing, colors },
-  } = useTheme();
+  const { theme: { spacing, colors } } = useTheme();
 
   const pressHandler = () => {
     navigation.navigate(SCREEN_NAMES.addBankFinancialHoldingScreen, {

@@ -1,4 +1,3 @@
-import React from "react";
 import { Text, StyleSheet, View } from "react-native";
 import { useTheme } from "../../theme/ThemeProvider";
 import { useNavigation } from "@react-navigation/native";
@@ -8,11 +7,9 @@ import FinancialInstitutionWrapper from "../Common/FinancialInstitutionWrapper";
 const InsuranceDetail = ({ insurance }) => {
   const navigation = useNavigation();
 
-  const { customerId, ifsc, poc, pocNumber, address } = insurance;
+  const { customerId, poc, pocNumber, address, companyName } = insurance;
 
-  const {
-    theme: { colors, fontFamily, fontSize, spacing },
-  } = useTheme();
+  const { theme: { colors, fontFamily, fontSize, spacing } } = useTheme();
 
   const handlePress = () => {
     navigation.navigate(SCREEN_NAMES.updateinsuranceScreen, { insurance });
@@ -86,22 +83,18 @@ const InsuranceDetail = ({ insurance }) => {
   });
 
   return (
-    <FinancialInstitutionWrapper address={address} pressHandler={handlePress}>
-      <View style={[styles.row]}>
+    <FinancialInstitutionWrapper companyName={companyName} address={address} pressHandler={handlePress}>
+      <View style={styles.row}>
         <Text style={[styles.info, styles.semiBold]}>Customer ID </Text>
-        <Text style={styles.info}>
-          {customerId ? customerId : "Not available"}
-        </Text>
+        <Text style={styles.info}>{customerId || "Not available"}</Text>
       </View>
-      <View style={[styles.row]}>
-        <Text style={[styles.info, styles.semiBold]}>RM</Text>
-        <Text style={styles.info}> {poc ? poc : "Not available"}</Text>
+      <View style={styles.row}>
+        <Text style={[styles.info, styles.semiBold]}>Relationship Manager</Text>
+        <Text style={styles.info}> {poc || "Not available"}</Text>
       </View>
-      <View style={[styles.row]}>
-        <Text style={[styles.info, styles.semiBold]}>RM contact</Text>
-        <Text style={styles.info}>
-          {pocNumber ? pocNumber : "Not available"}
-        </Text>
+      <View style={styles.row}>
+        <Text style={[styles.info, styles.semiBold]}>Relationship Manager Contact</Text>
+        <Text style={styles.info}>{pocNumber || "Not available"}</Text>
       </View>
     </FinancialInstitutionWrapper>
   );

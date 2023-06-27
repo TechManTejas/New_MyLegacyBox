@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text, StatusBar, FlatList } from "react-native";
+import { StyleSheet, View, StatusBar, FlatList } from "react-native";
 import React from "react";
 import { useGetBanksQuery } from "../services/bank/bankSlice";
 import CustomActivityIndicator from "../components/Common/CustomActivityIndicator";
@@ -11,12 +11,11 @@ import Empty from "../components/Common/Empty";
 import { SCREEN_NAMES } from "../constants/screenNames";
 
 const BankListScreen = () => {
+
   const navigation = useNavigation();
-  const {
-    theme: { colors, spacing },
-  } = useTheme();
+  const { theme: { colors, spacing } } = useTheme();
   const isFoucused = useIsFocused();
-  const { data, isFetching, isLoading, isError, error } = useGetBanksQuery();
+  const { data, isFetching, isLoading } = useGetBanksQuery();
 
   const styles = StyleSheet.create({
     container: {
