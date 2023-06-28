@@ -5,7 +5,7 @@ import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import { useNavigation } from "@react-navigation/native";
 import { SCREEN_NAMES } from "../../constants/screenNames";
 
-const InsuranceItem = ({ hideCarret, ...insurance }) => {
+const InsuranceItem = ({ ...insurance }) => {
 
   const { _id, companyName, poc, pocNumber, address } = insurance;
 
@@ -95,13 +95,18 @@ const InsuranceItem = ({ hideCarret, ...insurance }) => {
           <View>
 
             <View style={styles.col}>
+
               <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "baseline" }}>
+
                 <Text style={styles.name}>{companyName}</Text>
+
                 <Pressable onPress={pressHandler} style={{ flexDirection: "row", alignItems: "center", backgroundColor: colors.blue500, borderRadius: 5, paddingVertical: 2, paddingHorizontal: spacing.sm }}>
                   <Text style={{ color: colors.white, paddingRight: 10, paddingTop: 2, fontFamily: fontFamily.semiBold, fontSize: fontSize.md }}>View</Text>
                   <FontAwesome5 name="arrow-right" size={10} color="white" />
                 </Pressable>
+
               </View>
+
             </View>
 
             <View style={styles.row}>

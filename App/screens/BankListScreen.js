@@ -1,5 +1,4 @@
 import { StyleSheet, View, StatusBar, FlatList } from "react-native";
-import React from "react";
 import { useGetBanksQuery } from "../services/bank/bankSlice";
 import CustomActivityIndicator from "../components/Common/CustomActivityIndicator";
 import { useTheme } from "../theme/ThemeProvider";
@@ -9,6 +8,7 @@ import BankItem from "../components/Bank/BankItem";
 import BlueButton from "../components/Common/Button/BlueButton";
 import Empty from "../components/Common/Empty";
 import { SCREEN_NAMES } from "../constants/screenNames";
+import FinancialInstitutionItemCard from "../components/Common/FinancialInstitutionItemCard";
 
 const BankListScreen = () => {
 
@@ -38,13 +38,17 @@ const BankListScreen = () => {
 
   return (
     <View style={styles.container}>
-      {isFoucused ? (
-        <StatusBar barStyle="dark-content" backgroundColor={colors.white100} />
-      ) : null}
+      {isFoucused && <StatusBar barStyle="dark-content" backgroundColor={colors.white100} />}
       <FlatList
         contentContainerStyle={styles.listContentContainer}
         data={data.ids.map((id) => data.entities[id])}
-        renderItem={({ item }) => <BankItem {...item} />}
+        renderItem={({ item }) => (
+          <FinancialInstitutionItemCard 
+            {...item} 
+            onPress={() => navigation.navigate(SCREEN_NAMES.bankScreen, { _id: item._id }) } 
+          />
+        )}
+        // renderItem={({ item }) => <BankItem {...item} />}
         keyExtractor={({ _id }) => _id}
         ListEmptyComponent={() => <Empty message="No banks available" />}
       />

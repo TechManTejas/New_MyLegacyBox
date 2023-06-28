@@ -21,7 +21,7 @@ const PostalNavigation = ({ Stack }) => {
         component={PostalScreen}
         options={({ route }) => ({
           headerShown: true,
-          title: `Post office, ${route.params?.postal?.branchName}`,
+          title: `Post office, ${route.params?.branchName}`,
         })}
       />
       <Stack.Screen

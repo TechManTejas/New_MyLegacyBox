@@ -1,5 +1,4 @@
 import { StyleSheet, View, StatusBar, FlatList } from "react-native";
-import React from "react";
 import CustomActivityIndicator from "../components/Common/CustomActivityIndicator";
 import { useTheme } from "../theme/ThemeProvider";
 import { useIsFocused, useNavigation } from "@react-navigation/native";
@@ -9,15 +8,17 @@ import Empty from "../components/Common/Empty";
 import { SCREEN_NAMES } from "../constants/screenNames";
 import { useGetInsurancesQuery } from "../services/insurance/insuranceSlice";
 import InsuranceItem from "../components/Insurance/InsuranceItem";
+import FinancialInstitutionItemCard from "../components/Common/FinancialInstitutionItemCard";
 
 const InsuranceListScreen = () => {
+
   const navigation = useNavigation();
-  const {
-    theme: { colors, spacing },
-  } = useTheme();
+
+  const { theme: { colors, spacing } } = useTheme();
+
   const isFoucused = useIsFocused();
-  const { data, isFetching, isLoading, isError, error } =
-    useGetInsurancesQuery();
+
+  const { data, isFetching, isLoading } = useGetInsurancesQuery();
 
   const styles = StyleSheet.create({
     container: {
@@ -40,13 +41,16 @@ const InsuranceListScreen = () => {
 
   return (
     <View style={styles.container}>
-      {isFoucused ? (
-        <StatusBar barStyle="dark-content" backgroundColor={colors.white100} />
-      ) : null}
+      {isFoucused && <StatusBar barStyle="dark-content" backgroundColor={colors.white100} />}
       <FlatList
         contentContainerStyle={styles.listContentContainer}
         data={data.ids.map((id) => data.entities[id])}
-        renderItem={({ item }) => <InsuranceItem {...item} />}
+        renderItem={({ item }) => (
+          <FinancialInstitutionItemCard
+            {...item}
+            onPress={() => navigation.navigate(SCREEN_NAMES.insuranceScreen, { _id: item._id })}
+          />
+        )}
         keyExtractor={({ _id }) => _id}
         ListEmptyComponent={() => <Empty message="No insurance available" />}
       />

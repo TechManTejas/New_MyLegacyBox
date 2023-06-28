@@ -13,7 +13,7 @@ const BankItem = ({ ...bank }) => {
   const navigation = useNavigation();
 
   const pressHandler = () => {
-    navigation.navigate(SCREEN_NAMES.bankScreen, { _id, bank, });
+    navigation.navigate(SCREEN_NAMES.bankScreen, { _id });
   };
 
   const styles = StyleSheet.create({
