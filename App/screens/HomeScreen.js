@@ -1,5 +1,4 @@
 import { View, StyleSheet, ScrollView, StatusBar, Text } from "react-native";
-// import { useAuth } from "../authentication/AuthProvider";
 import CustomSafeView from "../components/Common/CustomSafeView";
 import HomeHeader from "../components/Home/HomeHeader";
 import { useTheme } from "../theme/ThemeProvider";
@@ -9,14 +8,11 @@ import MinorMenu from "../components/Common/MinorMenu";
 import { Ionicons } from '@expo/vector-icons';
 import CustomToolTip from "../components/Common/CustomToolTip"
 import { homeCarouselData } from "../data/Carouseldata";
-import Carousel from "../components/Common/Carousel";
+import CustomCarousel from "../components/Common/Carousel";
 
 const HomeScreen = () => {
 
-  // const { sessionToken } = useAuth();
   const { theme: { spacing, colors, fontFamily, fontSize } } = useTheme();
-
-  // console.log("Session Token : ", sessionToken);
 
   const styles = StyleSheet.create({
     container: {
@@ -78,7 +74,7 @@ const HomeScreen = () => {
           <MajorMenu title="home" menuData={HOME_MAJOR_MENU_DATA} />
           <MinorMenu title="home" centered menuData={HOME_MINOR_MENU_DATA} />
 
-          <Carousel carouselData={homeCarouselData} />
+          <CustomCarousel carouselData={homeCarouselData} />
 
         </View>
       </ScrollView>

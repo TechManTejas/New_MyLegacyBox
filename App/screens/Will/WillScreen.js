@@ -10,7 +10,7 @@ import { useGetWillsQuery } from "../../services/will/willSlice";
 import CustomActivityIndicator from "../../components/Common/CustomActivityIndicator";
 import WillItem from "../../components/Will/WillItem";
 import Empty from "../../components/Common/Empty";
-import Carousel from "../../components/Common/Carousel";
+import CustomCarousel from "../../components/Common/Carousel";
 import { WillCarouselData } from "../../data/Carouseldata";
 
 const WillScreen = () => {
@@ -62,7 +62,7 @@ const WillScreen = () => {
       <View style={styles.listContainer}>
 
         <View style={styles.carouselContainer}>
-          <Carousel carouselData={WillCarouselData} />
+          <CustomCarousel carouselData={WillCarouselData} />
         </View>
 
         <FlatList

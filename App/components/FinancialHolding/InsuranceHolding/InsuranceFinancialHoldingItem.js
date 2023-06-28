@@ -62,7 +62,6 @@ const InsuranceFinancialHoldingItem = ({ financialHolding }) => {
     },
     devider: {
       borderBottomWidth: StyleSheet.hairlineWidth,
-      // borderStyle: "dashed",
       borderColor: colors.black200,
       marginVertical: spacing.md,
       marginHorizontal: spacing.md

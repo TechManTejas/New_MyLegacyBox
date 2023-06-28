@@ -2,10 +2,10 @@ import { Image } from "react-native";
 import { SCREEN_NAMES } from "../constants/screenNames";
 import Svg, { Path } from "react-native-svg"
 
-const major_size = 80
+const major_size = 50
 const minor_size = 20
 
-const IconPack = ({ viewBox, path, color, size }) => {
+const IconPack = ({ viewBox, path, color="#1a2c7c", size }) => {
   return (
     <Svg 
       xmlns="http://www.w3.org/2000/svg" 
@@ -25,8 +25,8 @@ export const HOME_MAJOR_MENU_DATA = [
     title: "Bank",
     // iconName: "university",
     // IconComponent: FontAwesome5,
-    Icon: <Image style={{ width: major_size, height: major_size }} source={require("../assets/images/bank.png")} />,
-    // Icon: <IconPack size={major_size} color="#FFC72C" viewBox={"0 0 512 512"} path={"m243.4 2.6-224 96c-14 6-21.8 21-18.7 35.8S16.8 160 32 160v8c0 13.3 10.7 24 24 24h400c13.3 0 24-10.7 24-24v-8c15.2 0 28.3-10.7 31.3-25.6s-4.8-29.9-18.7-35.8l-224-96c-8-3.4-17.2-3.4-25.2 0zM128 224H64v196.3c-.6.3-1.2.7-1.8 1.1l-48 32c-11.7 7.8-17 22.4-12.9 35.9S17.9 512 32 512h448c14.1 0 26.5-9.2 30.6-22.7s-1.1-28.1-12.9-35.9l-48-32c-.6-.4-1.2-.7-1.8-1.1V224H384v192h-40V224h-64v192h-48V224h-64v192h-40V224zM256 64a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"} />,
+    // Icon: <Image style={{ width: major_size, height: major_size }} source={require("../assets/images/image1.png")} />,
+    Icon: <IconPack size={major_size} viewBox={"0 0 512 512"} path={"m243.4 2.6-224 96c-14 6-21.8 21-18.7 35.8S16.8 160 32 160v8c0 13.3 10.7 24 24 24h400c13.3 0 24-10.7 24-24v-8c15.2 0 28.3-10.7 31.3-25.6s-4.8-29.9-18.7-35.8l-224-96c-8-3.4-17.2-3.4-25.2 0zM128 224H64v196.3c-.6.3-1.2.7-1.8 1.1l-48 32c-11.7 7.8-17 22.4-12.9 35.9S17.9 512 32 512h448c14.1 0 26.5-9.2 30.6-22.7s-1.1-28.1-12.9-35.9l-48-32c-.6-.4-1.2-.7-1.8-1.1V224H384v192h-40V224h-64v192h-48V224h-64v192h-40V224zM256 64a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"} />,
     navigateToScreen: SCREEN_NAMES.bankListScreen,
   },
   {
@@ -34,8 +34,8 @@ export const HOME_MAJOR_MENU_DATA = [
     title: "Post Office",
     // iconName: "landmark",
     // IconComponent: FontAwesome5,
-    Icon : <Image style={{ width: major_size, height: major_size }} source={require("../assets/images/post.png")} />,
-    // Icon: <IconPack size={major_size} color="#CD7F32" viewBox={"0 0 640 512"} path={"M112 0C85.5 0 64 21.5 64 48v48H16c-8.8 0-16 7.2-16 16s7.2 16 16 16h256c8.8 0 16 7.2 16 16s-7.2 16-16 16H48c-8.8 0-16 7.2-16 16s7.2 16 16 16h192c8.8 0 16 7.2 16 16s-7.2 16-16 16H16c-8.8 0-16 7.2-16 16s7.2 16 16 16h192c8.8 0 16 7.2 16 16s-7.2 16-16 16H64v128c0 53 43 96 96 96s96-43 96-96h128c0 53 43 96 96 96s96-43 96-96h32c17.7 0 32-14.3 32-32s-14.3-32-32-32V237.3c0-17-6.7-33.3-18.7-45.3L512 114.7c-12-12-28.3-18.7-45.3-18.7H416V48c0-26.5-21.5-48-48-48H112zm432 237.3V256H416v-96h50.7l77.3 77.3zM160 368a48 48 0 1 1 0 96 48 48 0 1 1 0-96zm272 48a48 48 0 1 1 96 0 48 48 0 1 1-96 0z"} />,
+    // Icon : <Image style={{ width: major_size, height: major_size }} source={require("../assets/images/image2.png")} />,
+    Icon: <IconPack size={major_size} viewBox={"0 0 640 512"} path={"M112 0C85.5 0 64 21.5 64 48v48H16c-8.8 0-16 7.2-16 16s7.2 16 16 16h256c8.8 0 16 7.2 16 16s-7.2 16-16 16H48c-8.8 0-16 7.2-16 16s7.2 16 16 16h192c8.8 0 16 7.2 16 16s-7.2 16-16 16H16c-8.8 0-16 7.2-16 16s7.2 16 16 16h192c8.8 0 16 7.2 16 16s-7.2 16-16 16H64v128c0 53 43 96 96 96s96-43 96-96h128c0 53 43 96 96 96s96-43 96-96h32c17.7 0 32-14.3 32-32s-14.3-32-32-32V237.3c0-17-6.7-33.3-18.7-45.3L512 114.7c-12-12-28.3-18.7-45.3-18.7H416V48c0-26.5-21.5-48-48-48H112zm432 237.3V256H416v-96h50.7l77.3 77.3zM160 368a48 48 0 1 1 0 96 48 48 0 1 1 0-96zm272 48a48 48 0 1 1 96 0 48 48 0 1 1-96 0z"} />,
     navigateToScreen: SCREEN_NAMES.postalListScreen,
   },
   {
@@ -43,15 +43,15 @@ export const HOME_MAJOR_MENU_DATA = [
     title: "Insurance",
     // iconName: "house-damage",
     // IconComponent: FontAwesome5,
-    Icon: <Image style={{ width: major_size, height: major_size }} source={require("../assets/images/insurance.png")} />,
-    // Icon: <IconPack size={major_size} color="#fd5c63" viewBox={"0 0 640 512"} path={"M224 256a128 128 0 1 0 0-256 128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3 0 498.7 13.3 512 29.7 512h388.6c1.8 0 3.5-.2 5.3-.5-76.3-55.1-99.8-141-103.1-200.2-16.1-4.8-33.1-7.3-50.7-7.3h-91.5zm308.8-78.3-120 48C358 277.4 352 286.2 352 296c0 63.3 25.9 168.8 134.8 214.2 5.9 2.5 12.6 2.5 18.5 0C614.1 464.8 640 359.3 640 296c0-9.8-6-18.6-15.1-22.3l-120-48c-5.7-2.3-12.1-2.3-17.8 0zM591.4 312c-3.9 50.7-27.2 116.7-95.4 149.7V273.8l95.4 38.2z"} />,
+    // Icon: <Image style={{ width: major_size, height: major_size }} source={require("../assets/images/image3.png")} />,
+    Icon: <IconPack size={major_size} viewBox={"0 0 640 512"} path={"M224 256a128 128 0 1 0 0-256 128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3 0 498.7 13.3 512 29.7 512h388.6c1.8 0 3.5-.2 5.3-.5-76.3-55.1-99.8-141-103.1-200.2-16.1-4.8-33.1-7.3-50.7-7.3h-91.5zm308.8-78.3-120 48C358 277.4 352 286.2 352 296c0 63.3 25.9 168.8 134.8 214.2 5.9 2.5 12.6 2.5 18.5 0C614.1 464.8 640 359.3 640 296c0-9.8-6-18.6-15.1-22.3l-120-48c-5.7-2.3-12.1-2.3-17.8 0zM591.4 312c-3.9 50.7-27.2 116.7-95.4 149.7V273.8l95.4 38.2z"} />,
     navigateToScreen: SCREEN_NAMES.insuranceListScreen,
   },
   {
     id: 4,
     title: "Cash",
-    Icon: <Image style={{ width: major_size, height: major_size }} source={require("../assets/images/cash.png")} />,
-    // Icon: <IconPack size={major_size} color="#32de84" viewBox={"0 0 640 512"} path={"M96 96v224c0 35.3 28.7 64 64 64h416c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H160c-35.3 0-64 28.7-64 64zm64 160c35.3 0 64 28.7 64 64h-64v-64zm64-160c0 35.3-28.7 64-64 64V96h64zm352 160v64h-64c0-35.3 28.7-64 64-64zM512 96h64v64c-35.3 0-64-28.7-64-64zM288 208a80 80 0 1 1 160 0 80 80 0 1 1-160 0zM48 120c0-13.3-10.7-24-24-24S0 106.7 0 120v240c0 66.3 53.7 120 120 120h400c13.3 0 24-10.7 24-24s-10.7-24-24-24H120c-39.8 0-72-32.2-72-72V120z"} />,
+    // Icon: <Image style={{ width: major_size, height: major_size }} source={require("../assets/images/image4.png")} />,
+    Icon: <IconPack size={major_size} viewBox={"0 0 640 512"} path={"M96 96v224c0 35.3 28.7 64 64 64h416c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H160c-35.3 0-64 28.7-64 64zm64 160c35.3 0 64 28.7 64 64h-64v-64zm64-160c0 35.3-28.7 64-64 64V96h64zm352 160v64h-64c0-35.3 28.7-64 64-64zM512 96h64v64c-35.3 0-64-28.7-64-64zM288 208a80 80 0 1 1 160 0 80 80 0 1 1-160 0zM48 120c0-13.3-10.7-24-24-24S0 106.7 0 120v240c0 66.3 53.7 120 120 120h400c13.3 0 24-10.7 24-24s-10.7-24-24-24H120c-39.8 0-72-32.2-72-72V120z"} />,
     // iconName: "hand-holding-usd",
     // IconComponent: FontAwesome5,
     navigateToScreen: SCREEN_NAMES.cashScreen,

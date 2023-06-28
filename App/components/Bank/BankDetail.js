@@ -6,8 +6,6 @@ import FinancialInstitutionWrapper from "../Common/FinancialInstitutionWrapper";
 
 const BankDetail = ({ bank }) => {
 
-  console.log(bank)
-
   const navigation = useNavigation();
 
   const { customerId, ifsc, poc, pocNumber, address } = bank;
