@@ -116,7 +116,7 @@ const CashFinancialHoldingItem = ({ financialHolding }) => {
 
         <View style={[styles.row, styles.marginBottomXs]}>
           <Text style={[styles.info, styles.semiBold]}>Date of Transaction{" "}</Text>
-          <Text style={styles.info}>{new Date(dateOfTransaction).toDateString()}</Text>
+          <Text style={styles.info}>{new Date(dateOfTransaction).toDateString().replace(/^\w+ /, '')}</Text>
         </View>
 
         <View style={[styles.row, styles.marginBottomXs]}>

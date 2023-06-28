@@ -6,6 +6,7 @@ import CustomActivityIndicator from "../Common/CustomActivityIndicator";
 import { generateWordFileWillByHashUrl } from "../../services/api/willApiSlice";
 
 const WillItem = ({ will }) => {
+
   const [generateWordHashByWillId, { isLoading, isError, error }] = useGenerateWordHashByWillIdMutation();
   const { theme: { spacing, colors, fontFamily, fontSize } } = useTheme();
 
@@ -45,7 +46,9 @@ const WillItem = ({ will }) => {
   });
 
   const pressHandler = async () => {
+
     try {
+
       const result = await generateWordHashByWillId(will._id).unwrap();
 
       if (result.data && result.status === 201) {
@@ -53,7 +56,9 @@ const WillItem = ({ will }) => {
           generateWordFileWillByHashUrl.replace(":hashedWillId", result.data)
         );
       }
-    } catch (error) {
+
+    }
+    catch (error) {
       console.log(error);
     }
   };
@@ -62,27 +67,22 @@ const WillItem = ({ will }) => {
     <View style={styles.marginBottomXs}>
       <View style={styles.actionContainer}>
         <View style={styles.action}>
-          <Text style={styles.actionName}>
-            Will on : {new Date(will.willDate).toDateString()}
-          </Text>
+          <Text style={styles.actionName}> Will on : {new Date(will.willDate).toDateString().replace(/^\w+ /, '')}</Text>
         </View>
         <Pressable style={styles.iconContainer} onPress={pressHandler}>
           {isLoading ? (
             <CustomActivityIndicator />
           ) : (
-            <FontAwesome
-              name="download"
-              size={styles.icon.fontSize}
-              color={styles.icon.color}
-            />
+            <FontAwesome name="download" size={styles.icon.fontSize} color={styles.icon.color}/>
           )}
         </Pressable>
       </View>
-      {isError ? (
+      {
+        isError &&
         <View>
           <Text style={styles.errorText}>{error.message ? error.message : error.error}</Text>
         </View>
-      ) : null}
+      }
     </View>
   );
 };

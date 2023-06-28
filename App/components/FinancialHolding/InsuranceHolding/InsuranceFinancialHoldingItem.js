@@ -130,8 +130,7 @@ const InsuranceFinancialHoldingItem = ({ financialHolding }) => {
       </View>
 
       <Text style={styles.financialHoldingLastUpdated}>
-        Last updated on {" "}
-        {new Date(updatedAt).toDateString()}
+        Last updated on {" "} {new Date(updatedAt).toDateString().replace(/^\w+ /, '')}
       </Text>
 
       <View style={[styles.marginLeftSm, styles.marginBottomXs, { alignItems: "flex-start" }]}>
@@ -170,9 +169,7 @@ const InsuranceFinancialHoldingItem = ({ financialHolding }) => {
 
         <View style={[styles.row, styles.marginBottomXs]}>
           <Text style={[styles.info, styles.semiBold]}>Date of Maturity </Text>
-          <Text style={styles.info}>
-            {new Date(dateOfMaturity).toDateString()}
-          </Text>
+          <Text style={styles.info}>{new Date(dateOfMaturity).toDateString().replace(/^\w+ /, '')}</Text>
         </View>
 
         <View style={[styles.row, styles.marginBottomXs]}>
@@ -182,9 +179,7 @@ const InsuranceFinancialHoldingItem = ({ financialHolding }) => {
 
         <View style={[styles.row, styles.marginBottomXs]}>
           <Text style={[styles.info, styles.semiBold]}>Date of Premium </Text>
-          <Text style={styles.info}>
-            {new Date(dateOfPremium).toDateString()}
-          </Text>
+          <Text style={styles.info}>{new Date(dateOfPremium).toDateString().replace(/^\w+ /, '')}</Text>
         </View>
 
         <View style={[styles.row, styles.marginBottomXs]}>

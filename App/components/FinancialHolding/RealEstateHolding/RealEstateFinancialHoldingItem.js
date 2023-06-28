@@ -10,6 +10,7 @@ import {
 import CustomPill from "../../Common/Pill/CustomPill";
 
 const RealEstateFinancialHoldingItem = ({ financialHolding }) => {
+  
   const navigation = useNavigation();
   const { _id, holdingClass, holding, updatedAt } = financialHolding;
 
@@ -125,15 +126,13 @@ const RealEstateFinancialHoldingItem = ({ financialHolding }) => {
           <Text style={styles.info}>{`${ownershipPercentage} %`}</Text>
         </View>
         <View style={[styles.row, styles.marginBottomXs]}>
-          <Text style={[styles.info, styles.semiBold]}>Area </Text>
+          <Text style={[styles.info, styles.semiBold]}>Area</Text>
           <Text style={styles.info}>
             {propertyArea
               ? `${propertyArea}${
                   propertyAreaUnit
                     ? " " +
-                      REAL_ESTATE_PROPERTY_AREA_UNIT_TO_TITLE_MAP[
-                        propertyAreaUnit
-                      ]
+                      REAL_ESTATE_PROPERTY_AREA_UNIT_TO_TITLE_MAP[propertyAreaUnit]
                     : ""
                 }`
               : "Not available"}
@@ -142,14 +141,12 @@ const RealEstateFinancialHoldingItem = ({ financialHolding }) => {
 
         <View style={[styles.row, styles.marginBottomXs]}>
           <Text style={[styles.info, styles.semiBold]}>Property Value </Text>
-          <Text style={styles.info}>
-            {propertyValue ? `Rs. ${propertyValue}` : "Not available"}
-          </Text>
+          <Text style={styles.info}>{`Rs. ${propertyValue}` || "Not available"}</Text>
         </View>
 
         <View style={[styles.row, styles.marginBottomXs]}>
           <Text style={[styles.info, styles.semiBold]}>Date of Purchase </Text>
-          <Text style={styles.info}>{dateOfPurchase? new Date(dateOfPurchase).toDateString() : "Not available"}</Text>
+          <Text style={styles.info}>{dateOfPurchase? new Date(dateOfPurchase).toDateString().replace(/^\w+ /, '') : "Not available"}</Text>
         </View>
 
         <View style={[styles.devider, styles.deviderNoBorder]} />
@@ -171,8 +168,9 @@ const RealEstateFinancialHoldingItem = ({ financialHolding }) => {
 
         <View style={styles.subsectionContainer}>
           <Text style={styles.subsectionTitle}>Description</Text>
-          <Text style={styles.subsectionContent}>{description ? description : "Not available"}</Text>
+          <Text style={styles.subsectionContent}>{description || "Not available"}</Text>
         </View>
+
       </View>
     </FinancialHoldingItemWrapper>
   );
