@@ -1,5 +1,4 @@
 import { View, Text, StyleSheet } from "react-native";
-import React from "react";
 import { useTheme } from "../../../theme/ThemeProvider";
 import { useNavigation } from "@react-navigation/native";
 import { SCREEN_NAMES } from "../../../constants/screenNames";
@@ -26,15 +25,10 @@ const RealEstateFinancialHoldingItem = ({ financialHolding }) => {
     address,
   } = holding;
 
-  const {
-    theme: { colors, fontFamily, fontSize, spacing },
-  } = useTheme();
+  const { theme: { colors, fontFamily, fontSize, spacing } } = useTheme();
 
   const pressHandler = () => {
-    navigation.navigate(SCREEN_NAMES.updateRealEstateFinancialHoldingScreen, {
-      _id,
-      financialHolding,
-    });
+    navigation.navigate(SCREEN_NAMES.updateRealEstateFinancialHoldingScreen, { _id, financialHolding });
   };
 
   const styles = StyleSheet.create({
@@ -108,11 +102,7 @@ const RealEstateFinancialHoldingItem = ({ financialHolding }) => {
   });
 
   return (
-    <FinancialHoldingItemWrapper
-      updatedAt={updatedAt}
-      holdingClass={holdingClass}
-      pressHandler={pressHandler}
-    >
+    <FinancialHoldingItemWrapper updatedAt={updatedAt} holdingClass={holdingClass} pressHandler={pressHandler}>
       <View style={styles.infoHeaderContainer}>
         <View style={[styles.row, styles.rowAlignItemsStart]}>
           <Text style={[styles.name]}>{propertyName}</Text>
@@ -159,15 +149,7 @@ const RealEstateFinancialHoldingItem = ({ financialHolding }) => {
 
         <View style={[styles.row, styles.marginBottomXs]}>
           <Text style={[styles.info, styles.semiBold]}>Date of Purchase </Text>
-          <Text style={styles.info}>
-            {dateOfPurchase
-              ? new Date(dateOfPurchase).toLocaleDateString("en-us", {
-                  year: "numeric",
-                  month: "short",
-                  day: "2-digit",
-                })
-              : "Not available"}
-          </Text>
+          <Text style={styles.info}>{dateOfPurchase? new Date(dateOfPurchase).toDateString() : "Not available"}</Text>
         </View>
 
         <View style={[styles.devider, styles.deviderNoBorder]} />
@@ -176,9 +158,7 @@ const RealEstateFinancialHoldingItem = ({ financialHolding }) => {
           <View style={styles.subsectionContainer}>
             <Text style={styles.subsectionTitle}>Address</Text>
             <Text style={styles.subsectionContent}>{address.street}</Text>
-            <Text style={styles.subsectionContent}>
-              {address.city}, {address.state} - {address.pinCode}
-            </Text>
+            <Text style={styles.subsectionContent}>{address.city}, {address.state} - {address.pinCode}</Text>
           </View>
         ) : (
           <View style={styles.subsectionContainer}>
@@ -191,9 +171,7 @@ const RealEstateFinancialHoldingItem = ({ financialHolding }) => {
 
         <View style={styles.subsectionContainer}>
           <Text style={styles.subsectionTitle}>Description</Text>
-          <Text style={styles.subsectionContent}>
-            {description ? description : "Not available"}
-          </Text>
+          <Text style={styles.subsectionContent}>{description ? description : "Not available"}</Text>
         </View>
       </View>
     </FinancialHoldingItemWrapper>

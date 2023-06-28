@@ -11,11 +11,11 @@ const Carousel = ({ carouselData }) => {
         indicatorContainer: {
             flexDirection: "row",
             justifyContent: "center",
-            marginVertical: spacing.xs
+            marginVertical: spacing.xs,
         },
         indicator: {
-            height: 10,
-            width: 10,
+            height: 4,
+            width: 4,
             backgroundColor: colors.black300,
             marginHorizontal: spacing.xxs,
             borderRadius: spacing.xl,

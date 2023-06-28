@@ -1,13 +1,4 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  Pressable,
-  Platform,
-  Linking,
-} from "react-native";
-import React from "react";
-// import * as FileSystem from "expo-file-system";
+import { View, Text, StyleSheet, Pressable, Linking } from "react-native";
 import { useTheme } from "../../theme/ThemeProvider";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { useGenerateWordHashByWillIdMutation } from "../../services/will/willSlice";
@@ -15,11 +6,8 @@ import CustomActivityIndicator from "../Common/CustomActivityIndicator";
 import { generateWordFileWillByHashUrl } from "../../services/api/willApiSlice";
 
 const WillItem = ({ will }) => {
-  const [generateWordHashByWillId, { isLoading, isError, error, isSuccess }] =
-    useGenerateWordHashByWillIdMutation();
-  const {
-    theme: { spacing, colors, fontFamily, fontSize },
-  } = useTheme();
+  const [generateWordHashByWillId, { isLoading, isError, error }] = useGenerateWordHashByWillIdMutation();
+  const { theme: { spacing, colors, fontFamily, fontSize } } = useTheme();
 
   const styles = StyleSheet.create({
     actionContainer: {
@@ -75,7 +63,7 @@ const WillItem = ({ will }) => {
       <View style={styles.actionContainer}>
         <View style={styles.action}>
           <Text style={styles.actionName}>
-            Will on : {new Date(will.willDate).toLocaleDateString()}
+            Will on : {new Date(will.willDate).toDateString()}
           </Text>
         </View>
         <Pressable style={styles.iconContainer} onPress={pressHandler}>
@@ -92,9 +80,7 @@ const WillItem = ({ will }) => {
       </View>
       {isError ? (
         <View>
-          <Text style={styles.errorText}>
-            {error.message ? error.message : error.error}
-          </Text>
+          <Text style={styles.errorText}>{error.message ? error.message : error.error}</Text>
         </View>
       ) : null}
     </View>

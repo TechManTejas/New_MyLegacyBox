@@ -131,12 +131,7 @@ const InsuranceFinancialHoldingItem = ({ financialHolding }) => {
 
       <Text style={styles.financialHoldingLastUpdated}>
         Last updated on {" "}
-        {new Date(updatedAt).toLocaleDateString("en-us", {
-          weekday: "long",
-          year: "numeric",
-          month: "short",
-          day: "numeric",
-        })}
+        {new Date(updatedAt).toDateString()}
       </Text>
 
       <View style={[styles.marginLeftSm, styles.marginBottomXs, { alignItems: "flex-start" }]}>
@@ -176,7 +171,7 @@ const InsuranceFinancialHoldingItem = ({ financialHolding }) => {
         <View style={[styles.row, styles.marginBottomXs]}>
           <Text style={[styles.info, styles.semiBold]}>Date of Maturity </Text>
           <Text style={styles.info}>
-            {new Date(dateOfMaturity).toLocaleDateString("en-us", { year: "numeric", month: "short", day: "2-digit" })}
+            {new Date(dateOfMaturity).toDateString()}
           </Text>
         </View>
 
@@ -188,7 +183,7 @@ const InsuranceFinancialHoldingItem = ({ financialHolding }) => {
         <View style={[styles.row, styles.marginBottomXs]}>
           <Text style={[styles.info, styles.semiBold]}>Date of Premium </Text>
           <Text style={styles.info}>
-            {new Date(dateOfPremium).toLocaleDateString("en-us", { month: "long", day: "2-digit" })}
+            {new Date(dateOfPremium).toDateString()}
           </Text>
         </View>
 

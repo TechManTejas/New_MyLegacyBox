@@ -1,5 +1,4 @@
 import { View, Text, StyleSheet } from "react-native";
-import React from "react";
 import { useTheme } from "../../../theme/ThemeProvider";
 import { useNavigation } from "@react-navigation/native";
 import { SCREEN_NAMES } from "../../../constants/screenNames";
@@ -9,27 +8,17 @@ import { CASH_TYPE_TO_TITLE_MAP } from "../../../constants/financialHoldings/cas
 import CustomPill from "../../Common/Pill/CustomPill";
 
 const CashFinancialHoldingItem = ({ financialHolding }) => {
+
   const navigation = useNavigation();
+
   const { _id, holdingClass, holding, updatedAt } = financialHolding;
 
-  const {
-    cashType,
-    dateOfTransaction,
-    nameOfParty,
-    phoneNumberOfParty,
-    amount,
-    address,
-  } = holding;
+  const { cashType, dateOfTransaction, nameOfParty, phoneNumberOfParty, amount, address } = holding;
 
-  const {
-    theme: { colors, fontFamily, fontSize, spacing },
-  } = useTheme();
+  const { theme: { colors, fontFamily, fontSize, spacing } } = useTheme();
 
   const pressHandler = () => {
-    navigation.navigate(SCREEN_NAMES.updateCashFinancialHoldingScreen, {
-      _id,
-      financialHolding,
-    });
+    navigation.navigate(SCREEN_NAMES.updateCashFinancialHoldingScreen, { _id, financialHolding });
   };
 
   const styles = StyleSheet.create({
@@ -103,11 +92,7 @@ const CashFinancialHoldingItem = ({ financialHolding }) => {
   });
 
   return (
-    <FinancialHoldingItemWrapper
-      updatedAt={updatedAt}
-      holdingClass={holdingClass}
-      pressHandler={pressHandler}
-    >
+    <FinancialHoldingItemWrapper updatedAt={updatedAt} holdingClass={holdingClass} pressHandler={pressHandler}>
       <View style={styles.infoHeaderContainer}>
         <View style={[styles.row, styles.rowAlignItemsStart]}>
           <Text style={[styles.name]}>{nameOfParty}</Text>
@@ -130,32 +115,20 @@ const CashFinancialHoldingItem = ({ financialHolding }) => {
         </View>
 
         <View style={[styles.row, styles.marginBottomXs]}>
-          <Text style={[styles.info, styles.semiBold]}>
-            Date of Transaction{" "}
-          </Text>
-          <Text style={styles.info}>
-            {new Date(dateOfTransaction).toLocaleDateString("en-us", {
-              year: "numeric",
-              month: "short",
-              day: "2-digit",
-            })}
-          </Text>
+          <Text style={[styles.info, styles.semiBold]}>Date of Transaction{" "}</Text>
+          <Text style={styles.info}>{new Date(dateOfTransaction).toDateString()}</Text>
         </View>
 
         <View style={[styles.row, styles.marginBottomXs]}>
           <Text style={[styles.info, styles.semiBold]}>Amount </Text>
-          <Text style={styles.info}>
-            {amount ? `Rs. ${numberWithCommas(amount)}` : "Not available"}
-          </Text>
+          <Text style={styles.info}>{amount ? `Rs. ${numberWithCommas(amount)}` : "Not available"}</Text>
         </View>
 
         {address ? (
           <View style={styles.addressContainer}>
             <Text style={styles.addressTitle}>Address</Text>
             <Text style={styles.addressContent}>{address.street}</Text>
-            <Text style={styles.addressContent}>
-              {address.city}, {address.state} - {address.pinCode}
-            </Text>
+            <Text style={styles.addressContent}>{address.city}, {address.state} - {address.pinCode}</Text>
           </View>
         ) : (
           <View style={styles.addressContainer}>
