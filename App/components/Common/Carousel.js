@@ -12,6 +12,9 @@ const Carousel = ({ carouselData }) => {
             flexDirection: "row",
             justifyContent: "center",
             marginVertical: spacing.xs,
+            position: "relative",
+            bottom: -100,
+            zIndex: 10
         },
         indicator: {
             height: 4,
@@ -23,6 +26,11 @@ const Carousel = ({ carouselData }) => {
         indicatorActive: {
             backgroundColor: colors.blue
         },
+
+        carousel: {
+            position: "relative",
+            zIndex: 0
+        }
     })
 
     const [visibleItemIndex, setVisibleItemIndex] = useState(0)
@@ -47,13 +55,11 @@ const Carousel = ({ carouselData }) => {
         <View>
             <View style={styles.indicatorContainer}>
                 {carouselData.map((_, index) => (
-                    <View
-                        key={index}
-                        style={[styles.indicator, visibleItemIndex === index && styles.indicatorActive]}
-                    />
+                    <View key={index} style={[styles.indicator, visibleItemIndex === index && styles.indicatorActive]}/>
                 ))}
             </View>
             <FlatList
+                style={styles.carousel}
                 ref={flatListRef}
                 onViewableItemsChanged={onViewCallBackRef.current}
                 viewabilityConfig={viewConfigRef.current}
