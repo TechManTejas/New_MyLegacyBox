@@ -13,7 +13,7 @@ const FinancialInstitutionWrapper = ({ children, address, pressHandler, title })
       marginBottom: spacing.lg,
       borderRadius: spacing.xs,
       borderWidth: StyleSheet.hairlineWidth, 
-      borderColor: colors.black200,
+      borderColor: colors.black300,
       padding: spacing.md
     },
     viewContainer: {
@@ -52,7 +52,7 @@ const FinancialInstitutionWrapper = ({ children, address, pressHandler, title })
     },
     devider: {
       borderBottomWidth: StyleSheet.hairlineWidth,
-      borderColor: colors.black200,
+      borderColor: colors.black100,
       marginVertical: spacing.sm,
     },
     addressStreet: {

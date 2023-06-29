@@ -8,8 +8,8 @@ const FinancialHoldingItemWrapper = ({ children, holdingClass, nomineeScreen }) 
   const styles = StyleSheet.create({
     container: {
       marginBottom: spacing.md,
-      borderWidth: spacing.xxxs,
-      borderColor: colors.black100,
+      borderWidth: StyleSheet.hairlineWidth,
+      borderColor: colors.black300,
       borderRadius: spacing.xs,
     },
     financialHoldingContainer: {

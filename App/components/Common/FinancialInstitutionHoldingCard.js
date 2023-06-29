@@ -12,7 +12,7 @@ const FinancialInstitutionHoldingItem = ({ holdingClass, updatedAt, content, tit
         row: {
             flexDirection: "row",
             flexWrap: "wrap",
-            alignItems: "baseline",
+            alignItems: "flex-start",
             justifyContent: "space-between",
         },
         marginBottomXs: {
@@ -34,14 +34,15 @@ const FinancialInstitutionHoldingItem = ({ holdingClass, updatedAt, content, tit
         },
         devider: {
             borderBottomWidth: StyleSheet.hairlineWidth,
-            borderColor: colors.black200,
-            marginVertical: spacing.md,
+            borderColor: colors.black100,
+            marginBottom: spacing.md,
+            marginTop: spacing.xs,
             marginHorizontal: spacing.md
         },
         contentDivider: {
             borderBottomWidth: 1,
             borderStyle: "dashed",
-            borderColor: colors.black200,
+            borderColor: colors.black100,
             marginBottom: spacing.md,
             marginHorizontal: spacing.md
         },
@@ -50,7 +51,6 @@ const FinancialInstitutionHoldingItem = ({ holdingClass, updatedAt, content, tit
             color: colors.blue500,
             fontSize: fontSize.xl,
             lineHeight: fontSize.xxl,
-            textTransform: "capitalize",
         },
         type: {
             fontFamily: fontFamily.regular,
@@ -106,6 +106,18 @@ const FinancialInstitutionHoldingItem = ({ holdingClass, updatedAt, content, tit
             paddingTop: 2,
             fontFamily: fontFamily.semiBold,
             fontSize: fontSize.md
+        },
+        halfWidth: {
+            width: "50%"
+        },
+        textAlignRight: {
+            textAlign: "right"
+        },
+        widthkey: {
+            width: "50%"
+        },
+        widthvalue: {
+            width: "50%"
         }
     });
 
@@ -124,14 +136,14 @@ const FinancialInstitutionHoldingItem = ({ holdingClass, updatedAt, content, tit
             </View>
 
             {updatedAt && <Text style={styles.financialHoldingLastUpdated}>
-                Last updated on {" "} {new Date(updatedAt).toDateString().replace(/^\w+ /, '')}
+                Last updated on {new Date(updatedAt).toDateString().replace(/^\w+ /, '')}
             </Text>}
 
             {tagLabel && <View style={[styles.marginLeftSm, styles.marginBottomXs, { alignItems: "flex-start" }]}>
                 <CustomPill
                     label={tagLabel}
-                    color={colors.white100}
-                    backgroundColor={colors.blue500}
+                    color={colors.blue500}
+                    backgroundColor={colors.white500}
                     containerStyle={styles.paddingVerticalXxs}
                     size="sm"
                     labelBold
@@ -145,8 +157,8 @@ const FinancialInstitutionHoldingItem = ({ holdingClass, updatedAt, content, tit
                 renderItem={({ item, index }) => (
                     item.type == "divider" ? <View style={styles.contentDivider} /> :
                     <View key={index} style={[styles.row, styles.marginBottomXs]}>
-                        <Text style={[styles.info, styles.semiBold]}>{item.key}</Text>
-                        <Text style={styles.info}>{item.value}</Text>
+                        <Text style={[styles.info, styles.semiBold, styles.widthkey]}>{item.key}</Text>
+                        <Text style={[styles.info, styles.widthvalue, styles.textAlignRight]}>{item.value}</Text>
                     </View>
                 )
                 }

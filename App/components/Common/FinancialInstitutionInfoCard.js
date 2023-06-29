@@ -17,7 +17,7 @@ const FinancialInstitutionInfoCard = ({ institute, instituteTitle, updateScreenN
     row: {
       flexDirection: "row",
       flexWrap: "wrap",
-      alignItems: "baseline",
+      alignItems: "flex-start",
       paddingRight: spacing.md,
       justifyContent: "space-between",
     },
@@ -45,8 +45,8 @@ const FinancialInstitutionInfoCard = ({ institute, instituteTitle, updateScreenN
       fontFamily: fontFamily.semiBold,
     },
     devider: {
-      borderBottomWidth: 1,
-      borderColor: colors.black200,
+      borderBottomWidth: spacing.xxxs,
+      borderColor: colors.black100,
       marginVertical: spacing.sm,
       borderStyle: "dashed"
     },
@@ -79,29 +79,38 @@ const FinancialInstitutionInfoCard = ({ institute, instituteTitle, updateScreenN
       color: colors.black300,
       marginBottom: spacing.xs,
     },
+    widthkey: {
+      width: "50%"
+    },
+    widthvalue: {
+      width: "50%"
+    },
+    textAlignRight: {
+      textAlign: "right"
+    }
   });
 
   return (
     <FinancialInstitutionWrapper title={instituteTitle} address={institute.address} pressHandler={handlePress}>
 
       <View style={[styles.row]}>
-        <Text style={[styles.info, styles.semiBold]}>IFSC </Text>
-        <Text style={styles.info}>{institute.ifsc || "Not available"}</Text>
+        <Text style={[styles.info, styles.semiBold, styles.widthkey]}>IFSC </Text>
+        <Text style={[styles.info, styles.widthvalue, styles.textAlignRight]}>{institute.ifsc || "Not available"}</Text>
       </View>
       <View style={[styles.row]}>
-        <Text style={[styles.info, styles.semiBold]}>Customer ID </Text>
-        <Text style={styles.info}>{institute.customerId || "Not available"}</Text>
+        <Text style={[styles.info, styles.semiBold, styles.widthkey]}>Customer ID </Text>
+        <Text style={[styles.info, styles.widthvalue, styles.textAlignRight]}>{institute.customerId || "Not available"}</Text>
       </View>
 
       <View style={[styles.devider]} />
 
       <View style={[styles.row]}>
-        <Text style={[styles.info, styles.semiBold]}>Relationship Manager</Text>
-        <Text style={styles.info}> {institute.poc || "Not available"}</Text>
+        <Text style={[styles.info, styles.semiBold, styles.widthkey]}>Relationship Manager</Text>
+        <Text style={[styles.info, styles.widthvalue, styles.textAlignRight]}> {institute.poc || "Not available"}</Text>
       </View>
       <View style={[styles.row]}>
-        <Text style={[styles.info, styles.semiBold]}>Relationship Manager's Contact</Text>
-        <Text style={styles.info}>{institute.pocNumber || "Not available"}</Text>
+        <Text style={[styles.info, styles.semiBold, styles.widthkey]}>Relationship Manager's Contact</Text>
+        <Text style={[styles.info, styles.widthvalue, styles.textAlignRight]}>{institute.pocNumber || "Not available"}</Text>
       </View>
 
     </FinancialInstitutionWrapper>

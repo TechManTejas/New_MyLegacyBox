@@ -60,10 +60,9 @@ const NomineeScreen = () => {
               content={[
                 { key: "Phone Number", value: item.phoneNumber },
                 { key: "Email", value: item.email || "Not Available" },
-                { key: "Street", value: item.address.street || "Not Available" },
-                { key: "Address", value:item.address ? 
-                  `${item.address.city}, ${item.address.state} - ${item.address.pinCode}`: "Not Available" 
-                }
+                { key: "Address", value: item.address ? 
+                  `${item.address.street},\n ${item.address.city}, ${item.address.state}, ${item.address.pinCode}` : "Not Available"
+                },
               ]}
             />
           }

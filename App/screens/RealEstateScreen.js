@@ -12,6 +12,7 @@ import {
   REAL_ESTATE_OWNERSHIP_STATUS_TO_TITLE_MAP,
   REAL_ESTATE_PROPERTY_AREA_UNIT_TO_TITLE_MAP,
 } from "../constants/financialHoldings/realEstateHolding";
+import { numberWithCommas } from "../utils/manipulators";
 
 const RealEstateScreen = () => {
 
@@ -78,14 +79,14 @@ const RealEstateScreen = () => {
                     }`
                     : "Not available"
                 },
-                { key: "Property Value", value: `Rs. ${item.holding.propertyValue}` || "Not Available" },
+                { key: "Property Value", value: item.holding.propertyValue? `Rs. ${numberWithCommas(item.holding.propertyValue)}`: "Not Available" },
                 { key: "Date of Purchase", value: item.holding.dateOfPurchase ? 
                   new Date(item.holding.dateOfPurchase).toDateString().replace(/^\w+ /, '') : 
                   "Not available" 
                 },
-                { key: "Street", value: item.holding.address.street || "Not Available"  },
+                { type: "divider" },
                 { key: "Address", value: item.holding.address ? 
-                  `${item.holding.address.city}, ${item.holding.address.state} - ${item.holding.address.pinCode}` : "Not Available"
+                  `${item.holding.address.street},\n ${item.holding.address.city}, ${item.holding.address.state}, ${item.holding.address.pinCode}` : "Not Available"
                 },
                 { key: "Description", value: item.holding.decription || "Not Available" }
               ]}

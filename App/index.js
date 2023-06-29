@@ -34,17 +34,17 @@ function App() {
   }, [])
 
   return (
-      <Provider store={store}>
-        <ThemeProvider>
-          <AuthProvider>
-            <SplashScreen>
-              <SafeAreaProvider>
-                <RootNavigation /> 
-              </SafeAreaProvider>
-            </SplashScreen>
-          </AuthProvider>
-        </ThemeProvider>
-      </Provider>
+    <Provider store={store}>
+      <ThemeProvider>
+        <AuthProvider>
+          <SplashScreen>
+            <SafeAreaProvider>
+              <RootNavigation />
+            </SafeAreaProvider>
+          </SplashScreen>
+        </AuthProvider>
+      </ThemeProvider>
+    </Provider>
   );
 }
 

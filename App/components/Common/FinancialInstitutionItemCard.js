@@ -9,8 +9,8 @@ const FinancialInstitutionItemCard = ({ onPress, name, ifsc, branchName, company
     const styles = StyleSheet.create({
         container: {
             marginBottom: spacing.md,
-            borderWidth: spacing.xxxs,
-            borderColor: colors.black100,
+            borderWidth: StyleSheet.hairlineWidth,
+            borderColor: colors.black300,
             borderRadius: spacing.xs,
         },
         cardHeader: {
