@@ -1,24 +1,12 @@
 import { View, Text, StyleSheet, Pressable, FlatList } from "react-native";
 import { useTheme } from "../../theme/ThemeProvider";
-// import { useNavigation } from "@react-navigation/native";
-// import { SCREEN_NAMES } from "../../../constants/screenNames";
-// import { numberWithCommas } from "../../../utils/manipulators";
 import FinancialHoldingItemWrapper from "../FinancialHolding/FinancialHoldingItemWrapper";
-// import {
-//     POLICY_BENEFICIERY_TO_TITLE_MAP,
-//     POLICY_PREMIUM_FREQUENCY_TO_TITLE_MAP,
-//     POLICY_TYPE_TO_TITLE_MAP,
-// } from "../../../constants/financialHoldings/insuranceHolding";
 import CustomPill from "./Pill/CustomPill";
 import { FontAwesome5 } from '@expo/vector-icons';
 
-const FinancialInstitutionHoldingItem = ({ holdingClass, updatedAt, content, title, tagLabel, onPress }) => {
+const FinancialInstitutionHoldingItem = ({ holdingClass, updatedAt, content, title, tagLabel, onPress, nomineeScreen }) => {
 
     const { theme: { colors, fontFamily, fontSize, spacing } } = useTheme();
-
-    // const pressHandler = () => {
-    //     navigation.navigate(SCREEN_NAMES.updateInsuranceFinancialHoldingScreen, { _id, parentId, financialHolding });
-    // }
 
     const styles = StyleSheet.create({
         row: {
@@ -48,6 +36,13 @@ const FinancialInstitutionHoldingItem = ({ holdingClass, updatedAt, content, tit
             borderBottomWidth: StyleSheet.hairlineWidth,
             borderColor: colors.black200,
             marginVertical: spacing.md,
+            marginHorizontal: spacing.md
+        },
+        contentDivider: {
+            borderBottomWidth: 1,
+            borderStyle: "dashed",
+            borderColor: colors.black200,
+            marginBottom: spacing.md,
             marginHorizontal: spacing.md
         },
         name: {
@@ -115,13 +110,13 @@ const FinancialInstitutionHoldingItem = ({ holdingClass, updatedAt, content, tit
     });
 
     return (
-        <FinancialHoldingItemWrapper holdingClass={holdingClass}>
+        <FinancialHoldingItemWrapper nomineeScreen={nomineeScreen} holdingClass={holdingClass}>
 
             <View style={styles.infoHeaderContainer}>
 
                 <Text style={styles.name}>{title || "Policy"}</Text>
 
-                { onPress && <Pressable onPress={onPress} style={styles.editButtom}>
+                {onPress && <Pressable onPress={onPress} style={styles.editButtom}>
                     <Text style={styles.editButtomText}>Edit</Text>
                     <FontAwesome5 name="pen" size={10} color="white" />
                 </Pressable>}
@@ -132,7 +127,7 @@ const FinancialInstitutionHoldingItem = ({ holdingClass, updatedAt, content, tit
                 Last updated on {" "} {new Date(updatedAt).toDateString().replace(/^\w+ /, '')}
             </Text>}
 
-            <View style={[styles.marginLeftSm, styles.marginBottomXs, { alignItems: "flex-start" }]}>
+            {tagLabel && <View style={[styles.marginLeftSm, styles.marginBottomXs, { alignItems: "flex-start" }]}>
                 <CustomPill
                     label={tagLabel}
                     color={colors.white100}
@@ -141,21 +136,20 @@ const FinancialInstitutionHoldingItem = ({ holdingClass, updatedAt, content, tit
                     size="sm"
                     labelBold
                 />
-            </View>
+            </View>}
 
             <View style={styles.devider} />
 
             <FlatList
                 data={content}
-                renderItem={({ item, index }) => {
-                    return (
-                        <View key={index} style={[styles.row, styles.marginBottomXs]}>
-                            <Text style={[styles.info, styles.semiBold]}>{item.key}</Text>
-                            <Text style={styles.info}>{item.value}</Text>
-                        </View>
-
-                    )
-                }}
+                renderItem={({ item, index }) => (
+                    item.type == "divider" ? <View style={styles.contentDivider} /> :
+                    <View key={index} style={[styles.row, styles.marginBottomXs]}>
+                        <Text style={[styles.info, styles.semiBold]}>{item.key}</Text>
+                        <Text style={styles.info}>{item.value}</Text>
+                    </View>
+                )
+                }
             />
 
         </FinancialHoldingItemWrapper>

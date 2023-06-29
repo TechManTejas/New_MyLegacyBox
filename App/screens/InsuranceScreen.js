@@ -9,8 +9,6 @@ import { useNavigation } from "@react-navigation/native";
 import { SCREEN_NAMES } from "../constants/screenNames";
 import { useSelector } from "react-redux";
 import { selectInsuranceById } from "../services/insurance/insuranceSlice";
-import InsuranceDetail from "../components/Insurance/InsuranceDetail";
-import InsuranceFinancialHoldingItem from "../components/FinancialHolding/InsuranceHolding/InsuranceFinancialHoldingItem";
 import FinancialInstitutionInfoCard from "../components/Common/FinancialInstitutionInfoCard";
 import FinancialInstitutionHoldingItem from "../components/Common/FinancialInstitutionHoldingCard";
 import {
@@ -69,12 +67,9 @@ const InsuranceScreen = ({ route }) => {
               type="insurance"
               instituteTitle={insurance.companyName}
             />}
-          // ListHeaderComponent={<InsuranceDetail insurance={insurance} />}
           ListHeaderComponentStyle={styles.listHeader}
           contentContainerStyle={styles.listContentContainer}
           data={data.ids.map((id) => data.entities[id])}
-          // renderItem={({ item }) => <InsuranceFinancialHoldingItem financialHolding={item} />}
-
           renderItem={({ item }) => 
             <FinancialInstitutionHoldingItem  
               holdingClass={item.holdingClass}
@@ -85,19 +80,26 @@ const InsuranceScreen = ({ route }) => {
                 { key: "Home Branch ", value: item.holding.homeBranch },
                 { key: "Policy Number ", value: item.holding.policyNumber },
                 { key: "Beneficiary ", value: POLICY_BENEFICIERY_TO_TITLE_MAP[item.holding.beneficiary] },
-                { key: "Policy Amount ", value: `Rs. ${numberWithCommas(item.holding.policyAmount)}` },
+                { type: "divider" },
+                { key: "Policy Amount ", value: item.holding.policyAmount? 
+                  `Rs. ${numberWithCommas(item.holding.policyAmount)}`: "Not Available" 
+                },
                 { key: "Date of Maturity ", value: new Date(item.holding.dateOfMaturity).toDateString().replace(/^\w+ /, '') },
-                { key: "Premium Amount ", value: `Rs. ${numberWithCommas(item.holding.premiumAmount)}` },
+                { type: "divider" },
+                { key: "Premium Amount ", value: item.holding.premiumAmount? 
+                  `Rs. ${numberWithCommas(item.holding.premiumAmount)}` : "Not Available" 
+                },
                 { key: "Date of Premium ", value: new Date(item.holding.dateOfPremium).toDateString().replace(/^\w+ /, '') },
                 { key: "Premium Frequency ", value: POLICY_PREMIUM_FREQUENCY_TO_TITLE_MAP[item.holding.premiumFrequency] }
               ]}
               onPress={() => {
                 navigation.navigate(SCREEN_NAMES.updateInsuranceFinancialHoldingScreen, { 
-                  _id: item._id, parentId: item.parentId, financialHolding: item 
+                  _id: item._id, 
+                  parentId: item.parentId, 
+                  financialHolding: item 
                 })
               }}
             />
-            
           }
           keyExtractor={({ _id }) => _id}
           ListEmptyComponent={() => <Empty message="No holdings available" />}

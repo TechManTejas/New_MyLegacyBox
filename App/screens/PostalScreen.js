@@ -76,18 +76,23 @@ const PostalScreen = ({ route }) => {
           ListHeaderComponentStyle={styles.listHeader}
           contentContainerStyle={styles.listContentContainer}
           data={data.ids.map((id) => data.entities[id])}
-          // renderItem={({ item }) => (
-          //   <PostalFinancialHoldingItem financialHolding={item} />
-          // )}
           renderItem={({ item }) =>
             <FinancialInstitutionHoldingItem
+              updatedAt={item.updatedAt}
               holdingClass={item.holdingClass}
               title={POSTAL_ACCOUNT_TYPES_TO_TITLE_MAP[item.holding.accountType]}
               tagLabel={POSTAL_ACCOUNT_OWNERSHIP_TO_TITLE_MAP[item.holding.ownership]}
               content={[
                 { key: "Account Number", value: item.holding.accountNumber },
-                { key: "Amount ", value: `Rs. ${numberWithCommas(item.holding.amount)}` },
+                { key: "Amount ", value: item.holding.amount ?`Rs. ${numberWithCommas(item.holding.amount)}` : "Not Available" },
               ]}
+              onPress={() => {
+                navigation.navigate(SCREEN_NAMES.updatePostalFinancialHoldingScreen, { 
+                  _id: item._id, 
+                  parentId: item.parentId, 
+                  financialHolding: item 
+                })
+              }}
             />
           }
           keyExtractor={({ _id }) => _id}

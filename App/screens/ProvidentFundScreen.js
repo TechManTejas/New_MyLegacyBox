@@ -1,5 +1,4 @@
-import React from "react";
-import { View, StyleSheet, FlatList, Text } from "react-native";
+import { View, StyleSheet, FlatList } from "react-native";
 import { useTheme } from "../theme/ThemeProvider";
 import { useGetFinancialHoldingForProvidentFundQuery } from "../services/financialHolding/financialHoldingSlice";
 import CustomActivityIndicator from "../components/Common/CustomActivityIndicator";
@@ -8,18 +7,17 @@ import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import Empty from "../components/Common/Empty";
 import { useNavigation } from "@react-navigation/native";
 import { SCREEN_NAMES } from "../constants/screenNames";
-import ProvidentFundFinancialHoldingItem from "../components/FinancialHolding/ProvidentFundHolding/ProvidentFundFinancialHoldingItem";
+import FinancialInstitutionHoldingItem from "../components/Common/FinancialInstitutionHoldingCard";
+import { PROVIDENT_FUND_TYPE_TO_TITLE_MAP } from "../constants/financialHoldings/providentFundHolding";
+import { numberWithCommas } from "../utils/manipulators";
 
 const ProvidentFundScreen = () => {
+
   const navigation = useNavigation();
 
-  // pass empty object as you dont have filter
-  const { data, isLoading, isFetching, isError, error } =
-    useGetFinancialHoldingForProvidentFundQuery();
+  const { data, isLoading, isFetching } = useGetFinancialHoldingForProvidentFundQuery();
 
-  const {
-    theme: { spacing, colors },
-  } = useTheme();
+  const { theme: { spacing, colors } } = useTheme();
 
   const pressHandler = () => {
     navigation.navigate(SCREEN_NAMES.addProvidentFundFinancialHoldingScreen);
@@ -57,7 +55,22 @@ const ProvidentFundScreen = () => {
           contentContainerStyle={styles.listContentContainer}
           data={data.ids.map((id) => data.entities[id])}
           renderItem={({ item }) => (
-            <ProvidentFundFinancialHoldingItem financialHolding={item} />
+            <FinancialInstitutionHoldingItem
+              title={item.holding.employerName}
+              holdingClass={item.holdingClass}
+              updatedAt={item.updatedAt}
+              tagLabel={PROVIDENT_FUND_TYPE_TO_TITLE_MAP[item.holding.pfType]}
+              content={[
+                { key: "UAN", value: item.holding.uan },
+                { key: "Amount", value: `Rs. ${numberWithCommas(item.holding.amount)}` || "Not available" }
+              ]}
+              onPress={() => {
+                navigation.navigate(SCREEN_NAMES.updateProvidentFundFinancialHoldingScreen, { 
+                  _id: item._id,
+                  financialHolding: item 
+                })
+              }}
+            />
           )}
           keyExtractor={({ _id }) => _id}
           ListEmptyComponent={() => <Empty message="No holdings available" />}

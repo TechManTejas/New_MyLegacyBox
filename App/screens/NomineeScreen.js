@@ -1,4 +1,3 @@
-import React from "react";
 import { View, StyleSheet, FlatList } from "react-native";
 import { useTheme } from "../theme/ThemeProvider";
 import CustomActivityIndicator from "../components/Common/CustomActivityIndicator";
@@ -8,17 +7,15 @@ import Empty from "../components/Common/Empty";
 import { useNavigation } from "@react-navigation/native";
 import { SCREEN_NAMES } from "../constants/screenNames";
 import { useGetNomineesQuery } from "../services/nominee/nomineeSlice";
-import NomineeItem from "../components/Nominee/NomineeItem";
+import FinancialInstitutionHoldingItem from "../components/Common/FinancialInstitutionHoldingCard";
+import { NOMINEE_RELATIONSHIP_TO_TITLE_MAP } from "../constants/nominee";
 
 const NomineeScreen = () => {
   const navigation = useNavigation();
 
-  // pass empty object as you dont have filter
-  const { data, isLoading, isFetching, isError, error } = useGetNomineesQuery();
+  const { data, isLoading, isFetching } = useGetNomineesQuery();
 
-  const {
-    theme: { spacing, colors },
-  } = useTheme();
+  const { theme: { spacing, colors } } = useTheme();
 
   const pressHandler = () => {
     navigation.navigate(SCREEN_NAMES.addNomineeScreen);
@@ -55,7 +52,21 @@ const NomineeScreen = () => {
         <FlatList
           contentContainerStyle={styles.listContentContainer}
           data={data.ids.map((id) => data.entities[id])}
-          renderItem={({ item }) => <NomineeItem nominee={item} />}
+          renderItem={({ item }) =>
+            <FinancialInstitutionHoldingItem
+              nomineeScreen={true}
+              title={item.fullName}
+              holdingClass={NOMINEE_RELATIONSHIP_TO_TITLE_MAP[item.relationship]}
+              content={[
+                { key: "Phone Number", value: item.phoneNumber },
+                { key: "Email", value: item.email || "Not Available" },
+                { key: "Street", value: item.address.street || "Not Available" },
+                { key: "Address", value:item.address ? 
+                  `${item.address.city}, ${item.address.state} - ${item.address.pinCode}`: "Not Available" 
+                }
+              ]}
+            />
+          }
           keyExtractor={({ _id }) => _id}
           ListEmptyComponent={() => <Empty message="No holdings available" />}
         />

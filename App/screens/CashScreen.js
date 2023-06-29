@@ -7,7 +7,6 @@ import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import Empty from "../components/Common/Empty";
 import { useNavigation } from "@react-navigation/native";
 import { SCREEN_NAMES } from "../constants/screenNames";
-import CashFinancialHoldingItem from "../components/FinancialHolding/CashHolding/CashFinancialHoldingItem";
 import FinancialInstitutionHoldingItem from "../components/Common/FinancialInstitutionHoldingCard";
 import { CASH_TYPE_TO_TITLE_MAP } from "../constants/financialHoldings/cashHolding";
 import { numberWithCommas } from "../utils/manipulators";
@@ -55,20 +54,27 @@ const CashScreen = () => {
         <FlatList
           contentContainerStyle={styles.listContentContainer}
           data={data.ids.map((id) => data.entities[id])}
-          // renderItem={({ item }) => (
-          //   <CashFinancialHoldingItem financialHolding={item} />
-          // )}
           renderItem={({ item }) =>
             <FinancialInstitutionHoldingItem
               holdingClass={item.holdingClass}
+              updatedAt={item.updatedAt}
               title={item.holding.nameOfParty}
               tagLabel={CASH_TYPE_TO_TITLE_MAP[item.holding.cashType]}
               content={[
                 { key: "Phone Number", value: item.holding.phoneNumberOfParty },
                 { key: "Date of Transaction", value: new Date(item.holding.dateOfTransaction).toDateString().replace(/^\w+ /, '') },
                 { key: "Amount", value: item.holding.amount ? `Rs. ${ numberWithCommas(item.holding.amount)}` : "Not Available" },
-                { key: "Street", value: item.holding.address || "Not Available" },
+                { key: "Street", value: item.holding.address?.street || "Not Available" },
+                { key: "Address", value: item.holding.address? 
+                  `${item.holding.address.city}, ${item.holding.address.state} - ${item.holding.address.pinCode}`: "Not Available" 
+                }
               ]}
+              onPress={() => {
+                navigation.navigate(SCREEN_NAMES.updateCashFinancialHoldingScreen, { 
+                  _id: item._id, 
+                  financialHolding: item 
+                })
+              }}
             />
           }
           keyExtractor={({ _id }) => _id}

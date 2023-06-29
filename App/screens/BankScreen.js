@@ -2,7 +2,6 @@ import { View, StyleSheet, FlatList } from "react-native";
 import { useTheme } from "../theme/ThemeProvider";
 import { useGetFinancialHoldingForBankQuery } from "../services/financialHolding/financialHoldingSlice";
 import CustomActivityIndicator from "../components/Common/CustomActivityIndicator";
-import BankDetail from "../components/Bank/BankDetail";
 import BlueButton from "../components/Common/Button/BlueButton";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import Empty from "../components/Common/Empty";
@@ -10,13 +9,9 @@ import { useNavigation } from "@react-navigation/native";
 import { SCREEN_NAMES } from "../constants/screenNames";
 import { useSelector } from "react-redux";
 import { selectBankById } from "../services/bank/bankSlice";
-import BankFinancialHoldingItem from "../components/FinancialHolding/BankHolding/BankFinancialHoldingItem";
 import FinancialInstitutionInfoCard from "../components/Common/FinancialInstitutionInfoCard";
 import FinancialInstitutionHoldingItem from "../components/Common/FinancialInstitutionHoldingCard";
-import {
-  BANK_ACCOUNT_OWNERSHIP_TO_TITLE_MAP,
-  BANK_ACCOUNT_TYPES_TO_TITLE_MAP,
-} from "../constants/financialHoldings/bankHolding";
+import { BANK_ACCOUNT_OWNERSHIP_TO_TITLE_MAP, BANK_ACCOUNT_TYPES_TO_TITLE_MAP } from "../constants/financialHoldings/bankHolding";
 import { numberWithCommas } from "../utils/manipulators";
 
 const BankScreen = ({ route }) => {
@@ -73,22 +68,26 @@ const BankScreen = ({ route }) => {
               instituteTitle={`${bank.name}, ${bank.branchName}`} 
             />
           }
-          // ListHeaderComponent={<BankDetail bank={bank} />}
           ListHeaderComponentStyle={styles.listHeader}
           contentContainerStyle={styles.listContentContainer}
           data={data.ids.map((id) => data.entities[id])}
-          // renderItem={({ item }) => (
-          //   <BankFinancialHoldingItem financialHolding={item} />
-          // )}
           renderItem={({ item }) => 
             <FinancialInstitutionHoldingItem  
               holdingClass={item.holdingClass}
+              updatedAt={item.updatedAt}
               title={BANK_ACCOUNT_TYPES_TO_TITLE_MAP[item.holding.accountType]}
               tagLabel={BANK_ACCOUNT_OWNERSHIP_TO_TITLE_MAP[item.holding.ownership]}
               content={[
                 { key: "Account Number", value: item.holding.accountNumber },
-                { key: "Amount ", value: `Rs. ${numberWithCommas(item.holding.amount)}` },
+                { key: "Amount ", value: item.holding.amount ? `Rs. ${numberWithCommas(item.holding.amount)}` : "Not Available" },
               ]}
+              onPress={() => {
+                navigation.navigate(SCREEN_NAMES.updateBankFinancialHoldingScreen, { 
+                  _id: item._id, 
+                  parentId: item.parentId, 
+                  financialHolding: item 
+                })
+              }}
             />
           }
           keyExtractor={({ _id }) => _id}
