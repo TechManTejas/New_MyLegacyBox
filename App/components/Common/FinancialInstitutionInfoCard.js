@@ -82,26 +82,26 @@ const FinancialInstitutionInfoCard = ({ institute, instituteTitle, updateScreenN
   });
 
   return (
-    <FinancialInstitutionWrapper title={instituteTitle} address={institute?.address} pressHandler={handlePress}>
+    <FinancialInstitutionWrapper title={instituteTitle} address={institute.address} pressHandler={handlePress}>
 
       <View style={[styles.row]}>
         <Text style={[styles.info, styles.semiBold]}>IFSC </Text>
-        <Text style={styles.info}>{institute?.ifsc || "Not available"}</Text>
+        <Text style={styles.info}>{institute.ifsc || "Not available"}</Text>
       </View>
       <View style={[styles.row]}>
         <Text style={[styles.info, styles.semiBold]}>Customer ID </Text>
-        <Text style={styles.info}>{institute?.customerId || "Not available"}</Text>
+        <Text style={styles.info}>{institute.customerId || "Not available"}</Text>
       </View>
 
       <View style={[styles.devider]} />
 
       <View style={[styles.row]}>
         <Text style={[styles.info, styles.semiBold]}>Relationship Manager</Text>
-        <Text style={styles.info}> {institute?.poc || "Not available"}</Text>
+        <Text style={styles.info}> {institute.poc || "Not available"}</Text>
       </View>
       <View style={[styles.row]}>
         <Text style={[styles.info, styles.semiBold]}>Relationship Manager's Contact</Text>
-        <Text style={styles.info}>{institute?.pocNumber || "Not available"}</Text>
+        <Text style={styles.info}>{institute.pocNumber || "Not available"}</Text>
       </View>
 
     </FinancialInstitutionWrapper>

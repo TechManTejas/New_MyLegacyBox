@@ -31,10 +31,6 @@ function App() {
 
     AppState.addEventListener('change', handleAppStateChange);
 
-    // return () => {
-    //   AppState.removeEventListener('change', handleAppStateChange);
-    // }
-
   }, [])
 
   return (

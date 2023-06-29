@@ -12,6 +12,12 @@ import { selectPostalById } from "../services/postal/postalSlice";
 import PostalDetail from "../components/Postal/PostalDetail";
 import PostalFinancialHoldingItem from "../components/FinancialHolding/PostalHolding/PostalFinancialHoldingItem";
 import FinancialInstitutionInfoCard from "../components/Common/FinancialInstitutionInfoCard";
+import FinancialInstitutionHoldingItem from "../components/Common/FinancialInstitutionHoldingCard";
+import {
+  POSTAL_ACCOUNT_OWNERSHIP_TO_TITLE_MAP,
+  POSTAL_ACCOUNT_TYPES_TO_TITLE_MAP,
+} from "../constants/financialHoldings/postalHolding"
+import { numberWithCommas } from "../utils/manipulators";
 
 const PostalScreen = ({ route }) => {
 
@@ -59,9 +65,9 @@ const PostalScreen = ({ route }) => {
       <View style={styles.listContainer}>
         <FlatList
           ListHeaderComponent={
-            <FinancialInstitutionInfoCard 
-              updateScreenName={SCREEN_NAMES.updatePostalScreen} 
-              institute={postal} 
+            <FinancialInstitutionInfoCard
+              updateScreenName={SCREEN_NAMES.updatePostalScreen}
+              institute={postal}
               type="postal"
               instituteTitle={postal.branchName}
             />
@@ -70,9 +76,20 @@ const PostalScreen = ({ route }) => {
           ListHeaderComponentStyle={styles.listHeader}
           contentContainerStyle={styles.listContentContainer}
           data={data.ids.map((id) => data.entities[id])}
-          renderItem={({ item }) => (
-            <PostalFinancialHoldingItem financialHolding={item} />
-          )}
+          // renderItem={({ item }) => (
+          //   <PostalFinancialHoldingItem financialHolding={item} />
+          // )}
+          renderItem={({ item }) =>
+            <FinancialInstitutionHoldingItem
+              holdingClass={item.holdingClass}
+              title={POSTAL_ACCOUNT_TYPES_TO_TITLE_MAP[item.holding.accountType]}
+              tagLabel={POSTAL_ACCOUNT_OWNERSHIP_TO_TITLE_MAP[item.holding.ownership]}
+              content={[
+                { key: "Account Number", value: item.holding.accountNumber },
+                { key: "Amount ", value: `Rs. ${numberWithCommas(item.holding.amount)}` },
+              ]}
+            />
+          }
           keyExtractor={({ _id }) => _id}
           ListEmptyComponent={() => <Empty message="No holdings available" />}
         />
