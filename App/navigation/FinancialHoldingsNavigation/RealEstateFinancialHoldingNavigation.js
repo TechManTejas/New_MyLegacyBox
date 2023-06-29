@@ -12,9 +12,9 @@ const RealEstateFinancialHoldingNavigation = ({ Stack }) => {
         component={AddRealEstateHoldingForm}
         options={({ route }) => ({
           headerShown: true,
-          title: `Add Holding for ${
+          title: `Add ${
             REAL_ESTATE_TYPE_TO_TITLE_MAP[route.params.realEstateType]
-          }`,
+          } Details`,
         })}
       />
       <Stack.Screen

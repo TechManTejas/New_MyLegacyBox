@@ -1,6 +1,4 @@
-import { StyleSheet, View, Text, StatusBar, FlatList } from "react-native";
-import React from "react";
-import { useGetBanksQuery } from "../services/bank/bankSlice";
+import { StyleSheet, View, StatusBar, FlatList } from "react-native";
 import CustomActivityIndicator from "../components/Common/CustomActivityIndicator";
 import { useTheme } from "../theme/ThemeProvider";
 import { useIsFocused, useNavigation } from "@react-navigation/native";
@@ -10,14 +8,14 @@ import Empty from "../components/Common/Empty";
 import { SCREEN_NAMES } from "../constants/screenNames";
 import PostalItem from "../components/Postal/PostalItem";
 import { useGetPostalsQuery } from "../services/postal/postalSlice";
+import FinancialInstitutionItemCard from "../components/Common/FinancialInstitutionItemCard";
 
 const PostalListScreen = () => {
+
   const navigation = useNavigation();
-  const {
-    theme: { colors, spacing },
-  } = useTheme();
+  const { theme: { colors, spacing } } = useTheme();
   const isFoucused = useIsFocused();
-  const { data, isFetching, isLoading, isError, error } = useGetPostalsQuery();
+  const { data, isFetching, isLoading } = useGetPostalsQuery();
 
   const styles = StyleSheet.create({
     container: {
@@ -40,13 +38,16 @@ const PostalListScreen = () => {
 
   return (
     <View style={styles.container}>
-      {isFoucused ? (
-        <StatusBar barStyle="dark-content" backgroundColor={colors.white100} />
-      ) : null}
+      {isFoucused && <StatusBar barStyle="dark-content" backgroundColor={colors.white100} />}
       <FlatList
         contentContainerStyle={styles.listContentContainer}
         data={data.ids.map((id) => data.entities[id])}
-        renderItem={({ item }) => <PostalItem {...item} />}
+        renderItem={({ item }) => (
+          <FinancialInstitutionItemCard 
+            {...item}  
+            onPress={() => navigation.navigate(SCREEN_NAMES.postalScreen, { _id: item._id, postal: { ...item } })} 
+          />
+          )}
         keyExtractor={({ _id }) => _id}
         ListEmptyComponent={() => <Empty message="No postals available" />}
       />

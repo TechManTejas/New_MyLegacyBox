@@ -29,7 +29,7 @@ const InsuranceNavigation = ({ Stack }) => {
         component={AddInsuranceForm}
         options={{
           headerShown: true,
-          title: "Add Insurance",
+          title: "Add Insurer",
         }}
       />
       <Stack.Screen
@@ -37,7 +37,7 @@ const InsuranceNavigation = ({ Stack }) => {
         component={UpdateInsuranceForm}
         options={{
           headerShown: true,
-          title: "Edit Insurance",
+          title: "Edit Insurer",
         }}
       />
     </Stack.Group>

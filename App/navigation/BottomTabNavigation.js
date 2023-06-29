@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import { useCallback } from "react";
 import { Linking, StyleSheet, Text, View } from "react-native";
 import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -14,9 +14,8 @@ import WillNavigation from "./WillNavigation";
 const BottomTab = createBottomTabNavigator();
 
 const BottomTabNavigation = () => {
-  const {
-    theme: { spacing, colors, fontSize, fontFamily },
-  } = useTheme();
+
+  const { theme: { spacing, colors, fontSize, fontFamily } } = useTheme();
 
   const shouldShowTabBarBottom = useCallback((route, initialScreen) => {
     const routeName = getFocusedRouteNameFromRoute(route) || initialScreen;
@@ -39,7 +38,7 @@ const BottomTabNavigation = () => {
       fontSize: fontSize.lg,
     },
     iconColor: {
-      color: colors.black300,
+      color: colors.blue400,
     },
     iconColorFoucsed: {
       color: colors.blue,
@@ -47,8 +46,8 @@ const BottomTabNavigation = () => {
     tabBarLabel: {
       fontFamily: fontFamily.regular,
       paddingBottom: spacing.xs,
+      color: colors.blue400
     },
-    // center tab
     centerTabContainer: {
       position: "absolute",
       left: 0,
@@ -192,7 +191,7 @@ const BottomTabNavigation = () => {
           ],
           tabBarIcon: ({ focused }) => (
             <FontAwesome5
-              name="user-shield"
+              name="user-friends"
               size={styles.iconSize.fontSize}
               color={
                 focused ? styles.iconColorFoucsed.color : styles.iconColor.color

@@ -1,4 +1,3 @@
-import React from "react";
 import { View, StyleSheet, FlatList } from "react-native";
 import { useTheme } from "../theme/ThemeProvider";
 import { useGetFinancialHoldingForDematQuery } from "../services/financialHolding/financialHoldingSlice";
@@ -8,18 +7,17 @@ import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import Empty from "../components/Common/Empty";
 import { useNavigation } from "@react-navigation/native";
 import { SCREEN_NAMES } from "../constants/screenNames";
-import DematFinancialHoldingItem from "../components/FinancialHolding/DematHolding/DematFinancialHoldingItem";
+import FinancialInstitutionHoldingItem from "../components/Common/FinancialInstitutionHoldingCard";
+import { DEMAT_TYPE_MAP_TO_TITLE_MAP } from "../constants/financialHoldings/dematHolding";
+import { numberWithCommas } from "../utils/manipulators";
 
 const DematScreen = () => {
+
   const navigation = useNavigation();
 
-  // pass empty object as you dont have filter
-  const { data, isLoading, isFetching, isError, error } =
-    useGetFinancialHoldingForDematQuery();
+  const { data, isLoading, isFetching } = useGetFinancialHoldingForDematQuery();
 
-  const {
-    theme: { spacing, colors },
-  } = useTheme();
+  const { theme: { spacing, colors } } = useTheme();
 
   const pressHandler = () => {
     navigation.navigate(SCREEN_NAMES.addDematFinancialHoldingScreen);
@@ -57,7 +55,29 @@ const DematScreen = () => {
           contentContainerStyle={styles.listContentContainer}
           data={data.ids.map((id) => data.entities[id])}
           renderItem={({ item }) => (
-            <DematFinancialHoldingItem financialHolding={item} />
+            <FinancialInstitutionHoldingItem 
+              title={item.holding.broker}
+              updatedAt={item.updatedAt}
+              holdingClass={item.holdingClass}
+              tagLabel={DEMAT_TYPE_MAP_TO_TITLE_MAP[item.holding.dematType]}
+              content={[
+                { key: "Customer ID", value: item.holding.customerId },
+                { type: "divider" },
+                { key: "Relationship Manager", value: item.holding.poc || "Not available" },
+                { key: "Relationship Manager's Contact", value: item.holding.pocNumber || "Not available" },
+                { type: "divider" },
+                { key: "Invested Amount", value: item.holding.investedAmount ? 
+                  `Rs. ${numberWithCommas(item.holding.investedAmount)}`
+                  : "Not available" 
+                }
+              ]}
+              onPress={() => {
+                navigation.navigate(SCREEN_NAMES.updateDematFinancialHoldingScreen, { 
+                  _id: item._id, 
+                  financialHolding: item 
+                })
+              }}
+            />
           )}
           keyExtractor={({ _id }) => _id}
           ListEmptyComponent={() => <Empty message="No holdings available" />}

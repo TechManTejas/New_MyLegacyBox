@@ -23,7 +23,7 @@ const RealEstateNavigation = ({ Stack }) => {
           title: route.params?.realEstateType
             ? `${
                 REAL_ESTATE_TYPE_TO_TITLE_MAP[route.params?.realEstateType]
-              } Holdings`
+              }`
             : "Real Estate",
         })}
       />

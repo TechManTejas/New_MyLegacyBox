@@ -1,12 +1,7 @@
 import { useNavigation } from "@react-navigation/native";
-import React from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { useTheme } from "../../theme/ThemeProvider";
-import {
-  getMenuVariantColor,
-  getMenuVariantFontSizes,
-  getMenuVariantSpacing,
-} from "../../utils/menu";
+import { getMenuVariantColor, getMenuVariantFontSizes, getMenuVariantSpacing } from "../../utils/menu";
 
 const MenuCard = ({
   isDark,
@@ -15,6 +10,7 @@ const MenuCard = ({
   cardsInRow,
   index,
   title,
+  Icon,
   iconName,
   IconComponent,
   iconSizeMultiplier,
@@ -44,6 +40,7 @@ const MenuCard = ({
     },
     container: {
       height: menuSpacing.container.height,
+      elevation: 3,
       borderRadius: menuSpacing.container.borderRadius,
       backgroundColor: menuColors.container.backgroundColor,
       borderStyle: "dashed",
@@ -76,11 +73,13 @@ const MenuCard = ({
         onPress={!disabled ? pressHandler : () => {}}
       >
         <View style={styles.iconContainer}>
-          <IconComponent
+          
+          { (IconComponent) ? <IconComponent
             name={iconName}
             color={styles.iconContainer.color}
             size={styles.iconContainer.fontSize}
-          />
+          /> : Icon }
+
         </View>
         <Text style={styles.label}>{title}</Text>
       </Pressable>

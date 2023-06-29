@@ -1,9 +1,6 @@
-import React from "react";
-import { View, Text, StyleSheet, FlatList } from "react-native";
+import { View, StyleSheet, FlatList } from "react-native";
 import { useTheme } from "../theme/ThemeProvider";
-import {
-  useGetFinancialHoldingForPostalQuery,
-} from "../services/financialHolding/financialHoldingSlice";
+import { useGetFinancialHoldingForPostalQuery } from "../services/financialHolding/financialHoldingSlice";
 import CustomActivityIndicator from "../components/Common/CustomActivityIndicator";
 import BlueButton from "../components/Common/Button/BlueButton";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
@@ -14,23 +11,28 @@ import { useSelector } from "react-redux";
 import { selectPostalById } from "../services/postal/postalSlice";
 import PostalDetail from "../components/Postal/PostalDetail";
 import PostalFinancialHoldingItem from "../components/FinancialHolding/PostalHolding/PostalFinancialHoldingItem";
+import FinancialInstitutionInfoCard from "../components/Common/FinancialInstitutionInfoCard";
+import FinancialInstitutionHoldingItem from "../components/Common/FinancialInstitutionHoldingCard";
+import {
+  POSTAL_ACCOUNT_OWNERSHIP_TO_TITLE_MAP,
+  POSTAL_ACCOUNT_TYPES_TO_TITLE_MAP,
+} from "../constants/financialHoldings/postalHolding"
+import { numberWithCommas } from "../utils/manipulators";
 
 const PostalScreen = ({ route }) => {
+
   const navigation = useNavigation();
   const { _id } = route.params;
   const postal = useSelector((state) => selectPostalById(state, _id));
 
-  const { data, isLoading, isFetching, isError, error } =
-    useGetFinancialHoldingForPostalQuery(_id);
+  const { data, isLoading, isFetching } = useGetFinancialHoldingForPostalQuery(_id);
 
-  const {
-    theme: { spacing, colors },
-  } = useTheme();
+  const { theme: { spacing, colors } } = useTheme();
 
   const pressHandler = () => {
     navigation.navigate(SCREEN_NAMES.addPostalFinancialHoldingScreen, {
       parentId: postal._id,
-      parentName: `${postal.name}, ${postal.branchName}`,
+      parentName: postal.branchName,
     });
   };
 
@@ -62,13 +64,37 @@ const PostalScreen = ({ route }) => {
     <View style={styles.container}>
       <View style={styles.listContainer}>
         <FlatList
-          ListHeaderComponent={<PostalDetail postal={postal} />}
+          ListHeaderComponent={
+            <FinancialInstitutionInfoCard
+              updateScreenName={SCREEN_NAMES.updatePostalScreen}
+              institute={postal}
+              type="postal"
+              instituteTitle={postal.branchName}
+            />
+          }
+          // ListHeaderComponent={<PostalDetail postal={postal} />}
           ListHeaderComponentStyle={styles.listHeader}
           contentContainerStyle={styles.listContentContainer}
           data={data.ids.map((id) => data.entities[id])}
-          renderItem={({ item }) => (
-            <PostalFinancialHoldingItem financialHolding={item} />
-          )}
+          renderItem={({ item }) =>
+            <FinancialInstitutionHoldingItem
+              updatedAt={item.updatedAt}
+              holdingClass={item.holdingClass}
+              title={POSTAL_ACCOUNT_TYPES_TO_TITLE_MAP[item.holding.accountType]}
+              tagLabel={POSTAL_ACCOUNT_OWNERSHIP_TO_TITLE_MAP[item.holding.ownership]}
+              content={[
+                { key: "Account Number", value: item.holding.accountNumber },
+                { key: "Amount ", value: item.holding.amount ?`Rs. ${numberWithCommas(item.holding.amount)}` : "Not Available" },
+              ]}
+              onPress={() => {
+                navigation.navigate(SCREEN_NAMES.updatePostalFinancialHoldingScreen, { 
+                  _id: item._id, 
+                  parentId: item.parentId, 
+                  financialHolding: item 
+                })
+              }}
+            />
+          }
           keyExtractor={({ _id }) => _id}
           ListEmptyComponent={() => <Empty message="No holdings available" />}
         />
@@ -78,7 +104,7 @@ const PostalScreen = ({ route }) => {
           outline
           Icon={FontAwesome5}
           iconName="plus"
-          title="Add Holding"
+          title="Add Account"
           onPress={pressHandler}
         />
       </View>

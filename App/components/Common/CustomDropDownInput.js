@@ -21,12 +21,12 @@ const CustomDropDownInput = ({
 }) => {
   const [isFocus, setIsFocus] = useState(false);
 
-  const {
-    theme: { colors, spacing, fontSize, fontFamily },
-  } = useTheme();
+  const { theme: { colors, spacing, fontSize, fontFamily } } = useTheme();
+
   const styles = StyleSheet.create({
     container: {
       marginBottom: spacing.lg,
+      
     },
     labelContainer: {
       flexDirection: "row",
@@ -48,33 +48,35 @@ const CustomDropDownInput = ({
     },
     placeholderStyle: {
       fontFamily: fontFamily.regular,
-      fontSize: fontSize.sm,
+      fontSize: fontSize.md,
       color: colors.black300,
-      lineHeight: fontSize.md,
+      lineHeight: fontSize.default,
       paddingHorizontal: spacing.sm,
     },
     dropdownContainer: {
       elevation: 1,
-      shadowColor: colors.black400,
-      backgroundColor: colors.white100,
-      borderWidth: 1,
-      borderColor: colors.black200,
-      borderRadius: spacing.xs,
-      // paddingVertical: spacing.xs,
-      paddingRight: spacing.sm,
+      shadowColor: colors.black100,
+      // backgroundColor: colors.white100,
+      borderWidth: StyleSheet.hairlineWidth,
+      // borderColor: colors.black100,
+      borderRadius: spacing.md,
+      height: 47,
+      paddingHorizontal: spacing.sm,
+      backgroundColor: colors.white400,
+      borderColor: colors.white500,
     },
     selectedTextStyle: {
       fontFamily: fontFamily.regular,
-      fontSize: fontSize.sm,
+      fontSize: fontSize.md,
       color: colors.black500,
-      lineHeight: fontSize.md,
+      lineHeight: fontSize.default,
       paddingHorizontal: spacing.sm,
     },
     itemContainerStyle: {
       borderBottomWidth: StyleSheet.hairlineWidth,
       borderBottomColor: colors.black200,
-      paddingVertical: spacing.md,
-      paddingHorizontal: spacing.sm,
+      paddingVertical: spacing.lg,
+      paddingHorizontal: spacing.lg,
     },
     itemWrapper: {
       flexDirection: "row",
@@ -83,15 +85,15 @@ const CustomDropDownInput = ({
     },
     itemTextStyle: {
       fontFamily: fontFamily.regular,
-      fontSize: fontSize.sm,
+      fontSize: fontSize.md,
       color: colors.black500,
-      lineHeight: fontSize.md,
+      lineHeight: fontSize.default,
     },
     activeItem: {
-      backgroundColor: colors.blue100,
+      backgroundColor: colors.white400,
     },
     activeItemIcon: {
-      color: colors.blue,
+      color: colors.blue400,
       fontSize: fontSize.md,
     },
   });

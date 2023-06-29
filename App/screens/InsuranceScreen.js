@@ -1,4 +1,3 @@
-import React from "react";
 import { View, StyleSheet, FlatList } from "react-native";
 import { useTheme } from "../theme/ThemeProvider";
 import { useGetFinancialHoldingForInsuranceQuery } from "../services/financialHolding/financialHoldingSlice";
@@ -10,26 +9,27 @@ import { useNavigation } from "@react-navigation/native";
 import { SCREEN_NAMES } from "../constants/screenNames";
 import { useSelector } from "react-redux";
 import { selectInsuranceById } from "../services/insurance/insuranceSlice";
-import InsuranceDetail from "../components/Insurance/InsuranceDetail";
-import InsuranceFinancialHoldingItem from "../components/FinancialHolding/InsuranceHolding/InsuranceFinancialHoldingItem";
+import FinancialInstitutionInfoCard from "../components/Common/FinancialInstitutionInfoCard";
+import FinancialInstitutionHoldingItem from "../components/Common/FinancialInstitutionHoldingCard";
+import {
+    POLICY_BENEFICIERY_TO_TITLE_MAP,
+    POLICY_PREMIUM_FREQUENCY_TO_TITLE_MAP,
+    POLICY_TYPE_TO_TITLE_MAP,
+} from "../constants/financialHoldings/insuranceHolding";
+import { numberWithCommas } from "../utils/manipulators";
 
 const InsuranceScreen = ({ route }) => {
+
   const navigation = useNavigation();
   const { _id } = route.params;
   const insurance = useSelector((state) => selectInsuranceById(state, _id));
 
-  const { data, isLoading, isFetching, isError, error } =
-    useGetFinancialHoldingForInsuranceQuery(_id);
+  const { data, isLoading, isFetching } = useGetFinancialHoldingForInsuranceQuery(_id);
 
-  const {
-    theme: { spacing, colors },
-  } = useTheme();
+  const { theme: { spacing, colors } } = useTheme();
 
   const pressHandler = () => {
-    navigation.navigate(SCREEN_NAMES.addInsuranceFinancialHoldingScreen, {
-      parentId: insurance._id,
-      parentName: `${insurance.companyName}`,
-    });
+    navigation.navigate(SCREEN_NAMES.addInsuranceFinancialHoldingScreen, { parentId: insurance._id, parentName: insurance.companyName });
   };
 
   const styles = StyleSheet.create({
@@ -60,13 +60,47 @@ const InsuranceScreen = ({ route }) => {
     <View style={styles.container}>
       <View style={styles.listContainer}>
         <FlatList
-          ListHeaderComponent={<InsuranceDetail insurance={insurance} />}
+          ListHeaderComponent={
+            <FinancialInstitutionInfoCard  
+              updateScreenName={SCREEN_NAMES.updateinsuranceScreen} 
+              institute={insurance} 
+              type="insurance"
+              instituteTitle={insurance.companyName}
+            />}
           ListHeaderComponentStyle={styles.listHeader}
           contentContainerStyle={styles.listContentContainer}
           data={data.ids.map((id) => data.entities[id])}
-          renderItem={({ item }) => (
-            <InsuranceFinancialHoldingItem financialHolding={item} />
-          )}
+          renderItem={({ item }) => 
+            <FinancialInstitutionHoldingItem  
+              holdingClass={item.holdingClass}
+              title={item.holding.policyName}
+              updatedAt={item.updatedAt}
+              tagLabel={POLICY_TYPE_TO_TITLE_MAP[item.holding.policyType]}
+              content={[
+                { key: "Home Branch ", value: item.holding.homeBranch },
+                { key: "Policy Number ", value: item.holding.policyNumber },
+                { key: "Beneficiary ", value: POLICY_BENEFICIERY_TO_TITLE_MAP[item.holding.beneficiary] },
+                { type: "divider" },
+                { key: "Policy Amount ", value: item.holding.policyAmount? 
+                  `Rs. ${numberWithCommas(item.holding.policyAmount)}`: "Not Available" 
+                },
+                { key: "Date of Maturity ", value: new Date(item.holding.dateOfMaturity).toDateString().replace(/^\w+ /, '') },
+                { type: "divider" },
+                { key: "Premium Amount ", value: item.holding.premiumAmount? 
+                  `Rs. ${numberWithCommas(item.holding.premiumAmount)}` : "Not Available" 
+                },
+                { key: "Date of Premium ", value: new Date(item.holding.dateOfPremium).toDateString().replace(/^\w+ /, '') },
+                { key: "Premium Frequency ", value: POLICY_PREMIUM_FREQUENCY_TO_TITLE_MAP[item.holding.premiumFrequency] }
+              ]}
+              onPress={() => {
+                navigation.navigate(SCREEN_NAMES.updateInsuranceFinancialHoldingScreen, { 
+                  _id: item._id, 
+                  parentId: item.parentId, 
+                  financialHolding: item 
+                })
+              }}
+            />
+          }
           keyExtractor={({ _id }) => _id}
           ListEmptyComponent={() => <Empty message="No holdings available" />}
         />
@@ -76,7 +110,7 @@ const InsuranceScreen = ({ route }) => {
           outline
           Icon={FontAwesome5}
           iconName="plus"
-          title="Add Holding"
+          title="Add Policy"
           onPress={pressHandler}
         />
       </View>

@@ -12,11 +12,13 @@ const MinorMenu = ({ centered, menuData, title }) => {
   const styles = StyleSheet.create({
     container: {
       borderRadius: spacing.sm,
+      borderWidth: StyleSheet.hairlineWidth,
+      borderColor: colors.black200,
       marginBottom: spacing.sm,
       paddingHorizontal: spacing.sm,
       paddingTop: spacing.md,
       paddingBottom: 0,
-      backgroundColor: colors.white400,
+      // backgroundColor: colors.white400,
     },
     header: {
       marginBottom: spacing.sm,

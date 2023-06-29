@@ -1,13 +1,12 @@
-import React, { useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { FlatList, StyleSheet, View } from "react-native";
 import { ON_BOARDING_SLIDES_DATA } from "../../data/onBoardingData";
 import { useTheme } from "../../theme/ThemeProvider";
 import OnboardSlide from "./OnBoardingSlide";
 
 const OnBoardingSlidesList = () => {
-  const {
-    theme: { colors, spacing },
-  } = useTheme();
+
+  const { theme: { colors, spacing } } = useTheme();
 
   const [visibleItemIndex, setVisibleItemIndex] = useState(0);
   const onViewCallBackRef = useRef(({ viewableItems }) => {

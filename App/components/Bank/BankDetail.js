@@ -1,4 +1,3 @@
-import React from "react";
 import { Text, StyleSheet, View } from "react-native";
 import { useTheme } from "../../theme/ThemeProvider";
 import { useNavigation } from "@react-navigation/native";
@@ -6,13 +5,12 @@ import { SCREEN_NAMES } from "../../constants/screenNames";
 import FinancialInstitutionWrapper from "../Common/FinancialInstitutionWrapper";
 
 const BankDetail = ({ bank }) => {
+
   const navigation = useNavigation();
 
   const { customerId, ifsc, poc, pocNumber, address } = bank;
 
-  const {
-    theme: { colors, fontFamily, fontSize, spacing },
-  } = useTheme();
+  const { theme: { colors, fontFamily, fontSize, spacing } } = useTheme();
 
   const handlePress = () => {
     navigation.navigate(SCREEN_NAMES.updateBankScreen, { bank });
@@ -50,9 +48,10 @@ const BankDetail = ({ bank }) => {
       fontFamily: fontFamily.semiBold,
     },
     devider: {
-      borderBottomWidth: StyleSheet.hairlineWidth,
+      borderBottomWidth: 1,
       borderColor: colors.black200,
-      marginBottom: spacing.sm,
+      marginVertical: spacing.sm,
+      borderStyle: "dashed"
     },
     deviderNoBorder: {
       borderBottomWidth: 0,
@@ -80,7 +79,7 @@ const BankDetail = ({ bank }) => {
       fontFamily: fontFamily.regular,
       fontSize: fontSize.md,
       lineHeight: fontSize.default,
-      color: colors.black400,
+      color: colors.black300,
       marginBottom: spacing.xs,
     },
   });
@@ -89,24 +88,24 @@ const BankDetail = ({ bank }) => {
     <FinancialInstitutionWrapper address={address} pressHandler={handlePress}>
       <View style={[styles.row]}>
         <Text style={[styles.info, styles.semiBold]}>IFSC </Text>
-        <Text style={styles.info}>{ifsc ? ifsc : "Not available"}</Text>
+        <Text style={styles.info}>{ifsc || "Not available"}</Text>
       </View>
       <View style={[styles.row]}>
         <Text style={[styles.info, styles.semiBold]}>Customer ID </Text>
         <Text style={styles.info}>
-          {customerId ? customerId : "Not available"}
+          {customerId || "Not available"}
         </Text>
       </View>
-      <View style={[styles.devider, styles.deviderNoBorder]} />
+      <View style={[styles.devider]} />
 
       <View style={[styles.row]}>
-        <Text style={[styles.info, styles.semiBold]}>RM</Text>
-        <Text style={styles.info}> {poc ? poc : "Not available"}</Text>
+        <Text style={[styles.info, styles.semiBold]}>Relationship Manager</Text>
+        <Text style={styles.info}> {poc || "Not available"}</Text>
       </View>
       <View style={[styles.row]}>
-        <Text style={[styles.info, styles.semiBold]}>RM contact</Text>
+        <Text style={[styles.info, styles.semiBold]}>Relationship Manager's Contact</Text>
         <Text style={styles.info}>
-          {pocNumber ? pocNumber : "Not available"}
+          {pocNumber || "Not available"}
         </Text>
       </View>
     </FinancialInstitutionWrapper>

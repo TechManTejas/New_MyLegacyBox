@@ -19,7 +19,7 @@ const InsuranceFinancialHoldingNavigation = ({ Stack }) => {
         component={UpdateInsuranceHoldingForm}
         options={{
           headerShown: true,
-          title: "Update insurance holding",
+          title: "Update Policy Details",
         }}
       />
     </Stack.Group>

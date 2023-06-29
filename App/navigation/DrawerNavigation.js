@@ -13,7 +13,7 @@ const Drawer = createDrawerNavigator();
 
 const DrawerNavigation = () => {
 
-  const { theme: { spacing, colors, fontSize, fontFamily } } = useTheme();
+  const { theme: { colors } } = useTheme();
 
   const styles = StyleSheet.create({
     headerStyle: {

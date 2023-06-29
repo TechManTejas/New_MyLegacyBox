@@ -1,4 +1,3 @@
-import React from "react";
 import { SCREEN_NAMES } from "../constants/screenNames";
 import { createStackNavigator } from "@react-navigation/stack";
 import { useTheme } from "../theme/ThemeProvider";
@@ -7,21 +6,20 @@ import CustomHeaderTitle from "../components/Common/CustomHeaderTitle";
 import { StyleSheet } from "react-native";
 import WillScreen from "../screens/Will/WillScreen";
 import WillPersonalInfoScreen from "../screens/Will/WillPersonalInfoScreen";
-import WillWitnessesScreen from "../screens/Will/WillWitnessesScreen";
 import WillWitnessInfoScreen from "../screens/Will/WillWitnessInfoScreen";
-import WillBeneficiariesScreen from "../screens/Will/WillBeneficiariesScreen";
 import WillBeneficiaryInfoScreen from "../screens/Will/WillBeneficiaryInfoScreen";
 import WillAssetsScreen from "../screens/Will/WillAssetsScreen";
 import WillAssetInfoScreen from "../screens/Will/WillAssetInfoScreen";
-import WillExecutorScreen from "../screens/Will/WillExecutorScreen";
 import WillExecutorInfoScreen from "../screens/Will/WillExecutorInfoScreen";
 import WillDeclarationScreen from "../screens/Will/WillDeclarationScreen";
 import WillGenerationScreen from "../screens/Will/WillGenerationScreen";
 import WillInfoScreen from "../screens/Will/WillInfoScreen";
+import CustomHeaderRightIcon from "../components/Common/CustomHeaderRightIcon";
 
 const Stack = createStackNavigator();
 
 const WillNavigation = () => {
+
   const { theme: { colors } } = useTheme();
 
   const styles = StyleSheet.create({
@@ -30,12 +28,15 @@ const WillNavigation = () => {
     },
   });
 
+  const message = "Today is the right age for you to create your will. Writing a will helps to stay organized, plan for any unforeseen event, and ensure that loved ones are financially protected even when we cannot be there for them. "
+
   return (
     <Stack.Navigator
       initialRouteName={SCREEN_NAMES.willScreen}
       screenOptions={({ navigation }) => ({
         headerStyle: styles.headerStyle,
         headerLeft: () => <CustomHeaderLeftIcon navigation={navigation} />,
+        headerRight: () => <CustomHeaderRightIcon message={message} />,
         headerTitleAlign: "center",
         headerTitle: (props) => <CustomHeaderTitle {...props} />,
       })}

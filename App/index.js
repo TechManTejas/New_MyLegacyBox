@@ -31,24 +31,20 @@ function App() {
 
     AppState.addEventListener('change', handleAppStateChange);
 
-    return () => {
-      AppState.removeEventListener('change', handleAppStateChange);
-    }
-
   }, [])
 
   return (
-      <Provider store={store}>
-        <ThemeProvider>
-          <AuthProvider>
-            <SplashScreen>
-              <SafeAreaProvider>
-                <RootNavigation /> 
-              </SafeAreaProvider>
-            </SplashScreen>
-          </AuthProvider>
-        </ThemeProvider>
-      </Provider>
+    <Provider store={store}>
+      <ThemeProvider>
+        <AuthProvider>
+          <SplashScreen>
+            <SafeAreaProvider>
+              <RootNavigation />
+            </SafeAreaProvider>
+          </SplashScreen>
+        </AuthProvider>
+      </ThemeProvider>
+    </Provider>
   );
 }
 

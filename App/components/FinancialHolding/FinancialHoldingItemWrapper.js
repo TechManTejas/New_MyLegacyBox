@@ -1,24 +1,16 @@
-import React from "react";
-import { View, Text, StyleSheet, Pressable } from "react-native";
-import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
+import { View, Text, StyleSheet } from "react-native";
 import { useTheme } from "../../theme/ThemeProvider";
 
-const FinancialHoldingItemWrapper = ({
-  children,
-  updatedAt,
-  holdingClass,
-  pressHandler,
-}) => {
-  const {
-    theme: { colors, fontFamily, fontSize, spacing },
-  } = useTheme();
+const FinancialHoldingItemWrapper = ({ children, holdingClass, nomineeScreen }) => {
+
+  const { theme: { colors, fontFamily, fontSize, spacing } } = useTheme();
 
   const styles = StyleSheet.create({
     container: {
       marginBottom: spacing.md,
-      borderWidth: spacing.xxxs,
-      borderColor: colors.black100,
-      borderRadius: spacing.sm,
+      borderWidth: StyleSheet.hairlineWidth,
+      borderColor: colors.black300,
+      borderRadius: spacing.xs,
     },
     financialHoldingContainer: {
       flex: 1,
@@ -36,8 +28,8 @@ const FinancialHoldingItemWrapper = ({
       justifyContent: "center",
       paddingHorizontal: spacing.sm,
       paddingVertical: spacing.xs,
-      borderTopRightRadius: spacing.sm,
-      borderBottomLeftRadius: spacing.sm,
+      borderTopRightRadius: spacing.xs,
+      borderBottomLeftRadius: spacing.xs,
     },
     financialHoldingClass: {
       fontFamily: fontFamily.semiBold,
@@ -55,60 +47,36 @@ const FinancialHoldingItemWrapper = ({
     rowAlignEnd: {
       alignItems: "flex-end",
     },
-    financialHoldingLastUpdated: {
-      paddingHorizontal: spacing.md,
-      marginBottom: spacing.sm,
-      color: colors.black300,
-    },
-    button: {
-      paddingVertical: spacing.sm,
-      paddingHorizontal: spacing.md,
-      borderTopLeftRadius: spacing.sm,
-      borderBottomRightRadius: spacing.sm,
-      backgroundColor: colors.white500,
-    },
-    buttonText: {
-      color: colors.blue,
-    },
     backgroundColorGreen: {
       backgroundColor: colors.green600,
     },
     backgroundColorRed: {
       backgroundColor: colors.red600,
     },
+    backgroundColorGrey: {
+      backgroundColor: colors.black400,
+    },
   });
-
 
   return (
     <View style={styles.container}>
       <View style={styles.financialHoldingContainer}>
+
         <View style={styles.childContainer}>{children}</View>
-        <Text style={styles.financialHoldingLastUpdated}>
-          Last updated on{" "}
-          {new Date(updatedAt).toLocaleDateString("en-us", {
-            weekday: "long",
-            year: "numeric",
-            month: "short",
-            day: "numeric",
-          })}
-        </Text>
+
         <View style={[styles.row, styles.rowAlignEnd]}>
           <View
             style={[
               styles.financialHoldingClassContainer,
-              holdingClass === "ASSET"
-                ? styles.backgroundColorGreen
-                : styles.backgroundColorRed,
+              nomineeScreen? 
+              (holdingClass==="Other"? styles.backgroundColorGrey: styles.backgroundColorGreen) :
+              (holdingClass==="ASSET"? styles.backgroundColorGreen: styles.backgroundColorRed),
+              holdingClass==="CA / Lawyer / Advisor" && { width: 150 }
             ]}
           >
             <Text style={styles.financialHoldingClass}>{holdingClass}</Text>
           </View>
 
-          <Pressable style={styles.button} onPress={pressHandler}>
-            <Text style={styles.buttonText}>
-              Edit <FontAwesome5 name="edit" color={styles.buttonText.color} />
-            </Text>
-          </Pressable>
         </View>
       </View>
     </View>

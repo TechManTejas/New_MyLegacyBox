@@ -10,6 +10,8 @@ import { useGetWillsQuery } from "../../services/will/willSlice";
 import CustomActivityIndicator from "../../components/Common/CustomActivityIndicator";
 import WillItem from "../../components/Will/WillItem";
 import Empty from "../../components/Common/Empty";
+import CustomCarousel from "../../components/Common/Carousel";
+import { WillCarouselData } from "../../data/Carouseldata";
 
 const WillScreen = () => {
   const navigation = useNavigation();
@@ -29,7 +31,7 @@ const WillScreen = () => {
   const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: colors.white100,
+      backgroundColor: colors.white100
     },
     listContainer: {
       flex: 1,
@@ -47,6 +49,10 @@ const WillScreen = () => {
       paddingBottom: spacing.lg,
       paddingHorizontal: spacing.lg,
     },
+    carouselContainer: {
+      paddingHorizontal: spacing.lg,
+       marginBottom: spacing.lg
+    }
   });
 
   if (isLoading || isFetching) return <CustomActivityIndicator />;
@@ -54,6 +60,11 @@ const WillScreen = () => {
   return (
     <View style={styles.container}>
       <View style={styles.listContainer}>
+
+        <View style={styles.carouselContainer}>
+          <CustomCarousel carouselData={WillCarouselData} />
+        </View>
+
         <FlatList
           contentContainerStyle={styles.listContentContainer}
           data={data.ids.map((id) => data.entities[id])}
@@ -62,9 +73,11 @@ const WillScreen = () => {
           ListEmptyComponent={() => <Empty message="No wills available" />}
         />
       </View>
+
       <View style={styles.footer}>
-        <BlueButton outline title="Create my Will" onPress={pressHandler} />
+        <BlueButton outline title="Create My Will" onPress={pressHandler} />
       </View>
+
     </View>
   );
 };

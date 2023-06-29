@@ -1,17 +1,20 @@
-import React from "react";
 import { View, Text, Pressable, StyleSheet } from "react-native";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import { useTheme } from "../../theme/ThemeProvider";
+import { Entypo } from '@expo/vector-icons'; 
+import { Octicons } from '@expo/vector-icons';
 
-const FinancialInstitutionWrapper = ({ children, address, pressHandler }) => {
-  const {
-    theme: { colors, fontFamily, fontSize, spacing },
-  } = useTheme();
+const FinancialInstitutionWrapper = ({ children, address, pressHandler, title }) => {
+
+  const { theme: { colors, fontFamily, fontSize, spacing } } = useTheme();
 
   const styles = StyleSheet.create({
     container: {
       marginBottom: spacing.lg,
-      borderRadius: spacing.sm,
+      borderRadius: spacing.xs,
+      borderWidth: StyleSheet.hairlineWidth, 
+      borderColor: colors.black300,
+      padding: spacing.md
     },
     viewContainer: {
       flex: 1,
@@ -27,40 +30,74 @@ const FinancialInstitutionWrapper = ({ children, address, pressHandler }) => {
       flex: 1,
     },
     addressContent: {
-      fontFamily: fontFamily.regular,
+      fontFamily: fontFamily.semiBold,
       fontSize: fontSize.default,
       lineHeight: fontSize.xl,
+      color: colors.black300,
+      display: "flex",
+      flexDirection: "row",
+      alignItems: "center",
+    },
+    addressContentText: {
+      fontFamily: fontFamily.regular, 
+      fontSize: fontSize.default, 
+      lineHeight: fontSize.xl, 
+      color: colors.black300,
     },
     addressTitle: {
       fontFamily: fontFamily.semiBold,
-      color: colors.black500,
-      lineHeight: fontSize.lg,
+      color: colors.blue500,
+      lineHeight: fontSize.xxl,
+      fontSize: fontSize.xl
     },
-    buttonContainer: {
-      paddingBottom: spacing.sm,
-      paddingRight: spacing.sm,
+    devider: {
+      borderBottomWidth: StyleSheet.hairlineWidth,
+      borderColor: colors.black100,
+      marginVertical: spacing.sm,
     },
-    button: {
-      paddingVertical: spacing.sm,
-      paddingHorizontal: spacing.md,
-      borderRadius: spacing.sm,
-      backgroundColor: colors.white500,
+    addressStreet: {
+      color: colors.black300,
+      fontSize: fontSize.md,
+      fontFamily: fontFamily.regular,
+      paddingLeft: spacing.lg
     },
-    buttonText: {
-      color: colors.blue,
+    locationIcon: {
+      paddingRight: spacing.xxs 
     },
+    dotIcon: {
+      paddingHorizontal: spacing.sm 
+    },
+    editButton: {
+      flexDirection: "row", 
+      alignItems: "center", 
+      backgroundColor: colors.blue500, 
+      borderRadius: 5, 
+      paddingVertical: 2, 
+      paddingHorizontal: spacing.sm
+    },
+    editButtonText: {
+      color: colors.white, 
+      paddingRight: 10, 
+      paddingTop: 2, 
+      fontFamily: fontFamily.semiBold, 
+      fontSize: fontSize.md
+    }
   });
 
   return (
     <View style={styles.container}>
+
       <View style={styles.viewContainer}>
         {address ? (
           <View style={styles.addressContainer}>
-            <Text style={styles.addressTitle}>Address</Text>
-            <Text style={styles.addressContent}>{address.street}</Text>
-            <Text style={styles.addressContent}>
-              {address.city}, {address.state} - {address.pinCode}
-            </Text>
+            <Text style={styles.addressTitle}>{title}</Text>
+            <View style={styles.addressContent}>
+              <Entypo color={colors.black400} name="location-pin" style={styles.locationIcon} size={fontSize.default} />
+              <Text style={styles.addressContentText}>{address.city}</Text> 
+              <Octicons color={colors.black400} style={styles.dotIcon} name="dot-fill" size={fontSize.md} /> 
+              <Text style={styles.addressContentText}>{address.state}, {address.pinCode}</Text>
+            </View>
+            <Text style={styles.addressStreet}>{address.street}</Text>
           </View>
         ) : (
           <View style={styles.addressContainer}>
@@ -69,15 +106,17 @@ const FinancialInstitutionWrapper = ({ children, address, pressHandler }) => {
           </View>
         )}
 
-        <View style={styles.buttonContainer}>
-          <Pressable style={styles.button} onPress={pressHandler}>
-            <Text style={styles.buttonText}>
-              Edit <FontAwesome5 name="edit" color={styles.buttonText.color} />
-            </Text>
-          </Pressable>
-        </View>
+        <Pressable onPress={pressHandler} style={styles.editButton}>
+          <Text style={styles.editButtonText}>Edit</Text>
+          <FontAwesome5 name="pen" size={10} color="white" />
+        </Pressable>
+
       </View>
+
+      <View style={styles.devider} />
+
       <View style={styles.childContainer}>{children}</View>
+
     </View>
   );
 };

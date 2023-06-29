@@ -7,13 +7,13 @@ import { useTheme } from "../theme/ThemeProvider";
 import CustomHeaderLeftIcon from "../components/Common/CustomHeaderLeftIcon";
 import CustomHeaderTitle from "../components/Common/CustomHeaderTitle";
 import { StyleSheet } from "react-native";
+import CustomHeaderRightIcon from "../components/Common/CustomHeaderRightIcon";
 
 const Stack = createStackNavigator();
 
 const NomineeNavigation = () => {
-  const {
-    theme: { colors },
-  } = useTheme();
+
+  const { theme: { colors } } = useTheme();
 
   const styles = StyleSheet.create({
     headerStyle: {
@@ -21,12 +21,15 @@ const NomineeNavigation = () => {
     },
   });
 
+  const message = "A nominee is a person whom the user has chosen to receive his/her database discreetly after him/her."
+
   return (
     <Stack.Navigator
       initialRouteName={SCREEN_NAMES.nomineeScreen}
       screenOptions={({ navigation }) => ({
         headerStyle: styles.headerStyle,
         headerLeft: () => <CustomHeaderLeftIcon navigation={navigation} />,
+        headerRight: () => <CustomHeaderRightIcon message={message} />,
         headerTitleAlign: "center",
         headerTitle: (props) => <CustomHeaderTitle {...props} />,
       })}
