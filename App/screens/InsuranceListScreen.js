@@ -48,7 +48,7 @@ const InsuranceListScreen = () => {
         renderItem={({ item }) => (
           <FinancialInstitutionItemCard
             {...item}
-            onPress={() => navigation.navigate(SCREEN_NAMES.insuranceScreen, { _id: item._id })}
+            onPress={() => navigation.navigate(SCREEN_NAMES.insuranceScreen, { _id: item._id, insurance: { ...item } })}
           />
         )}
         keyExtractor={({ _id }) => _id}

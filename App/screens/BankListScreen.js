@@ -45,7 +45,7 @@ const BankListScreen = () => {
         renderItem={({ item }) => (
           <FinancialInstitutionItemCard 
             {...item} 
-            onPress={() => navigation.navigate(SCREEN_NAMES.bankScreen, { _id: item._id }) } 
+            onPress={() => navigation.navigate(SCREEN_NAMES.bankScreen, { _id: item._id , bank: {...item} }) } 
           />
         )}
         // renderItem={({ item }) => <BankItem {...item} />}

@@ -45,7 +45,7 @@ const PostalListScreen = () => {
         renderItem={({ item }) => (
           <FinancialInstitutionItemCard 
             {...item}  
-            onPress={() => navigation.navigate(SCREEN_NAMES.postalScreen, { _id: item._id, branchName: item.branchName })} 
+            onPress={() => navigation.navigate(SCREEN_NAMES.postalScreen, { _id: item._id, postal: { ...item } })} 
           />
           )}
         keyExtractor={({ _id }) => _id}
