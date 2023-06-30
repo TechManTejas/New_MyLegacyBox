@@ -2,7 +2,7 @@
   "expo": {
     "name": "Oiconomos",
     "slug": "oiconomos-mobile-app",
-    "version": "1.0.23",
+    "version": "1.0.3",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
