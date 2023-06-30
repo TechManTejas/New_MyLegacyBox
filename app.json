@@ -4,6 +4,7 @@
     "slug": "oiconomos-mobile-app",
     "version": "1.0.3",
     "orientation": "portrait",
+    "owner": "azmal",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
