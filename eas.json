@@ -3,20 +3,22 @@
     "version": ">= 3.4.1"
   },
   "build": {
-    "customProduction": {
+    "customproduction": {
       "distribution": "internal",
       "android": {
         "buildType": "apk",
         "gradleCommand": ":app:assembleRelease"
-      }
+      },
+      "channel": "customproduction"
     },
-    "customDevelopment": {
+    "customdevelopment": {
       "developmentClient": true,
       "distribution": "internal",
       "android": {
         "buildType": "apk",
         "gradleCommand": ":app:assembleRelease"
-      }
+      },
+      "channel": "customdevelopment"
     },
     "development": {
       "developmentClient": true,
@@ -26,15 +28,18 @@
       },
       "android": {
         "buildType": "apk"
-      }
+      },
+      "channel": "development"
     },
     "preview": {
       "distribution": "internal",
       "ios": {
         "resourceClass": "m1-medium"
-      }
+      },
+      "channel": "preview"
     },
     "production": {
+      "channel": "production",
       "ios": {
         "resourceClass": "m1-medium"
       }

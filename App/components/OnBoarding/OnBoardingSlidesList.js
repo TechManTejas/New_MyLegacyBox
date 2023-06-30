@@ -10,7 +10,10 @@ const OnBoardingSlidesList = () => {
 
   const [visibleItemIndex, setVisibleItemIndex] = useState(0);
   const onViewCallBackRef = useRef(({ viewableItems }) => {
-    setVisibleItemIndex(viewableItems[0].index);
+    if(viewableItems.length > 1) {
+      setVisibleItemIndex(viewableItems[0].index);
+    }
+   
   }, []);
 
   const viewConfigRef = useRef({

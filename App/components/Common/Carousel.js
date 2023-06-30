@@ -34,7 +34,11 @@ const Carousel = ({ carouselData }) => {
     })
 
     const [visibleItemIndex, setVisibleItemIndex] = useState(0)
-    const onViewCallBackRef = useRef(({ viewableItems }) => setVisibleItemIndex(viewableItems[0].index), [])
+    const onViewCallBackRef = useRef(({ viewableItems }) => {
+        if(viewableItems.length > 1) {
+            setVisibleItemIndex(viewableItems[0].index);
+          }
+    }, [])
     const viewConfigRef = useRef({ viewAreaCoveragePercentThreshold: 50 });
 
     const flatListRef = useRef(null)

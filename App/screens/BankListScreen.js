@@ -4,16 +4,16 @@ import CustomActivityIndicator from "../components/Common/CustomActivityIndicato
 import { useTheme } from "../theme/ThemeProvider";
 import { useIsFocused, useNavigation } from "@react-navigation/native";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
-import BankItem from "../components/Bank/BankItem";
 import BlueButton from "../components/Common/Button/BlueButton";
 import Empty from "../components/Common/Empty";
 import { SCREEN_NAMES } from "../constants/screenNames";
 import FinancialInstitutionItemCard from "../components/Common/FinancialInstitutionItemCard";
 
 const BankListScreen = () => {
-
   const navigation = useNavigation();
-  const { theme: { colors, spacing } } = useTheme();
+  const {
+    theme: { colors, spacing },
+  } = useTheme();
   const isFoucused = useIsFocused();
   const { data, isFetching, isLoading } = useGetBanksQuery();
 
@@ -38,17 +38,23 @@ const BankListScreen = () => {
 
   return (
     <View style={styles.container}>
-      {isFoucused && <StatusBar barStyle="dark-content" backgroundColor={colors.white100} />}
+      {isFoucused && (
+        <StatusBar barStyle="dark-content" backgroundColor={colors.white100} />
+      )}
       <FlatList
         contentContainerStyle={styles.listContentContainer}
         data={data.ids.map((id) => data.entities[id])}
         renderItem={({ item }) => (
-          <FinancialInstitutionItemCard 
-            {...item} 
-            onPress={() => navigation.navigate(SCREEN_NAMES.bankScreen, { _id: item._id , bank: {...item} }) } 
+          <FinancialInstitutionItemCard
+            {...item}
+            onPress={() =>
+              navigation.navigate(SCREEN_NAMES.bankScreen, {
+                _id: item._id,
+                bank: { ...item },
+              })
+            }
           />
         )}
-        // renderItem={({ item }) => <BankItem {...item} />}
         keyExtractor={({ _id }) => _id}
         ListEmptyComponent={() => <Empty message="No banks available" />}
       />

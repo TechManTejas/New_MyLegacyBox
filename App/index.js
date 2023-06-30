@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 
 import { AppState, BackHandler, LogBox } from "react-native";
 import * as ExpoSplashScreen from "expo-splash-screen";
+import * as Updates from "expo-updates";
 import "react-native-url-polyfill/auto";
 import "react-native-gesture-handler";
 
@@ -19,19 +20,26 @@ ExpoSplashScreen.preventAutoHideAsync().catch(console.warn);
 import { authenticateAsync } from "expo-local-authentication";
 
 function App() {
+  const reactToUpdates = async () => {
+    Updates.addListener((event) => {
+      if (event.type === Updates.UpdateEventType.UPDATE_AVAILABLE) {
+        alert("An update is available, Restart the app to see it");
+      }
+    });
+  };
 
   useEffect(() => {
-
     const handleAppStateChange = async (nextAppState) => {
-      if (nextAppState == 'active') {
-        const res = await authenticateAsync({ promptMessage: "Authenticate" })
-        if (res.error == "user_cancel") BackHandler.exitApp()
+      if (nextAppState == "active") {
+        const res = await authenticateAsync({ promptMessage: "Authenticate" });
+        if (res.error == "user_cancel") BackHandler.exitApp();
       }
-    }
+    };
 
-    AppState.addEventListener('change', handleAppStateChange);
+    reactToUpdates();
 
-  }, [])
+    AppState.addEventListener("change", handleAppStateChange);
+  }, []);
 
   return (
     <Provider store={store}>

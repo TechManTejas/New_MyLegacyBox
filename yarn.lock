@@ -3142,11 +3142,6 @@ event-target-shim@^5.0.0, event-target-shim@^5.0.1:
   resolved "https://registry.yarnpkg.com/event-target-shim/-/event-target-shim-5.0.1.tgz#5d4d3ebdf9583d63a5333ce2deb7480ab2b05789"
   integrity sha512-i/2XbnSz/uxRCU6+NdVJgKWDTM427+MqYbkQzD321DuCQJUqOuJKIA0IM2+W2xtYHdKOmZ4dR6fExsd4SXL+WQ==
 
-events@3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/events/-/events-3.0.0.tgz#9a0a0dfaf62893d92b875b8f2698ca4114973e88"
-  integrity sha512-Dc381HFWJzEOhQ+d8pkNon++bk9h6cdAoAj4iE6Q4y6xgTzySWXlKn05/TVNpjnfRqi/X0EpJEJohPjNI3zpVA==
-
 exec-async@^2.2.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/exec-async/-/exec-async-2.2.0.tgz#c7c5ad2eef3478d38390c6dd3acfe8af0efc8301"
@@ -5803,21 +5798,13 @@ react-native-uuid@^2.0.1:
   resolved "https://registry.yarnpkg.com/react-native-uuid/-/react-native-uuid-2.0.1.tgz#ed4e2dfb1683eddb66967eb5dca140dfe1abddb9"
   integrity sha512-cptnoIbL53GTCrWlb/+jrDC6tvb7ypIyzbXNJcpR3Vab0mkeaaVd5qnB3f0whXYzS+SMoSQLcUUB0gEWqkPC0g==
 
-react-native-walkthrough-tooltip@1.1.7:
-  version "1.1.7"
-  resolved "https://registry.yarnpkg.com/react-native-walkthrough-tooltip/-/react-native-walkthrough-tooltip-1.1.7.tgz#972ce320bee617cfe959690cec6d7239f5bbb52a"
-  integrity sha512-kgN6mokMUtAVTq1qJJjf4SAEujK+A4bZbpkMykoURpzRQuUU7UlHJ/7k8LA7DRTI3sg1Pn0qaDWxDZHgil6I3w==
+react-native-walkthrough-tooltip@^1.5.0:
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/react-native-walkthrough-tooltip/-/react-native-walkthrough-tooltip-1.5.0.tgz#10a15c700fef73db2b509a13b89b488a454ffd75"
+  integrity sha512-xzpTs3JQkUMkmurc7WJDSAWaH2KRiRL2YoTXVCRqEEWxIvLQTn9eQv0jBzs1geR0wL+ezRpjkBEGAlfQ6eMimw==
   dependencies:
     prop-types "^15.6.1"
     react-fast-compare "^2.0.4"
-
-react-native-walkthrough@^0.2.1:
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/react-native-walkthrough/-/react-native-walkthrough-0.2.1.tgz#f637691f6df0d1aaec26d7cf7a82c9022cd7765d"
-  integrity sha512-WwQflKlzxPBLgKZZrTF5YbJPBY72f7v9ZbpplGuQOvG2ji6qJzhDYq0f2xkTCgrlYFk7dZwO4FNAzmDKGLcmpg==
-  dependencies:
-    events "3.0.0"
-    react-native-walkthrough-tooltip "1.1.7"
 
 react-native@0.70.8:
   version "0.70.8"
