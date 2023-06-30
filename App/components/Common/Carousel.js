@@ -35,7 +35,7 @@ const Carousel = ({ carouselData }) => {
 
     const [visibleItemIndex, setVisibleItemIndex] = useState(0)
     const onViewCallBackRef = useRef(({ viewableItems }) => {
-        if(viewableItems.length > 1) {
+        if(viewableItems.length > 0) {
             setVisibleItemIndex(viewableItems[0].index);
           }
     }, [])
