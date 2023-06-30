@@ -4,6 +4,7 @@
   "scripts": {
     "start-dev": "expo start --dev-client",
     "start": "expo start --clear",
+    "start-offline": "expo start --clear --offline",
     "android": "expo run:android",
     "ios": "expo run:ios",
     "web": "expo start --web",
