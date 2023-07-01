@@ -16,7 +16,7 @@ const FinancialInstitutionItemCard = ({ onPress, name, ifsc, branchName, company
         cardHeader: {
             flexDirection: "row", 
             justifyContent: "space-between", 
-            alignItems: "baseline"
+            alignItems: "flex-start"
         },
         pressableContainer: {
             width: "100%",
@@ -42,6 +42,7 @@ const FinancialInstitutionItemCard = ({ onPress, name, ifsc, branchName, company
             color: colors.blue500,
             fontSize: fontSize.xl,
             lineHeight: fontSize.xxl,
+            width: "75%"
         },
         ifsc: {
             fontFamily: fontFamily.regular,

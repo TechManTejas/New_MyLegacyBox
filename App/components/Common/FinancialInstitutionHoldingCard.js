@@ -51,6 +51,7 @@ const FinancialInstitutionHoldingItem = ({ holdingClass, updatedAt, content, tit
             color: colors.blue500,
             fontSize: fontSize.xl,
             lineHeight: fontSize.xxl,
+            width: "75%"
         },
         type: {
             fontFamily: fontFamily.regular,
@@ -63,7 +64,7 @@ const FinancialInstitutionHoldingItem = ({ holdingClass, updatedAt, content, tit
             paddingHorizontal: spacing.md,
             flexDirection: "row",
             alignItems: "flex-start",
-            justifyContent: "space-between"
+            justifyContent: "space-between",
         },
         info: {
             fontFamily: fontFamily.regular,
