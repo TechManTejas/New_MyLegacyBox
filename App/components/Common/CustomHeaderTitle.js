@@ -18,7 +18,7 @@ const CustomHeaderTitle = ({ children }) => {
     },
   });
 
-  return <Text style={styles.headerTitle}>{children}</Text>;
+  return <Text style={styles.headerTitle} numberOfLines={1}>{children}</Text>;
 };
 
 export default CustomHeaderTitle;
