@@ -62,7 +62,7 @@ const ProvidentFundScreen = () => {
               tagLabel={PROVIDENT_FUND_TYPE_TO_TITLE_MAP[item.holding.pfType]}
               content={[
                 { key: "UAN", value: item.holding.uan },
-                { key: "Amount", value: `Rs. ${numberWithCommas(item.holding.amount)}` || "Not available" }
+                { key: "Amount", value: item.holding.amount ? `Rs. ${numberWithCommas(item.holding.amount)}` : "Not available" }
               ]}
               onPress={() => {
                 navigation.navigate(SCREEN_NAMES.updateProvidentFundFinancialHoldingScreen, { 
