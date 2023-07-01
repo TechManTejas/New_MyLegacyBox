@@ -101,8 +101,11 @@ const FinancialInstitutionWrapper = ({ children, address, pressHandler, title })
           </View>
         ) : (
           <View style={styles.addressContainer}>
-            <Text style={styles.addressTitle}>Address</Text>
-            <Text style={styles.addressContent}>Not available</Text>
+            <Text style={styles.addressTitle}>{title}</Text>
+            <View style={styles.addressContent}>
+              <Entypo color={colors.black400} name="location-pin" style={styles.locationIcon} size={fontSize.default} />
+              <Text style={styles.addressContentText}>Not Available</Text> 
+            </View>
           </View>
         )}
 
