@@ -53,12 +53,12 @@ const RegisterScreen = () => {
       });
   }, []);
 
-  const onSubmit = (values) =>
+  const onSubmit = (values) => 
     flow
       ? kratosClient
           .updateRegistrationFlow({
             flow: flow.id,
-            updateRegistrationFlowBody: values,
+            updateRegistrationFlowBody: {...values, "traits.phone": '+91' + values["traits.phone"]},
           })
           .then(({ data }) => {
             setSession(data.session_token).then(() => {
