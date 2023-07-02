@@ -3307,6 +3307,11 @@ expo-modules-core@1.1.1:
     compare-versions "^3.4.0"
     invariant "^2.2.4"
 
+expo-screen-capture@~5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/expo-screen-capture/-/expo-screen-capture-5.0.0.tgz#3e143c0eb8ad59ce6471a38e8c275bebe694cece"
+  integrity sha512-HWlO0pGsqVzdH2mWjtXv97u9xrS97AaXe6ppgo8JBWTtvsDviqbHkp3DYDDf01oMWRVhM+h8NQNoCVVPj4aBxg==
+
 expo-secure-store@^12.0.0:
   version "12.0.0"
   resolved "https://registry.yarnpkg.com/expo-secure-store/-/expo-secure-store-12.0.0.tgz#8baec10779708965169df3aa6406a801e4201514"
