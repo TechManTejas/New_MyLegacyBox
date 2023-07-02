@@ -111,9 +111,7 @@ const OryNodeInput = ({
   return (
     <CustomInputGroup
       name={name}
-      placeholder={`Enter your ${title} ${
-        title === "Phone" ? "(with country code)" : ""
-      }`}
+      placeholder={`Enter your ${title}`}
       title={title}
       onChange={onChange}
       onChangeText={onChange}
