@@ -1,6 +1,6 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
-import { AppState, BackHandler, LogBox } from "react-native";
+import { AppState, BackHandler, Dimensions, ImageBackground, LogBox, Modal } from "react-native";
 import * as ExpoSplashScreen from "expo-splash-screen";
 import * as Updates from "expo-updates";
 import "react-native-url-polyfill/auto";
@@ -22,6 +22,8 @@ import { usePreventScreenCapture } from "expo-screen-capture";
 
 function App() {
 
+  const [ visible, setVisible ] = useState(false)
+
   usePreventScreenCapture()
 
   const reactToUpdates = async () => {
@@ -33,18 +35,31 @@ function App() {
   };
 
   useEffect(() => {
-    
+
     const handleAppStateChange = async (nextAppState) => {
+
+      setVisible(true)
+
       if (nextAppState == "active") {
-        const res = await authenticateAsync({ promptMessage: "Authenticate" });
+
+        const res = await authenticateAsync({ 
+          promptMessage: "Oiconomos uses your biometric to ensure the data is accessed by only You",
+        });
+
         if (res.error == "user_cancel") BackHandler.exitApp();
+
+        if (res.success) setVisible(false)
+
       }
     };
 
     reactToUpdates();
 
     AppState.addEventListener("change", handleAppStateChange);
+
   }, []);
+
+  const { height } = Dimensions.get("window")
 
   return (
     <Provider store={store}>
@@ -52,7 +67,13 @@ function App() {
         <AuthProvider>
           <SplashScreen>
             <SafeAreaProvider>
+
+              <Modal transparent visible={visible}>
+                <ImageBackground style={{ height, backgroundColor: "black" }} />
+              </Modal>
+
               <RootNavigation />
+
             </SafeAreaProvider>
           </SplashScreen>
         </AuthProvider>

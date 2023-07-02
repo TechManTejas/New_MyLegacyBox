@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "start-dev": "expo start --dev-client",
+    "owner": "oiconomos",
     "start": "expo start --clear",
     "start-offline": "expo start --clear --offline",
     "android": "expo run:android",
