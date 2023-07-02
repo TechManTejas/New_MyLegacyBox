@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 
 import { AppState, BackHandler, LogBox } from "react-native";
 import * as ExpoSplashScreen from "expo-splash-screen";
@@ -18,8 +18,12 @@ LogBox.ignoreLogs(["Remote debugger"]);
 ExpoSplashScreen.preventAutoHideAsync().catch(console.warn);
 
 import { authenticateAsync } from "expo-local-authentication";
+import { usePreventScreenCapture } from "expo-screen-capture";
 
 function App() {
+
+  usePreventScreenCapture()
+
   const reactToUpdates = async () => {
     Updates.addListener((event) => {
       if (event.type === Updates.UpdateEventType.UPDATE_AVAILABLE) {
@@ -29,6 +33,7 @@ function App() {
   };
 
   useEffect(() => {
+    
     const handleAppStateChange = async (nextAppState) => {
       if (nextAppState == "active") {
         const res = await authenticateAsync({ promptMessage: "Authenticate" });
