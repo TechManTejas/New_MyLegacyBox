@@ -1,5 +1,5 @@
 import { SCREEN_NAMES } from "../constants/screenNames";
-import { createStackNavigator } from "@react-navigation/stack";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useTheme } from "../theme/ThemeProvider";
 import CustomHeaderLeftIcon from "../components/Common/CustomHeaderLeftIcon";
 import CustomHeaderTitle from "../components/Common/CustomHeaderTitle";
@@ -16,7 +16,7 @@ import WillGenerationScreen from "../screens/Will/WillGenerationScreen";
 import WillInfoScreen from "../screens/Will/WillInfoScreen";
 import CustomHeaderRightIcon from "../components/Common/CustomHeaderRightIcon";
 
-const Stack = createStackNavigator();
+const Stack = createNativeStackNavigator();
 
 const WillNavigation = () => {
 
@@ -39,6 +39,8 @@ const WillNavigation = () => {
         headerRight: () => <CustomHeaderRightIcon message={message} />,
         headerTitleAlign: "center",
         headerTitle: (props) => <CustomHeaderTitle {...props} />,
+        headerBackVisible: false,
+        animation: "slide_from_right",
       })}
     >
       <Stack.Group>

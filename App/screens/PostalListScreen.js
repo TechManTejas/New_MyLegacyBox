@@ -6,7 +6,6 @@ import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import BlueButton from "../components/Common/Button/BlueButton";
 import Empty from "../components/Common/Empty";
 import { SCREEN_NAMES } from "../constants/screenNames";
-import PostalItem from "../components/Postal/PostalItem";
 import { useGetPostalsQuery } from "../services/postal/postalSlice";
 import FinancialInstitutionItemCard from "../components/Common/FinancialInstitutionItemCard";
 

@@ -1,15 +1,14 @@
-import React from "react";
 import { SCREEN_NAMES } from "../constants/screenNames";
 import NomineeScreen from "../screens/NomineeScreen";
 import AddNomineeForm from "../components/Nominee/AddNomineeForm";
-import { createStackNavigator } from "@react-navigation/stack";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useTheme } from "../theme/ThemeProvider";
 import CustomHeaderLeftIcon from "../components/Common/CustomHeaderLeftIcon";
 import CustomHeaderTitle from "../components/Common/CustomHeaderTitle";
 import { StyleSheet } from "react-native";
 import CustomHeaderRightIcon from "../components/Common/CustomHeaderRightIcon";
 
-const Stack = createStackNavigator();
+const Stack = createNativeStackNavigator();
 
 const NomineeNavigation = () => {
 
@@ -32,6 +31,8 @@ const NomineeNavigation = () => {
         headerRight: () => <CustomHeaderRightIcon message={message} />,
         headerTitleAlign: "center",
         headerTitle: (props) => <CustomHeaderTitle {...props} />,
+        headerBackVisible: false,
+        animation: "slide_from_right",
       })}
     >
       <Stack.Group>

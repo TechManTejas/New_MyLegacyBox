@@ -1,4 +1,3 @@
-import React from "react";
 import { StatusBar, StyleSheet, View } from "react-native";
 import { useIsFocused } from "@react-navigation/native";
 import OnBoardingFooter from "../components/OnBoarding/OnBoardingFooter";
@@ -23,9 +22,7 @@ const OnBoardingScreen = () => {
 
   return (
     <CustomSafeView safeViewStyle={styles.safeViewStyle}>
-      {isFoucused ? (
-        <StatusBar barStyle="light-content" backgroundColor={colors.white700} />
-      ) : null}
+      {isFoucused && <StatusBar barStyle="light-content" backgroundColor={colors.white700} />}
       <View style={styles.list}>
         <OnBoardingSlidesList />
       </View>
