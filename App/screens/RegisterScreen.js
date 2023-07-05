@@ -58,7 +58,10 @@ const RegisterScreen = () => {
       ? kratosClient
           .updateRegistrationFlow({
             flow: flow.id,
-            updateRegistrationFlowBody: {...values, "traits.phone": '+91' + values["traits.phone"]},
+            updateRegistrationFlowBody: {...values, "traits.phone": values["traits.phone"].length === 10 &&
+                !values["traits.phone"].startsWith("+91")
+                  ? "+91" + values["traits.phone"]
+                  : values["traits.phone"]},
           })
           .then(({ data }) => {
             setSession(data.session_token).then(() => {
