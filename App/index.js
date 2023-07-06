@@ -46,12 +46,8 @@ function App() {
     });
   };
 
-  const loadBioMetricAuth = async (nextAppState) => {
-    const hasHardware = await hasHardwareAsync();
-
-    console.log({ c1: nextAppState === "active", c2: hasHardware, c3: !splashScreenVisible })
-
-    if (nextAppState === "active" && hasHardware && !splashScreenVisible) {
+  const loadBioMetricAuth = async (nextAppState, firstRun = false) => {
+    if (firstRun || (nextAppState === "active" && !splashScreenVisible)) {
       setVisible(true);
 
       const res = await authenticateAsync({
@@ -66,10 +62,10 @@ function App() {
   };
 
   useEffect(() => {
-    if (!splashScreenVisible) {
-      loadBioMetricAuth("active")
-    }
-    AppState.addEventListener("change", loadBioMetricAuth);
+    !splashScreenVisible
+      ? loadBioMetricAuth("active", true)
+      : AppState.addEventListener("change", loadBioMetricAuth);
+
     reactToUpdates();
   }, [splashScreenVisible]);
 
