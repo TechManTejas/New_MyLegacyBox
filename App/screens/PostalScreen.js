@@ -9,8 +9,6 @@ import { useNavigation } from "@react-navigation/native";
 import { SCREEN_NAMES } from "../constants/screenNames";
 import { useSelector } from "react-redux";
 import { selectPostalById } from "../services/postal/postalSlice";
-import PostalDetail from "../components/Postal/PostalDetail";
-import PostalFinancialHoldingItem from "../components/FinancialHolding/PostalHolding/PostalFinancialHoldingItem";
 import FinancialInstitutionInfoCard from "../components/Common/FinancialInstitutionInfoCard";
 import FinancialInstitutionHoldingItem from "../components/Common/FinancialInstitutionHoldingCard";
 import {
@@ -72,7 +70,6 @@ const PostalScreen = ({ route }) => {
               instituteTitle={postal.branchName}
             />
           }
-          // ListHeaderComponent={<PostalDetail postal={postal} />}
           ListHeaderComponentStyle={styles.listHeader}
           contentContainerStyle={styles.listContentContainer}
           data={data.ids.map((id) => data.entities[id])}

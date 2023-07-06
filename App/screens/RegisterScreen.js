@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 import {
   View,
   StyleSheet,
@@ -20,11 +20,15 @@ import CustomActivityIndicator from "../components/Common/CustomActivityIndicato
 
 const RegisterScreen = () => {
   const isFoucused = useIsFocused();
+
   const { width } = useWindowDimensions();
+
   const {
     theme: { colors, spacing, fontFamily, fontSize },
   } = useTheme();
+
   const navigation = useNavigation();
+
   const { setSession } = useAuth();
 
   const [flow, setFlow] = useState(undefined);
@@ -58,7 +62,14 @@ const RegisterScreen = () => {
       ? kratosClient
           .updateRegistrationFlow({
             flow: flow.id,
-            updateRegistrationFlowBody: values,
+            updateRegistrationFlowBody: {
+              ...values,
+              "traits.phone":
+                values["traits.phone"].length === 10 &&
+                !values["traits.phone"].startsWith("+91")
+                  ? "+91" + values["traits.phone"]
+                  : values["traits.phone"],
+            },
           })
           .then(({ data }) => {
             setSession(data.session_token).then(() => {

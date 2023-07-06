@@ -1,6 +1,5 @@
-import React from "react";
 import { StyleSheet } from "react-native";
-import { createStackNavigator } from "@react-navigation/stack";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { SCREEN_NAMES } from "../constants/screenNames";
 import HomeScreen from "../screens/HomeScreen";
 import { useTheme } from "../theme/ThemeProvider";
@@ -21,7 +20,7 @@ import RealEstateFinancialHoldingNavigation from "./FinancialHoldingsNavigation/
 import DematNavigation from "./FinancialInstitutionNavigation/DematNavigation";
 import DematFinancialHoldingNavigation from "./FinancialHoldingsNavigation/DematFinancialHoldingNavigation";
 
-const Stack = createStackNavigator();
+const Stack = createNativeStackNavigator();
 
 const HomeNavigation = () => {
   const {
@@ -42,6 +41,8 @@ const HomeNavigation = () => {
         headerLeft: () => <CustomHeaderLeftIcon navigation={navigation} />,
         headerTitleAlign: "center",
         headerTitle: (props) => <CustomHeaderTitle {...props} />,
+        headerBackVisible: false,
+        animation: "slide_from_right",
       })}
     >
       <Stack.Screen
