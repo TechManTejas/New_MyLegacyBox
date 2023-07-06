@@ -1,5 +1,4 @@
-import React from "react";
-import { Linking, StyleSheet, Text, View } from "react-native";
+import { Linking, StyleSheet } from "react-native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { SCREEN_NAMES } from "../constants/screenNames";
 import DrawerScreen from "../screens/DrawerScreen";

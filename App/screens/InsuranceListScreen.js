@@ -7,7 +7,6 @@ import BlueButton from "../components/Common/Button/BlueButton";
 import Empty from "../components/Common/Empty";
 import { SCREEN_NAMES } from "../constants/screenNames";
 import { useGetInsurancesQuery } from "../services/insurance/insuranceSlice";
-import InsuranceItem from "../components/Insurance/InsuranceItem";
 import FinancialInstitutionItemCard from "../components/Common/FinancialInstitutionItemCard";
 
 const InsuranceListScreen = () => {

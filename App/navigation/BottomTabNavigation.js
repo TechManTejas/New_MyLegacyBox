@@ -5,7 +5,6 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import { SCREEN_NAMES } from "../constants/screenNames";
 import HomeNavigation from "./HomeNavigation";
-import OHubScreen from "../screens/OHubScreen";
 import { useTheme } from "../theme/ThemeProvider";
 import NomineeNavigation from "./NomineeNavigation";
 import UnderDevelopment from "../screens/UnderDevelopment";
@@ -88,7 +87,7 @@ const BottomTabNavigation = () => {
   return (
     <BottomTab.Navigator
       initialRouteName={SCREEN_NAMES.homeNavigator}
-      screenOptions={({ route }) => ({
+      screenOptions={() => ({
         headerShown: false,
         tabBarStyle: [styles.tabBar],
         tabBarLabelStyle: styles.tabBarLabel,

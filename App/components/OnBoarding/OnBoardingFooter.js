@@ -1,4 +1,3 @@
-import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import { Linking, StyleSheet, Text, View } from "react-native";
 import { useTheme } from "../../theme/ThemeProvider";
@@ -17,6 +16,7 @@ const OnBoardingFooter = () => {
       borderWidth: StyleSheet.hairlineWidth,
       borderColor: colors.blue200,
       backgroundColor: colors.white100,
+      // backgroundColor : colors.blue500,
       borderTopLeftRadius: spacing.xl,
       borderTopRightRadius: spacing.xl,
     },
@@ -30,6 +30,7 @@ const OnBoardingFooter = () => {
       lineHeight: fontSize.xxl,
       marginBottom: spacing.xl,
       color: colors.blue,
+      // color: colors.white,
       textAlign: "center",
     },
     buttonContainer: {
@@ -42,6 +43,7 @@ const OnBoardingFooter = () => {
       textAlign: "center",
       fontFamily: fontFamily.regular,
       fontSize: fontSize.xs,
+      // color: colors.white,
       color: colors.black400,
     },
     captionBold: {
