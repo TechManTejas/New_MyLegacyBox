@@ -20,7 +20,7 @@ export const RootNavigation = () => {
           animationDuration: 1000,
         }}
       >
-        {isAuthenticated ? (
+        {!isAuthenticated ? (
           <>
             <Stack.Screen
               name={SCREEN_NAMES.onBoardingScreen}
