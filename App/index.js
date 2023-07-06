@@ -27,7 +27,9 @@ ExpoSplashScreen.preventAutoHideAsync().catch(console.warn);
 import {
   authenticateAsync,
   hasHardwareAsync,
+  getEnrolledLevelAsync,
   supportedAuthenticationTypesAsync,
+  SecurityLevel,
 } from "expo-local-authentication";
 import { usePreventScreenCapture } from "expo-screen-capture";
 import AnimatedSplashScreen from "./screens/AnimatedSplashScreen";
@@ -47,17 +49,25 @@ function App() {
   };
 
   const loadBioMetricAuth = async (nextAppState, firstRun = false) => {
+    const enrolledLevel = await getEnrolledLevelAsync();
+
     if (firstRun || (nextAppState === "active" && !splashScreenVisible)) {
       setVisible(true);
 
-      const res = await authenticateAsync({
-        promptMessage:
-          "Oiconomos uses your biometric to ensure the data is accessed by only You",
-      });
+      if (enrolledLevel === SecurityLevel.NONE) {
+        // ... custom logic to handle edge case
 
-      if (res.error === "user_cancel") BackHandler.exitApp();
+        setVisible(false);
+      } else {
+        const res = await authenticateAsync({
+          promptMessage:
+            "Oiconomos uses your biometric to ensure the data is accessed by only You",
+        });
 
-      if (res.success) setVisible(false);
+        if (res.error === "user_cancel") BackHandler.exitApp();
+
+        if (res.success) setVisible(false);
+      }
     }
   };
 
