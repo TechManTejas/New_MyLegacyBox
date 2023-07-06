@@ -1,6 +1,13 @@
 import { useEffect, useState } from "react";
 
-import { AppState, BackHandler, Dimensions, ImageBackground, LogBox, Modal } from "react-native";
+import {
+  AppState,
+  BackHandler,
+  Dimensions,
+  ImageBackground,
+  LogBox,
+  Modal,
+} from "react-native";
 import * as ExpoSplashScreen from "expo-splash-screen";
 import * as Updates from "expo-updates";
 import "react-native-url-polyfill/auto";
@@ -17,14 +24,19 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 LogBox.ignoreLogs(["Remote debugger"]);
 ExpoSplashScreen.preventAutoHideAsync().catch(console.warn);
 
-import { authenticateAsync } from "expo-local-authentication";
+import {
+  authenticateAsync,
+  hasHardwareAsync,
+  supportedAuthenticationTypesAsync,
+} from "expo-local-authentication";
 import { usePreventScreenCapture } from "expo-screen-capture";
+import AnimatedSplashScreen from "./screens/AnimatedSplashScreen";
 
 function App() {
+  const [visible, setVisible] = useState(false);
+  const [splashScreenVisible, setSplashScreenVisible] = useState(true);
 
-  const [ visible, setVisible ] = useState(false)
-
-  usePreventScreenCapture()
+  // usePreventScreenCapture();
 
   const reactToUpdates = async () => {
     Updates.addListener((event) => {
@@ -34,32 +46,34 @@ function App() {
     });
   };
 
+  const loadBioMetricAuth = async (nextAppState) => {
+    const hasHardware = await hasHardwareAsync();
+
+    console.log({ c1: nextAppState === "active", c2: hasHardware, c3: !splashScreenVisible })
+
+    if (nextAppState === "active" && hasHardware && !splashScreenVisible) {
+      setVisible(true);
+
+      const res = await authenticateAsync({
+        promptMessage:
+          "Oiconomos uses your biometric to ensure the data is accessed by only You",
+      });
+
+      if (res.error === "user_cancel") BackHandler.exitApp();
+
+      if (res.success) setVisible(false);
+    }
+  };
+
   useEffect(() => {
-
-    const handleAppStateChange = async (nextAppState) => {
-
-      setVisible(true)
-
-      if (nextAppState == "active") {
-
-        const res = await authenticateAsync({ 
-          promptMessage: "Oiconomos uses your biometric to ensure the data is accessed by only You",
-        });
-
-        if (res.error == "user_cancel") BackHandler.exitApp();
-
-        if (res.success) setVisible(false)
-
-      }
-    };
-
+    if (!splashScreenVisible) {
+      loadBioMetricAuth("active")
+    }
+    AppState.addEventListener("change", loadBioMetricAuth);
     reactToUpdates();
+  }, [splashScreenVisible]);
 
-    AppState.addEventListener("change", handleAppStateChange);
-
-  }, []);
-
-  const { height } = Dimensions.get("window")
+  const { height } = Dimensions.get("window");
 
   return (
     <Provider store={store}>
@@ -67,13 +81,18 @@ function App() {
         <AuthProvider>
           <SplashScreen>
             <SafeAreaProvider>
-
+              {splashScreenVisible && (
+                <AnimatedSplashScreen
+                  onAnimationEnd={() => {
+                    setSplashScreenVisible(false);
+                    setVisible(true);
+                  }}
+                />
+              )}
               <Modal transparent visible={visible}>
                 <ImageBackground style={{ height, backgroundColor: "black" }} />
               </Modal>
-
               <RootNavigation />
-
             </SafeAreaProvider>
           </SplashScreen>
         </AuthProvider>

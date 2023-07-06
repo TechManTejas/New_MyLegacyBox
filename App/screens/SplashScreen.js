@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import * as Font from "expo-font";
 import {
   Poppins_200ExtraLight,
@@ -33,7 +33,7 @@ const SplashScreen = ({ children }) => {
           require("../assets/images/3.png"),
           require("../assets/images/logoFullDark.png"),
           require("../assets/images/logoFullLight.png"),
-          // require("../assets/images/logoSmallLight.png"),
+          require("../assets/images/logoSmallLight.png"),
         ]),
       ])
         .then(async () => {
@@ -46,7 +46,7 @@ const SplashScreen = ({ children }) => {
     prepare();
   }, []);
 
-  return isAppReady ? <>{children}</> : null;
+  return isAppReady && children;
 };
 
 export default SplashScreen;
