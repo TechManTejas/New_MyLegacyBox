@@ -1,19 +1,26 @@
 import { useEffect, useState } from "react";
 
 import {
+  Alert,
   AppState,
   BackHandler,
+  Button,
   Dimensions,
   ImageBackground,
+  KeyboardAvoidingView,
   LogBox,
   Modal,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
 } from "react-native";
 import * as ExpoSplashScreen from "expo-splash-screen";
 import * as Updates from "expo-updates";
 import "react-native-url-polyfill/auto";
 import "react-native-gesture-handler";
 
-import { ThemeProvider } from "./theme/ThemeProvider";
+import { ThemeProvider, useTheme } from "./theme/ThemeProvider";
 import { AuthProvider } from "./authentication/AuthProvider";
 import { RootNavigation } from "./navigation/RootNavigation";
 import SplashScreen from "./screens/SplashScreen";
@@ -26,19 +33,56 @@ ExpoSplashScreen.preventAutoHideAsync().catch(console.warn);
 
 import {
   authenticateAsync,
-  hasHardwareAsync,
   getEnrolledLevelAsync,
-  supportedAuthenticationTypesAsync,
   SecurityLevel,
 } from "expo-local-authentication";
 import { usePreventScreenCapture } from "expo-screen-capture";
 import AnimatedSplashScreen from "./screens/AnimatedSplashScreen";
+import { getItemAsync, setItemAsync, deleteItemAsync } from "expo-secure-store";
 
 function App() {
-  const [visible, setVisible] = useState(false);
-  const [splashScreenVisible, setSplashScreenVisible] = useState(true);
-
   // usePreventScreenCapture();
+
+  const [blackScreen, setBlackScreen] = useState(false);
+  const [splashScreenVisible, setSplashScreenVisible] = useState(true);
+  const [showPinModal, setShowPinModal] = useState(false);
+  const [userPin, setUserPin] = useState();
+  const [userPinExists, setUserPinExists] = useState({
+    exists: false,
+    pin: null,
+  });
+
+  const CustomAlert = (title, message) =>
+    Alert.alert(title, message, [{ text: "OK" }]);
+
+  const saveCustomUserPin = () => {
+    const validPin = /^\d{4}$/.test(userPin);
+    if (validPin) {
+      setItemAsync("userPin", userPin);
+      setShowPinModal(false);
+      setBlackScreen(false);
+    } else {
+      CustomAlert("Invalid PIN", "Your PIN Code should be a 4 digit number");
+    }
+  };
+
+  const authenticateUserPin = () => {
+    if (userPin === userPinExists.pin) {
+      setShowPinModal(false);
+      setBlackScreen(false);
+    } else {
+      CustomAlert(
+        "Authentication Failed",
+        "You Entered incorrect PIN, Please Try Again"
+      );
+    }
+  };
+
+  const checkExistingPin = async () => {
+    getItemAsync("userPin").then((pin) => {
+      pin !== null && setUserPinExists({ exists: true, pin });
+    });
+  };
 
   const reactToUpdates = async () => {
     Updates.addListener((event) => {
@@ -52,12 +96,11 @@ function App() {
     const enrolledLevel = await getEnrolledLevelAsync();
 
     if (firstRun || (nextAppState === "active" && !splashScreenVisible)) {
-      setVisible(true);
+      setBlackScreen(true);
 
       if (enrolledLevel === SecurityLevel.NONE) {
-        // ... custom logic to handle edge case
-
-        setVisible(false);
+        checkExistingPin();
+        setShowPinModal(true);
       } else {
         const res = await authenticateAsync({
           promptMessage:
@@ -66,7 +109,7 @@ function App() {
 
         if (res.error === "user_cancel") BackHandler.exitApp();
 
-        if (res.success) setVisible(false);
+        if (res.success) setBlackScreen(false);
       }
     }
   };
@@ -81,6 +124,42 @@ function App() {
 
   const { height } = Dimensions.get("window");
 
+  const {
+    theme: { spacing, colors, fontFamily, fontSize },
+  } = useTheme();
+
+  const styles = StyleSheet.create({
+    blackScreen: {
+      height,
+      backgroundColor: "black",
+      alignItems: "center",
+      justifyContent: "center",
+    },
+    customPinModal: {
+      padding: spacing.x4l,
+      borderRadius: spacing.sm,
+      backgroundColor: "white",
+      alignItems: "center",
+      justifyContent: "center",
+    },
+    pinInput: {
+      borderColor: colors.black300,
+      borderRadius: spacing.xs,
+      borderStyle: "solid",
+      borderWidth: 1,
+      paddingRight: spacing.xl,
+      paddingLeft: spacing.md,
+      paddingVertical: spacing.sm,
+      marginBottom: spacing.lg,
+      width: 150,
+    },
+    headText: {
+      marginBottom: spacing.md,
+      fontFamily: fontFamily.semiBold,
+      color: colors.blue500
+    }
+  });
+
   return (
     <Provider store={store}>
       <ThemeProvider>
@@ -91,13 +170,49 @@ function App() {
                 <AnimatedSplashScreen
                   onAnimationEnd={() => {
                     setSplashScreenVisible(false);
-                    setVisible(true);
+                    setBlackScreen(true);
                   }}
                 />
               )}
-              <Modal transparent visible={visible}>
-                <ImageBackground style={{ height, backgroundColor: "black" }} />
+
+              <Modal transparent visible={blackScreen}>
+                <KeyboardAvoidingView>
+                  <ImageBackground style={styles.blackScreen}>
+                    {showPinModal && (
+                      <View style={styles.customPinModal}>
+                        <Text style={styles.headText}>
+                          {userPinExists.exists
+                            ? "Enter the PIN to Authenticate"
+                            : "Since your device has no security measures you need to set a PIN"}
+                        </Text>
+                        <TextInput
+                          placeholder={
+                            userPinExists.exists
+                              ? "Check Your Pin"
+                              : "Set Your Pin"
+                          }
+                          keyboardType="numeric"
+                          style={styles.pinInput}
+                          maxLength={4}
+                          onChangeText={(num) => setUserPin(num)}
+                        />
+                        <View style={{ width: 100 }}>
+                          <Button
+                            onPress={
+                              userPinExists.exists
+                                ? authenticateUserPin
+                                : saveCustomUserPin
+                            }
+                            color={colors.blue500}
+                            title={userPinExists.exists ? "CHECK" : "SET"}
+                          />
+                        </View>
+                      </View>
+                    )}
+                  </ImageBackground>
+                </KeyboardAvoidingView>
               </Modal>
+
               <RootNavigation />
             </SafeAreaProvider>
           </SplashScreen>
