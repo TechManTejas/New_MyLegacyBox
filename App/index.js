@@ -43,8 +43,8 @@ import { getItemAsync, setItemAsync, deleteItemAsync } from "expo-secure-store";
 function App() {
   // usePreventScreenCapture();
 
-  const [blackScreen, setBlackScreen] = useState(false);
   const [splashScreenVisible, setSplashScreenVisible] = useState(true);
+  const [blackScreen, setBlackScreen] = useState(false);
   const [showPinModal, setShowPinModal] = useState(false);
   const [userPin, setUserPin] = useState();
   const [userPinExists, setUserPinExists] = useState({
@@ -92,7 +92,7 @@ function App() {
     });
   };
 
-  const loadBioMetricAuth = async (nextAppState, firstRun = false) => {
+  const loadExtraUserAuth = async (nextAppState, firstRun = false) => {
     const enrolledLevel = await getEnrolledLevelAsync();
 
     if (firstRun || (nextAppState === "active" && !splashScreenVisible)) {
@@ -116,8 +116,8 @@ function App() {
 
   useEffect(() => {
     !splashScreenVisible
-      ? loadBioMetricAuth("active", true)
-      : AppState.addEventListener("change", loadBioMetricAuth);
+      ? loadExtraUserAuth("active", true)
+      : AppState.addEventListener("change", loadExtraUserAuth);
 
     reactToUpdates();
   }, [splashScreenVisible]);
@@ -125,7 +125,7 @@ function App() {
   const { height } = Dimensions.get("window");
 
   const {
-    theme: { spacing, colors, fontFamily, fontSize },
+    theme: { spacing, colors, fontFamily },
   } = useTheme();
 
   const styles = StyleSheet.create({
@@ -147,17 +147,17 @@ function App() {
       borderRadius: spacing.xs,
       borderStyle: "solid",
       borderWidth: 1,
-      paddingRight: spacing.xl,
-      paddingLeft: spacing.md,
       paddingVertical: spacing.sm,
+      textAlign: "center",
       marginBottom: spacing.lg,
       width: 150,
     },
     headText: {
       marginBottom: spacing.md,
       fontFamily: fontFamily.semiBold,
-      color: colors.blue500
-    }
+      color: colors.blue500,
+      textAlign: "center",
+    },
   });
 
   return (
@@ -183,14 +183,9 @@ function App() {
                         <Text style={styles.headText}>
                           {userPinExists.exists
                             ? "Enter the PIN to Authenticate"
-                            : "Since your device has no security measures you need to set a PIN"}
+                            : "Since your device has no security you need to set a 4 digit PIN"}
                         </Text>
                         <TextInput
-                          placeholder={
-                            userPinExists.exists
-                              ? "Check Your Pin"
-                              : "Set Your Pin"
-                          }
                           keyboardType="numeric"
                           style={styles.pinInput}
                           maxLength={4}
