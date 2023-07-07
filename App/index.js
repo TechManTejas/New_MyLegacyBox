@@ -38,7 +38,7 @@ import {
 } from "expo-local-authentication";
 import { usePreventScreenCapture } from "expo-screen-capture";
 import AnimatedSplashScreen from "./screens/AnimatedSplashScreen";
-import { getItemAsync, setItemAsync, deleteItemAsync } from "expo-secure-store";
+import { getItemAsync, setItemAsync } from "expo-secure-store";
 
 function App() {
   // usePreventScreenCapture();
@@ -48,6 +48,7 @@ function App() {
   const [showPinModal, setShowPinModal] = useState(false);
   const [userPin, setUserPin] = useState();
   const [userPinExists, setUserPinExists] = useState({
+    checked: false,
     exists: false,
     pin: null,
   });
@@ -83,7 +84,11 @@ function App() {
 
   const checkExistingPin = async () => {
     getItemAsync("userPin").then((pin) => {
-      pin !== null && setUserPinExists({ exists: true, pin });
+      if (pin !== null) {
+        setUserPinExists({ exists: true, pin, checked: true });
+      } else {
+        setUserPinExists({ ...userPinExists, checked: true });
+      }
     });
   };
 
@@ -184,8 +189,8 @@ function App() {
               {splashScreenVisible && (
                 <AnimatedSplashScreen
                   onAnimationEnd={() => {
-                    setSplashScreenVisible(false);
-                    setBlackScreen(true);
+                    // setSplashScreenVisible(false);
+                    // setBlackScreen(true);
                   }}
                 />
               )}
@@ -193,7 +198,7 @@ function App() {
               <Modal transparent visible={blackScreen}>
                 <KeyboardAvoidingView>
                   <ImageBackground style={styles.blackScreen}>
-                    {showPinModal && (
+                    {showPinModal && userPinExists.checked && (
                       <View style={styles.customPinModal}>
                         <Text style={styles.headText}>
                           {userPinExists.exists
@@ -205,6 +210,7 @@ function App() {
                           style={styles.pinInput}
                           maxLength={4}
                           onChangeText={(num) => setUserPin(num)}
+                          secureTextEntry={true}
                         />
                         <View style={{ width: 100 }}>
                           <Button

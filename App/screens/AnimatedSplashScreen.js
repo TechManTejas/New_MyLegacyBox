@@ -1,15 +1,16 @@
-import { Dimensions, StyleSheet } from "react-native";
+import { Dimensions, StyleSheet, View } from "react-native";
 import Animated, {
   FadeInLeft,
   FadeInUp,
   FadeInRight,
+  FadeOutRight,
+  SlideOutRight,
 } from "react-native-reanimated";
 import { useTheme } from "../theme/ThemeProvider";
-import { useEffect } from "react";
-import { SCREEN_NAMES } from "../constants/screenNames";
+import { useEffect, useState } from "react";
 
 const AnimatedSplashScreen = ({ onAnimationEnd }) => {
-
+  const [coverVisible, setCoverVisible] = useState(true);
 
   const {
     theme: { colors, fontFamily, fontSize, spacing },
@@ -45,11 +46,30 @@ const AnimatedSplashScreen = ({ onAnimationEnd }) => {
       position: "relative",
       left: 70,
     },
+    placeholder: {
+      height: 30,
+      width: 100,
+      backgroundColor: "white",
+    },
+    cover: {
+      zIndex: 20,
+      position: "relative",
+      bottom: 20,
+      left: 20,
+    },
+    coverContainer: {
+      flexDirection: "row",
+    },
   });
 
   useEffect(() => {
-    const interval = setTimeout(onAnimationEnd, 7000);
-    return ()=>clearTimeout(interval)
+    const animationEndInterval = setTimeout(onAnimationEnd, 7000);
+    const coverEndInterval = setTimeout(() => setCoverVisible(false), 3000);
+
+    return () => {
+      clearTimeout(animationEndInterval);
+      clearTimeout(coverEndInterval);
+    };
   }, []);
 
   const text = "Personalising Succession";
@@ -75,10 +95,19 @@ const AnimatedSplashScreen = ({ onAnimationEnd }) => {
       </Animated.View>
 
       <Animated.Image
-        entering={FadeInRight.delay(4500).duration(1500)}
         style={styles.waveImg}
         source={require("../../assets/waveb.png")}
       />
+
+      <View style={styles.coverContainer}>
+        <Animated.View style={styles.placeholder} />
+        {coverVisible && (
+          <Animated.View
+            exiting={SlideOutRight.duration(7000)}
+            style={[styles.placeholder, styles.cover]}
+          />
+        )}
+      </View>
     </Animated.View>
   );
 };
