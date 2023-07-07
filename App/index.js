@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 import {
   Alert,
@@ -52,6 +52,9 @@ function App() {
     pin: null,
   });
 
+  const splashScreenVisibleRef = useRef(splashScreenVisible);
+  splashScreenVisibleRef.current = splashScreenVisible;
+
   const CustomAlert = (title, message) =>
     Alert.alert(title, message, [{ text: "OK" }]);
 
@@ -95,7 +98,10 @@ function App() {
   const loadExtraUserAuth = async (nextAppState, firstRun = false) => {
     const enrolledLevel = await getEnrolledLevelAsync();
 
-    if (firstRun || (nextAppState === "active" && !splashScreenVisible)) {
+    if (
+      firstRun ||
+      (nextAppState === "active" && !splashScreenVisibleRef.current)
+    ) {
       setBlackScreen(true);
 
       if (enrolledLevel === SecurityLevel.NONE) {
@@ -115,11 +121,20 @@ function App() {
   };
 
   useEffect(() => {
-    !splashScreenVisible
-      ? loadExtraUserAuth("active", true)
-      : AppState.addEventListener("change", loadExtraUserAuth);
+    let appStateListener = null;
+
+    if (!splashScreenVisible) {
+      loadExtraUserAuth("active", true);
+    } else {
+      appStateListener = AppState.addEventListener("change", loadExtraUserAuth);
+    }
 
     reactToUpdates();
+    return () => {
+      if (appStateListener) {
+        appStateListener.remove();
+      }
+    };
   }, [splashScreenVisible]);
 
   const { height } = Dimensions.get("window");
