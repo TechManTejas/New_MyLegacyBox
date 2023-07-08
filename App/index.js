@@ -102,9 +102,6 @@ function App() {
   };
 
   const loadAppUserAuth = async (nextAppState, firstRun = false) => {
-
-    console.log({ firstRun, nextAppState, splashScreenVisible: splashScreenVisibleRef.current })
-
     const enrolledLevel = await getEnrolledLevelAsync();
 
     if (
@@ -202,35 +199,37 @@ function App() {
               <Modal transparent visible={blackScreen} animationType="slide">
                 <KeyboardAvoidingView>
                   <ImageBackground style={styles.blackScreen}>
-                    {showPinModal && userPinExists.checked ? (
-                      <View style={styles.customPinModal}>
-                        <Text style={styles.headText}>
-                          {userPinExists.exists
-                            ? "Enter the PIN to Authenticate"
-                            : "Since your device has no security you need to set a 4 digit PIN"}
-                        </Text>
-                        <TextInput
-                          keyboardType="numeric"
-                          style={styles.pinInput}
-                          maxLength={4}
-                          onChangeText={(num) => setUserPin(num)}
-                          secureTextEntry={true}
-                        />
-                        <View style={{ width: 100 }}>
-                          <Button
-                            onPress={
-                              userPinExists.exists
-                                ? authenticateUserPin
-                                : saveCustomUserPin
-                            }
-                            color={colors.blue500}
-                            title={userPinExists.exists ? "CHECK" : "SET"}
+                    {showPinModal ? (
+                      userPinExists.checked ? (
+                        <View style={styles.customPinModal}>
+                          <Text style={styles.headText}>
+                            {userPinExists.exists
+                              ? "Enter the PIN to Authenticate"
+                              : "Since your device has no security you need to set a 4 digit PIN"}
+                          </Text>
+                          <TextInput
+                            keyboardType="numeric"
+                            style={styles.pinInput}
+                            maxLength={4}
+                            onChangeText={(num) => setUserPin(num)}
+                            secureTextEntry={true}
                           />
+                          <View style={{ width: 100 }}>
+                            <Button
+                              onPress={
+                                userPinExists.exists
+                                  ? authenticateUserPin
+                                  : saveCustomUserPin
+                              }
+                              color={colors.blue500}
+                              title={userPinExists.exists ? "CHECK" : "SET"}
+                            />
+                          </View>
                         </View>
-                      </View>
-                    ) : (
-                      <ActivityIndicator size="large" color="white" />
-                    )}
+                      ) : (
+                        <ActivityIndicator size="large" color="white" />
+                      )
+                    ) : null}
                   </ImageBackground>
                 </KeyboardAvoidingView>
               </Modal>
