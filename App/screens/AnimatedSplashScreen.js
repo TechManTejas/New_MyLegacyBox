@@ -3,7 +3,10 @@ import Animated, { FadeInLeft, SlideOutRight } from "react-native-reanimated";
 import { useTheme } from "../theme/ThemeProvider";
 import { useEffect, useState } from "react";
 
-const AnimatedSplashScreen = ({ onAnimationEnd }) => {
+const AnimatedSplashScreen = ({
+  setSplashScreenVisible,
+  splashScreenVisible,
+}) => {
   const [coverVisible, setCoverVisible] = useState(true);
 
   const {
@@ -39,6 +42,7 @@ const AnimatedSplashScreen = ({ onAnimationEnd }) => {
       zIndex: 10,
       position: "relative",
       left: 78,
+      bottom: 6,
     },
     placeholder: {
       height: 20,
@@ -48,7 +52,7 @@ const AnimatedSplashScreen = ({ onAnimationEnd }) => {
     cover: {
       zIndex: 20,
       position: "relative",
-      bottom: 20,
+      bottom: 26,
       left: 28,
     },
     coverContainer: {
@@ -57,7 +61,10 @@ const AnimatedSplashScreen = ({ onAnimationEnd }) => {
   });
 
   useEffect(() => {
-    const animationEndInterval = setTimeout(onAnimationEnd, 7000);
+    const animationEndInterval = setTimeout(
+      () => setSplashScreenVisible(false),
+      7000
+    );
     const coverEndInterval = setTimeout(() => setCoverVisible(false), 3000);
 
     return () => {
@@ -69,36 +76,38 @@ const AnimatedSplashScreen = ({ onAnimationEnd }) => {
   const text = "Personalising Succession";
 
   return (
-    <Animated.View style={styles.screen}>
-      <Image style={styles.logo} source={require("../../assets/icon.png")} />
+    splashScreenVisible && (
+      <Animated.View style={styles.screen}>
+        <Image style={styles.logo} source={require("../../assets/icon.png")} />
 
-      <Animated.View style={styles.animatedTextBlock}>
-        {text.split("").map((char, id) => (
-          <Animated.Text
-            entering={FadeInLeft.delay(id * 150 + 1500).duration(500)}
-            style={styles.text}
-            key={id}
-          >
-            {char}
-          </Animated.Text>
-        ))}
+        <Animated.View style={styles.animatedTextBlock}>
+          {text.split("").map((char, id) => (
+            <Animated.Text
+              entering={FadeInLeft.delay(id * 150 + 1500).duration(500)}
+              style={styles.text}
+              key={id}
+            >
+              {char}
+            </Animated.Text>
+          ))}
+        </Animated.View>
+
+        <Animated.Image
+          style={styles.waveImg}
+          source={require("../../assets/wave-flipped.png")}
+        />
+
+        <View style={styles.coverContainer}>
+          <Animated.View style={styles.placeholder} />
+          {coverVisible && (
+            <Animated.View
+              exiting={SlideOutRight.duration(7000)}
+              style={[styles.placeholder, styles.cover]}
+            />
+          )}
+        </View>
       </Animated.View>
-
-      <Animated.Image
-        style={styles.waveImg}
-        source={require("../../assets/wave.png")}
-      />
-
-      <View style={styles.coverContainer}>
-        <Animated.View style={styles.placeholder} />
-        {coverVisible && (
-          <Animated.View
-            exiting={SlideOutRight.duration(7000)}
-            style={[styles.placeholder, styles.cover]}
-          />
-        )}
-      </View>
-    </Animated.View>
+    )
   );
 };
 
