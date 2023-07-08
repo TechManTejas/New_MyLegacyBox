@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 
 import {
+  ActivityIndicator,
   Alert,
   AppState,
   BackHandler,
@@ -189,8 +190,8 @@ function App() {
               {splashScreenVisible && (
                 <AnimatedSplashScreen
                   onAnimationEnd={() => {
-                    // setSplashScreenVisible(false);
-                    // setBlackScreen(true);
+                    setSplashScreenVisible(false);
+                    setBlackScreen(true);
                   }}
                 />
               )}
@@ -198,7 +199,7 @@ function App() {
               <Modal transparent visible={blackScreen}>
                 <KeyboardAvoidingView>
                   <ImageBackground style={styles.blackScreen}>
-                    {showPinModal && userPinExists.checked && (
+                    {showPinModal && userPinExists.checked ? (
                       <View style={styles.customPinModal}>
                         <Text style={styles.headText}>
                           {userPinExists.exists
@@ -224,6 +225,8 @@ function App() {
                           />
                         </View>
                       </View>
+                    ) : (
+                      <ActivityIndicator size="large" color="white" />
                     )}
                   </ImageBackground>
                 </KeyboardAvoidingView>

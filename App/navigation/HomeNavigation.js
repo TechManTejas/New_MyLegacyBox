@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createStackNavigator } from "@react-navigation/stack";
 import { SCREEN_NAMES } from "../constants/screenNames";
 import HomeScreen from "../screens/HomeScreen";
 import { useTheme } from "../theme/ThemeProvider";
@@ -20,7 +20,7 @@ import RealEstateFinancialHoldingNavigation from "./FinancialHoldingsNavigation/
 import DematNavigation from "./FinancialInstitutionNavigation/DematNavigation";
 import DematFinancialHoldingNavigation from "./FinancialHoldingsNavigation/DematFinancialHoldingNavigation";
 
-const Stack = createNativeStackNavigator();
+const Stack = createStackNavigator();
 
 const HomeNavigation = () => {
   const {

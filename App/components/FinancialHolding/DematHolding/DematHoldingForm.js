@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import { useCallback, useState } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { Formik } from "formik";
 import { toFormikValidationSchema } from "zod-formik-adapter";
@@ -205,6 +205,26 @@ const DematHoldingForm = ({
               />
 
               <CustomInputGroup
+                name="nominee"
+                placeholder="Enter Nominee"
+                title="Nominee"
+                optional
+                onChange={handleChange("nominee")}
+                onBlur={handleBlur("nominee")}
+                value={values.nominee}
+                messages={
+                  customErrors.nominee
+                    ? [
+                        {
+                          id: "nominee",
+                          text: customErrors.nominee,
+                        },
+                      ]
+                    : undefined
+                }
+              />
+
+              <CustomInputGroup
                 name="poc"
                 placeholder="Enter Point of contact name"
                 title="Point of contact"
@@ -251,8 +271,10 @@ const DematHoldingForm = ({
                 placeholder="Enter the Invested Amount"
                 title="Invested Amount (in Rs)"
                 onChange={(value) => {
-                  if (value==" " || value=="") setFieldValue("investedAmount", "")
-                  else if (!isNaN(value)) setFieldValue("investedAmount", + value)
+                  if (value == " " || value == "")
+                    setFieldValue("investedAmount", "");
+                  else if (!isNaN(value))
+                    setFieldValue("investedAmount", +value);
                 }}
                 onBlur={handleBlur("investedAmount")}
                 value={values.investedAmount}

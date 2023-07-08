@@ -4,7 +4,10 @@ import { Formik } from "formik";
 import { toFormikValidationSchema } from "zod-formik-adapter";
 import CustomInputGroup from "../../Form/CustomInputGroup";
 import DateTimePicker from "@react-native-community/datetimepicker";
-import { cleanObjectAndTrim, objectToDropDownLabelAndValues } from "../../../utils/manipulators";
+import {
+  cleanObjectAndTrim,
+  objectToDropDownLabelAndValues,
+} from "../../../utils/manipulators";
 import { useTheme } from "../../../theme/ThemeProvider";
 import BlueButton from "../../Common/Button/BlueButton";
 import { useNavigation } from "@react-navigation/native";
@@ -18,14 +21,24 @@ import {
 } from "../../../constants/financialHoldings/insuranceHolding";
 import { insuranceHoldingValidator } from "../../../utils/form/validators/insuranceHoldingValidator";
 
-const InsuranceHoldingForm = ({ ctaCaption, defaultBody, apiCallback, isLoading, initialValues }) => {
-
+const InsuranceHoldingForm = ({
+  ctaCaption,
+  defaultBody,
+  apiCallback,
+  isLoading,
+  initialValues,
+}) => {
   const [customErrors, setCustomErrors] = useState({});
   const [globalErrorMessage, setGlobalErrorMessage] = useState("");
   const navigation = useNavigation();
-  const [datePickerOptions, setDatePickerOptions] = useState({ show: false, property: "" });
+  const [datePickerOptions, setDatePickerOptions] = useState({
+    show: false,
+    property: "",
+  });
 
-  const { theme: { colors, spacing, fontSize, fontFamily } } = useTheme();
+  const {
+    theme: { colors, spacing, fontSize, fontFamily },
+  } = useTheme();
 
   const customErrorWithValidation = useCallback(({ values, errors }) => {
     let customErrors;
@@ -132,21 +145,28 @@ const InsuranceHoldingForm = ({ ctaCaption, defaultBody, apiCallback, isLoading,
         return (
           <CustomKeyboardAvoidingScrollView>
             <View style={styles.container}>
-
-              {datePickerOptions.show &&
+              {datePickerOptions.show && (
                 <DateTimePicker
-                  value={values[datePickerOptions.property] ? values[datePickerOptions.property] : new Date()}
+                  value={
+                    values[datePickerOptions.property]
+                      ? values[datePickerOptions.property]
+                      : new Date()
+                  }
                   mode="date"
                   display="default"
                   onChange={(event, selectedDate) => {
-                    setDatePickerOptions({ show: false, property: datePickerOptions.property })
+                    setDatePickerOptions({
+                      show: false,
+                      property: datePickerOptions.property,
+                    });
                     if (event.type === "set") {
-                      setFieldValue(datePickerOptions.property, selectedDate)
-                      return
+                      setFieldValue(datePickerOptions.property, selectedDate);
+                      return;
                     }
                   }}
-                />}
-                
+                />
+              )}
+
               <CustomInputGroup
                 name="policyName"
                 placeholder="Enter your Policy Name"
@@ -199,11 +219,11 @@ const InsuranceHoldingForm = ({ ctaCaption, defaultBody, apiCallback, isLoading,
                 messages={
                   customErrors.policyType
                     ? [
-                      {
-                        id: "policyType",
-                        text: customErrors.policyType,
-                      },
-                    ]
+                        {
+                          id: "policyType",
+                          text: customErrors.policyType,
+                        },
+                      ]
                     : undefined
                 }
                 showSelectedIcon
@@ -219,11 +239,11 @@ const InsuranceHoldingForm = ({ ctaCaption, defaultBody, apiCallback, isLoading,
                 messages={
                   customErrors.beneficiary
                     ? [
-                      {
-                        id: "beneficiary",
-                        text: customErrors.beneficiary,
-                      },
-                    ]
+                        {
+                          id: "beneficiary",
+                          text: customErrors.beneficiary,
+                        },
+                      ]
                     : undefined
                 }
                 showSelectedIcon
@@ -240,11 +260,11 @@ const InsuranceHoldingForm = ({ ctaCaption, defaultBody, apiCallback, isLoading,
                 messages={
                   customErrors.premiumFrequency
                     ? [
-                      {
-                        id: "premiumFrequency",
-                        text: customErrors.premiumFrequency,
-                      },
-                    ]
+                        {
+                          id: "premiumFrequency",
+                          text: customErrors.premiumFrequency,
+                        },
+                      ]
                     : undefined
                 }
                 showSelectedIcon
@@ -268,23 +288,23 @@ const InsuranceHoldingForm = ({ ctaCaption, defaultBody, apiCallback, isLoading,
                     value={
                       values.dateOfPremium
                         ? new Date(values.dateOfPremium).toLocaleDateString(
-                          "en-us",
-                          {
-                            year: "numeric",
-                            month: "short",
-                            day: "2-digit",
-                          }
-                        )
+                            "en-us",
+                            {
+                              year: "numeric",
+                              month: "short",
+                              day: "2-digit",
+                            }
+                          )
                         : ""
                     }
                     messages={
                       customErrors.dateOfPremium
                         ? [
-                          {
-                            id: "dateOfPremium",
-                            text: customErrors.dateOfPremium,
-                          },
-                        ]
+                            {
+                              id: "dateOfPremium",
+                              text: customErrors.dateOfPremium,
+                            },
+                          ]
                         : undefined
                     }
                     textTransformNormal
@@ -306,23 +326,23 @@ const InsuranceHoldingForm = ({ ctaCaption, defaultBody, apiCallback, isLoading,
                     value={
                       values.dateOfMaturity
                         ? new Date(values.dateOfMaturity).toLocaleDateString(
-                          "en-us",
-                          {
-                            year: "numeric",
-                            month: "short",
-                            day: "2-digit",
-                          }
-                        )
+                            "en-us",
+                            {
+                              year: "numeric",
+                              month: "short",
+                              day: "2-digit",
+                            }
+                          )
                         : ""
                     }
                     messages={
                       customErrors.dateOfMaturity
                         ? [
-                          {
-                            id: "dateOfMaturity",
-                            text: customErrors.dateOfMaturity,
-                          },
-                        ]
+                            {
+                              id: "dateOfMaturity",
+                              text: customErrors.dateOfMaturity,
+                            },
+                          ]
                         : undefined
                     }
                     textTransformNormal
@@ -331,23 +351,44 @@ const InsuranceHoldingForm = ({ ctaCaption, defaultBody, apiCallback, isLoading,
               </View>
 
               <CustomInputGroup
+                name="nominee"
+                placeholder="Enter Nominee"
+                title="Nominee"
+                optional
+                onChange={handleChange("nominee")}
+                onBlur={handleBlur("nominee")}
+                value={values.nominee}
+                messages={
+                  customErrors.nominee
+                    ? [
+                        {
+                          id: "nominee",
+                          text: customErrors.nominee,
+                        },
+                      ]
+                    : undefined
+                }
+              />
+
+              <CustomInputGroup
                 name="policyAmount"
                 placeholder="Enter the Policy Amount"
                 title="Policy Amount (in Rs)"
                 onChange={(value) => {
-                  if (value == " " || value == "") setFieldValue("policyAmount", "")
-                  else if (!isNaN(value)) setFieldValue("policyAmount", + value)
+                  if (value == " " || value == "")
+                    setFieldValue("policyAmount", "");
+                  else if (!isNaN(value)) setFieldValue("policyAmount", +value);
                 }}
                 onBlur={handleBlur("policyAmount")}
                 value={values.policyAmount}
                 messages={
                   customErrors.policyAmount
                     ? [
-                      {
-                        id: "policyAmount",
-                        text: customErrors.policyAmount,
-                      },
-                    ]
+                        {
+                          id: "policyAmount",
+                          text: customErrors.policyAmount,
+                        },
+                      ]
                     : undefined
                 }
                 optional
@@ -359,19 +400,21 @@ const InsuranceHoldingForm = ({ ctaCaption, defaultBody, apiCallback, isLoading,
                 placeholder="Enter the Premium Amount"
                 title="Premium Amount (in Rs)"
                 onChange={(value) => {
-                  if (value == " " || value == "") setFieldValue("premiumAmount", "")
-                  else if (!isNaN(value)) setFieldValue("premiumAmount", + value)
+                  if (value == " " || value == "")
+                    setFieldValue("premiumAmount", "");
+                  else if (!isNaN(value))
+                    setFieldValue("premiumAmount", +value);
                 }}
                 onBlur={handleBlur("premiumAmount")}
                 value={values.premiumAmount}
                 messages={
                   customErrors.premiumAmount
                     ? [
-                      {
-                        id: "premiumAmount",
-                        text: customErrors.premiumAmount,
-                      },
-                    ]
+                        {
+                          id: "premiumAmount",
+                          text: customErrors.premiumAmount,
+                        },
+                      ]
                     : undefined
                 }
                 optional

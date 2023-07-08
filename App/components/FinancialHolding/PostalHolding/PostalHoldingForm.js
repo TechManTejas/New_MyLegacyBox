@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import { useCallback, useState } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { Formik } from "formik";
 import { toFormikValidationSchema } from "zod-formik-adapter";
@@ -216,12 +216,31 @@ const PostalHoldingForm = ({
                 }
               />
               <CustomInputGroup
+                name="nominee"
+                placeholder="Enter Nominee"
+                title="Nominee"
+                optional
+                onChange={handleChange("nominee")}
+                onBlur={handleBlur("nominee")}
+                value={values.nominee}
+                messages={
+                  customErrors.nominee
+                    ? [
+                        {
+                          id: "nominee",
+                          text: customErrors.nominee,
+                        },
+                      ]
+                    : undefined
+                }
+              />
+              <CustomInputGroup
                 name="amount"
                 placeholder="Enter the Balance"
                 title="Balance (in Rs)"
                 onChange={(value) => {
-                  if (value==" " || value=="") setFieldValue("amount", "")
-                  else if (!isNaN(value)) setFieldValue("amount", + value)
+                  if (value == " " || value == "") setFieldValue("amount", "");
+                  else if (!isNaN(value)) setFieldValue("amount", +value);
                 }}
                 onBlur={handleBlur("amount")}
                 value={values.amount}

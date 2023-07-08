@@ -43,5 +43,14 @@ export const bankHoldingValidator = z
       })
       .optional(),
 
+    nominee: z
+      .string({
+        invalid_type_error: "Invalid type for Nominee",
+      })
+      .refine(value => /^[A-Za-z\s]+$/.test(value), {
+        message: "Input should be a non-numeric value",
+      })
+      .optional(),
+
   })
   .strict();

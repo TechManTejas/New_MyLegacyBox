@@ -1,11 +1,5 @@
-import { Dimensions, StyleSheet, View } from "react-native";
-import Animated, {
-  FadeInLeft,
-  FadeInUp,
-  FadeInRight,
-  FadeOutRight,
-  SlideOutRight,
-} from "react-native-reanimated";
+import { Dimensions, StyleSheet, View, Image } from "react-native";
+import Animated, { FadeInLeft, SlideOutRight } from "react-native-reanimated";
 import { useTheme } from "../theme/ThemeProvider";
 import { useEffect, useState } from "react";
 
@@ -39,15 +33,15 @@ const AnimatedSplashScreen = ({ onAnimationEnd }) => {
       flexDirection: "row",
     },
     waveImg: {
-      height: 20,
+      height: 14,
       width: 100,
       marginHorizontal: spacing.lg,
       zIndex: 10,
       position: "relative",
-      left: 70,
+      left: 78,
     },
     placeholder: {
-      height: 30,
+      height: 20,
       width: 100,
       backgroundColor: "white",
     },
@@ -55,7 +49,7 @@ const AnimatedSplashScreen = ({ onAnimationEnd }) => {
       zIndex: 20,
       position: "relative",
       bottom: 20,
-      left: 20,
+      left: 28,
     },
     coverContainer: {
       flexDirection: "row",
@@ -76,11 +70,7 @@ const AnimatedSplashScreen = ({ onAnimationEnd }) => {
 
   return (
     <Animated.View style={styles.screen}>
-      <Animated.Image
-        style={styles.logo}
-        entering={FadeInUp.duration(1500)}
-        source={require("../../assets/icon.png")}
-      />
+      <Image style={styles.logo} source={require("../../assets/icon.png")} />
 
       <Animated.View style={styles.animatedTextBlock}>
         {text.split("").map((char, id) => (
@@ -96,7 +86,7 @@ const AnimatedSplashScreen = ({ onAnimationEnd }) => {
 
       <Animated.Image
         style={styles.waveImg}
-        source={require("../../assets/waveb.png")}
+        source={require("../../assets/wave.png")}
       />
 
       <View style={styles.coverContainer}>
