@@ -101,7 +101,10 @@ function App() {
     });
   };
 
-  const loadExtraUserAuth = async (nextAppState, firstRun = false) => {
+  const loadAppUserAuth = async (nextAppState, firstRun = false) => {
+
+    console.log({ firstRun, nextAppState, splashScreenVisible: splashScreenVisibleRef.current })
+
     const enrolledLevel = await getEnrolledLevelAsync();
 
     if (
@@ -130,9 +133,9 @@ function App() {
     let appStateListener = null;
 
     if (!splashScreenVisible) {
-      loadExtraUserAuth("active", true);
+      loadAppUserAuth("active", true);
     } else {
-      appStateListener = AppState.addEventListener("change", loadExtraUserAuth);
+      appStateListener = AppState.addEventListener("change", loadAppUserAuth);
     }
 
     reactToUpdates();
@@ -196,7 +199,7 @@ function App() {
                 />
               )}
 
-              <Modal transparent visible={blackScreen}>
+              <Modal transparent visible={blackScreen} animationType="slide">
                 <KeyboardAvoidingView>
                   <ImageBackground style={styles.blackScreen}>
                     {showPinModal && userPinExists.checked ? (
