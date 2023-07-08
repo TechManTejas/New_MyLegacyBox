@@ -235,7 +235,6 @@ const NomineeForm = ({ ctaCaption, defaultBody, apiCallback, isLoading, initialV
                     ? [{ id: "email", text: customErrors.email }]
                     : undefined
                 }
-                optional
               />
 
               <View style={[styles.sectionTitleContainer, styles.row]}>
