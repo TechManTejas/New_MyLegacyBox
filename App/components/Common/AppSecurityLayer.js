@@ -122,7 +122,7 @@ const AppSecurityLevel = ({ splashScreenVisible }) => {
       justifyContent: "center",
     },
     customPinModal: {
-      padding: spacing.x4l,
+      padding: spacing.xxxl,
       borderRadius: spacing.sm,
       backgroundColor: "white",
       alignItems: "center",
