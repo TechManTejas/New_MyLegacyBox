@@ -77,10 +77,10 @@ const AnimatedSplashScreen = ({
 
   return (
     splashScreenVisible && (
-      <Animated.View style={styles.screen}>
-        <Image style={styles.logo} source={require("../../assets/icon.png")} />
+      <View style={styles.screen}>
+        <Image style={styles.logo} fadeDuration={0} source={require("../../assets/icon.png")} />
 
-        <Animated.View style={styles.animatedTextBlock}>
+        <View style={styles.animatedTextBlock}>
           {text.split("").map((char, id) => (
             <Animated.Text
               entering={FadeInLeft.delay(id * 150 + 1500).duration(500)}
@@ -90,15 +90,15 @@ const AnimatedSplashScreen = ({
               {char}
             </Animated.Text>
           ))}
-        </Animated.View>
+        </View>
 
-        <Animated.Image
+        <Image
           style={styles.waveImg}
           source={require("../../assets/wave-flipped.png")}
         />
 
         <View style={styles.coverContainer}>
-          <Animated.View style={styles.placeholder} />
+          <View style={styles.placeholder} />
           {coverVisible && (
             <Animated.View
               exiting={SlideOutRight.duration(7000)}
@@ -106,7 +106,7 @@ const AnimatedSplashScreen = ({
             />
           )}
         </View>
-      </Animated.View>
+      </View>
     )
   );
 };
