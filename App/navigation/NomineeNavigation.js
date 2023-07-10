@@ -1,14 +1,14 @@
 import { SCREEN_NAMES } from "../constants/screenNames";
 import NomineeScreen from "../screens/NomineeScreen";
 import AddNomineeForm from "../components/Nominee/AddNomineeForm";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createStackNavigator } from "@react-navigation/stack";
 import { useTheme } from "../theme/ThemeProvider";
 import CustomHeaderLeftIcon from "../components/Common/CustomHeaderLeftIcon";
 import CustomHeaderTitle from "../components/Common/CustomHeaderTitle";
 import { StyleSheet } from "react-native";
 import CustomHeaderRightIcon from "../components/Common/CustomHeaderRightIcon";
 
-const Stack = createNativeStackNavigator();
+const Stack = createStackNavigator();
 
 const NomineeNavigation = () => {
 

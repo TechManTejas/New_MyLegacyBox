@@ -1,21 +1,19 @@
-import { Dimensions, StyleSheet } from "react-native";
-import Animated, {
-  FadeInLeft,
-  FadeInUp,
-  FadeInRight,
-} from "react-native-reanimated";
+import { Dimensions, StyleSheet, View, Image } from "react-native";
+import Animated, { FadeInLeft, SlideOutRight } from "react-native-reanimated";
 import { useTheme } from "../theme/ThemeProvider";
-import { useEffect } from "react";
-import { SCREEN_NAMES } from "../constants/screenNames";
+import { useEffect, useState } from "react";
 
-const AnimatedSplashScreen = ({ onAnimationEnd }) => {
-
+const AnimatedSplashScreen = ({
+  setSplashScreenVisible,
+  splashScreenVisible,
+}) => {
+  const [coverVisible, setCoverVisible] = useState(true);
 
   const {
     theme: { colors, fontFamily, fontSize, spacing },
   } = useTheme();
 
-  const { height } = Dimensions.get("screen");
+  const { height } = Dimensions.get("window");
 
   const styles = StyleSheet.create({
     screen: {
@@ -38,48 +36,78 @@ const AnimatedSplashScreen = ({ onAnimationEnd }) => {
       flexDirection: "row",
     },
     waveImg: {
-      height: 20,
+      height: 14,
       width: 100,
       marginHorizontal: spacing.lg,
       zIndex: 10,
       position: "relative",
-      left: 70,
+      left: 78,
+      bottom: 6,
+    },
+    placeholder: {
+      height: 20,
+      width: 100,
+      backgroundColor: "white",
+    },
+    cover: {
+      zIndex: 20,
+      position: "relative",
+      bottom: 26,
+      left: 28,
+    },
+    coverContainer: {
+      flexDirection: "row",
     },
   });
 
   useEffect(() => {
-    const interval = setTimeout(onAnimationEnd, 7000);
-    return ()=>clearTimeout(interval)
+    const animationEndInterval = setTimeout(
+      () => setSplashScreenVisible(false),
+      7000
+    );
+    const coverEndInterval = setTimeout(() => setCoverVisible(false), 3000);
+
+    return () => {
+      clearTimeout(animationEndInterval);
+      clearTimeout(coverEndInterval);
+    };
   }, []);
 
   const text = "Personalising Succession";
 
   return (
-    <Animated.View style={styles.screen}>
-      <Animated.Image
-        style={styles.logo}
-        entering={FadeInUp.duration(1500)}
-        source={require("../../assets/icon.png")}
-      />
+    splashScreenVisible && (
+      <View style={styles.screen}>
+        <Image style={styles.logo} fadeDuration={0} source={require("../../assets/icon.png")} />
 
-      <Animated.View style={styles.animatedTextBlock}>
-        {text.split("").map((char, id) => (
-          <Animated.Text
-            entering={FadeInLeft.delay(id * 150 + 1500).duration(500)}
-            style={styles.text}
-            key={id}
-          >
-            {char}
-          </Animated.Text>
-        ))}
-      </Animated.View>
+        <View style={styles.animatedTextBlock}>
+          {text.split("").map((char, id) => (
+            <Animated.Text
+              entering={FadeInLeft.delay(id * 150 + 1500).duration(500)}
+              style={styles.text}
+              key={id}
+            >
+              {char}
+            </Animated.Text>
+          ))}
+        </View>
 
-      <Animated.Image
-        entering={FadeInRight.delay(4500).duration(1500)}
-        style={styles.waveImg}
-        source={require("../../assets/waveb.png")}
-      />
-    </Animated.View>
+        <Image
+          style={styles.waveImg}
+          source={require("../../assets/wave-flipped.png")}
+        />
+
+        <View style={styles.coverContainer}>
+          <View style={styles.placeholder} />
+          {coverVisible && (
+            <Animated.View
+              exiting={SlideOutRight.duration(7000)}
+              style={[styles.placeholder, styles.cover]}
+            />
+          )}
+        </View>
+      </View>
+    )
   );
 };
 
