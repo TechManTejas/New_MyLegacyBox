@@ -1,4 +1,5 @@
 export const SCREEN_NAMES = {
+  AssetSharingScreen: "ASSET_SHARING_SCREEN",
   feedbackScreen: "FEEDBACK_SCREEN",
 
   globalNavigationModal: "GLOBAL_NAVIGATION_MODAL",

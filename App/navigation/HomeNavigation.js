@@ -19,6 +19,7 @@ import RealEstateNavigation from "./FinancialInstitutionNavigation/RealEstateNav
 import RealEstateFinancialHoldingNavigation from "./FinancialHoldingsNavigation/RealEstateFinancialHoldingNavigation";
 import DematNavigation from "./FinancialInstitutionNavigation/DematNavigation";
 import DematFinancialHoldingNavigation from "./FinancialHoldingsNavigation/DematFinancialHoldingNavigation";
+import AssetSharingScreen from "../screens/AssetSharingScreen";
 
 const Stack = createStackNavigator();
 
@@ -69,6 +70,14 @@ const HomeNavigation = () => {
       {DematFinancialHoldingNavigation({ Stack })}
       {ProvidentFundFinancialHoldingNavigation({ Stack })}
       {RealEstateFinancialHoldingNavigation({ Stack })}
+
+      <Stack.Screen
+        name={SCREEN_NAMES.AssetSharingScreen}
+        component={AssetSharingScreen}
+        options={{
+          title: "Asset Sharing"
+        }}
+      />
     </Stack.Navigator>
   );
 };

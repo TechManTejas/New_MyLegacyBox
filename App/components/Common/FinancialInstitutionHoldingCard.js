@@ -4,7 +4,7 @@ import FinancialHoldingItemWrapper from "../FinancialHolding/FinancialHoldingIte
 import CustomPill from "./Pill/CustomPill";
 import { FontAwesome5 } from '@expo/vector-icons';
 
-const FinancialInstitutionHoldingItem = ({ holdingClass, updatedAt, content, title, tagLabel, onPress, nomineeScreen }) => {
+const FinancialInstitutionHoldingCard = ({ holdingClass, updatedAt, content, title, tagLabel, onPress, nomineeScreen }) => {
 
     const { theme: { colors, fontFamily, fontSize, spacing } } = useTheme();
 
@@ -169,4 +169,4 @@ const FinancialInstitutionHoldingItem = ({ holdingClass, updatedAt, content, tit
     )
 }
 
-export default FinancialInstitutionHoldingItem;
+export default FinancialInstitutionHoldingCard;
