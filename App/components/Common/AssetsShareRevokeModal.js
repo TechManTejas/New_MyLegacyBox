@@ -36,7 +36,7 @@ const AssetsShareRevokeModal = ({
 
   const styles = StyleSheet.create({
     modal: {
-      // backgroundColor: "rgba(0, 0, 0, 0.7)",
+      backgroundColor: "rgba(0, 0, 0, 0.7)",
       height: height,
       paddingTop: height / 2,
     },
@@ -90,6 +90,9 @@ const AssetsShareRevokeModal = ({
       marginTop: spacing.sm,
       marginHorizontal: spacing.sm,
     },
+    nomineeContainer: {
+      paddingHorizontal: spacing.sm,
+    },
     nomineename: {
       fontFamily: fontFamily.semiBold,
       fontSize: fontSize.xl,
@@ -134,14 +137,14 @@ const AssetsShareRevokeModal = ({
   const navigation = useNavigation();
 
   const share = (item) => {
-      shareAssetToNominee({
-        nomineeId: item._id,
-        nomineeEmail: item.email,
-        financialArtifactId: artifactDetails.financialArtifactId,
-        financialArtifactType: artifactDetails.financialArtifactType,
-        isFinancialArtifactOfTypeInstitution: false,
-      })
-  }
+    shareAssetToNominee({
+      nomineeId: item._id,
+      nomineeEmail: item.email,
+      financialArtifactId: artifactDetails.financialArtifactId,
+      financialArtifactType: artifactDetails.financialArtifactType,
+      isFinancialArtifactOfTypeInstitution: false,
+    });
+  };
 
   const revoke = (item) =>
     revokeAssetAccessFromNominee({
@@ -159,7 +162,6 @@ const AssetsShareRevokeModal = ({
               <Pressable
                 style={styles.modalbtn}
                 onPress={() => {
-                  console.log("Going");
                   navigation.navigate(SCREEN_NAMES.homeAddNomineeScreen);
                 }}
               >
@@ -169,7 +171,11 @@ const AssetsShareRevokeModal = ({
                 style={styles.closebtn}
                 onPress={() => setModalVisible(false)}
               >
-                <FontAwesome name="close" size={fontSize.lg} color={colors.black200} />
+                <FontAwesome
+                  name="close"
+                  size={fontSize.lg}
+                  color={colors.black200}
+                />
               </Pressable>
             </View>
           </View>
@@ -182,7 +188,7 @@ const AssetsShareRevokeModal = ({
           ) : nomineeList.data.entities === null ? (
             <Empty message="No Nominees Available" />
           ) : (
-            <View>
+            <View style={styles.nomineeContainer}>
               {Object.values(
                 nomineeList.data !== undefined ? nomineeList.data.entities : {}
               ).map((item) => {
