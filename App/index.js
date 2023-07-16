@@ -46,7 +46,7 @@ function App() {
                 splashScreenVisible={splashScreenVisible}
                 setSplashScreenVisible={setSplashScreenVisible}
               />
-              <AppSecurityLevel splashScreenVisible={splashScreenVisible} />
+              {/* <AppSecurityLevel splashScreenVisible={splashScreenVisible} /> */}
               <RootNavigation />
             </SafeAreaProvider>
           </SplashScreen>
