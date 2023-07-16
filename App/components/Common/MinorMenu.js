@@ -1,6 +1,5 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
-import { HOME_MINOR_MENU_DATA } from "../../data/HomeData";
 import MenuCard from "../Common/MenuCard";
 import { useTheme } from "../../theme/ThemeProvider";
 
@@ -18,7 +17,6 @@ const MinorMenu = ({ centered, menuData, title }) => {
       paddingHorizontal: spacing.sm,
       paddingTop: spacing.md,
       paddingBottom: 0,
-      // backgroundColor: colors.white400,
     },
     header: {
       marginBottom: spacing.sm,

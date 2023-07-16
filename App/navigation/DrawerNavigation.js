@@ -7,12 +7,14 @@ import FeedbackScreen from "../screens/FeedbackScreen";
 import { useTheme } from "../theme/ThemeProvider";
 import CustomHeaderLeftIcon from "../components/Common/CustomHeaderLeftIcon";
 import CustomHeaderTitle from "../components/Common/CustomHeaderTitle";
+import SharedArtifactsNavigation from "./SharedArtifactsNavigation";
 
 const Drawer = createDrawerNavigator();
 
 const DrawerNavigation = () => {
-
-  const { theme: { colors } } = useTheme();
+  const {
+    theme: { colors },
+  } = useTheme();
 
   const styles = StyleSheet.create({
     headerStyle: {
@@ -63,9 +65,9 @@ const DrawerNavigation = () => {
         }}
         listeners={() => ({
           drawerItemPress: (e) => {
-            e.preventDefault()
-            Linking.openURL("https://www.oiconomos.com/")
-          }
+            e.preventDefault();
+            Linking.openURL("https://www.oiconomos.com/");
+          },
         })}
       />
       <Drawer.Screen
@@ -76,9 +78,9 @@ const DrawerNavigation = () => {
         }}
         listeners={() => ({
           drawerItemPress: (e) => {
-            e.preventDefault()
-            Linking.openURL("https://www.oiconomos.com/privacy-policy")
-          }
+            e.preventDefault();
+            Linking.openURL("https://www.oiconomos.com/privacy-policy");
+          },
         })}
       />
       <Drawer.Screen
@@ -89,9 +91,9 @@ const DrawerNavigation = () => {
         }}
         listeners={() => ({
           drawerItemPress: (e) => {
-            e.preventDefault()
-            Linking.openURL("https://www.oiconomos.com/faq")
-          }
+            e.preventDefault();
+            Linking.openURL("https://www.oiconomos.com/faq");
+          },
         })}
       />
       <Drawer.Screen
@@ -102,10 +104,18 @@ const DrawerNavigation = () => {
         }}
         listeners={() => ({
           drawerItemPress: (e) => {
-            e.preventDefault()
-            Linking.openURL("https://www.oiconomos.com/")
-          }
+            e.preventDefault();
+            Linking.openURL("https://www.oiconomos.com/");
+          },
         })}
+      />
+      <Drawer.Screen
+        name={SCREEN_NAMES.sharedArtifactsNavigator}
+        component={SharedArtifactsNavigation}
+        options={{
+          title: "Shared Artifacts",
+          headerShown: false,
+        }}
       />
     </Drawer.Navigator>
   );

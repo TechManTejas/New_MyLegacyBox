@@ -10,18 +10,27 @@ import { SCREEN_NAMES } from "../constants/screenNames";
 import FinancialInstitutionHoldingItem from "../components/Common/FinancialInstitutionHoldingCard";
 import { DEMAT_TYPE_MAP_TO_TITLE_MAP } from "../constants/financialHoldings/dematHolding";
 import { numberWithCommas } from "../utils/manipulators";
+import { useState } from "react";
+import AssetsShareRevokeModal from "../components/Common/AssetsShareRevokeModal";
 
 const DematScreen = () => {
-
   const navigation = useNavigation();
 
   const { data, isLoading, isFetching } = useGetFinancialHoldingForDematQuery();
 
-  const { theme: { spacing, colors } } = useTheme();
+  const {
+    theme: { spacing, colors },
+  } = useTheme();
 
   const pressHandler = () => {
     navigation.navigate(SCREEN_NAMES.addDematFinancialHoldingScreen);
   };
+
+  const [modalVisible, setModalVisible] = useState(false);
+  const [artifactDetails, setArtifactDetails] = useState({
+    financialArtifactId: "",
+    financialArtifactType: "",
+  });
 
   const styles = StyleSheet.create({
     container: {
@@ -55,7 +64,7 @@ const DematScreen = () => {
           contentContainerStyle={styles.listContentContainer}
           data={data.ids.map((id) => data.entities[id])}
           renderItem={({ item }) => (
-            <FinancialInstitutionHoldingItem 
+            <FinancialInstitutionHoldingItem
               title={item.holding.broker}
               updatedAt={item.updatedAt}
               holdingClass={item.holdingClass}
@@ -63,19 +72,37 @@ const DematScreen = () => {
               content={[
                 { key: "Customer ID", value: item.holding.customerId },
                 { type: "divider" },
-                { key: "Relationship Manager", value: item.holding.poc || "Not available" },
-                { key: "Relationship Manager's Contact", value: item.holding.pocNumber || "Not available" },
+                {
+                  key: "Relationship Manager",
+                  value: item.holding.poc || "Not available",
+                },
+                {
+                  key: "Relationship Manager's Contact",
+                  value: item.holding.pocNumber || "Not available",
+                },
                 { type: "divider" },
-                { key: "Invested Amount", value: item.holding.investedAmount ? 
-                  `Rs. ${numberWithCommas(item.holding.investedAmount)}`
-                  : "Not available" 
-                }
+                {
+                  key: "Invested Amount",
+                  value: item.holding.investedAmount
+                    ? `Rs. ${numberWithCommas(item.holding.investedAmount)}`
+                    : "Not available",
+                },
               ]}
-              onPress={() => {
-                navigation.navigate(SCREEN_NAMES.updateDematFinancialHoldingScreen, { 
-                  _id: item._id, 
-                  financialHolding: item 
-                })
+              editButtonCallBack={() => {
+                navigation.navigate(
+                  SCREEN_NAMES.updateDematFinancialHoldingScreen,
+                  {
+                    _id: item._id,
+                    financialHolding: item,
+                  }
+                );
+              }}
+              shareButtonCallBack={() => {
+                setArtifactDetails({
+                  financialArtifactId: item._id,
+                  financialArtifactType: item.holdingType,
+                });
+                setModalVisible(true);
               }}
             />
           )}
@@ -83,6 +110,11 @@ const DematScreen = () => {
           ListEmptyComponent={() => <Empty message="No holdings available" />}
         />
       </View>
+      <AssetsShareRevokeModal
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+        artifactDetails={artifactDetails}
+      />
       <View style={styles.footer}>
         <BlueButton
           outline

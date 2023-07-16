@@ -27,7 +27,7 @@ const baseQuery = fetchBaseQuery({
 export const feedbackApiSlice = createApi({
   reducerPath: "feedbackApi",
   baseQuery: baseQuery,
-  tagTypes: ["feedback"],
+  tagTypes: [QUERY_TAGS.feedback],
   endpoints: (builder) => ({
     addFeedback: builder.mutation({
       query: (feedback) => ({
@@ -35,7 +35,7 @@ export const feedbackApiSlice = createApi({
         method: "POST",
         body: feedback,
       }),
-      invalidatesTags: "feedback",
+      invalidatesTags: [QUERY_TAGS.feedback],
     }),
   }),
 });

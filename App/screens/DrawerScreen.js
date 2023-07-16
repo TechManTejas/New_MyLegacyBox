@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import { useCallback } from "react";
 import { View, StyleSheet, Pressable } from "react-native";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import { useTheme } from "../theme/ThemeProvider";
@@ -12,9 +12,17 @@ import {
   DrawerContentScrollView,
   DrawerItemList,
 } from "@react-navigation/drawer";
-
+import { useDispatch } from "react-redux";
+import { vaultApiSlice } from "../services/api/vaultApiSlice";
+import { feedbackApiSlice } from "../services/api/feedbackApiSlice";
+import { nomineeApiSlice } from "../services/api/nomineeApiSlice";
+import { sharedArtifactApiSlice } from "../services/api/sharedArtifactApiSlice";
+import { willApiSlice } from "../services/api/willApiSlice";
 
 const DrawerScreen = (props) => {
+
+  const dispatch = useDispatch()
+
   const {
     theme: { colors, spacing, fontSize },
   } = useTheme();
@@ -22,6 +30,13 @@ const DrawerScreen = (props) => {
   const navigation = useNavigation();
 
   const logout = useCallback(() => {
+
+    dispatch(vaultApiSlice.util.resetApiState())
+    dispatch(feedbackApiSlice.util.resetApiState())
+    dispatch(nomineeApiSlice.util.resetApiState())
+    dispatch(sharedArtifactApiSlice.util.resetApiState())
+    dispatch(willApiSlice.util.resetApiState())
+
     kratosClient
       .performNativeLogout({
         performNativeLogoutBody: {

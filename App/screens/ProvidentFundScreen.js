@@ -10,18 +10,28 @@ import { SCREEN_NAMES } from "../constants/screenNames";
 import FinancialInstitutionHoldingItem from "../components/Common/FinancialInstitutionHoldingCard";
 import { PROVIDENT_FUND_TYPE_TO_TITLE_MAP } from "../constants/financialHoldings/providentFundHolding";
 import { numberWithCommas } from "../utils/manipulators";
+import { useState } from "react";
+import AssetsShareRevokeModal from "../components/Common/AssetsShareRevokeModal";
 
 const ProvidentFundScreen = () => {
-
   const navigation = useNavigation();
 
-  const { data, isLoading, isFetching } = useGetFinancialHoldingForProvidentFundQuery();
+  const { data, isLoading, isFetching } =
+    useGetFinancialHoldingForProvidentFundQuery();
 
-  const { theme: { spacing, colors } } = useTheme();
+  const {
+    theme: { spacing, colors },
+  } = useTheme();
 
   const pressHandler = () => {
     navigation.navigate(SCREEN_NAMES.addProvidentFundFinancialHoldingScreen);
   };
+
+  const [modalVisible, setModalVisible] = useState(false);
+  const [artifactDetails, setArtifactDetails] = useState({
+    financialArtifactId: "",
+    financialArtifactType: "",
+  });
 
   const styles = StyleSheet.create({
     container: {
@@ -62,13 +72,28 @@ const ProvidentFundScreen = () => {
               tagLabel={PROVIDENT_FUND_TYPE_TO_TITLE_MAP[item.holding.pfType]}
               content={[
                 { key: "UAN", value: item.holding.uan },
-                { key: "Amount", value: item.holding.amount ? `Rs. ${numberWithCommas(item.holding.amount)}` : "Not available" }
+                {
+                  key: "Amount",
+                  value: item.holding.amount
+                    ? `Rs. ${numberWithCommas(item.holding.amount)}`
+                    : "Not available",
+                },
               ]}
-              onPress={() => {
-                navigation.navigate(SCREEN_NAMES.updateProvidentFundFinancialHoldingScreen, { 
-                  _id: item._id,
-                  financialHolding: item 
-                })
+              editButtonCallBack={() => {
+                navigation.navigate(
+                  SCREEN_NAMES.updateProvidentFundFinancialHoldingScreen,
+                  {
+                    _id: item._id,
+                    financialHolding: item,
+                  }
+                );
+              }}
+              shareButtonCallBack={() => {
+                setArtifactDetails({
+                  financialArtifactId: item._id,
+                  financialArtifactType: item.holdingType,
+                });
+                setModalVisible(true);
               }}
             />
           )}
@@ -76,6 +101,11 @@ const ProvidentFundScreen = () => {
           ListEmptyComponent={() => <Empty message="No holdings available" />}
         />
       </View>
+      <AssetsShareRevokeModal
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+        artifactDetails={artifactDetails}
+      />
       <View style={styles.footer}>
         <BlueButton
           outline

@@ -13,24 +13,35 @@ import {
   REAL_ESTATE_PROPERTY_AREA_UNIT_TO_TITLE_MAP,
 } from "../constants/financialHoldings/realEstateHolding";
 import { numberWithCommas } from "../utils/manipulators";
+import { useState } from "react";
+import AssetsShareRevokeModal from "../components/Common/AssetsShareRevokeModal";
 
 const RealEstateScreen = () => {
-
   const navigation = useNavigation();
 
   const route = useRoute();
 
   const { realEstateType } = route.params;
 
-  const { data, isLoading, isFetching } = useGetFinancialHoldingForRealEstateQuery({ realEstateType });
+  const { data, isLoading, isFetching } =
+    useGetFinancialHoldingForRealEstateQuery({ realEstateType });
 
-  const { theme: { spacing, colors } } = useTheme();
+  const {
+    theme: { spacing, colors },
+  } = useTheme();
 
   const pressHandler = () => {
     navigation.navigate(SCREEN_NAMES.addRealEstateFinancialHoldingScreen, {
       realEstateType,
     });
   };
+
+  const [modalVisible, setModalVisible] = useState(false);
+  const [artifactDetails, setArtifactDetails] = useState({
+    financialArtifactId: "",
+    financialArtifactType: "",
+  });
+
 
   const styles = StyleSheet.create({
     container: {
@@ -67,34 +78,71 @@ const RealEstateScreen = () => {
             <FinancialInstitutionHoldingItem
               title={item.holding.propertyName}
               holdingClass={item.holdingClass}
-              tagLabel={REAL_ESTATE_OWNERSHIP_STATUS_TO_TITLE_MAP[item.holding.ownershipStatus]}
+              tagLabel={
+                REAL_ESTATE_OWNERSHIP_STATUS_TO_TITLE_MAP[
+                  item.holding.ownershipStatus
+                ]
+              }
               updatedAt={item.updatedAt}
               content={[
-                { key: "Ownership share", value: `${item.holding.ownershipPercentage} %` },
                 {
-                  key: "Area", value: item.holding.propertyArea ? `${item.holding.propertyArea}${item.holding.propertyAreaUnit
-                      ? " " +
-                      REAL_ESTATE_PROPERTY_AREA_UNIT_TO_TITLE_MAP[item.holding.propertyAreaUnit]
-                      : ""
-                    }`
-                    : "Not available"
+                  key: "Ownership share",
+                  value: `${item.holding.ownershipPercentage} %`,
                 },
-                { key: "Property Value", value: item.holding.propertyValue? `Rs. ${numberWithCommas(item.holding.propertyValue)}`: "Not Available" },
-                { key: "Date of Purchase", value: item.holding.dateOfPurchase ? 
-                  new Date(item.holding.dateOfPurchase).toDateString().replace(/^\w+ /, '') : 
-                  "Not available" 
+                {
+                  key: "Area",
+                  value: item.holding.propertyArea
+                    ? `${item.holding.propertyArea}${
+                        item.holding.propertyAreaUnit
+                          ? " " +
+                            REAL_ESTATE_PROPERTY_AREA_UNIT_TO_TITLE_MAP[
+                              item.holding.propertyAreaUnit
+                            ]
+                          : ""
+                      }`
+                    : "Not available",
+                },
+                {
+                  key: "Property Value",
+                  value: item.holding.propertyValue
+                    ? `Rs. ${numberWithCommas(item.holding.propertyValue)}`
+                    : "Not Available",
+                },
+                {
+                  key: "Date of Purchase",
+                  value: item.holding.dateOfPurchase
+                    ? new Date(item.holding.dateOfPurchase)
+                        .toDateString()
+                        .replace(/^\w+ /, "")
+                    : "Not available",
                 },
                 { type: "divider" },
-                { key: "Address", value: item.holding.address ? 
-                  `${item.holding.address.street},\n ${item.holding.address.city}, ${item.holding.address.state}, ${item.holding.address.pinCode}` : "Not Available"
+                {
+                  key: "Address",
+                  value: item.holding.address
+                    ? `${item.holding.address.street},\n ${item.holding.address.city}, ${item.holding.address.state}, ${item.holding.address.pinCode}`
+                    : "Not Available",
                 },
-                { key: "Description", value: item.holding.decription || "Not Available" }
+                {
+                  key: "Description",
+                  value: item.holding.decription || "Not Available",
+                },
               ]}
-              onPress={() => {
-                navigation.navigate(SCREEN_NAMES.updateRealEstateFinancialHoldingScreen, { 
-                  _id: item._id, 
-                  financialHolding: item 
-                })
+              editButtonCallBack={() => {
+                navigation.navigate(
+                  SCREEN_NAMES.updateRealEstateFinancialHoldingScreen,
+                  {
+                    _id: item._id,
+                    financialHolding: item,
+                  }
+                );
+              }}
+              shareButtonCallBack={() => {
+                setArtifactDetails({
+                  financialArtifactId: item._id,
+                  financialArtifactType: item.holdingType,
+                });
+                setModalVisible(true);
               }}
             />
           )}
@@ -102,6 +150,11 @@ const RealEstateScreen = () => {
           ListEmptyComponent={() => <Empty message="No holdings available" />}
         />
       </View>
+      <AssetsShareRevokeModal
+          modalVisible={modalVisible}
+          setModalVisible={setModalVisible}
+          artifactDetails={artifactDetails}
+        />
       <View style={styles.footer}>
         <BlueButton
           outline

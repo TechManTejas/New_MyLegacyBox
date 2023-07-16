@@ -7,6 +7,7 @@ import CustomHeaderLeftIcon from "../components/Common/CustomHeaderLeftIcon";
 import CustomHeaderTitle from "../components/Common/CustomHeaderTitle";
 import { StyleSheet } from "react-native";
 import CustomHeaderRightIcon from "../components/Common/CustomHeaderRightIcon";
+import AssetsWithNomineeScreen from "../screens/AssetsWithNomineeScreen";
 
 const Stack = createStackNavigator();
 
@@ -53,6 +54,17 @@ const NomineeNavigation = () => {
             title: "Add Nominee",
           }}
         />
+
+        <Stack.Screen
+          name={SCREEN_NAMES.assetsWithNomineeScreen}
+          component={AssetsWithNomineeScreen}
+          options={({ route }) => ({
+            headerShown: true,
+            title: `Assets With ${route.params.nominee}`,
+          })}
+          
+        />
+
       </Stack.Group>
     </Stack.Navigator>
   );

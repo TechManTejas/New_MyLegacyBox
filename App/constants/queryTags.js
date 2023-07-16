@@ -22,4 +22,7 @@ export const QUERY_TAGS = {
   will: "WILL",
   willList: "WILL_LIST",
   willHashId: "WILL_HASH_ID",
+
+  shareAsset: "SHARE_ASSET",
+  feedback: "feedback"
 };
