@@ -10,27 +10,40 @@ import { SCREEN_NAMES } from "../constants/screenNames";
 import { useSelector } from "react-redux";
 import { selectInsuranceById } from "../services/insurance/insuranceSlice";
 import FinancialInstitutionInfoCard from "../components/Common/FinancialInstitutionInfoCard";
-import FinancialInstitutionHoldingItem from "../components/Common/FinancialInstitutionHoldingCard";
+import FinancialInstitutionHoldingCard from "../components/Common/FinancialInstitutionHoldingCard";
 import {
-    POLICY_BENEFICIERY_TO_TITLE_MAP,
-    POLICY_PREMIUM_FREQUENCY_TO_TITLE_MAP,
-    POLICY_TYPE_TO_TITLE_MAP,
+  POLICY_BENEFICIERY_TO_TITLE_MAP,
+  POLICY_PREMIUM_FREQUENCY_TO_TITLE_MAP,
+  POLICY_TYPE_TO_TITLE_MAP,
 } from "../constants/financialHoldings/insuranceHolding";
 import { numberWithCommas } from "../utils/manipulators";
+import { useState } from "react";
+import AssetsShareRevokeModal from "../components/Common/AssetsShareRevokeModal";
 
 const InsuranceScreen = ({ route }) => {
-
   const navigation = useNavigation();
   const { _id } = route.params;
   const insurance = useSelector((state) => selectInsuranceById(state, _id));
 
-  const { data, isLoading, isFetching } = useGetFinancialHoldingForInsuranceQuery(_id);
+  const { data, isLoading, isFetching } =
+    useGetFinancialHoldingForInsuranceQuery(_id);
 
-  const { theme: { spacing, colors } } = useTheme();
+  const {
+    theme: { spacing, colors },
+  } = useTheme();
 
   const pressHandler = () => {
-    navigation.navigate(SCREEN_NAMES.addInsuranceFinancialHoldingScreen, { parentId: insurance._id, parentName: insurance.companyName });
+    navigation.navigate(SCREEN_NAMES.addInsuranceFinancialHoldingScreen, {
+      parentId: insurance._id,
+      parentName: insurance.companyName,
+    });
   };
+
+  const [modalVisible, setModalVisible] = useState(false);
+  const [artifactDetails, setArtifactDetails] = useState({
+    financialArtifactId: "",
+    financialArtifactType: "",
+  });
 
   const styles = StyleSheet.create({
     container: {
@@ -61,17 +74,18 @@ const InsuranceScreen = ({ route }) => {
       <View style={styles.listContainer}>
         <FlatList
           ListHeaderComponent={
-            <FinancialInstitutionInfoCard  
-              updateScreenName={SCREEN_NAMES.updateinsuranceScreen} 
-              institute={insurance} 
+            <FinancialInstitutionInfoCard
+              updateScreenName={SCREEN_NAMES.updateinsuranceScreen}
+              institute={insurance}
               type="insurance"
               instituteTitle={insurance.companyName}
-            />}
+            />
+          }
           ListHeaderComponentStyle={styles.listHeader}
           contentContainerStyle={styles.listContentContainer}
           data={data.ids.map((id) => data.entities[id])}
-          renderItem={({ item }) => 
-            <FinancialInstitutionHoldingItem  
+          renderItem={({ item }) => (
+            <FinancialInstitutionHoldingCard
               holdingClass={item.holdingClass}
               title={item.holding.policyName}
               updatedAt={item.updatedAt}
@@ -79,32 +93,73 @@ const InsuranceScreen = ({ route }) => {
               content={[
                 { key: "Home Branch ", value: item.holding.homeBranch },
                 { key: "Policy Number ", value: item.holding.policyNumber },
-                { key: "Beneficiary ", value: POLICY_BENEFICIERY_TO_TITLE_MAP[item.holding.beneficiary] },
-                { type: "divider" },
-                { key: "Policy Amount ", value: item.holding.policyAmount? 
-                  `Rs. ${numberWithCommas(item.holding.policyAmount)}`: "Not Available" 
+                {
+                  key: "Beneficiary ",
+                  value:
+                    POLICY_BENEFICIERY_TO_TITLE_MAP[item.holding.beneficiary],
                 },
-                { key: "Date of Maturity ", value: new Date(item.holding.dateOfMaturity).toDateString().replace(/^\w+ /, '') },
                 { type: "divider" },
-                { key: "Premium Amount ", value: item.holding.premiumAmount? 
-                  `Rs. ${numberWithCommas(item.holding.premiumAmount)}` : "Not Available" 
+                {
+                  key: "Policy Amount ",
+                  value: item.holding.policyAmount
+                    ? `Rs. ${numberWithCommas(item.holding.policyAmount)}`
+                    : "Not Available",
                 },
-                { key: "Date of Premium ", value: new Date(item.holding.dateOfPremium).toDateString().replace(/^\w+ /, '') },
-                { key: "Premium Frequency ", value: POLICY_PREMIUM_FREQUENCY_TO_TITLE_MAP[item.holding.premiumFrequency] }
+                {
+                  key: "Date of Maturity ",
+                  value: new Date(item.holding.dateOfMaturity)
+                    .toDateString()
+                    .replace(/^\w+ /, ""),
+                },
+                { type: "divider" },
+                {
+                  key: "Premium Amount ",
+                  value: item.holding.premiumAmount
+                    ? `Rs. ${numberWithCommas(item.holding.premiumAmount)}`
+                    : "Not Available",
+                },
+                {
+                  key: "Date of Premium ",
+                  value: new Date(item.holding.dateOfPremium)
+                    .toDateString()
+                    .replace(/^\w+ /, ""),
+                },
+                {
+                  key: "Premium Frequency ",
+                  value:
+                    POLICY_PREMIUM_FREQUENCY_TO_TITLE_MAP[
+                      item.holding.premiumFrequency
+                    ],
+                },
               ]}
-              onPress={() => {
-                navigation.navigate(SCREEN_NAMES.updateInsuranceFinancialHoldingScreen, { 
-                  _id: item._id, 
-                  parentId: item.parentId, 
-                  financialHolding: item 
-                })
+              editButtonCallBack={() => {
+                navigation.navigate(
+                  SCREEN_NAMES.updateInsuranceFinancialHoldingScreen,
+                  {
+                    _id: item._id,
+                    parentId: item.parentId,
+                    financialHolding: item,
+                  }
+                );
+              }}
+              shareButtonCallBack={() => {
+                setArtifactDetails({
+                  financialArtifactId: item._id,
+                  financialArtifactType: item.holdingType,
+                });
+                setModalVisible(true);
               }}
             />
-          }
+          )}
           keyExtractor={({ _id }) => _id}
           ListEmptyComponent={() => <Empty message="No holdings available" />}
         />
       </View>
+      <AssetsShareRevokeModal
+          modalVisible={modalVisible}
+          setModalVisible={setModalVisible}
+          artifactDetails={artifactDetails}
+        />
       <View style={styles.footer}>
         <BlueButton
           outline

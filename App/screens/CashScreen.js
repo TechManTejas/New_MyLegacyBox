@@ -10,18 +10,27 @@ import { SCREEN_NAMES } from "../constants/screenNames";
 import FinancialInstitutionHoldingItem from "../components/Common/FinancialInstitutionHoldingCard";
 import { CASH_TYPE_TO_TITLE_MAP } from "../constants/financialHoldings/cashHolding";
 import { numberWithCommas } from "../utils/manipulators";
+import { useState } from "react";
+import AssetsShareRevokeModal from "../components/Common/AssetsShareRevokeModal";
 
 const CashScreen = () => {
-  
   const navigation = useNavigation();
 
   const { data, isLoading, isFetching } = useGetFinancialHoldingForCashQuery();
 
-  const { theme: { spacing, colors } } = useTheme();
+  const {
+    theme: { spacing, colors },
+  } = useTheme();
 
   const pressHandler = () => {
     navigation.navigate(SCREEN_NAMES.addCashFinancialHoldingScreen);
   };
+
+  const [modalVisible, setModalVisible] = useState(false);
+  const [artifactDetails, setArtifactDetails] = useState({
+    financialArtifactId: "",
+    financialArtifactType: "",
+  });
 
   const styles = StyleSheet.create({
     container: {
@@ -54,7 +63,7 @@ const CashScreen = () => {
         <FlatList
           contentContainerStyle={styles.listContentContainer}
           data={data.ids.map((id) => data.entities[id])}
-          renderItem={({ item }) =>
+          renderItem={({ item }) => (
             <FinancialInstitutionHoldingItem
               holdingClass={item.holdingClass}
               updatedAt={item.updatedAt}
@@ -62,24 +71,52 @@ const CashScreen = () => {
               tagLabel={CASH_TYPE_TO_TITLE_MAP[item.holding.cashType]}
               content={[
                 { key: "Phone Number", value: item.holding.phoneNumberOfParty },
-                { key: "Date of Transaction", value: new Date(item.holding.dateOfTransaction).toDateString().replace(/^\w+ /, '') },
-                { key: "Amount", value: item.holding.amount ? `Rs. ${ numberWithCommas(item.holding.amount)}` : "Not Available" },
-                { key: "Address", value: item.holding.address ? 
-                  `${item.holding.address.street},\n ${item.holding.address.city}, ${item.holding.address.state}, ${item.holding.address.pinCode}` : "Not Available"
+                {
+                  key: "Date of Transaction",
+                  value: new Date(item.holding.dateOfTransaction)
+                    .toDateString()
+                    .replace(/^\w+ /, ""),
+                },
+                {
+                  key: "Amount",
+                  value: item.holding.amount
+                    ? `Rs. ${numberWithCommas(item.holding.amount)}`
+                    : "Not Available",
+                },
+                {
+                  key: "Address",
+                  value: item.holding.address
+                    ? `${item.holding.address.street},\n ${item.holding.address.city}, ${item.holding.address.state}, ${item.holding.address.pinCode}`
+                    : "Not Available",
                 },
               ]}
-              onPress={() => {
-                navigation.navigate(SCREEN_NAMES.updateCashFinancialHoldingScreen, { 
-                  _id: item._id, 
-                  financialHolding: item 
-                })
+              editButtonCallBack={() => {
+                navigation.navigate(
+                  SCREEN_NAMES.updateCashFinancialHoldingScreen,
+                  {
+                    _id: item._id,
+                    financialHolding: item,
+                  }
+                );
+              }}
+              shareButtonCallBack={() => {
+                setArtifactDetails({
+                  financialArtifactId: item._id,
+                  financialArtifactType: item.holdingType,
+                });
+                setModalVisible(true);
               }}
             />
-          }
+          )}
           keyExtractor={({ _id }) => _id}
           ListEmptyComponent={() => <Empty message="No holdings available" />}
         />
       </View>
+      <AssetsShareRevokeModal
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+        artifactDetails={artifactDetails}
+      />
       <View style={styles.footer}>
         <BlueButton
           outline

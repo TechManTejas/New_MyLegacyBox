@@ -113,7 +113,7 @@ const WillGenerationScreen = () => {
       try {
         const result = await generateWordHashByWillId(willId).unwrap();
 
-        if (result.data && result.status === 201) {
+        if (result.data && result.status === 200) {
           Linking.openURL(
             generateWordFileWillByHashUrl.replace(":hashedWillId", result.data)
           ).finally(pressHandler);

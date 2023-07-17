@@ -19,6 +19,7 @@ import RealEstateNavigation from "./FinancialInstitutionNavigation/RealEstateNav
 import RealEstateFinancialHoldingNavigation from "./FinancialHoldingsNavigation/RealEstateFinancialHoldingNavigation";
 import DematNavigation from "./FinancialInstitutionNavigation/DematNavigation";
 import DematFinancialHoldingNavigation from "./FinancialHoldingsNavigation/DematFinancialHoldingNavigation";
+import AddNomineeForm from "../components/Nominee/AddNomineeForm";
 
 const Stack = createStackNavigator();
 
@@ -41,8 +42,6 @@ const HomeNavigation = () => {
         headerLeft: () => <CustomHeaderLeftIcon navigation={navigation} />,
         headerTitleAlign: "center",
         headerTitle: (props) => <CustomHeaderTitle {...props} />,
-        headerBackVisible: false,
-        animation: "slide_from_right",
       })}
     >
       <Stack.Screen
@@ -54,6 +53,15 @@ const HomeNavigation = () => {
       />
 
       {/* call the component instead of rendering it to make react navigator happy */}
+      <Stack.Screen
+          name={SCREEN_NAMES.homeAddNomineeScreen}
+          component={AddNomineeForm}
+          options={{
+            headerShown: true,
+            title: "Add Nominee",
+          }}
+        />
+
       {BankNavigation({ Stack })}
       {PostalNavigation({ Stack })}
       {InsuranceNavigation({ Stack })}

@@ -1,5 +1,5 @@
-import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
-import Fontisto from "@expo/vector-icons/Fontisto";
+import {FontAwesome5} from "@expo/vector-icons";
+import {Fontisto} from "@expo/vector-icons";
 import {
   REAL_ESTATE_TYPE_MAP,
   REAL_ESTATE_TYPE_TO_TITLE_MAP,

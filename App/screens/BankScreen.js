@@ -10,20 +10,27 @@ import { SCREEN_NAMES } from "../constants/screenNames";
 import { useSelector } from "react-redux";
 import { selectBankById } from "../services/bank/bankSlice";
 import FinancialInstitutionInfoCard from "../components/Common/FinancialInstitutionInfoCard";
-import FinancialInstitutionHoldingItem from "../components/Common/FinancialInstitutionHoldingCard";
-import { BANK_ACCOUNT_OWNERSHIP_TO_TITLE_MAP, BANK_ACCOUNT_TYPES_TO_TITLE_MAP } from "../constants/financialHoldings/bankHolding";
+import FinancialInstitutionHoldingCard from "../components/Common/FinancialInstitutionHoldingCard";
+import {
+  BANK_ACCOUNT_OWNERSHIP_TO_TITLE_MAP,
+  BANK_ACCOUNT_TYPES_TO_TITLE_MAP,
+} from "../constants/financialHoldings/bankHolding";
 import { numberWithCommas } from "../utils/manipulators";
+import { useState } from "react";
+import AssetsShareRevokeModal from "../components/Common/AssetsShareRevokeModal";
 
 const BankScreen = ({ route }) => {
-
   const navigation = useNavigation();
   const { _id } = route.params;
 
   const bank = useSelector((state) => selectBankById(state, _id));
 
-  const { data, isLoading, isFetching } = useGetFinancialHoldingForBankQuery(_id);
+  const { data, isLoading, isFetching } =
+    useGetFinancialHoldingForBankQuery(_id);
 
-  const { theme: { spacing, colors } } = useTheme();
+  const {
+    theme: { spacing, colors },
+  } = useTheme();
 
   const pressHandler = () => {
     navigation.navigate(SCREEN_NAMES.addBankFinancialHoldingScreen, {
@@ -31,6 +38,12 @@ const BankScreen = ({ route }) => {
       parentName: `${bank.name}, ${bank.branchName}`,
     });
   };
+
+  const [modalVisible, setModalVisible] = useState(false);
+  const [artifactDetails, setArtifactDetails] = useState({
+    financialArtifactId: "",
+    financialArtifactType: "",
+  });
 
   const styles = StyleSheet.create({
     container: {
@@ -54,44 +67,70 @@ const BankScreen = ({ route }) => {
     },
   });
 
-  if (isLoading || isFetching) return <CustomActivityIndicator />
+  if (isLoading || isFetching) return <CustomActivityIndicator />;
 
   return (
     <View style={styles.container}>
       <View style={styles.listContainer}>
         <FlatList
           ListHeaderComponent={
-            <FinancialInstitutionInfoCard 
-              updateScreenName={SCREEN_NAMES.updateBankScreen} 
-              institute={bank} 
+            <FinancialInstitutionInfoCard
+              updateScreenName={SCREEN_NAMES.updateBankScreen}
+              institute={bank}
               type="bank"
-              instituteTitle={`${bank.name}, ${bank.branchName}`} 
+              instituteTitle={`${bank.name}, ${bank.branchName}`}
             />
           }
           ListHeaderComponentStyle={styles.listHeader}
           contentContainerStyle={styles.listContentContainer}
           data={data.ids.map((id) => data.entities[id])}
-          renderItem={({ item }) => 
-            <FinancialInstitutionHoldingItem  
-              holdingClass={item.holdingClass}
-              updatedAt={item.updatedAt}
-              title={BANK_ACCOUNT_TYPES_TO_TITLE_MAP[item.holding.accountType]}
-              tagLabel={BANK_ACCOUNT_OWNERSHIP_TO_TITLE_MAP[item.holding.ownership]}
-              content={[
-                { key: "Account Number", value: item.holding.accountNumber },
-                { key: "Amount ", value: item.holding.amount ? `Rs. ${numberWithCommas(item.holding.amount)}` : "Not Available" },
-              ]}
-              onPress={() => {
-                navigation.navigate(SCREEN_NAMES.updateBankFinancialHoldingScreen, { 
-                  _id: item._id, 
-                  parentId: item.parentId, 
-                  financialHolding: item 
-                })
-              }}
-            />
-          }
+          renderItem={({ item }) => {
+            return (
+              <FinancialInstitutionHoldingCard
+                holdingClass={item.holdingClass}
+                updatedAt={item.updatedAt}
+                title={
+                  BANK_ACCOUNT_TYPES_TO_TITLE_MAP[item.holding.accountType]
+                }
+                tagLabel={
+                  BANK_ACCOUNT_OWNERSHIP_TO_TITLE_MAP[item.holding.ownership]
+                }
+                content={[
+                  { key: "Account Number", value: item.holding.accountNumber },
+                  {
+                    key: "Amount ",
+                    value: item.holding.amount
+                      ? `Rs. ${numberWithCommas(item.holding.amount)}`
+                      : "Not Available",
+                  },
+                ]}
+                editButtonCallBack={() => {
+                  navigation.navigate(
+                    SCREEN_NAMES.updateBankFinancialHoldingScreen,
+                    {
+                      _id: item._id,
+                      parentId: item.parentId,
+                      financialHolding: item,
+                    }
+                  );
+                }}
+                shareButtonCallBack={() => {
+                  setArtifactDetails({
+                    financialArtifactId: item._id,
+                    financialArtifactType: item.holdingType,
+                  });
+                  setModalVisible(true);
+                }}
+              />
+            );
+          }}
           keyExtractor={({ _id }) => _id}
           ListEmptyComponent={() => <Empty message="No holdings available" />}
+        />
+        <AssetsShareRevokeModal
+          modalVisible={modalVisible}
+          setModalVisible={setModalVisible}
+          artifactDetails={artifactDetails}
         />
       </View>
       <View style={styles.footer}>

@@ -1,4 +1,16 @@
 export const SCREEN_NAMES = {
+
+  homeAddNomineeScreen: "HOME_ADD_NOMINEE_SCREEN",
+  sharedArtifactsNavigator: "SHARED_ARTIFACTS_NAVIGATOR",
+
+  singleSharedArtifactTypeScreen: "SINGLE_SHARED_ARTIFACT_TYPE_SCREEN",
+  sharedAssetsTypeListScreen: "SHARED_ASSETS_TYPE_LIST_SCREEN",
+  nominatorsListScreen: "NOMINATORS_LIST_SCREEN",
+
+  assetsWithNomineeScreen: "ASSETS_WITH_NOMINEES_SCREEN",
+
+  financialHoldingScreen: "FOLDING_HOLDING_SCREEN",
+
   feedbackScreen: "FEEDBACK_SCREEN",
 
   globalNavigationModal: "GLOBAL_NAVIGATION_MODAL",

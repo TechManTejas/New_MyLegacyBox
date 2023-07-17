@@ -5,6 +5,7 @@ import { feedbackApiSlice } from "./api/feedbackApiSlice";
 import { willApiSlice } from "./api/willApiSlice";
 import authReducer from "./auth/authSlice";
 import willFormReducer from "./willForm/willFormSlice";
+import { sharedArtifactApiSlice } from "./api/sharedArtifactApiSlice";
 
 const composeEnhancers =
   typeof window === "object" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
@@ -21,12 +22,14 @@ export const store = configureStore({
     [nomineeApiSlice.reducerPath]: nomineeApiSlice.reducer,
     [feedbackApiSlice.reducerPath]: feedbackApiSlice.reducer,
     [willApiSlice.reducerPath]: willApiSlice.reducer,
+    [sharedArtifactApiSlice.reducerPath]: sharedArtifactApiSlice.reducer
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware()
       .concat(vaultApiSlice.middleware)
       .concat(nomineeApiSlice.middleware)
       .concat(feedbackApiSlice.middleware)
-      .concat(willApiSlice.middleware),
+      .concat(willApiSlice.middleware)
+      .concat(sharedArtifactApiSlice.middleware)
   // enhancers: composeEnhancers,
 });

@@ -16,7 +16,7 @@ const FinancialInstitutionItemCard = ({ onPress, name, ifsc, branchName, company
         cardHeader: {
             flexDirection: "row", 
             justifyContent: "space-between", 
-            alignItems: "flex-start"
+            alignItems: "flex-start",
         },
         pressableContainer: {
             width: "100%",

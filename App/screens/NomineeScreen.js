@@ -7,15 +7,17 @@ import Empty from "../components/Common/Empty";
 import { useNavigation } from "@react-navigation/native";
 import { SCREEN_NAMES } from "../constants/screenNames";
 import { useGetNomineesQuery } from "../services/nominee/nomineeSlice";
-import FinancialInstitutionHoldingItem from "../components/Common/FinancialInstitutionHoldingCard";
 import { NOMINEE_RELATIONSHIP_TO_TITLE_MAP } from "../constants/nominee";
+import NomineeScreenCard from "../components/Nominee/NomineeScreenCard";
 
 const NomineeScreen = () => {
   const navigation = useNavigation();
 
   const { data, isLoading, isFetching } = useGetNomineesQuery();
 
-  const { theme: { spacing, colors } } = useTheme();
+  const {
+    theme: { spacing, colors },
+  } = useTheme();
 
   const pressHandler = () => {
     navigation.navigate(SCREEN_NAMES.addNomineeScreen);
@@ -51,21 +53,34 @@ const NomineeScreen = () => {
       <View style={styles.listContainer}>
         <FlatList
           contentContainerStyle={styles.listContentContainer}
-          data={data.ids.map((id) => data.entities[id])}
-          renderItem={({ item }) =>
-            <FinancialInstitutionHoldingItem
-              nomineeScreen={true}
-              title={item.fullName}
-              holdingClass={NOMINEE_RELATIONSHIP_TO_TITLE_MAP[item.relationship]}
-              content={[
-                { key: "Phone Number", value: item.phoneNumber },
-                { key: "Email", value: item.email || "Not Available" },
-                { key: "Address", value: item.address ? 
-                  `${item.address.street},\n ${item.address.city}, ${item.address.state}, ${item.address.pinCode}` : "Not Available"
-                },
-              ]}
-            />
-          }
+          data={data !== undefined ? data.ids.map((id) => data.entities[id]): []}
+          renderItem={({ item }) => {
+            return (
+              <NomineeScreenCard
+                nomineeScreen={true}
+                title={item.fullName}
+                holdingClass={
+                  NOMINEE_RELATIONSHIP_TO_TITLE_MAP[item.relationship]
+                }
+                content={[
+                  { key: "Phone Number", value: item.phoneNumber },
+                  { key: "Email", value: item.email || "Not Available" },
+                  {
+                    key: "Address",
+                    value: item.address
+                      ? `${item.address.street},\n ${item.address.city}, ${item.address.state}, ${item.address.pinCode}`
+                      : "Not Available",
+                  },
+                ]}
+                openButtonCallBack={() => {
+                  navigation.navigate(SCREEN_NAMES.assetsWithNomineeScreen, {
+                    nominee: item.fullName,
+                    nomineeEmail: item.email,
+                  });
+                }}
+              />
+            );
+          }}
           keyExtractor={({ _id }) => _id}
           ListEmptyComponent={() => <Empty message="No holdings available" />}
         />

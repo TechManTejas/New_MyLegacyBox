@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet } from "react-native";
 import { useTheme } from "../../theme/ThemeProvider";
 
-const FinancialHoldingItemWrapper = ({ children, holdingClass, nomineeScreen }) => {
+const FinancialHoldingItemWrapper = ({ children, holdingClass }) => {
 
   const { theme: { colors, fontFamily, fontSize, spacing } } = useTheme();
 
@@ -13,11 +13,7 @@ const FinancialHoldingItemWrapper = ({ children, holdingClass, nomineeScreen }) 
       borderRadius: spacing.xs,
     },
     financialHoldingContainer: {
-      flex: 1,
       paddingTop: spacing.md,
-    },
-    childContainer: {
-      flex: 1,
     },
     financialHoldingClassContainer: {
       backgroundColor: colors.black700,
@@ -62,16 +58,13 @@ const FinancialHoldingItemWrapper = ({ children, holdingClass, nomineeScreen }) 
     <View style={styles.container}>
       <View style={styles.financialHoldingContainer}>
 
-        <View style={styles.childContainer}>{children}</View>
+        <View>{children}</View>
 
         <View style={[styles.row, styles.rowAlignEnd]}>
           <View
             style={[
               styles.financialHoldingClassContainer,
-              nomineeScreen? 
-              (holdingClass==="Other"? styles.backgroundColorGrey: styles.backgroundColorGreen) :
-              (holdingClass==="ASSET"? styles.backgroundColorGreen: styles.backgroundColorRed),
-              holdingClass==="CA / Lawyer / Advisor" && { width: 150 }
+              (holdingClass==="ASSET"? styles.backgroundColorGreen: styles.backgroundColorRed)
             ]}
           >
             <Text style={styles.financialHoldingClass}>{holdingClass}</Text>

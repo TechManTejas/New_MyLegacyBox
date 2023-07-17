@@ -180,7 +180,7 @@ const BottomTabNavigation = () => {
         name={SCREEN_NAMES.nomineeNavigator}
         component={NomineeNavigation}
         options={({ route }) => ({
-          title: "Nominee",
+          title: "My Circle",
           tabBarStyle: [
             {
               display: shouldShowTabBarBottom(route, SCREEN_NAMES.nomineeScreen)

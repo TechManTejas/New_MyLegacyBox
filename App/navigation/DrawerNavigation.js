@@ -7,12 +7,14 @@ import FeedbackScreen from "../screens/FeedbackScreen";
 import { useTheme } from "../theme/ThemeProvider";
 import CustomHeaderLeftIcon from "../components/Common/CustomHeaderLeftIcon";
 import CustomHeaderTitle from "../components/Common/CustomHeaderTitle";
+import SharedArtifactsNavigation from "./SharedArtifactsNavigation";
 
 const Drawer = createDrawerNavigator();
 
 const DrawerNavigation = () => {
-
-  const { theme: { colors } } = useTheme();
+  const {
+    theme: { colors },
+  } = useTheme();
 
   const styles = StyleSheet.create({
     headerStyle: {
@@ -49,6 +51,14 @@ const DrawerNavigation = () => {
         }}
       />
       <Drawer.Screen
+        name={SCREEN_NAMES.sharedArtifactsNavigator}
+        component={SharedArtifactsNavigation}
+        options={{
+          title: "Shared with me",
+          headerShown: false,
+        }}
+      />
+      <Drawer.Screen
         name={SCREEN_NAMES.feedbackScreen}
         component={FeedbackScreen}
         options={{
@@ -63,22 +73,22 @@ const DrawerNavigation = () => {
         }}
         listeners={() => ({
           drawerItemPress: (e) => {
-            e.preventDefault()
-            Linking.openURL("https://www.oiconomos.com/")
-          }
+            e.preventDefault();
+            Linking.openURL("https://www.oiconomos.com/");
+          },
         })}
       />
       <Drawer.Screen
         name={"tab3"}
         component={FeedbackScreen}
         options={{
-          title: "Privacy Policy",
+          title: "Privacy policy",
         }}
         listeners={() => ({
           drawerItemPress: (e) => {
-            e.preventDefault()
-            Linking.openURL("https://www.oiconomos.com/privacy-policy")
-          }
+            e.preventDefault();
+            Linking.openURL("https://www.oiconomos.com/privacy-policy");
+          },
         })}
       />
       <Drawer.Screen
@@ -89,22 +99,22 @@ const DrawerNavigation = () => {
         }}
         listeners={() => ({
           drawerItemPress: (e) => {
-            e.preventDefault()
-            Linking.openURL("https://www.oiconomos.com/faq")
-          }
+            e.preventDefault();
+            Linking.openURL("https://www.oiconomos.com/faq");
+          },
         })}
       />
       <Drawer.Screen
         name={"tab5"}
         component={FeedbackScreen}
         options={{
-          title: "Contact Us",
+          title: "Contact us",
         }}
         listeners={() => ({
           drawerItemPress: (e) => {
-            e.preventDefault()
-            Linking.openURL("https://www.oiconomos.com/")
-          }
+            e.preventDefault();
+            Linking.openURL("https://www.oiconomos.com/");
+          },
         })}
       />
     </Drawer.Navigator>
