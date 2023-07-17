@@ -19,7 +19,7 @@ ExpoSplashScreen.preventAutoHideAsync().catch(console.warn);
 
 import { usePreventScreenCapture } from "expo-screen-capture";
 import AnimatedSplashScreen from "./screens/AnimatedSplashScreen";
-import AppSecurityLevel from "./components/Common/AppSecurityLayer";
+import AppSecurityLayer from "./components/Common/AppSecurityLayer";
 
 function App() {
   // usePreventScreenCapture();
@@ -46,7 +46,7 @@ function App() {
                 splashScreenVisible={splashScreenVisible}
                 setSplashScreenVisible={setSplashScreenVisible}
               />
-              {/* <AppSecurityLevel splashScreenVisible={splashScreenVisible} /> */}
+              {/* <AppSecurityLayer splashScreenVisible={splashScreenVisible} /> */}
               <RootNavigation />
             </SafeAreaProvider>
           </SplashScreen>

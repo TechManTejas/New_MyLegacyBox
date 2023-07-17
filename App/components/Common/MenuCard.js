@@ -1,7 +1,12 @@
 import { useNavigation } from "@react-navigation/native";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { useTheme } from "../../theme/ThemeProvider";
-import { getMenuVariantColor, getMenuVariantFontSizes, getMenuVariantSpacing } from "../../utils/menu";
+import {
+  getMenuVariantColor,
+  getMenuVariantFontSizes,
+  getMenuVariantSpacing,
+} from "../../utils/menu";
+import { CustomIcon } from "./CustomIcon";
 
 const MenuCard = ({
   isDark,
@@ -10,13 +15,15 @@ const MenuCard = ({
   cardsInRow,
   index,
   title,
-  Icon,
   iconName,
   IconComponent,
   iconSizeMultiplier,
   navigateToScreen,
   navigationParams,
   disabled,
+  path,
+  viewBox,
+  iconSize,
 }) => {
   const { theme } = useTheme();
   const navigation = useNavigation();
@@ -73,13 +80,20 @@ const MenuCard = ({
         onPress={!disabled ? pressHandler : () => {}}
       >
         <View style={styles.iconContainer}>
-          
-          { (IconComponent) ? <IconComponent
-            name={iconName}
-            color={styles.iconContainer.color}
-            size={styles.iconContainer.fontSize}
-          /> : Icon }
-
+          {IconComponent ? (
+            <IconComponent
+              name={iconName}
+              color={styles.iconContainer.color}
+              size={styles.iconContainer.fontSize}
+            />
+          ) : (
+            <CustomIcon
+              path={path}
+              viewBox={viewBox}
+              size={iconSize}
+              color={size == "sm" && "white"}
+            />
+          )}
         </View>
         <Text style={styles.label}>{title}</Text>
       </Pressable>

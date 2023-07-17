@@ -24,7 +24,7 @@ import {
 import { getItemAsync, setItemAsync } from "expo-secure-store";
 import { useTheme } from "../../theme/ThemeProvider";
 
-const AppSecurityLevel = ({ splashScreenVisible }) => {
+const AppSecurityLayer = ({ splashScreenVisible }) => {
   const [blackScreen, setBlackScreen] = useState(false);
   const [showPinModal, setShowPinModal] = useState(false);
   const [userPin, setUserPin] = useState();
@@ -187,4 +187,4 @@ const AppSecurityLevel = ({ splashScreenVisible }) => {
   );
 };
 
-export default AppSecurityLevel;
+export default AppSecurityLayer;

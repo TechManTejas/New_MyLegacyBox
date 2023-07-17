@@ -5,8 +5,6 @@ import {
   StyleSheet,
   View,
   Text,
-  FlatList,
-  Alert,
 } from "react-native";
 import { useGetNomineesQuery } from "../../services/nominee/nomineeSlice";
 import { useTheme } from "../../theme/ThemeProvider";
@@ -16,7 +14,6 @@ import {
   useRevokeAssetAccessFromNomineeMutation,
   useShareAssetToNomineeMutation,
 } from "../../services/assetSharing/assetSharingApiSlice";
-import { NOMINEE_RELATIONSHIP_TO_TITLE_MAP } from "../../constants/nominee";
 import { FontAwesome } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { SCREEN_NAMES } from "../../constants/screenNames";
@@ -162,6 +159,7 @@ const AssetsShareRevokeModal = ({
               <Pressable
                 style={styles.modalbtn}
                 onPress={() => {
+                  setModalVisible(false)
                   navigation.navigate(SCREEN_NAMES.homeAddNomineeScreen);
                 }}
               >
