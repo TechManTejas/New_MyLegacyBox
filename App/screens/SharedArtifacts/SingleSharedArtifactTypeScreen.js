@@ -33,7 +33,7 @@ const SingleSharedArtifactTypeScreen = ({ route }) => {
   return (
     <View style={styles.screen}>
       {data.data.length === 0 ? (
-        <Empty message="No Asset" />
+        <Empty message="No Information" />
       ) : (
         <FlatList
           data={data.data}

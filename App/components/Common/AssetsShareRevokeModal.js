@@ -34,8 +34,7 @@ const AssetsShareRevokeModal = ({
   const styles = StyleSheet.create({
     modal: {
       backgroundColor: "rgba(0, 0, 0, 0.7)",
-      height: height,
-      paddingTop: height / 2,
+      flex: 1
     },
     modalheader: {
       flexDirection: "row",
@@ -101,6 +100,9 @@ const AssetsShareRevokeModal = ({
       fontFamily: fontFamily.regular,
       color: colors.black300,
     },
+    modalEmptySpace: {
+      height: "50%"
+    },
     modalContainer: {
       backgroundColor: "white",
       borderWidth: StyleSheet.hairlineWidth,
@@ -152,9 +154,10 @@ const AssetsShareRevokeModal = ({
   return (
     <Modal visible={modalVisible} transparent={true} animationType="slide">
       <View style={styles.modal}>
+        <Pressable onPress={() => setModalVisible(false)} style={styles.modalEmptySpace} />
         <View style={styles.modalContainer}>
           <View style={styles.modalheader}>
-            <Text style={styles.modalheadertext}>Share With</Text>
+            <Text style={styles.modalheadertext}>Share with</Text>
             <View style={styles.modalbtngrp}>
               <Pressable
                 style={styles.modalbtn}
@@ -163,7 +166,7 @@ const AssetsShareRevokeModal = ({
                   navigation.navigate(SCREEN_NAMES.homeAddNomineeScreen);
                 }}
               >
-                <Text style={styles.modalbtntext}>+ Nominee</Text>
+                <Text style={styles.modalbtntext}>+ My Circle</Text>
               </Pressable>
               <Pressable
                 style={styles.closebtn}

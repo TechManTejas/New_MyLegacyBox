@@ -37,7 +37,7 @@ const SharedArtifactsNavigation = () => {
           component={NominatorsListScreen}
           options={{
             headerShown: true,
-            title: "Nominators",
+            title: "Shared by",
           }}
         />
 
@@ -46,7 +46,7 @@ const SharedArtifactsNavigation = () => {
           component={SharedAssetsTypeListScreen}
           options={{
             headerShown: true,
-            title: "Shared Artifacts Types",
+            title: "Shared Smartbox",
           }}
         />
 
@@ -55,7 +55,7 @@ const SharedArtifactsNavigation = () => {
           component={SingleSharedArtifactTypeScreen}
           options={{
             headerShown: true,
-            title: "Artifacts",
+            title: "Shared details",
           }}
         />
       </Stack.Group>

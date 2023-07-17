@@ -42,7 +42,7 @@ const NomineeNavigation = () => {
           component={NomineeScreen}
           options={{
             headerShown: true,
-            title: "Nominees",
+            title: "My Circle",
           }}
         />
 
@@ -60,7 +60,7 @@ const NomineeNavigation = () => {
           component={AssetsWithNomineeScreen}
           options={({ route }) => ({
             headerShown: true,
-            title: `Assets With ${route.params.nominee}`,
+            title: `Shared With ${route.params.nominee}`,
           })}
           
         />

@@ -51,6 +51,14 @@ const DrawerNavigation = () => {
         }}
       />
       <Drawer.Screen
+        name={SCREEN_NAMES.sharedArtifactsNavigator}
+        component={SharedArtifactsNavigation}
+        options={{
+          title: "Shared with me",
+          headerShown: false,
+        }}
+      />
+      <Drawer.Screen
         name={SCREEN_NAMES.feedbackScreen}
         component={FeedbackScreen}
         options={{
@@ -74,7 +82,7 @@ const DrawerNavigation = () => {
         name={"tab3"}
         component={FeedbackScreen}
         options={{
-          title: "Privacy Policy",
+          title: "Privacy policy",
         }}
         listeners={() => ({
           drawerItemPress: (e) => {
@@ -100,7 +108,7 @@ const DrawerNavigation = () => {
         name={"tab5"}
         component={FeedbackScreen}
         options={{
-          title: "Contact Us",
+          title: "Contact us",
         }}
         listeners={() => ({
           drawerItemPress: (e) => {
@@ -108,14 +116,6 @@ const DrawerNavigation = () => {
             Linking.openURL("https://www.oiconomos.com/");
           },
         })}
-      />
-      <Drawer.Screen
-        name={SCREEN_NAMES.sharedArtifactsNavigator}
-        component={SharedArtifactsNavigation}
-        options={{
-          title: "Shared Artifacts",
-          headerShown: false,
-        }}
       />
     </Drawer.Navigator>
   );
