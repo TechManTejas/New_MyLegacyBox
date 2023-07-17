@@ -23,7 +23,8 @@ const AssetsWithNomineeScreen = ({ route }) => {
     screen: {
       backgroundColor: "white",
       paddingHorizontal: spacing.md,
-      paddingBottom: spacing.lg
+      paddingBottom: spacing.lg,
+      height: "100%"
     },
     btn: {
       backgroundColor: colors.blue500,

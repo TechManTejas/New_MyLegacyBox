@@ -1,5 +1,5 @@
 import React from "react";
-import { Dimensions, FlatList, StyleSheet, View } from "react-native";
+import { FlatList, StyleSheet, View } from "react-native";
 import { useTheme } from "../../theme/ThemeProvider";
 import { useGetSharedArtifactByNominatorWithUidAndTypeQuery } from "../../services/assetSharing/assetSharingApiSlice";
 import CustomActivityIndicator from "../../components/Common/CustomActivityIndicator";
@@ -10,15 +10,13 @@ import Empty from "../../components/Common/Empty";
 const SingleSharedArtifactTypeScreen = ({ route }) => {
   const { nominatorHashedUid, financialArtifactType } = route.params;
 
-  const { height } = Dimensions.get("window");
-
   const {
     theme: { spacing, colors, fontFamily, fontSize },
   } = useTheme();
 
   const styles = StyleSheet.create({
     screen: {
-      height,
+      height: "100%",
       backgroundColor: "white",
       padding: spacing.md,
     },
