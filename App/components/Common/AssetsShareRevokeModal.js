@@ -18,7 +18,7 @@ import { FontAwesome } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { SCREEN_NAMES } from "../../constants/screenNames";
 import Empty from "./Empty";
-import ShareNomineeModalCard from "./ShareNomineeModalCard";
+import ShareNomineeModalCard from "../Nominee/ShareNomineeModalCard"
 
 const AssetsShareRevokeModal = ({
   modalVisible,

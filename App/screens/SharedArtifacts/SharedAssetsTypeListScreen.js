@@ -1,6 +1,5 @@
 import React from "react";
 import {
-  Dimensions,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -23,11 +22,9 @@ const SharedAssetsTypeListScreen = ({ route }) => {
     theme: { colors, fontFamily, fontSize, spacing },
   } = useTheme();
 
-  const { height } = Dimensions.get("window");
-
   const styles = StyleSheet.create({
     screen: {
-      height,
+      height: "100%",
       backgroundColor: "white",
     },
     btngroup: {

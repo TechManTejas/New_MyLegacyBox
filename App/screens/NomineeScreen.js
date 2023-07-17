@@ -8,7 +8,7 @@ import { useNavigation } from "@react-navigation/native";
 import { SCREEN_NAMES } from "../constants/screenNames";
 import { useGetNomineesQuery } from "../services/nominee/nomineeSlice";
 import { NOMINEE_RELATIONSHIP_TO_TITLE_MAP } from "../constants/nominee";
-import NomineeScreenCard from "../components/Common/NomineeScreenCard";
+import NomineeScreenCard from "../components/Nominee/NomineeScreenCard";
 
 const NomineeScreen = () => {
   const navigation = useNavigation();

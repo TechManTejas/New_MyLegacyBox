@@ -4,9 +4,9 @@ import { useTheme } from "../theme/ThemeProvider";
 import CustomHeaderLeftIcon from "../components/Common/CustomHeaderLeftIcon";
 import CustomHeaderTitle from "../components/Common/CustomHeaderTitle";
 import { StyleSheet } from "react-native";
-import NominatorsListScreen from "../screens/NominatorsListScreen";
-import SharedAssetsTypeListScreen from "../screens/SharedAssetsTypeListScreen";
-import SingleSharedArtifactTypeScreen from "../screens/SingleSharedArtifactTypeScreen";
+import NominatorsListScreen from "../screens/SharedArtifacts/NominatorsListScreen";
+import SharedAssetsTypeListScreen from "../screens/SharedArtifacts/SharedAssetsTypeListScreen";
+import SingleSharedArtifactTypeScreen from "../screens/SharedArtifacts/SingleSharedArtifactTypeScreen";
 
 const Stack = createStackNavigator();
 

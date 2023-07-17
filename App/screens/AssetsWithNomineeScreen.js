@@ -5,7 +5,7 @@ import {
 } from "../services/assetSharing/assetSharingApiSlice";
 import { useTheme } from "../theme/ThemeProvider";
 import CustomActivityIndicator from "../components/Common/CustomActivityIndicator";
-import NomineeFinancialArtifactViewCard from "../components/Common/NomineeFinancialArtifactViewCard";
+import NomineeFinancialArtifactViewCard from "../components/Nominee/NomineeFinancialArtifactViewCard";
 import {
   INSTITUTES_NAME_MAP,
   INSTITUTE_PROPS_MAP,
