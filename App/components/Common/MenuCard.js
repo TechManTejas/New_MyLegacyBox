@@ -28,7 +28,7 @@ const MenuCard = ({
   const { theme } = useTheme();
   const navigation = useNavigation();
 
-  const { fontFamily } = theme;
+  const { fontFamily, colors } = theme;
 
   const pressHandler = () => {
     navigation.navigate(
@@ -91,7 +91,7 @@ const MenuCard = ({
               path={path}
               viewBox={viewBox}
               size={iconSize}
-              color={size == "sm" && "white"}
+              color={size == "sm" ? colors.white:colors.blue500}
             />
           )}
         </View>
