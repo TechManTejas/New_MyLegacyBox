@@ -1,5 +1,12 @@
 import React from "react";
-import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import {
+  FlatList,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import { useTheme } from "../../theme/ThemeProvider";
 import { useGetAllNominatorsQuery } from "../../services/assetSharing/assetSharingApiSlice";
 import CustomActivityIndicator from "../../components/Common/CustomActivityIndicator";
@@ -63,12 +70,40 @@ const NominatorsListScreen = () => {
   if (isLoading || isFetching) return <CustomActivityIndicator />;
 
   return (
-    <ScrollView style={styles.screen}>
+    <View style={styles.screen}>
       {data.data.length === 0 ? (
         <Empty message="No nominators" />
       ) : (
         <View style={styles.nominatorContainer}>
-          {data.data.map((item, index) => {
+
+          <FlatList
+            data={data.data}
+            numColumns={2}
+            renderItem={({ item, index }) => {
+              return (
+                <View style={styles.nominatorWrapper} key={index}>
+                  <Pressable
+                    style={[
+                      styles.nominatorbtn,
+                      index % 2 === 0 && styles.noMarginRight,
+                    ]}
+                    onPress={() => openSharedArtifacts(item)}
+                  >
+                    <FontAwesome5
+                      name="user-tie"
+                      size={fontSize.x4l}
+                      color={colors.blue}
+                    />
+                    <Text style={styles.nomineeName}>
+                      {item.nominator.aliasName}
+                    </Text>
+                  </Pressable>
+                </View>
+              );
+            }}
+          />
+
+          {/* {data.data.map((item, index) => {
             return (
               <View style={styles.nominatorWrapper} key={index}>
                 <Pressable
@@ -89,10 +124,10 @@ const NominatorsListScreen = () => {
                 </Pressable>
               </View>
             );
-          })}
+          })} */}
         </View>
       )}
-    </ScrollView>
+    </View>
   );
 };
 

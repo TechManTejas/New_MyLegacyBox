@@ -53,10 +53,8 @@ const NomineeScreen = () => {
       <View style={styles.listContainer}>
         <FlatList
           contentContainerStyle={styles.listContentContainer}
-          data={data.ids.map((id) => data.entities[id])}
+          data={data !== undefined ? data.ids.map((id) => data.entities[id]): []}
           renderItem={({ item }) => {
-            const cardParams = {};
-
             return (
               <NomineeScreenCard
                 nomineeScreen={true}
