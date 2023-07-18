@@ -123,6 +123,7 @@ const BankHoldingForm = ({
         ownership: initialValues?.ownership || "",
         amount: initialValues?.amount || undefined,
         pranNumber: initialValues?.pranNumber || "",
+        nominee: initialValues?.nominee || undefined
       }}
       validateOnChange={false}
       validateOnBlur={false}

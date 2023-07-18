@@ -18,7 +18,7 @@ import {
 } from "../constants/financialHoldings/insuranceHolding";
 import { numberWithCommas } from "../utils/manipulators";
 import { useState } from "react";
-import AssetsShareRevokeModal from "../components/Common/AssetsShareRevokeModal";
+import AssetSharingModal from "../components/Common/AssetSharingModal";
 
 const InsuranceScreen = ({ route }) => {
   const navigation = useNavigation();
@@ -91,6 +91,10 @@ const InsuranceScreen = ({ route }) => {
               updatedAt={item.updatedAt}
               tagLabel={POLICY_TYPE_TO_TITLE_MAP[item.holding.policyType]}
               content={[
+                {
+                  key: "Nominee",
+                  value: item.holding.nominee || "Not Available",
+                },
                 { key: "Home Branch ", value: item.holding.homeBranch },
                 { key: "Policy Number ", value: item.holding.policyNumber },
                 {
@@ -155,11 +159,6 @@ const InsuranceScreen = ({ route }) => {
           ListEmptyComponent={() => <Empty message="No holdings available" />}
         />
       </View>
-      <AssetsShareRevokeModal
-          modalVisible={modalVisible}
-          setModalVisible={setModalVisible}
-          artifactDetails={artifactDetails}
-        />
       <View style={styles.footer}>
         <BlueButton
           outline
@@ -169,6 +168,11 @@ const InsuranceScreen = ({ route }) => {
           onPress={pressHandler}
         />
       </View>
+      <AssetSharingModal
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+        artifactDetails={artifactDetails}
+      />
     </View>
   );
 };

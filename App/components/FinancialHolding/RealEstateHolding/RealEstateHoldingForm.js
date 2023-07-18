@@ -149,6 +149,7 @@ const RealEstateHoldingForm = ({ ctaCaption, defaultBody, apiCallback, isLoading
           ? new Date(initialValues?.dateOfPurchase)
           : undefined,
         propertyArea: initialValues?.propertyArea || undefined,
+        nominee: initialValues?.nominee || undefined,
         propertyAreaUnit: initialValues?.propertyAreaUnit || "",
         ownershipPercentage: initialValues?.ownershipPercentage || undefined,
         description: initialValues?.description || "",

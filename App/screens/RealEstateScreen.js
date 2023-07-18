@@ -14,7 +14,7 @@ import {
 } from "../constants/financialHoldings/realEstateHolding";
 import { numberWithCommas } from "../utils/manipulators";
 import { useState } from "react";
-import AssetsShareRevokeModal from "../components/Common/AssetsShareRevokeModal";
+import AssetSharingModal from "../components/Common/AssetSharingModal";
 
 const RealEstateScreen = () => {
   const navigation = useNavigation();
@@ -41,7 +41,6 @@ const RealEstateScreen = () => {
     financialArtifactId: "",
     financialArtifactType: "",
   });
-
 
   const styles = StyleSheet.create({
     container: {
@@ -85,6 +84,10 @@ const RealEstateScreen = () => {
               }
               updatedAt={item.updatedAt}
               content={[
+                {
+                  key: "Nominee",
+                  value: item.holding.nominee || "Not Available",
+                },
                 {
                   key: "Ownership share",
                   value: `${item.holding.ownershipPercentage} %`,
@@ -150,11 +153,6 @@ const RealEstateScreen = () => {
           ListEmptyComponent={() => <Empty message="No holdings available" />}
         />
       </View>
-      <AssetsShareRevokeModal
-          modalVisible={modalVisible}
-          setModalVisible={setModalVisible}
-          artifactDetails={artifactDetails}
-        />
       <View style={styles.footer}>
         <BlueButton
           outline
@@ -164,6 +162,11 @@ const RealEstateScreen = () => {
           onPress={pressHandler}
         />
       </View>
+      <AssetSharingModal
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+        artifactDetails={artifactDetails}
+      />
     </View>
   );
 };

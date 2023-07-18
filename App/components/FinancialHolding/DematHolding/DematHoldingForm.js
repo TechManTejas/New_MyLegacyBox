@@ -137,6 +137,7 @@ const DematHoldingForm = ({
         poc: initialValues?.poc || "",
         pocNumber: initialValues?.pocNumber || "",
         investedAmount: initialValues?.investedAmount || undefined,
+        nominee: initialValues?.nominee || undefined
       }}
       validateOnChange={false}
       validateOnBlur={false}

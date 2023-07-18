@@ -11,7 +11,7 @@ import FinancialInstitutionHoldingItem from "../components/Common/FinancialInsti
 import { DEMAT_TYPE_MAP_TO_TITLE_MAP } from "../constants/financialHoldings/dematHolding";
 import { numberWithCommas } from "../utils/manipulators";
 import { useState } from "react";
-import AssetsShareRevokeModal from "../components/Common/AssetsShareRevokeModal";
+import AssetSharingModal from "../components/Common/AssetSharingModal";
 
 const DematScreen = () => {
   const navigation = useNavigation();
@@ -70,6 +70,10 @@ const DematScreen = () => {
               holdingClass={item.holdingClass}
               tagLabel={DEMAT_TYPE_MAP_TO_TITLE_MAP[item.holding.dematType]}
               content={[
+                {
+                  key: "Nominee",
+                  value: item.holding.nominee || "Not Available",
+                },
                 { key: "Customer ID", value: item.holding.customerId },
                 { type: "divider" },
                 {
@@ -110,11 +114,6 @@ const DematScreen = () => {
           ListEmptyComponent={() => <Empty message="No holdings available" />}
         />
       </View>
-      <AssetsShareRevokeModal
-        modalVisible={modalVisible}
-        setModalVisible={setModalVisible}
-        artifactDetails={artifactDetails}
-      />
       <View style={styles.footer}>
         <BlueButton
           outline
@@ -124,6 +123,11 @@ const DematScreen = () => {
           onPress={pressHandler}
         />
       </View>
+      <AssetSharingModal
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+        artifactDetails={artifactDetails}
+      />
     </View>
   );
 };

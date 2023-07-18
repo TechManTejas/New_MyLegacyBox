@@ -135,6 +135,7 @@ const ProvidentFundHoldingForm = ({
         uan: initialValues?.uan || "",
         employerName: initialValues?.employerName || "",
         amount: initialValues?.amount || undefined,
+        nominee: initialValues?.nominee || undefined
       }}
       validateOnChange={false}
       validateOnBlur={false}

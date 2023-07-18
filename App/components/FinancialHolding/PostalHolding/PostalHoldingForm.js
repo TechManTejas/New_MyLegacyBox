@@ -122,6 +122,7 @@ const PostalHoldingForm = ({
         accountNumber: initialValues?.accountNumber || "",
         ownership: initialValues?.ownership || "",
         amount: initialValues?.amount || undefined,
+        nominee: initialValues?.nominee || undefined,
         pranNumber: initialValues?.pranNumber || "",
       }}
       validateOnChange={false}

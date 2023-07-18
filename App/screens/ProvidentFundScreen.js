@@ -11,7 +11,7 @@ import FinancialInstitutionHoldingItem from "../components/Common/FinancialInsti
 import { PROVIDENT_FUND_TYPE_TO_TITLE_MAP } from "../constants/financialHoldings/providentFundHolding";
 import { numberWithCommas } from "../utils/manipulators";
 import { useState } from "react";
-import AssetsShareRevokeModal from "../components/Common/AssetsShareRevokeModal";
+import AssetSharingModal from "../components/Common/AssetSharingModal";
 
 const ProvidentFundScreen = () => {
   const navigation = useNavigation();
@@ -71,6 +71,10 @@ const ProvidentFundScreen = () => {
               updatedAt={item.updatedAt}
               tagLabel={PROVIDENT_FUND_TYPE_TO_TITLE_MAP[item.holding.pfType]}
               content={[
+                {
+                  key: "Nominee",
+                  value: item.holding.nominee || "Not Available",
+                },
                 { key: "UAN", value: item.holding.uan },
                 {
                   key: "Amount",
@@ -101,11 +105,6 @@ const ProvidentFundScreen = () => {
           ListEmptyComponent={() => <Empty message="No holdings available" />}
         />
       </View>
-      <AssetsShareRevokeModal
-        modalVisible={modalVisible}
-        setModalVisible={setModalVisible}
-        artifactDetails={artifactDetails}
-      />
       <View style={styles.footer}>
         <BlueButton
           outline
@@ -115,6 +114,11 @@ const ProvidentFundScreen = () => {
           onPress={pressHandler}
         />
       </View>
+      <AssetSharingModal
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+        artifactDetails={artifactDetails}
+      />
     </View>
   );
 };

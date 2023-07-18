@@ -1,4 +1,4 @@
-import { View, StyleSheet, FlatList } from "react-native";
+import { View, StyleSheet, FlatList, Modal } from "react-native";
 import { useTheme } from "../theme/ThemeProvider";
 import { useGetFinancialHoldingForBankQuery } from "../services/financialHolding/financialHoldingSlice";
 import CustomActivityIndicator from "../components/Common/CustomActivityIndicator";
@@ -17,7 +17,7 @@ import {
 } from "../constants/financialHoldings/bankHolding";
 import { numberWithCommas } from "../utils/manipulators";
 import { useState } from "react";
-import AssetsShareRevokeModal from "../components/Common/AssetsShareRevokeModal";
+import AssetSharingModal from "../components/Common/AssetSharingModal";
 
 const BankScreen = ({ route }) => {
   const navigation = useNavigation();
@@ -103,6 +103,10 @@ const BankScreen = ({ route }) => {
                       ? `Rs. ${numberWithCommas(item.holding.amount)}`
                       : "Not Available",
                   },
+                  {
+                    key: "Nominee",
+                    value: item.holding.nominee || "Not Available",
+                  },
                 ]}
                 editButtonCallBack={() => {
                   navigation.navigate(
@@ -127,11 +131,6 @@ const BankScreen = ({ route }) => {
           keyExtractor={({ _id }) => _id}
           ListEmptyComponent={() => <Empty message="No holdings available" />}
         />
-        <AssetsShareRevokeModal
-          modalVisible={modalVisible}
-          setModalVisible={setModalVisible}
-          artifactDetails={artifactDetails}
-        />
       </View>
       <View style={styles.footer}>
         <BlueButton
@@ -142,6 +141,11 @@ const BankScreen = ({ route }) => {
           onPress={pressHandler}
         />
       </View>
+      <AssetSharingModal
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+        artifactDetails={artifactDetails}
+      />
     </View>
   );
 };
