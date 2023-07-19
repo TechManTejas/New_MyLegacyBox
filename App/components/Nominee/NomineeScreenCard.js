@@ -2,8 +2,9 @@ import React from "react";
 import { View, Text, StyleSheet, Pressable, FlatList } from "react-native";
 import { useTheme } from "../../theme/ThemeProvider";
 import NomineeScreenCardWrapper from "./NomineeScreenCardWrapper";
-import CustomPill from "../Common/Pill/CustomPill"; 
-import { MaterialIcons } from '@expo/vector-icons';
+import CustomPill from "../Common/Pill/CustomPill";
+import { MaterialIcons } from "@expo/vector-icons";
+import { FontAwesome5 } from "@expo/vector-icons";
 
 const NomineeScreenCard = ({
   holdingClass,
@@ -12,6 +13,7 @@ const NomineeScreenCard = ({
   title,
   tagLabel,
   openButtonCallBack,
+  editButtonCallBack,
 }) => {
   const {
     theme: { colors, fontFamily, fontSize, spacing },
@@ -134,7 +136,7 @@ const NomineeScreenCard = ({
       flexDirection: "row",
       alignItems: "center",
     },
-    sharebtn: {
+    openbtn: {
       marginLeft: spacing.xs,
     },
   });
@@ -143,15 +145,23 @@ const NomineeScreenCard = ({
     <NomineeScreenCardWrapper holdingClass={holdingClass}>
       <View style={styles.infoHeaderContainer}>
         <Text style={styles.name}>{title || "Unknown"}</Text>
-        {openButtonCallBack && (
-          <Pressable
-            onPress={openButtonCallBack}
-            style={[styles.buttom, styles.sharebtn]}
-          >
-            <Text style={styles.buttomText}>Open</Text>
-            <MaterialIcons name="open-in-new" size={14} color="white" />
-          </Pressable>
-        )}
+        <View style={styles.btngroup}>
+          {editButtonCallBack && (
+            <Pressable onPress={editButtonCallBack} style={styles.buttom}>
+              <Text style={styles.buttomText}>Edit</Text>
+              <FontAwesome5 name="pen" size={10} color="white" />
+            </Pressable>
+          )}
+          {openButtonCallBack && (
+            <Pressable
+              onPress={openButtonCallBack}
+              style={[styles.buttom, styles.openbtn]}
+            >
+              <Text style={styles.buttomText}>Open</Text>
+              <MaterialIcons name="open-in-new" size={14} color="white" />
+            </Pressable>
+          )}
+        </View>
       </View>
 
       {updatedAt && (

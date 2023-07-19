@@ -95,6 +95,11 @@ const NomineeScreen = () => {
                     nomineeEmail: item.email,
                   });
                 }}
+                editButtonCallBack={() => {
+                  navigation.navigate(SCREEN_NAMES.updateNomineeScreen, {
+                    nominee: item
+                  })
+                }}
               />
             );
           }}

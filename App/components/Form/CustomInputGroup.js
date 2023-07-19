@@ -117,12 +117,13 @@ const CustomInputGroup = ({
     },
     subTitleContainer: {
       marginBottom: spacing.sm,
+      marginTop: -spacing.xs
     },
     subTitle: {
-      color: colors.black400,
+      color: colors.black300,
       fontFamily: fontFamily.regular,
-      fontSize: fontSize.default,
-      lineHeight: fontSize.lg,
+      fontSize: fontSize.sm,
+      lineHeight: fontSize.md,
     },
   });
 

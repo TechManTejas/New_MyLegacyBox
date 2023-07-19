@@ -89,7 +89,6 @@ const AssetsWithNomineeScreen = ({ route }) => {
     },
   });
 
-  
 
   const [revokeAssetAccessFromNominee] =
     useRevokeAssetAccessFromNomineeMutation();
@@ -99,13 +98,15 @@ const AssetsWithNomineeScreen = ({ route }) => {
       nomineeEmail,
       financialArtifactId,
     };
-    revokeAssetAccessFromNominee(assetAndNomineeDetails).unwrap();
+    revokeAssetAccessFromNominee(assetAndNomineeDetails);
   };
 
   const { data, isLoading, isFetching } =
     useGetAllAssetSharedToANomineeQuery(nomineeEmail);
 
   if (isLoading || isFetching) return <CustomActivityIndicator />;
+
+  console.log(data);
 
   const filterArtifact = (institute) =>
     data.data.filter((item) => item.financialArtifactType === institute);
@@ -124,7 +125,7 @@ const AssetsWithNomineeScreen = ({ route }) => {
         </Text>
       </View> */}
 
-      {data.data.length === 0 ? (
+      {(data.data.length === 0) || (data === undefined)  ? (
         <Empty message="No data to show"/>
       ) : (
         <View>

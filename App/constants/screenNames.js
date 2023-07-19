@@ -75,6 +75,7 @@ export const SCREEN_NAMES = {
 
   nomineeScreen: "NOMINEE_SCREEN",
   addNomineeScreen: "ADD_NOMINEE_SCREEN",
+  updateNomineeScreen: "UPDATE_NOMINEE_SCREEN",
 
   willScreen: "WILL_SCREEN",
 

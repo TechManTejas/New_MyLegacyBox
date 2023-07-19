@@ -35,6 +35,15 @@ export const extendedNomineeApiSlice = nomineeApiSlice.injectEndpoints({
           ? [{ type: QUERY_TAGS.nominee, id: QUERY_TAGS.nomineeList }]
           : [],
     }),
+    updateNominee: builder.mutation({
+      query: ({ _id, ...nominee }) => ({
+        url: `/${_id}`,
+        method: "PUT",
+        body: nominee,
+      }),
+      invalidatesTags: (result, error, arg) =>
+        result ? [{ type: QUERY_TAGS.nominee, id: arg._id }] : [],
+    }),
   }),
   overrideExisting: true,
 });
@@ -51,5 +60,8 @@ export const { selectById: selectNomineeById } = nomineeAdapter.getSelectors(
   (state) => selectNominees(state) ?? initialState
 );
 
-export const { useGetNomineesQuery, useAddNomineeMutation } =
-  extendedNomineeApiSlice;
+export const {
+  useGetNomineesQuery,
+  useAddNomineeMutation,
+  useUpdateNomineeMutation,
+} = extendedNomineeApiSlice;

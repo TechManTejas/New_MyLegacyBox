@@ -18,12 +18,20 @@ import {
   NOMINEE_RELATIONSHIP_TO_TITLE_MAP,
 } from "../../constants/nominee";
 
-const NomineeForm = ({ ctaCaption, defaultBody, apiCallback, isLoading, initialValues }) => {
+const NomineeForm = ({
+  ctaCaption,
+  defaultBody,
+  apiCallback,
+  isLoading,
+  initialValues,
+}) => {
   const navigation = useNavigation();
   const [customErrors, setCustomErrors] = useState({});
   const [globalErrorMessage, setGlobalErrorMessage] = useState("");
 
-  const { theme: { colors, spacing, fontSize, fontFamily } } = useTheme();
+  const {
+    theme: { colors, spacing, fontSize, fontFamily },
+  } = useTheme();
 
   const customErrorWithValidation = useCallback(({ values, errors }) => {
     let customErrors;
@@ -71,6 +79,8 @@ const NomineeForm = ({ ctaCaption, defaultBody, apiCallback, isLoading, initialV
 
     const cleanedValues = cleanObjectAndTrim({ ...values });
 
+    if (ctaCaption === "Edit") delete cleanedValues["email"];
+
     try {
       await apiCallback({ ...cleanedValues, ...defaultBody }).unwrap();
       navigation.goBack();
@@ -110,6 +120,14 @@ const NomineeForm = ({ ctaCaption, defaultBody, apiCallback, isLoading, initialV
       lineHeight: fontSize.md,
       color: colors.black300,
     },
+    sectionInfo: {
+      fontFamily: fontFamily.regular,
+      fontSize: fontSize.sm,
+      lineHeight: fontSize.md,
+      color: colors.black300,
+      marginBottom: spacing.sm,
+      marginTop: -spacing.xxs
+    },
     leftPadded: {
       paddingLeft: spacing.sm,
     },
@@ -122,7 +140,7 @@ const NomineeForm = ({ ctaCaption, defaultBody, apiCallback, isLoading, initialV
       textAlign: "center",
     },
     halfWidth: {
-      width: "50%"
+      width: "50%",
     },
   });
 
@@ -135,6 +153,9 @@ const NomineeForm = ({ ctaCaption, defaultBody, apiCallback, isLoading, initialV
         relationship: initialValues?.relationship || "",
         phoneNumber: initialValues?.phoneNumber || "",
         email: initialValues?.email || "",
+        age: initialValues?.age || "",
+        aadharNumber: initialValues?.aadharNumber || "",
+        fathersName: initialValues?.fathersName || "",
         address: {
           city: initialValues?.address?.city || "",
           state: initialValues?.address?.state || "",
@@ -178,11 +199,11 @@ const NomineeForm = ({ ctaCaption, defaultBody, apiCallback, isLoading, initialV
                 messages={
                   customErrors.gender
                     ? [
-                      {
-                        id: "gender",
-                        text: customErrors.gender,
-                      },
-                    ]
+                        {
+                          id: "gender",
+                          text: customErrors.gender,
+                        },
+                      ]
                     : undefined
                 }
                 showSelectedIcon
@@ -199,11 +220,11 @@ const NomineeForm = ({ ctaCaption, defaultBody, apiCallback, isLoading, initialV
                 messages={
                   customErrors.relationship
                     ? [
-                      {
-                        id: "relationship",
-                        text: customErrors.relationship,
-                      },
-                    ]
+                        {
+                          id: "relationship",
+                          text: customErrors.relationship,
+                        },
+                      ]
                     : undefined
                 }
                 showSelectedIcon
@@ -224,6 +245,7 @@ const NomineeForm = ({ ctaCaption, defaultBody, apiCallback, isLoading, initialV
               />
 
               <CustomInputGroup
+                disabled={ctaCaption === "Edit"}
                 name="email"
                 placeholder="Enter nominee's email"
                 title="Email"
@@ -237,10 +259,74 @@ const NomineeForm = ({ ctaCaption, defaultBody, apiCallback, isLoading, initialV
                 }
               />
 
-              <View style={[styles.sectionTitleContainer, styles.row]}>
-                <Text style={styles.sectionTitle}>Address</Text>
-                <Text style={[styles.sectionSubTitle, styles.leftPadded]}>
-                  optional
+              <View style={styles.sectionTitleContainer}>
+                <View style={styles.row}>
+                  <Text style={styles.sectionTitle}>Will Details</Text>
+                  <Text style={[styles.sectionSubTitle, styles.leftPadded]}>
+                    optional
+                  </Text>
+                </View>
+                <Text style={styles.sectionInfo}>
+                  This section is required to use this person in will
+                </Text>
+              </View>
+              <CustomInputGroup
+                optional
+                name="age"
+                placeholder="Enter nominee's age"
+                title="Age"
+                onChange={handleChange("age")}
+                onBlur={handleBlur("age")}
+                value={values.age}
+                messages={
+                  customErrors.age
+                    ? [{ id: "fullName", text: customErrors.age }]
+                    : undefined
+                }
+                subTitle="required for beneficiary"
+              />
+
+              <CustomInputGroup
+                optional
+                name="aadharNumber"
+                placeholder="Enter nominee's Aadhar Number"
+                title="Aadhar Number"
+                onChange={handleChange("aadharNumber")}
+                onBlur={handleBlur("aadharNumber")}
+                value={values.aadharNumber}
+                messages={
+                  customErrors.aadharNumber
+                    ? [{ id: "aadharNumber", text: customErrors.aadharNumber }]
+                    : undefined
+                }
+                subTitle="required for witness"
+              />
+
+              <CustomInputGroup
+                optional
+                name="fathersName"
+                placeholder="Enter nominee's father's name"
+                title="Father's Name"
+                onChange={handleChange("fathersName")}
+                onBlur={handleBlur("fathersName")}
+                value={values.fathersName}
+                messages={
+                  customErrors.fathersName
+                    ? [{ id: "fathersName", text: customErrors.fathersName }]
+                    : undefined
+                }
+                subTitle="required for witness and executor"
+              />
+
+              <View style={styles.sectionTitleContainer}>
+                <View style={styles.row}>
+                  <Text style={styles.sectionTitle}>Address</Text>
+                  <Text style={[styles.sectionSubTitle, styles.leftPadded]}>
+                    optional
+                  </Text>
+                </View>
+                <Text style={styles.sectionInfo}>
+                  required for witness and executor
                 </Text>
               </View>
 
@@ -257,11 +343,11 @@ const NomineeForm = ({ ctaCaption, defaultBody, apiCallback, isLoading, initialV
                     messages={
                       customErrors.address?.city
                         ? [
-                          {
-                            id: "address.city",
-                            text: customErrors.address?.city,
-                          },
-                        ]
+                            {
+                              id: "address.city",
+                              text: customErrors.address?.city,
+                            },
+                          ]
                         : undefined
                     }
                   />
@@ -278,11 +364,11 @@ const NomineeForm = ({ ctaCaption, defaultBody, apiCallback, isLoading, initialV
                     messages={
                       customErrors.address?.state
                         ? [
-                          {
-                            id: "address.state",
-                            text: customErrors.address?.state,
-                          },
-                        ]
+                            {
+                              id: "address.state",
+                              text: customErrors.address?.state,
+                            },
+                          ]
                         : undefined
                     }
                   />
@@ -296,8 +382,10 @@ const NomineeForm = ({ ctaCaption, defaultBody, apiCallback, isLoading, initialV
                     placeholder="Enter PIN code"
                     title="PIN Code"
                     onChangeText={(value) => {
-                      if (value == " " || value == "") setFieldValue("address.pinCode", "")
-                      else if (!isNaN(value)) setFieldValue("address.pinCode", + value)
+                      if (value == " " || value == "")
+                        setFieldValue("address.pinCode", "");
+                      else if (!isNaN(value))
+                        setFieldValue("address.pinCode", +value);
                     }}
                     onBlur={handleBlur("address.pinCode")}
                     value={values.address.pinCode}
@@ -305,11 +393,11 @@ const NomineeForm = ({ ctaCaption, defaultBody, apiCallback, isLoading, initialV
                     messages={
                       customErrors.address?.pinCode
                         ? [
-                          {
-                            id: "address.pinCode",
-                            text: customErrors.address?.pinCode,
-                          },
-                        ]
+                            {
+                              id: "address.pinCode",
+                              text: customErrors.address?.pinCode,
+                            },
+                          ]
                         : undefined
                     }
                     textTransformNormal
@@ -327,11 +415,11 @@ const NomineeForm = ({ ctaCaption, defaultBody, apiCallback, isLoading, initialV
                     messages={
                       customErrors.address?.country
                         ? [
-                          {
-                            id: "address.country",
-                            text: customErrors.address?.country,
-                          },
-                        ]
+                            {
+                              id: "address.country",
+                              text: customErrors.address?.country,
+                            },
+                          ]
                         : undefined
                     }
                     optional
@@ -350,11 +438,11 @@ const NomineeForm = ({ ctaCaption, defaultBody, apiCallback, isLoading, initialV
                 messages={
                   customErrors.address?.street
                     ? [
-                      {
-                        id: "address.street",
-                        text: customErrors.address?.street,
-                      },
-                    ]
+                        {
+                          id: "address.street",
+                          text: customErrors.address?.street,
+                        },
+                      ]
                     : undefined
                 }
                 multiline
