@@ -2,8 +2,11 @@ import { StyleSheet, Text, View } from "react-native";
 import { useTheme } from "../../theme/ThemeProvider";
 import { FontAwesome5 } from '@expo/vector-icons'; 
 import CustomToolTip from "./CustomToolTip";
+import { useSelector } from "react-redux";
 
-const CustomHeaderRightIcon = ({ message }) => {
+const CustomHeaderRightIcon = () => {
+
+    const message = useSelector((state) => state.tooltipMessage.message)
 
     const { theme: { colors, spacing, fontSize, fontFamily } } = useTheme();
 

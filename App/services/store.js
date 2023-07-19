@@ -6,6 +6,7 @@ import { willApiSlice } from "./api/willApiSlice";
 import authReducer from "./auth/authSlice";
 import willFormReducer from "./willForm/willFormSlice";
 import { sharedArtifactApiSlice } from "./api/sharedArtifactApiSlice";
+import tooltipMessageReducer from "./tooltipMessage/tooltipMessage";
 
 const composeEnhancers =
   typeof window === "object" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
@@ -18,6 +19,7 @@ export const store = configureStore({
   reducer: {
     auth: authReducer,
     willForm: willFormReducer,
+    tooltipMessage: tooltipMessageReducer,
     [vaultApiSlice.reducerPath]: vaultApiSlice.reducer,
     [nomineeApiSlice.reducerPath]: nomineeApiSlice.reducer,
     [feedbackApiSlice.reducerPath]: feedbackApiSlice.reducer,

@@ -21,15 +21,13 @@ const NomineeNavigation = () => {
     },
   });
 
-  const message = "A nominee is a person whom the user has chosen to receive his/her database discreetly after him/her."
-
   return (
     <Stack.Navigator
       initialRouteName={SCREEN_NAMES.nomineeScreen}
       screenOptions={({ navigation }) => ({
         headerStyle: styles.headerStyle,
         headerLeft: () => <CustomHeaderLeftIcon navigation={navigation} />,
-        headerRight: () => <CustomHeaderRightIcon message={message} />,
+        headerRight: () => <CustomHeaderRightIcon />,
         headerTitleAlign: "center",
         headerTitle: (props) => <CustomHeaderTitle {...props} />,
         headerBackVisible: false,
