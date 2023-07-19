@@ -4,13 +4,28 @@ import CustomActivityIndicator from "../components/Common/CustomActivityIndicato
 import BlueButton from "../components/Common/Button/BlueButton";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import Empty from "../components/Common/Empty";
-import { useNavigation } from "@react-navigation/native";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { SCREEN_NAMES } from "../constants/screenNames";
 import { useGetNomineesQuery } from "../services/nominee/nomineeSlice";
 import { NOMINEE_RELATIONSHIP_TO_TITLE_MAP } from "../constants/nominee";
 import NomineeScreenCard from "../components/Nominee/NomineeScreenCard";
+import { useCallback } from "react";
+import { useDispatch } from "react-redux";
+import { setToolTipMessage } from "../services/tooltipMessage/tooltipMessage";
 
 const NomineeScreen = () => {
+  const dispatch = useDispatch();
+
+  useFocusEffect(
+    useCallback(() => {
+      dispatch(
+        setToolTipMessage(
+          "Add your loved ones to the Circle to share information and assign various roles in your Will"
+        )
+      );
+    }, [])
+  );
+
   const navigation = useNavigation();
 
   const { data, isLoading, isFetching } = useGetNomineesQuery();
@@ -53,7 +68,9 @@ const NomineeScreen = () => {
       <View style={styles.listContainer}>
         <FlatList
           contentContainerStyle={styles.listContentContainer}
-          data={data !== undefined ? data.ids.map((id) => data.entities[id]): []}
+          data={
+            data !== undefined ? data.ids.map((id) => data.entities[id]) : []
+          }
           renderItem={({ item }) => {
             return (
               <NomineeScreenCard

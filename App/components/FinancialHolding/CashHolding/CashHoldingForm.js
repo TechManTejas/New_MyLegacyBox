@@ -152,6 +152,7 @@ const CashHoldingForm = ({ ctaCaption, defaultBody, apiCallback, isLoading, init
           city: initialValues?.address?.city || "",
           state: initialValues?.address?.state || "",
           pinCode: initialValues?.address?.pinCode || undefined,
+          nominee: initialValues?.nominee || undefined,
           street: initialValues?.address?.street || "",
           country: initialValues?.address?.country || "",
         },

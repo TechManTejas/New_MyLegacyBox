@@ -20,6 +20,7 @@ ExpoSplashScreen.preventAutoHideAsync().catch(console.warn);
 import { usePreventScreenCapture } from "expo-screen-capture";
 import AnimatedSplashScreen from "./screens/AnimatedSplashScreen";
 import AppSecurityLayer from "./components/Common/AppSecurityLayer";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 function App() {
   // usePreventScreenCapture();
@@ -37,22 +38,24 @@ function App() {
   }, []);
 
   return (
-    <Provider store={store}>
-      <ThemeProvider>
-        <AuthProvider>
-          <SplashScreen>
-            <SafeAreaProvider>
-              <AnimatedSplashScreen
-                splashScreenVisible={splashScreenVisible}
-                setSplashScreenVisible={setSplashScreenVisible}
-              />
-              {/* <AppSecurityLayer splashScreenVisible={splashScreenVisible} /> */}
-              <RootNavigation />
-            </SafeAreaProvider>
-          </SplashScreen>
-        </AuthProvider>
-      </ThemeProvider>
-    </Provider>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <Provider store={store}>
+        <ThemeProvider>
+          <AuthProvider>
+            <SplashScreen>
+              <SafeAreaProvider>
+                <AnimatedSplashScreen
+                  splashScreenVisible={splashScreenVisible}
+                  setSplashScreenVisible={setSplashScreenVisible}
+                />
+                {/* <AppSecurityLayer splashScreenVisible={splashScreenVisible} /> */}
+                <RootNavigation />
+              </SafeAreaProvider>
+            </SplashScreen>
+          </AuthProvider>
+        </ThemeProvider>
+      </Provider>
+    </GestureHandlerRootView>
   );
 }
 

@@ -17,7 +17,7 @@ import {
 } from "../constants/financialHoldings/postalHolding";
 import { numberWithCommas } from "../utils/manipulators";
 import { useState } from "react";
-import AssetsShareRevokeModal from "../components/Common/AssetsShareRevokeModal";
+import AssetSharingModal from "../components/Common/AssetSharingModal";
 
 const PostalScreen = ({ route }) => {
   const navigation = useNavigation();
@@ -94,6 +94,10 @@ const PostalScreen = ({ route }) => {
                 POSTAL_ACCOUNT_OWNERSHIP_TO_TITLE_MAP[item.holding.ownership]
               }
               content={[
+                {
+                  key: "Nominee",
+                  value: item.holding.nominee || "Not Available",
+                },
                 { key: "Account Number", value: item.holding.accountNumber },
                 {
                   key: "Amount ",
@@ -125,11 +129,6 @@ const PostalScreen = ({ route }) => {
           ListEmptyComponent={() => <Empty message="No holdings available" />}
         />
       </View>
-      <AssetsShareRevokeModal
-          modalVisible={modalVisible}
-          setModalVisible={setModalVisible}
-          artifactDetails={artifactDetails}
-        />
       <View style={styles.footer}>
         <BlueButton
           outline
@@ -139,6 +138,11 @@ const PostalScreen = ({ route }) => {
           onPress={pressHandler}
         />
       </View>
+      <AssetSharingModal
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+        artifactDetails={artifactDetails}
+      />
     </View>
   );
 };

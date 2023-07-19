@@ -12,8 +12,26 @@ import {
   institutes,
 } from "../data/NomineeArtifactPropsData";
 import Empty from "../components/Common/Empty";
+import { useFocusEffect } from "@react-navigation/native";
+import { useCallback } from "react";
+import { useDispatch } from "react-redux";
+import { setToolTipMessage } from "../services/tooltipMessage/tooltipMessage";
 
 const AssetsWithNomineeScreen = ({ route }) => {
+
+  const { nomineeEmail, nominee } = route.params;
+
+  const dispatch = useDispatch();
+
+  useFocusEffect(
+    useCallback(() => {
+      dispatch(
+        setToolTipMessage(
+          `Assets you shared with ${nominee}`
+        )
+      );
+    }, [])
+  );
 
   const {
     theme: { spacing, fontFamily, fontSize, colors },
@@ -71,7 +89,7 @@ const AssetsWithNomineeScreen = ({ route }) => {
     },
   });
 
-  const { nomineeEmail } = route.params;
+  
 
   const [revokeAssetAccessFromNominee] =
     useRevokeAssetAccessFromNomineeMutation();

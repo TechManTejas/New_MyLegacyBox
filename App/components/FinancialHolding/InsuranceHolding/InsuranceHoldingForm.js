@@ -131,6 +131,7 @@ const InsuranceHoldingForm = ({
         premiumFrequency: initialValues?.premiumFrequency || "",
         policyAmount: initialValues?.policyAmount || undefined,
         premiumAmount: initialValues?.premiumAmount || undefined,
+        nominee: initialValues?.nominee || undefined,
         dateOfPremium: initialValues?.dateOfPremium
           ? new Date(initialValues?.dateOfPremium)
           : undefined,

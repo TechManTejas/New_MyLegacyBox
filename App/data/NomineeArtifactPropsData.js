@@ -34,6 +34,9 @@ const bankProps = (item) => {
       ],
     content: [
       {
+        key: "Nominee", value: item.financialArtifact.holding.nominee || "Not Available"
+      },
+      {
         key: "Account Number",
         value: item.financialArtifact.holding.accountNumber,
       },
@@ -61,6 +64,9 @@ const postalProps = (item) => {
       ],
     content: [
       {
+        key: "Nominee", value: item.financialArtifact.holding.nominee || "Not Available"
+      },
+      {
         key: "Account Number",
         value: item.financialArtifact.holding.accountNumber,
       },
@@ -82,6 +88,9 @@ const insuranceProps = (item) => {
     tagLabel:
       POLICY_TYPE_TO_TITLE_MAP[item.financialArtifact.holding.policyType],
     content: [
+      {
+        key: "Nominee", value: item.financialArtifact.holding.nominee || "Not Available"
+      },
       { key: "Home Branch ", value: item.financialArtifact.holding.homeBranch },
       {
         key: "Policy Number ",
@@ -143,6 +152,9 @@ const cashProps = (item) => {
     tagLabel: CASH_TYPE_TO_TITLE_MAP[item.financialArtifact.holding.cashType],
     content: [
       {
+        key: "Nominee", value: item.financialArtifact.holding.nominee || "Not Available"
+      },
+      {
         key: "Phone Number",
         value: item.financialArtifact.holding.phoneNumberOfParty,
       },
@@ -176,6 +188,9 @@ const dematProps = (item) => {
     tagLabel:
       DEMAT_TYPE_MAP_TO_TITLE_MAP[item.financialArtifact.holding.dematType],
     content: [
+      {
+        key: "Nominee", value: item.financialArtifact.holding.nominee || "Not Available"
+      },
       { key: "Customer ID", value: item.financialArtifact.holding.customerId },
       { type: "divider" },
       {
@@ -209,6 +224,9 @@ const realEstateProps = (item) => {
       ],
     updatedAt: item.financialArtifact.updatedAt,
     content: [
+      {
+        key: "Nominee", value: item.financialArtifact.holding.nominee || "Not Available"
+      },
       {
         key: "Ownership share",
         value: `${item.financialArtifact.holding.ownershipPercentage} %`,
@@ -265,6 +283,9 @@ const providentFundProps = (item) => {
     tagLabel:
       PROVIDENT_FUND_TYPE_TO_TITLE_MAP[item.financialArtifact.holding.pfType],
     content: [
+      {
+        key: "Nominee", value: item.financialArtifact.holding.nominee || "Not Available"
+      },
       { key: "UAN", value: item.financialArtifact.holding.uan },
       {
         key: "Amount",
