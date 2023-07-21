@@ -43,7 +43,7 @@ const BankListScreen = () => {
       )}
       <FlatList
         contentContainerStyle={styles.listContentContainer}
-        data={data.ids.map((id) => data.entities[id])}
+        data={ data !== undefined ? data.ids.map((id) => data.entities[id]) : [] }
         renderItem={({ item }) => (
           <FinancialInstitutionItemCard
             {...item}

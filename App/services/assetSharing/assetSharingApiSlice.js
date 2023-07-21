@@ -33,25 +33,34 @@ export const assetSharingApiSlice = sharedArtifactApiSlice.injectEndpoints({
     }),
     getAllAssetSharedToANominee: builder.query({
       query: (nomineeEmail) => `/nominator?nomineeEmail=${nomineeEmail}`,
-      // transformResponse: (responseData) => {
-      //   return assetSharingAdapter.setAll(initialState, responseData?.data || []);
-      // },
+      transformResponse: (responseData) => {
+        return assetSharingAdapter.setAll(
+          initialState,
+          responseData?.data || []
+        );
+      },
       providesTags: [QUERY_TAGS.shareAsset],
     }),
     getAllNominators: builder.query({
       query: () => "/nominee/shared-nominators",
-      // transformResponse: (responseData) => {
-      //   return assetSharingAdapter.setAll(initialState, responseData?.data || []);
-      // },
+      transformResponse: (responseData) => {
+        return assetSharingAdapter.setAll(
+          initialState,
+          responseData?.data || []
+        );
+      },
       providesTags: [QUERY_TAGS.shareAsset],
     }),
     getSharedArtifactByNominatorWithUidAndType: builder.query({
       query: (data) =>
         `/nominee?nominatorHashedUid=${data.nominatorHashedUid}&financialArtifactType=${data.financialArtifactType}`,
       providesTags: [QUERY_TAGS.shareAsset],
-      // transformResponse: (responseData) => {
-      //   return assetSharingAdapter.setAll(initialState, responseData?.data || []);
-      // },
+      transformResponse: (responseData) => {
+        return assetSharingAdapter.setAll(
+          initialState,
+          responseData?.data || []
+        );
+      },
     }),
   }),
   overrideExisting: true,

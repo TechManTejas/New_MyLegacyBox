@@ -83,7 +83,7 @@ const BankScreen = ({ route }) => {
           }
           ListHeaderComponentStyle={styles.listHeader}
           contentContainerStyle={styles.listContentContainer}
-          data={data.ids.map((id) => data.entities[id])}
+          data={ data !== undefined ? data.ids.map((id) => data.entities[id]): []}
           renderItem={({ item }) => {
             return (
               <FinancialInstitutionHoldingCard

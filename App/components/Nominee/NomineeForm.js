@@ -126,7 +126,7 @@ const NomineeForm = ({
       lineHeight: fontSize.md,
       color: colors.black300,
       marginBottom: spacing.sm,
-      marginTop: -spacing.xxs
+      marginTop: -spacing.xxs,
     },
     leftPadded: {
       paddingLeft: spacing.sm,
@@ -275,9 +275,13 @@ const NomineeForm = ({
                 name="age"
                 placeholder="Enter nominee's age"
                 title="Age"
-                onChange={handleChange("age")}
+                onChangeText={(value) => {
+                  if (value == " " || value == "") setFieldValue("age", "");
+                  else if (!isNaN(value)) setFieldValue("age", +value);
+                }}
                 onBlur={handleBlur("age")}
                 value={values.age}
+                textContentType="number"
                 messages={
                   customErrors.age
                     ? [{ id: "fullName", text: customErrors.age }]

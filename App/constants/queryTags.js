@@ -24,5 +24,7 @@ export const QUERY_TAGS = {
   willHashId: "WILL_HASH_ID",
 
   shareAsset: "SHARE_ASSET",
-  feedback: "feedback"
+  feedback: "feedback",
+
+  personalInfo: "PERSONAL_INFO"
 };

@@ -67,7 +67,7 @@ const WillScreen = () => {
 
         <FlatList
           contentContainerStyle={styles.listContentContainer}
-          data={data.ids.map((id) => data.entities[id])}
+          data={ data !== undefined ? data.ids.map((id) => data.entities[id]): []}
           renderItem={({ item }) => <WillItem will={item} />}
           keyExtractor={({ _id }) => _id}
           ListEmptyComponent={() => <Empty message="No wills available" />}

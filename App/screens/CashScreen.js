@@ -62,7 +62,7 @@ const CashScreen = () => {
       <View style={styles.listContainer}>
         <FlatList
           contentContainerStyle={styles.listContentContainer}
-          data={data.ids.map((id) => data.entities[id])}
+          data={ data !== undefined ? data.ids.map((id) => data.entities[id]): []}
           renderItem={({ item }) => (
             <FinancialInstitutionHoldingItem
               holdingClass={item.holdingClass}

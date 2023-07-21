@@ -129,7 +129,7 @@ const WillGenerationScreen = () => {
           ...will,
           selectedAssets: undefined,
         }).unwrap();
-
+        console.log("Will", will);
         await generateDownloadLink(data.data);
       } catch (error) {
         console.log(error);

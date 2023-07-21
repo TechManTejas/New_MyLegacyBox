@@ -47,8 +47,8 @@ export const nomineeValidator = z
       }),
 
     age: z
-      .string({
-        invalid_type_error: "Invalid type for age",
+      .number({
+        invalid_type_error: "Invalid type for number",
       })
       .refine((value) => !isNaN(value), {
         message: "Input should be a numeric value",

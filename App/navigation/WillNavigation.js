@@ -15,12 +15,15 @@ import WillDeclarationScreen from "../screens/Will/WillDeclarationScreen";
 import WillGenerationScreen from "../screens/Will/WillGenerationScreen";
 import WillInfoScreen from "../screens/Will/WillInfoScreen";
 import CustomHeaderRightIcon from "../components/Common/CustomHeaderRightIcon";
+import UpdateNomineeForm from "../components/Nominee/UpdateNomineeForm";
+import AddNomineeForm from "../components/Nominee/AddNomineeForm";
 
 const Stack = createStackNavigator();
 
 const WillNavigation = () => {
-
-  const { theme: { colors } } = useTheme();
+  const {
+    theme: { colors },
+  } = useTheme();
 
   const styles = StyleSheet.create({
     headerStyle: {
@@ -28,7 +31,8 @@ const WillNavigation = () => {
     },
   });
 
-  const message = "Today is the right age for you to create your will. Writing a will helps to stay organized, plan for any unforeseen event, and ensure that loved ones are financially protected even when we cannot be there for them. "
+  const message =
+    "Today is the right age for you to create your will. Writing a will helps to stay organized, plan for any unforeseen event, and ensure that loved ones are financially protected even when we cannot be there for them. ";
 
   return (
     <Stack.Navigator
@@ -44,7 +48,6 @@ const WillNavigation = () => {
       })}
     >
       <Stack.Group>
-
         <Stack.Screen
           name={SCREEN_NAMES.willScreen}
           component={WillScreen}
@@ -62,7 +65,6 @@ const WillNavigation = () => {
             title: "My Will",
           }}
         />
-
 
         <Stack.Screen
           name={SCREEN_NAMES.willPersonalInfoScreen}
@@ -136,6 +138,23 @@ const WillNavigation = () => {
           }}
         />
 
+        <Stack.Screen
+          name={SCREEN_NAMES.willAddNomineeScreen}
+          component={AddNomineeForm}
+          options={{
+            headerShown: true,
+            title: "Add Nominee",
+          }}
+        />
+
+        <Stack.Screen
+          name={SCREEN_NAMES.willUpdateNomineeScreen}
+          component={UpdateNomineeForm}
+          options={{
+            headerShown: true,
+            title: "Edit Nominee",
+          }}
+        />
       </Stack.Group>
     </Stack.Navigator>
   );

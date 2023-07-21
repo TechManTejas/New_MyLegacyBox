@@ -1,5 +1,7 @@
 export const SCREEN_NAMES = {
 
+  peronsalInfoScreen: "PERSONAL_INFO_SCREEN",
+
   homeAddNomineeScreen: "HOME_ADD_NOMINEE_SCREEN",
   sharedArtifactsNavigator: "SHARED_ARTIFACTS_NAVIGATOR",
 
@@ -77,6 +79,8 @@ export const SCREEN_NAMES = {
   addNomineeScreen: "ADD_NOMINEE_SCREEN",
   updateNomineeScreen: "UPDATE_NOMINEE_SCREEN",
 
+  willAddNomineeScreen: "WILL_ADD_NOMINEE_SCREEN",
+  willUpdateNomineeScreen: "WILL_UPDATE_NOMINEE_SCREEN",
   willScreen: "WILL_SCREEN",
 
   willInfoScreen: "WILL_INFO_SCREEN",

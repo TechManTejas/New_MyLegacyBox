@@ -8,6 +8,7 @@ import { useTheme } from "../theme/ThemeProvider";
 import CustomHeaderLeftIcon from "../components/Common/CustomHeaderLeftIcon";
 import CustomHeaderTitle from "../components/Common/CustomHeaderTitle";
 import SharedArtifactsNavigation from "./SharedArtifactsNavigation";
+import PersonalInfoScreen from "../screens/PersonalInfoScreen";
 
 const Drawer = createDrawerNavigator();
 
@@ -48,6 +49,13 @@ const DrawerNavigation = () => {
         options={{
           headerShown: false,
           drawerItemStyle: styles.drawerItemHidden,
+        }}
+      />
+      <Drawer.Screen
+        name={SCREEN_NAMES.peronsalInfoScreen}
+        component={PersonalInfoScreen}
+        options={{
+          title: "Personal Info",
         }}
       />
       <Drawer.Screen

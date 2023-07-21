@@ -31,6 +31,9 @@ export const willFormSlice = createSlice({
     addWitnessRedux: (state, action) => {
       state.witnesses.push(action.payload)
     },
+    removeWitnessRedux: (state, action) => {
+      state.witnesses = state.witnesses.filter(elem => elem.name !== action.payload)
+    },
     editWitnessByIndexRedux: (state, action) => {
       state.witnesses[action.payload.index] = action.payload.witness
       return state
@@ -38,12 +41,18 @@ export const willFormSlice = createSlice({
     addExecutorRedux: (state, action) => {
       state.executors.push(action.payload)
     },
+    removeExecutorRedux: (state, action) => {
+      state.executors = state.executors.filter(elem => elem.name !== action.payload)
+    },
     editExecutorByIndexRedux: (state, action) => {
       state.executors[action.payload.index] = action.payload.executor
       return state
     },
     addBeneficiaryRedux: (state, action) => {
       state.beneficiaries.push(action.payload)
+    },
+    removeBeneficiaryRedux: (state, action) => {
+      state.beneficiaries = state.beneficiaries.filter(elem => elem.name !== action.payload)
     },
     editBeneficiaryByIndexRedux: (state, action) => {
       state.beneficiaries[action.payload.index] = action.payload.benefciary
@@ -77,11 +86,14 @@ export const {
   setPersonalInfoRedux,
   setDeclarationInfoRedux,
   addWitnessRedux,
+  removeWitnessRedux,
   editWitnessByIndexRedux,
   addExecutorRedux,
+  removeExecutorRedux,
   editExecutorByIndexRedux,
   addBeneficiaryRedux,
   editBeneficiaryByIndexRedux,
+  removeBeneficiaryRedux,
   setAssetRedux,
   addAssetRedux,
   editAssetByIndexRedux,
