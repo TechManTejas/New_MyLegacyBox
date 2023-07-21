@@ -147,7 +147,8 @@ const BottomTabNavigation = () => {
 
       <BottomTab.Screen
         name={SCREEN_NAMES.willNavigator}
-        component={WillNavigation}
+        // component={WillNavigation}
+        component={UnderDevelopment}
         options={({ route }) => ({
           title: "My Will",
           tabBarStyle: [
