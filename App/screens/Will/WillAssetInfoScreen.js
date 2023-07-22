@@ -11,42 +11,47 @@ import WillAssetInfoForm from "../../components/Will/WillAssetInfoForm";
 import CustomActivityIndicator from "../../components/Common/CustomActivityIndicator";
 
 const WillAssetInfoScreen = () => {
-
   const [initialValues, setInitialValues] = useState(undefined);
   const [sectionTitles, setSectionTitles] = useState(undefined);
 
-  const selectedAssetsEntities = useSelector((state) => getSelectedAssetsEntitiesSelector(state))
+  const selectedAssetsEntities = useSelector((state) =>
+    getSelectedAssetsEntitiesSelector(state)
+  );
 
-  const beneficiaries = useSelector((state) => getBeneficiariesSelector(state))
+  const beneficiaries = useSelector((state) => getBeneficiariesSelector(state));
 
-  const assetsDistribution = useSelector((state) => getAssetsSelector(state))
+  const assetsDistribution = useSelector((state) => getAssetsSelector(state));
 
   console.log(beneficiaries);
 
-  const { theme: { colors } } = useTheme()
+  const {
+    theme: { colors },
+  } = useTheme();
 
   const styles = StyleSheet.create({
     container: {
       flex: 1,
       backgroundColor: colors.white100,
     },
-  })
+  });
 
   useEffect(() => {
-
     const valuesMap = assetsDistribution.reduce((acc, { _id, allocations }) => {
-      acc[_id] = allocations
-      return acc
-    }, {})
+      acc[_id] = allocations;
+      return acc;
+    }, {});
 
-    const initialValuesMap = Object.keys(selectedAssetsEntities).reduce((acc, v) => {
-      acc[v] = beneficiaries.reduce((internalAcc, { name }) => {
-        if ( v in valuesMap ) internalAcc[name] = valuesMap[v][name]
-        else internalAcc[name] = undefined
-        return internalAcc
-      }, {})
-      return acc
-    }, {})
+    const initialValuesMap = Object.keys(selectedAssetsEntities).reduce(
+      (acc, v) => {
+        acc[v] = beneficiaries.reduce((internalAcc, { _id }) => {
+          if (v in valuesMap) internalAcc[_id] = valuesMap[v][_id];
+          else internalAcc[_id] = undefined;
+          return internalAcc;
+        }, {});
+        return acc;
+      },
+      {}
+    );
 
     const sectionTitleMap = Object.keys(selectedAssetsEntities).reduce(
       (acc, v) => {
@@ -70,16 +75,22 @@ const WillAssetInfoScreen = () => {
 
     setInitialValues(initialValuesMap);
     setSectionTitles(sectionTitleMap);
-
   }, [selectedAssetsEntities, beneficiaries]);
 
   return (
     <View style={styles.container}>
-      {
-        !(initialValues && sectionTitles) ?
-          <CustomActivityIndicator /> :
-          <WillAssetInfoForm initialValues={initialValues} sectionTitles={sectionTitles} />
-      }
+      {!(initialValues && sectionTitles) ? (
+        <CustomActivityIndicator />
+      ) : (
+        <WillAssetInfoForm
+          beneficiariesMap={beneficiaries.reduce((acc, beneficiary) => {
+            acc[beneficiary._id] = beneficiary;
+            return acc;
+          }, {})}
+          initialValues={initialValues}
+          sectionTitles={sectionTitles}
+        />
+      )}
     </View>
   );
 };

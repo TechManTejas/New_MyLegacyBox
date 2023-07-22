@@ -3,6 +3,7 @@ import { useTheme } from "../../theme/ThemeProvider";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import { Feather } from "@expo/vector-icons";
+import CustomActivityIndicator from "../Common/CustomActivityIndicator";
 
 const WillSectionCard = ({
   sectiontitle,
@@ -14,8 +15,10 @@ const WillSectionCard = ({
   warnCondition,
   warnMsg,
   showEditIcon,
-  dataFilled,
+  someDataFilled,
   optional,
+  isLoading,
+  array
 }) => {
   const {
     theme: { spacing, colors, fontSize, fontFamily },
@@ -144,34 +147,38 @@ const WillSectionCard = ({
         }
         onPress={onPress}
       >
-        <View
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-between",
-          }}
-        >
-          <View>
-            <Text
-              style={
-                disableCondition ? styles.disabledtext : styles.enabledtext
-              }
-            >
-              {title}
-            </Text>
-            <Text
-              style={
-                disableCondition
-                  ? styles.disabledsubtext
-                  : styles.enabledsubtext
-              }
-            >
-              {subtitle}
-            </Text>
+        {isLoading ? (
+          <CustomActivityIndicator backgroundColor={colors.blue100} />
+        ) : (
+          <View
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
+            <View>
+              <Text
+                style={
+                  disableCondition ? styles.disabledtext : styles.enabledtext
+                }
+              >
+                {title}
+              </Text>
+              <Text
+                style={
+                  disableCondition
+                    ? styles.disabledsubtext
+                    : styles.enabledsubtext
+                }
+              >
+                {subtitle}
+              </Text>
+            </View>
+            {showEditIcon && someDataFilled && PenIcon}
           </View>
-          {showEditIcon && dataFilled && PenIcon}
-        </View>
+        )}
 
         {warnCondition && !disableCondition && (
           <View style={styles.warningContainer}>
@@ -182,6 +189,23 @@ const WillSectionCard = ({
           </View>
         )}
       </Pressable>
+      {array &&
+        array.map((item, index) => {
+          return (
+            <Pressable
+              key={index}
+              disabled
+              style={[styles.disabledbutton, styles.displaycards]}
+            >
+              <View>
+                <Text style={styles.disabledtext}>{item.fullName}</Text>
+                <Text style={styles.disabledsubtext}>
+                  {item.relationship}
+                </Text>
+              </View>
+            </Pressable>
+          );
+        })}
     </View>
   );
 };

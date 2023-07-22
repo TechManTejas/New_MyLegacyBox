@@ -24,8 +24,11 @@ import {
 } from "../../services/willForm/willFormSlice";
 import WillNomeineeModalCard from "./WillNomineeModalCard";
 
-const WillNomineeModal = ({ modalVisible, setModalVisible, nomineesType="beneficiaries" }) => {
-
+const WillNomineeModal = ({
+  modalVisible,
+  setModalVisible,
+  nomineesType = "beneficiaries",
+}) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
@@ -95,50 +98,8 @@ const WillNomineeModal = ({ modalVisible, setModalVisible, nomineesType="benefic
     },
   };
 
-
   const addNomineeCallBack = (item) => {
-    // dispatch(typeFunctionMap[nomineesType].add(item));
-    switch (nomineesType) {
-      case "beneficiaries":
-        dispatch(
-          typeFunctionMap[nomineesType].add({
-            age: item.age,
-            name: item.fullName,
-            relationshipWithTestator: item.relationship,
-          })
-        );
-        break;
-      case "witnesses":
-        dispatch(
-          typeFunctionMap[nomineesType].add({
-            gender: item.gender,
-            name: item.fullName,
-            relationshipWithTestator: item.relationship,
-            fathersName: item.fathersName,
-            address: item.address,
-          })
-        );
-        break;
-      case "executors":
-        dispatch(
-          typeFunctionMap[nomineesType].add({
-            gender: item.gender,
-            name: item.fullName,
-            relationshipWithTestator: item.relationship,
-            fathersName: item.fathersName,
-            address: item.address,
-            aadharNumber: item.aadharNumber,
-          })
-        );
-        break;
-      default:
-        break;
-    }
-  };
-
-  const disableCallback = (item) => {
-    return nomineesType !== "beneficiaries" &&
-      typeFunctionMap[nomineesType].get.length === 2;
+    dispatch(typeFunctionMap[nomineesType].add(item));
   };
 
   const renderBackdrop = useCallback(
@@ -187,16 +148,12 @@ const WillNomineeModal = ({ modalVisible, setModalVisible, nomineesType="benefic
               <BottomSheetFlatList
                 style={styles.flatList}
                 data={Object.values(
-                  nomineeList?.data ? nomineeList.data.entities : {}
+                  nomineeList.data!==undefined ? nomineeList.data.entities : {}
                 )}
                 keyExtractor={(item) => item._id}
                 renderItem={({ item }) => {
-                  console.log({
-                    beneficiaries: typeFunctionMap.beneficiaries.get.find(n => n.name === item.fullName)?.name,
-                    witnesses: typeFunctionMap.witnesses.get.find(n => n.name === item.fullName)?.name
-                  });
                   return typeFunctionMap[nomineesType].get.some(
-                    (c) => c.name === item.fullName
+                    (c) => c._id === item._id
                   ) ? (
                     <WillNomeineeModalCard
                       nomineesType={nomineesType}
@@ -204,7 +161,7 @@ const WillNomineeModal = ({ modalVisible, setModalVisible, nomineesType="benefic
                       item={item}
                       callBack={() => {
                         dispatch(
-                          typeFunctionMap[nomineesType].remove(item.fullName)
+                          typeFunctionMap[nomineesType].remove(item._id)
                         );
                       }}
                     />
@@ -212,7 +169,10 @@ const WillNomineeModal = ({ modalVisible, setModalVisible, nomineesType="benefic
                     <WillNomeineeModalCard
                       nomineesType={nomineesType}
                       item={item}
-                      disableCallback={() => disableCallback(item)}
+                      disableCallback={
+                        nomineesType !== "beneficiaries" &&
+                        typeFunctionMap[nomineesType].get.length === 2
+                      }
                       callBack={() => addNomineeCallBack(item)}
                     />
                   );

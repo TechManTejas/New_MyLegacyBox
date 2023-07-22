@@ -11,31 +11,22 @@ const initialState = willAdapter.getInitialState();
 
 export const extendedWillApiSlice = willApiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getWills: builder.query({
-      query: () => "/",
-      transformResponse: (responseData) => {
-        return willAdapter.setAll(initialState, responseData?.data || []);
-      },
-      providesTags: (result) =>
-        result
-          ? [
-              { type: QUERY_TAGS.will, id: QUERY_TAGS.willList },
-              ...result.ids.map((id) => ({ type: QUERY_TAGS.will, id })),
-            ]
-          : [{ type: QUERY_TAGS.will, id: QUERY_TAGS.willList }],
+    getWill: builder.query({
+      query: () => "/will",
+      providesTags: [QUERY_TAGS.will]
+        
     }),
-    addWill: builder.mutation({
+    addOrUpdateWill: builder.mutation({
       query: (will) => ({
         url: "/",
-        method: "POST",
+        method: "PUT",
         body: will,
       }),
-      invalidatesTags: (result) =>
-        result ? [{ type: QUERY_TAGS.will, id: QUERY_TAGS.willList }] : [],
+      invalidatesTags: [QUERY_TAGS.will]
     }),
-    generateWordHashByWillId: builder.mutation({
-      query: (_id) => ({
-        url: `file-hashed-will-id/${_id}`,
+    generateWordFileHash: builder.mutation({
+      query: () => ({
+        url: "/file-hashed-will-id",
         method: "POST",
       }),
     }),
@@ -43,16 +34,10 @@ export const extendedWillApiSlice = willApiSlice.injectEndpoints({
   overrideExisting: true,
 });
 
-const selectWillsResponse = extendedWillApiSlice.endpoints.getWills.select();
-
-const selectWills = createSelector(selectWillsResponse, (state) => state.data);
-
-export const { selectById: selectWillById } = willAdapter.getSelectors(
-  (state) => selectWills(state) ?? initialState
-);
+const selectWillResponse = extendedWillApiSlice.endpoints.getWill.select();
 
 export const {
-  useGetWillsQuery,
-  useAddWillMutation,
-  useGenerateWordHashByWillIdMutation,
+  useGetWillQuery,
+  useAddOrUpdateWillMutation,
+  useGenerateWordFileHashMutation
 } = extendedWillApiSlice;

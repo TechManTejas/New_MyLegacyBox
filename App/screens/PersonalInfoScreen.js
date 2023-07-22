@@ -4,9 +4,12 @@ import { useTheme } from "../theme/ThemeProvider";
 import { useSelector } from "react-redux";
 import { getPersonalInfoSelector } from "../services/willForm/willFormSlice"; 
 import PersonalInfoForm from "../components/Common/PersonalInfoForm"; 
+import { useGetPersonalInfoQuery } from "../services/personalInfo/personalInfoSlice";
+import CustomActivityIndicator from "../components/Common/CustomActivityIndicator";
 
 const PersonalInfoScreen = () => {
-  const personalInfo = useSelector((state) => getPersonalInfoSelector(state));
+
+  const {data, isLoading, isFetching } = useGetPersonalInfoQuery()
 
   const {
     theme: { colors },
@@ -19,9 +22,11 @@ const PersonalInfoScreen = () => {
     },
   });
 
+  if ( isFetching || isLoading ) return <CustomActivityIndicator/>
+
   return (
     <View style={styles.container}>
-      <PersonalInfoForm initialValues={personalInfo} />
+      <PersonalInfoForm initialValues={data.data} />
     </View>
   );
 };

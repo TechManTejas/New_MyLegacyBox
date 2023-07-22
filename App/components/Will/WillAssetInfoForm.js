@@ -10,19 +10,30 @@ import CustomInputGroup from "../Form/CustomInputGroup";
 import { SCREEN_NAMES } from "../../constants/screenNames";
 import WillFormContainer from "./WillFormContainer";
 import { useDispatch, useSelector } from "react-redux";
-import { getSelectedAssetsEntitiesSelector, setAssetRedux } from "../../services/willForm/willFormSlice";
+import {
+  getSelectedAssetsEntitiesSelector,
+  setAssetRedux,
+} from "../../services/willForm/willFormSlice";
 
-const WillAssetInfoForm = ({ initialValues, sectionTitles }) => {
+const WillAssetInfoForm = ({
+  initialValues,
+  sectionTitles,
+  beneficiariesMap,
+}) => {
   const navigation = useNavigation();
   const [customErrors, setCustomErrors] = useState({});
   const [globalErrorMessage, setGlobalErrorMessage] = useState("");
   const formRef = useRef();
 
-  const selectedAssetsEntities = useSelector((state) => getSelectedAssetsEntitiesSelector(state));
+  const selectedAssetsEntities = useSelector((state) =>
+    getSelectedAssetsEntitiesSelector(state)
+  );
 
   const dispatch = useDispatch();
 
-  const { theme: { colors, spacing, fontSize, fontFamily } } = useTheme()
+  const {
+    theme: { colors, spacing, fontSize, fontFamily },
+  } = useTheme();
 
   const styles = StyleSheet.create({
     container: {
@@ -108,21 +119,24 @@ const WillAssetInfoForm = ({ initialValues, sectionTitles }) => {
 
     try {
       validationErrors = await validateForm(values);
-    } 
-    catch (error) {
+    } catch (error) {
       setGlobalErrorMessage(error.message);
     }
 
-    const isValid = customErrorWithValidation({ values, errors: validationErrors });
+    const isValid = customErrorWithValidation({
+      values,
+      errors: validationErrors,
+    });
 
     if (!isValid) return;
 
-    const allocationValues = Object.values(selectedAssetsEntities).map((asset) => ({ ...asset, allocations: values[asset._id] }));
+    const allocationValues = Object.values(selectedAssetsEntities).map(
+      (asset) => ({ ...asset, allocations: values[asset._id] })
+    );
 
     dispatch(setAssetRedux(allocationValues));
 
-    navigation.navigate(SCREEN_NAMES.willInfoScreen)
-
+    navigation.navigate(SCREEN_NAMES.willInfoScreen);
   }, []);
 
   return (
@@ -164,12 +178,12 @@ const WillAssetInfoForm = ({ initialValues, sectionTitles }) => {
                           ) : null}
                         </View>
                         {Object.entries(initialValues[id]).map(
-                          ([name, allocation]) => (
+                          ([_id, allocation]) => (
                             <CustomInputGroup
-                              key={`allocation-input-${id}-${name}`}
-                              name={`${id}.${name}`}
-                              placeholder={`Enter allocation for ${name}`}
-                              title={`${name}'s allocation`}
+                              key={`allocation-input-${id}-${_id}`}
+                              name={`${id}.${_id}`}
+                              placeholder={`Enter allocation for ${beneficiariesMap[_id].fullName}`}
+                              title={`${beneficiariesMap[_id].fullName}'s allocation`}
                               onChange={(value) => {
                                 const stringValue = String(value);
 
@@ -178,20 +192,20 @@ const WillAssetInfoForm = ({ initialValues, sectionTitles }) => {
                                   stringValue.charAt(stringValue.length - 1) ===
                                     "."
                                 ) {
-                                  setFieldValue(`${id}.${name}`, value);
+                                  setFieldValue(`${id}.${_id}`, value);
                                 } else {
-                                  setFieldValue(`${id}.${name}`, +value);
+                                  setFieldValue(`${id}.${_id}`, +value);
                                 }
                               }}
-                              onBlur={handleBlur(`${id}.${name}`)}
-                              value={values[id][name]}
+                              onBlur={handleBlur(`${id}.${_id}`)}
+                              value={values[id][_id]}
                               keyboardType="numeric"
                               messages={
-                                customErrors[id] && customErrors[id][name]
+                                customErrors[id] && customErrors[id][_id]
                                   ? [
                                       {
                                         id: "name",
-                                        text: customErrors[id][name],
+                                        text: customErrors[id][_id],
                                       },
                                     ]
                                   : undefined

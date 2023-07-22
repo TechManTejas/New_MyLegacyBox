@@ -1,4 +1,4 @@
-import { View, StyleSheet, FlatList } from "react-native";
+import { View, StyleSheet, FlatList, ScrollView, Text } from "react-native";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import { useTheme } from "../../theme/ThemeProvider";
@@ -6,7 +6,7 @@ import BlueButton from "../../components/Common/Button/BlueButton";
 import { useDispatch } from "react-redux";
 import { clearWillFormRedux } from "../../services/willForm/willFormSlice";
 import { SCREEN_NAMES } from "../../constants/screenNames";
-import { useGetWillsQuery } from "../../services/will/willSlice";
+import { useGetWillQuery } from "../../services/will/willSlice";
 import CustomActivityIndicator from "../../components/Common/CustomActivityIndicator";
 import WillItem from "../../components/Will/WillItem";
 import Empty from "../../components/Common/Empty";
@@ -15,7 +15,7 @@ import { WillCarouselData } from "../../data/Carouseldata";
 
 const WillScreen = () => {
   const navigation = useNavigation();
-  const { data, isLoading, isFetching, isError, error } = useGetWillsQuery();
+  const { data, isLoading, isFetching, isError, error } = useGetWillQuery();
 
   const dispatch = useDispatch();
 
@@ -31,7 +31,7 @@ const WillScreen = () => {
   const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: colors.white100
+      backgroundColor: colors.white100,
     },
     listContainer: {
       flex: 1,
@@ -43,7 +43,7 @@ const WillScreen = () => {
     listContentContainer: {
       flexGrow: 1,
       paddingHorizontal: spacing.lg,
-    },
+    }, 
     footer: {
       paddingVertical: spacing.md,
       paddingBottom: spacing.lg,
@@ -51,33 +51,35 @@ const WillScreen = () => {
     },
     carouselContainer: {
       paddingHorizontal: spacing.lg,
-       marginBottom: spacing.lg
-    }
+      marginBottom: spacing.lg,
+    },
   });
+
+  console.log("data---------------");
+  console.log(JSON.stringify(data, null, 1));
+  console.log("data---------------");
+
+  console.log("error---------------");
+  console.log(error);
+  console.log("error---------------");
 
   if (isLoading || isFetching) return <CustomActivityIndicator />;
 
   return (
     <View style={styles.container}>
-      <View style={styles.listContainer}>
-
+      <ScrollView style={styles.listContainer}>
         <View style={styles.carouselContainer}>
           <CustomCarousel carouselData={WillCarouselData} />
         </View>
 
-        <FlatList
-          contentContainerStyle={styles.listContentContainer}
-          data={ data !== undefined ? data.ids.map((id) => data.entities[id]): []}
-          renderItem={({ item }) => <WillItem will={item} />}
-          keyExtractor={({ _id }) => _id}
-          ListEmptyComponent={() => <Empty message="No wills available" />}
-        />
-      </View>
+        <View>
+          <Text>{data && data.data ? data.data?._id : "no data found"}</Text>
+        </View>
+      </ScrollView>
 
       <View style={styles.footer}>
         <BlueButton outline title="Create My Will" onPress={pressHandler} />
       </View>
-
     </View>
   );
 };

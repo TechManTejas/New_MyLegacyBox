@@ -10,6 +10,7 @@ import {
   getAssetsSelector,
   getDeclarationSelector,
   clearAssets,
+  setPersonalInfoRedux,
 } from "../../services/willForm/willFormSlice";
 import { useDispatch, useSelector } from "react-redux";
 import BlueButton from "../../components/Common/Button/BlueButton";
@@ -19,6 +20,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import WillNomineeModal from "../../components/Common/WillNomineeModal";
 import { ScrollView } from "react-native";
+import { useGetPersonalInfoQuery } from "../../services/personalInfo/personalInfoSlice";
 
 const WillInfoScreen = () => {
   const {
@@ -62,24 +64,61 @@ const WillInfoScreen = () => {
     assetsDistribution.length > 0 &&
     declarationInfo.declaration != "";
 
+  const { data, isLoading, isFetching } = useGetPersonalInfoQuery();
+  const [allFilledTestatorInfo, setAllFilledTestatorInfo] = useState(false);
+  const [someFilledTestatorInfo, setSomeFilledTestatorInfo] = useState(true);
+
+  useEffect(() => {
+    let allFilled, someFilled;
+
+    if (!(isFetching || isLoading) && data.data !== null) {
+      allFilled =
+        data?.data.hasOwnProperty("gender") &&
+        data?.data.hasOwnProperty("age") &&
+        data?.data.hasOwnProperty("fathersName") &&
+        data?.data.hasOwnProperty("aadharNumber") &&
+        data?.data.hasOwnProperty("address") &&
+        data?.data.hasOwnProperty("dateOfBirth");
+
+      setAllFilledTestatorInfo(allFilled);
+
+      someFilled =
+        data?.data.hasOwnProperty("gender") ||
+        data?.data.hasOwnProperty("age") ||
+        data?.data.hasOwnProperty("fathersName") ||
+        data?.data.hasOwnProperty("aadharNumber") ||
+        data?.data.hasOwnProperty("address") ||
+        data?.data.hasOwnProperty("dateOfBirth");
+
+      setSomeFilledTestatorInfo(someFilled);
+
+      if (allFilled) {
+        dispatch(setPersonalInfoRedux(data.data));
+      }
+    }
+  }, [data, isFetching, isLoading]);
+
+  console.log(personalInfo);
+
   return (
     <>
       <ScrollView>
         <View style={styles.section}>
           <WillSectionCard
             sectiontitle={"My Details"}
-            tickCondition={Object.keys(personalInfo).length != 0}
+            tickCondition={allFilledTestatorInfo}
             title={
-              Object.keys(personalInfo).length != 0
-                ? personalInfo.name
-                : "Add Testator Information"
+              allFilledTestatorInfo
+                ? "Testator Information Added"
+                : "Edit Testator Information"
             }
             subtitle={"A Testator is a person who writes a Will"}
-            onPress={() =>
-              navigator.navigate(SCREEN_NAMES.willPersonalInfoScreen)
-            }
-            showEditIcon={true}
-            dataFilled={Object.keys(personalInfo).length != 0}
+            isLoading={isLoading || isFetching}
+            showEditIcon={!allFilledTestatorInfo}
+            someDataFilled={someFilledTestatorInfo}
+            onPress={() => {
+              navigator.navigate(SCREEN_NAMES.peronsalInfoScreen);
+            }}
           />
         </View>
 
@@ -89,11 +128,12 @@ const WillInfoScreen = () => {
             tickCondition={beneficiaries.length >= 1}
             title={"Add Beneficiary"}
             subtitle={"A person(s) who inherits the assets under a Will"}
-            // disableCondition={Object.keys(personalInfo).length == 0}
+            disableCondition={Object.keys(personalInfo).length == 0}
             onPress={() => {
               setNomineesType("beneficiaries");
               setModalVisible(true);
             }}
+            array={beneficiaries}
           />
         </View>
 
@@ -103,7 +143,7 @@ const WillInfoScreen = () => {
             tickCondition={witnesses.length == 2}
             title={"Add Witness"}
             subtitle={"A person who testifies to the authenticity of the Will"}
-            // disableCondition={beneficiaries.length < 1 || witnesses.length == 2}
+            disableCondition={beneficiaries.length < 1}
             warnCondition={witnesses.length != 2}
             warnMsg={
               "To avoid any future conflict, a witness should not be a beneficiary"
@@ -112,6 +152,7 @@ const WillInfoScreen = () => {
               setNomineesType("witnesses");
               setModalVisible(true);
             }}
+            array={witnesses}
           />
         </View>
 
@@ -130,7 +171,12 @@ const WillInfoScreen = () => {
             showEditIcon={true}
             dataFilled={assetsDistribution.length > 0}
           />
-          <WillAssetDistributionCard />
+          <WillAssetDistributionCard
+            beneficiariesMap={beneficiaries.reduce((acc, beneficiary) => {
+              acc[beneficiary._id] = beneficiary;
+              return acc;
+            }, {})}
+          />
         </View>
 
         <View style={styles.section}>
@@ -139,7 +185,6 @@ const WillInfoScreen = () => {
             tickCondition={executors.length == 2}
             title={"Add Executors"}
             subtitle={"Executor handles wealth distribution of the Testator"}
-            disableCondition={executors.length == 2}
             warnCondition={executors.length != 2}
             warnMsg={
               "To avoid any future conflict, an executor should not be a beneficiary or a witness"
@@ -149,6 +194,7 @@ const WillInfoScreen = () => {
               setNomineesType("executors");
               setModalVisible(true);
             }}
+            array={executors}
           />
         </View>
 

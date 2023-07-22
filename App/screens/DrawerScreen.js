@@ -18,6 +18,7 @@ import { feedbackApiSlice } from "../services/api/feedbackApiSlice";
 import { nomineeApiSlice } from "../services/api/nomineeApiSlice";
 import { sharedArtifactApiSlice } from "../services/api/sharedArtifactApiSlice";
 import { willApiSlice } from "../services/api/willApiSlice";
+import { personalInfoApiSlice } from "../services/api/personalInfoApiSlice";
 
 const DrawerScreen = (props) => {
 
@@ -36,6 +37,7 @@ const DrawerScreen = (props) => {
     dispatch(nomineeApiSlice.util.resetApiState())
     dispatch(sharedArtifactApiSlice.util.resetApiState())
     dispatch(willApiSlice.util.resetApiState())
+    dispatch(personalInfoApiSlice.util.resetApiState())
 
     kratosClient
       .performNativeLogout({
