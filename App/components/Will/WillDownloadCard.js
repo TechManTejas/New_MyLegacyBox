@@ -2,14 +2,16 @@ import { View, Text, Pressable, StyleSheet, Linking } from "react-native";
 import React from "react";
 import { useTheme } from "../../theme/ThemeProvider";
 import { FontAwesome5 } from "@expo/vector-icons";
-import { useGenerateWordFileHashMutation, useGetWillQuery } from "../../services/will/willSlice";
+import {
+  useGenerateWordFileHashMutation,
+  useGetWillQuery,
+} from "../../services/will/willSlice";
 import CustomActivityIndicator from "../Common/CustomActivityIndicator";
 import { generateWordFileWillByHashUrl } from "../../services/api/willApiSlice";
 import Empty from "../Common/Empty";
 
 const WillDownloadCard = () => {
-
-    const [generateWordFileHash, generateWordFileHashOptions] =
+  const [generateWordFileHash, generateWordFileHashOptions] =
     useGenerateWordFileHashMutation();
 
   const { data, isLoading, isFetching, isError, error } = useGetWillQuery();
@@ -21,12 +23,13 @@ const WillDownloadCard = () => {
   const styles = StyleSheet.create({
     card: {
       padding: spacing.lg,
-      height: "100%"
+      height: "100%",
     },
     willHeader: {
       flexDirection: "row",
       alignItems: "flex-start",
       justifyContent: "space-between",
+      flexWrap: "wrap",
     },
     buttom: {
       flexDirection: "row",
@@ -44,13 +47,13 @@ const WillDownloadCard = () => {
       fontSize: fontSize.md,
     },
     section: {
-      marginTop: spacing.md,
+      marginTop: spacing.lg,
     },
     sectionTitle: {
       fontFamily: fontFamily.semiBold,
       color: colors.blue500,
-      fontSize: fontSize.lg,
-      lineHeight: fontSize.xl,
+      fontSize: fontSize.default,
+      lineHeight: fontSize.lg,
       borderBottomWidth: StyleSheet.hairlineWidth,
       borderColor: colors.black200,
       marginBottom: spacing.sm,
@@ -61,12 +64,13 @@ const WillDownloadCard = () => {
       justifyContent: "space-between",
     },
     nomineeName: {
-      fontFamily: fontFamily.semiBold,
+      fontFamily: fontFamily.regular,
       fontSize: fontSize.default,
       lineHeight: fontSize.lg,
+      color: colors.black400,
     },
     nomineeEmail: {
-      fontFamily: fontFamily.semiBold,
+      fontFamily: fontFamily.regular,
       color: colors.black300,
       fontSize: fontSize.md,
       lineHeight: fontSize.default,
@@ -74,31 +78,41 @@ const WillDownloadCard = () => {
     distribution: {
       flexDirection: "row",
       alignItems: "center",
-      justifyContent: "space-between"
+      justifyContent: "space-between",
     },
     percent: {
-        fontFamily: fontFamily.semiBold,
-        color: colors.black300,
-        fontSize: fontSize.md,
-        lineHeight: fontSize.default,
+      fontFamily: fontFamily.regular,
+      color: colors.black300,
+      fontSize: fontSize.md,
+      lineHeight: fontSize.default,
     },
     itemTitle: {
-        fontFamily: fontFamily.semiBold,
-        color: colors.green700
+      fontFamily: fontFamily.semiBold,
+      color: colors.green700,
     },
     assetContainer: {
-        marginBottom: spacing.md
+      marginBottom: spacing.md,
     },
-    testatorName:{
-        fontFamily: fontFamily.semiBold,
-        fontSize: fontSize.lg,
-        lineHeight: fontSize.xl
+    testatorName: {
+      fontFamily: fontFamily.regular,
+      fontSize: fontSize.xxl,
+      lineHeight: fontSize.xxl + fontSize.xxs,
+      marginBottom: -spacing.xs,
+      color: colors.blue500
     },
     date: {
-        fontFamily: fontFamily.regular,
-        fontSize: fontSize.sm,
-        lineHeight: fontSize.md,
-        marginTop: spacing.xs
+      fontFamily: fontFamily.regular,
+      fontSize: fontSize.sm,
+      lineHeight: fontSize.md,
+      marginTop: spacing.xs,
+      color: colors.black300
+    },
+    assetHolders: {
+      color: colors.black400,
+      fontFamily: fontFamily.regular,
+    },
+    willSubHeader: {
+        width: "70%"
     }
   });
 
@@ -109,7 +123,7 @@ const WillDownloadCard = () => {
       if (result.data && result.status === 200) {
         Linking.openURL(
           generateWordFileWillByHashUrl.replace(":hashedWillId", result.data)
-        )
+        );
       }
     } catch (error) {
       console.log(error);
@@ -118,19 +132,24 @@ const WillDownloadCard = () => {
 
   if (isLoading || isFetching) return <CustomActivityIndicator />;
 
-  if (data?.data === null) return <Empty message="No Will Created Yet" />
+  if (data?.data === null) return <Empty message="No Will Created Yet" />;
 
   if (data?.data !== null && typeof data.data === "object") {
     return (
       <View style={styles.card}>
         <View style={styles.willHeader}>
-          <View>
-            <Text style={styles.testatorName}>{data.data.personalInfo.fullName}</Text>
+          <View style={styles.willSubHeader}>
+            <Text style={styles.testatorName}>
+              {data.data.personalInfo.fullName}
+            </Text>
             <Text style={styles.date}>
-              {new Date(data.data.willDate).toDateString().replace(/^\w+ /, "")}
+              created on {new Date(data.data.willDate).toDateString().replace(/^\w+ /, "")}
             </Text>
           </View>
-          <Pressable style={styles.buttom} onPress={() => generateDownloadLink()}>
+          <Pressable
+            style={styles.buttom}
+            onPress={() => generateDownloadLink()}
+          >
             <Text style={styles.buttomText}>Download</Text>
             <FontAwesome5 name="download" size={10} color="white" />
           </Pressable>
@@ -189,7 +208,9 @@ const WillDownloadCard = () => {
                     ([_id, percent], idx2) => {
                       return (
                         <View key={idx2} style={styles.distribution}>
-                          <Text style={styles.nomineeName}>
+                          <Text
+                            style={[styles.nomineeName, styles.assetHolders]}
+                          >
                             {
                               data.data.beneficiaries.find(
                                 (nominee) => nominee._id === _id
