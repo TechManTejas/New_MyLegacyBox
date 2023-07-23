@@ -1,8 +1,6 @@
 import { View, StyleSheet, Text, Keyboard } from "react-native";
 import React, { useState, useRef } from "react";
-import { useNavigation } from "@react-navigation/native";
 import { useTheme } from "../../theme/ThemeProvider";
-import { useDispatch } from "react-redux";
 import { useCallback } from "react";
 import {
   cleanObjectAndTrim,
@@ -84,12 +82,7 @@ const PersonalInfoForm = ({ initialValues }) => {
 
     const cleanedValues = cleanObjectAndTrim({ ...values });
 
-    console.log("=====================================")
-    console.log(JSON.stringify(cleanedValues, null, 1));
-    console.log("=====================================")
-
     try {
-      //   dispatch(setPersonalInfoRedux({ ...cleanedValues, ...defaultBody }));
       await savePersonalInfo({ ...cleanedValues }).unwrap();
     } catch (error) {
       setGlobalErrorMessage(error?.data?.error?.message || error.message);

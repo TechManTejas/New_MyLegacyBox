@@ -6,6 +6,7 @@ import { NOMINEE_RELATIONSHIP_TO_TITLE_MAP } from "../../constants/nominee";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { SCREEN_NAMES } from "../../constants/screenNames";
 import { useNavigation } from "@react-navigation/native";
+import { useState, useEffect } from "react";
 
 const WillNomeineeModalCard = ({
   callBack,
@@ -13,7 +14,18 @@ const WillNomeineeModalCard = ({
   isApproved,
   disableCallback,
   nomineesType,
+  usedNominees,
 }) => {
+  const [disableNominee, setDisableNominee] = useState({
+    result: false,
+    type: undefined,
+  });
+
+  useEffect(() => {
+    const res = usedNominees?.find((nominee) => nominee._id === item._id);
+    if (res) setDisableNominee({ result: true, type: res.type });
+  }, [usedNominees]);
+
   const {
     theme: { colors, fontFamily, fontSize, spacing },
   } = useTheme();
@@ -25,17 +37,20 @@ const WillNomeineeModalCard = ({
       fontSize: fontSize.xl,
       color: colors.green600,
     },
-    modalcard: {
-      flexDirection: "row",
-      justifyContent: "space-between",
-      alignItems: "center",
+    modalCardContainer: {
+      marginTop: spacing.sm,
+      marginHorizontal: spacing.sm,
+      backgroundColor:
+        disableCallback || disableNominee.result ? colors.black100 : "white",
       borderWidth: StyleSheet.hairlineWidth,
       borderColor: colors.black200,
       borderRadius: spacing.sm,
       padding: spacing.md,
-      marginTop: spacing.sm,
-      marginHorizontal: spacing.sm,
-      backgroundColor: disableCallback ? colors.black100 : "white",
+    },
+    modalcard: {
+      flexDirection: "row",
+      justifyContent: "space-between",
+      alignItems: "center",
     },
     modalcard2: {
       flexDirection: "row",
@@ -84,7 +99,7 @@ const WillNomeineeModalCard = ({
       fontFamily: fontFamily.semiBold,
       fontSize: fontSize.md,
     },
-    missingText: {
+    disabledText: {
       fontFamily: fontFamily.regular,
       fontSize: fontSize.md,
       lineHeight: fontSize.default,
@@ -103,32 +118,41 @@ const WillNomeineeModalCard = ({
       item.hasOwnProperty("fathersName") && item.hasOwnProperty("address"),
   };
 
+  const nomineeUsedMessagesMap = {
+    beneficiaries: "Assigned as a beneficiary",
+    witnesses: "Assigned as a witness",
+    executors: "Assigned as a executor",
+  };
+
   return propertyChecks[nomineesType] ? (
     <Pressable
-      disabled={disableCallback}
+      style={[styles.modalCardContainer, isApproved && styles.approvednominee]}
+      disabled={disableCallback || disableNominee.result}
       onPress={callBack}
-      style={[styles.modalcard, isApproved && styles.approvednominee]}
     >
-      <View>
-        <Text
-          style={[styles.nomineename, isApproved && styles.approvedtextcolor]}
-        >
-          {item.fullName}
-        </Text>
-        <Text
-          style={[
-            styles.nomineerelationship,
-            isApproved && styles.approvedtextcolor,
-          ]}
-        >
-          {NOMINEE_RELATIONSHIP_TO_TITLE_MAP[item.relationship]}
-        </Text>
+      <View style={[styles.modalcard]}>
+        <View>
+          <Text style={styles.nomineename}>{item.fullName}</Text>
+          <Text
+            style={[
+              styles.nomineerelationship,
+              isApproved && styles.approvedtextcolor,
+            ]}
+          >
+            {NOMINEE_RELATIONSHIP_TO_TITLE_MAP[item.relationship]}
+          </Text>
+        </View>
+        <FontAwesome
+          name={isApproved ? "check-circle" : "circle-o"}
+          size={styles.icon.fontSize}
+          color={isApproved ? styles.icon.color : colors.black300}
+        />
       </View>
-      <FontAwesome
-        name={isApproved ? "check-circle" : "circle-o"}
-        size={styles.icon.fontSize}
-        color={isApproved ? styles.icon.color : colors.black300}
-      />
+      {disableNominee.result && (
+        <Text style={styles.disabledText}>
+          {nomineeUsedMessagesMap[disableNominee.type]}
+        </Text>
+      )}
     </Pressable>
   ) : (
     <View style={styles.modal2Container}>
@@ -151,7 +175,7 @@ const WillNomeineeModalCard = ({
           <FontAwesome5 name="pen" size={10} color="white" />
         </Pressable>
       </View>
-      <Text style={styles.missingText}>
+      <Text style={styles.disabledText}>
         Some required fields are missing, click on edit to add
       </Text>
     </View>

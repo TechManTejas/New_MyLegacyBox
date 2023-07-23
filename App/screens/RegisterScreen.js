@@ -57,13 +57,14 @@ const RegisterScreen = () => {
       });
   }, []);
 
-  const onSubmit = (values) =>
-    flow
+  const onSubmit = (values) => {
+    return flow
       ? kratosClient
           .updateRegistrationFlow({
             flow: flow.id,
             updateRegistrationFlowBody: {
               ...values,
+              "traits.email": values["traits.email"].toLowerCase(),
               "traits.phone":
                 values["traits.phone"].length === 10 &&
                 !values["traits.phone"].startsWith("+91")
@@ -78,6 +79,7 @@ const RegisterScreen = () => {
           })
           .catch(handleFormSubmitError(setFlow, initiateFlow))
       : Promise.resolve();
+  };
 
   const styles = StyleSheet.create({
     safeView: {

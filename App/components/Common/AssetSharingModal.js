@@ -155,7 +155,7 @@ const AssetSharingModal = ({
               keyExtractor={(item) => item._id}
               renderItem={({ item }) => {
                 return Object.values(
-                  data.data !== null ? data.data.nominees : {}
+                  ((data?.data !== null) && typeof data.data === "object")  ? data.data.nominees : {}
                 ).some((c) => c.email === item.email) ? (
                   <ShareNomineeModalCard
                     isApproved

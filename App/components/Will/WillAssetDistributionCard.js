@@ -48,7 +48,7 @@ const WillAssetDistributionCard = ({ beneficiariesMap }) => {
                     Object.entries(item.allocations).map(([key, val], idx) => {
                         return (
                             <View style={styles.personpercentage} key={idx}>
-                                <Text style={styles.allocperson}>{beneficiariesMap[key].fullName}</Text>
+                                <Text style={styles.allocperson}>{beneficiariesMap[key]?.fullName}</Text>
                                 <Text style={styles.allocpercent}>{val} %</Text>
                             </View>
                         )

@@ -22,8 +22,6 @@ const WillAssetInfoScreen = () => {
 
   const assetsDistribution = useSelector((state) => getAssetsSelector(state));
 
-  console.log(beneficiaries);
-
   const {
     theme: { colors },
   } = useTheme();

@@ -23,11 +23,13 @@ import {
   removeWitnessRedux,
 } from "../../services/willForm/willFormSlice";
 import WillNomeineeModalCard from "./WillNomineeModalCard";
+import { useState } from "react";
 
 const WillNomineeModal = ({
   modalVisible,
   setModalVisible,
-  nomineesType = "beneficiaries",
+  nomineesType,
+  setNomineesType,
 }) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
@@ -98,9 +100,7 @@ const WillNomineeModal = ({
     },
   };
 
-  const addNomineeCallBack = (item) => {
-    dispatch(typeFunctionMap[nomineesType].add(item));
-  };
+  const [usedNominees, setUsedNominees] = useState([]);
 
   const renderBackdrop = useCallback(
     (props) => (
@@ -118,7 +118,10 @@ const WillNomineeModal = ({
       ref={sheetRef}
       snapPoints={snapPoints}
       enablePanDownToClose={true}
-      onClose={() => setModalVisible(false)}
+      onClose={() => {
+        setModalVisible(false);
+        setNomineesType("");
+      }}
       index={-1}
       backdropComponent={renderBackdrop}
     >
@@ -143,42 +146,52 @@ const WillNomineeModal = ({
             <View style={{ paddingTop: spacing.xl }}>
               <Empty message="No Nominees Available" />
             </View>
+          ) : nomineesType ? (
+            <BottomSheetFlatList
+              style={styles.flatList}
+              data={Object.values(
+                nomineeList.data !== undefined ? nomineeList.data.entities : {}
+              )}
+              keyExtractor={(item) => item._id}
+              renderItem={({ item }) => {
+                return typeFunctionMap[nomineesType].get.some(
+                  (c) => c._id === item._id
+                ) ? (
+                  <WillNomeineeModalCard
+                    nomineesType={nomineesType}
+                    isApproved
+                    item={item}
+                    callBack={() => {
+                      dispatch(typeFunctionMap[nomineesType].remove(item._id));
+                      setUsedNominees(
+                        usedNominees.filter(
+                          (nominee) => nominee._id !== item._id
+                        )
+                      );
+                    }}
+                  />
+                ) : (
+                  <WillNomeineeModalCard
+                    nomineesType={nomineesType}
+                    usedNominees={usedNominees}
+                    item={item}
+                    disableCallback={
+                      (nomineesType !== "beneficiaries" &&
+                        typeFunctionMap[nomineesType].get.length === 2)
+                    }
+                    callBack={() => {
+                      dispatch(typeFunctionMap[nomineesType].add(item));
+                      setUsedNominees([
+                        ...usedNominees,
+                        { _id: item._id, type: nomineesType },
+                      ]);
+                    }}
+                  />
+                );
+              }}
+            />
           ) : (
-            nomineesType && (
-              <BottomSheetFlatList
-                style={styles.flatList}
-                data={Object.values(
-                  nomineeList.data!==undefined ? nomineeList.data.entities : {}
-                )}
-                keyExtractor={(item) => item._id}
-                renderItem={({ item }) => {
-                  return typeFunctionMap[nomineesType].get.some(
-                    (c) => c._id === item._id
-                  ) ? (
-                    <WillNomeineeModalCard
-                      nomineesType={nomineesType}
-                      isApproved
-                      item={item}
-                      callBack={() => {
-                        dispatch(
-                          typeFunctionMap[nomineesType].remove(item._id)
-                        );
-                      }}
-                    />
-                  ) : (
-                    <WillNomeineeModalCard
-                      nomineesType={nomineesType}
-                      item={item}
-                      disableCallback={
-                        nomineesType !== "beneficiaries" &&
-                        typeFunctionMap[nomineesType].get.length === 2
-                      }
-                      callBack={() => addNomineeCallBack(item)}
-                    />
-                  );
-                }}
-              />
-            )
+            <CustomActivityIndicator />
           )}
         </View>
       </View>

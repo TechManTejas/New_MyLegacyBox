@@ -139,8 +139,6 @@ const WillGenerationScreen = () => {
     addWillToDbAndGenerateWord(will);
   }, [will]);
 
-  console.log("Will", JSON.stringify(will, null, 1));
-
   return (
     <View style={styles.container}>
       <CustomKeyboardAvoidingScrollView>

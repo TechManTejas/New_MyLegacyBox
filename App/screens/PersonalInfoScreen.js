@@ -22,11 +22,11 @@ const PersonalInfoScreen = () => {
     },
   });
 
-  if ( isFetching || isLoading ) return <CustomActivityIndicator/>
+  if ( isFetching || isLoading || data === undefined  ) return <CustomActivityIndicator/>
 
   return (
     <View style={styles.container}>
-      <PersonalInfoForm initialValues={data.data} />
+      <PersonalInfoForm initialValues={(data?.data !== null) && typeof data.data === "object" ?  data.data : {}} />
     </View>
   );
 };

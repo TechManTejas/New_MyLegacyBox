@@ -54,7 +54,7 @@ const WillInfoScreen = () => {
   const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
-    if (beneficiaries.length !== 0) dispatch(clearAssets());
+    dispatch(clearAssets());
   }, [beneficiaries]);
 
   const generateWillActivate =
@@ -71,7 +71,10 @@ const WillInfoScreen = () => {
   useEffect(() => {
     let allFilled, someFilled;
 
-    if (!(isFetching || isLoading) && data.data !== null) {
+    if (
+      !(isFetching || isLoading) &&
+      (data?.data !== null) && typeof data.data === "object"
+    ) {
       allFilled =
         data?.data.hasOwnProperty("gender") &&
         data?.data.hasOwnProperty("age") &&
@@ -92,13 +95,9 @@ const WillInfoScreen = () => {
 
       setSomeFilledTestatorInfo(someFilled);
 
-      if (allFilled) {
-        dispatch(setPersonalInfoRedux(data.data));
-      }
+      if (allFilled) dispatch(setPersonalInfoRedux(data.data));
     }
   }, [data, isFetching, isLoading]);
-
-  console.log(personalInfo);
 
   return (
     <>
@@ -226,6 +225,7 @@ const WillInfoScreen = () => {
         modalVisible={modalVisible}
         setModalVisible={setModalVisible}
         nomineesType={nomineesType}
+        setNomineesType={setNomineesType}
       />
     </>
   );
