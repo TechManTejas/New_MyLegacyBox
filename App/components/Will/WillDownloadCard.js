@@ -5,7 +5,7 @@ import { FontAwesome5 } from "@expo/vector-icons";
 import { useGenerateWordFileHashMutation, useGetWillQuery } from "../../services/will/willSlice";
 import CustomActivityIndicator from "../Common/CustomActivityIndicator";
 import { generateWordFileWillByHashUrl } from "../../services/api/willApiSlice";
-
+import Empty from "../Common/Empty";
 
 const WillDownloadCard = () => {
 
@@ -21,6 +21,7 @@ const WillDownloadCard = () => {
   const styles = StyleSheet.create({
     card: {
       padding: spacing.lg,
+      height: "100%"
     },
     willHeader: {
       flexDirection: "row",
@@ -116,6 +117,8 @@ const WillDownloadCard = () => {
   };
 
   if (isLoading || isFetching) return <CustomActivityIndicator />;
+
+  if (data?.data === null) return <Empty message="No Will Created Yet" />
 
   if (data?.data !== null && typeof data.data === "object") {
     return (
