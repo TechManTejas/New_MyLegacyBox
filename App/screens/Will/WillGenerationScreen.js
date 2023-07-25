@@ -4,8 +4,8 @@ import CustomActivityIndicator from "../../components/Common/CustomActivityIndic
 import { useSelector } from "react-redux";
 import { getWill } from "../../services/willForm/willFormSlice";
 import {
-  useAddWillMutation,
-  useGenerateWordHashByWillIdMutation,
+  useAddOrUpdateWillMutation,
+  useGenerateWordFileHashMutation,
 } from "../../services/will/willSlice";
 import BlueButton from "../../components/Common/Button/BlueButton";
 import { useNavigation } from "@react-navigation/native";
@@ -16,22 +16,22 @@ import { generateWordFileWillByHashUrl } from "../../services/api/willApiSlice";
 
 const WillGenerationScreen = () => {
   const will = useSelector((state) => getWill(state));
-  const [addWill, addWillOptions] = useAddWillMutation();
-  const [generateWordHashByWillId, generateWordHashByWillIdOptions] =
-    useGenerateWordHashByWillIdMutation();
+  const [addOrUpdateWill, addOrUpdateWillOptions] = useAddOrUpdateWillMutation();
+  const [generateWordFileHash, generateWordFileHashOptions] =
+    useGenerateWordFileHashMutation();
   const {
-    isLoading: addWillLoading,
-    isError: addWillIsError,
-    error: addWillError,
-    isSuccess: addWillIsSuccess,
-  } = addWillOptions;
+    isLoading: addOrUpdateWillLoading,
+    isError: addOrUpdateWillIsError,
+    error: addOrUpdateWillError,
+    isSuccess: addOrUpdateWillIsSuccess,
+  } = addOrUpdateWillOptions;
 
   const {
-    isLoading: generateWordHashByWillIdLoading,
-    isError: generateWordHashByWillIdIsError,
-    error: generateWordHashByWillIdError,
-    isSuccess: generateWordHashByWillIdIsSuccess,
-  } = generateWordHashByWillIdOptions;
+    isLoading: generateWordFileHashLoading,
+    isError: generateWordFileHashIsError,
+    error: generateWordFileHashError,
+    isSuccess: generateWordFileHashIsSuccess,
+  } = generateWordFileHashOptions;
 
   const navigation = useNavigation();
 
@@ -109,9 +109,9 @@ const WillGenerationScreen = () => {
   };
 
   useEffect(() => {
-    const generateDownloadLink = async (willId) => {
+    const generateDownloadLink = async () => {
       try {
-        const result = await generateWordHashByWillId(willId).unwrap();
+        const result = await generateWordFileHash().unwrap();
 
         if (result.data && result.status === 200) {
           Linking.openURL(
@@ -125,12 +125,12 @@ const WillGenerationScreen = () => {
 
     const addWillToDbAndGenerateWord = async (will) => {
       try {
-        const data = await addWill({
+        await addOrUpdateWill({
           ...will,
           selectedAssets: undefined,
         }).unwrap();
-
-        await generateDownloadLink(data.data);
+       
+        await generateDownloadLink();
       } catch (error) {
         console.log(error);
       }
@@ -146,31 +146,31 @@ const WillGenerationScreen = () => {
           <View
             style={[
               styles.actionContainer,
-              addWillIsError && styles.actionContainerError,
-              addWillIsSuccess && styles.actionContainerSuccess,
+              addOrUpdateWillIsError && styles.actionContainerError,
+              addOrUpdateWillIsSuccess && styles.actionContainerSuccess,
             ]}
           >
             <View style={styles.action}>
               <Text
                 style={[
                   styles.actionName,
-                  addWillIsError && styles.actionNameError,
-                  addWillIsSuccess && styles.actionNameSuccess,
+                  addOrUpdateWillIsError && styles.actionNameError,
+                  addOrUpdateWillIsSuccess && styles.actionNameSuccess,
                 ]}
               >
                 Saving will
               </Text>
             </View>
             <View>
-              {addWillLoading ? (
+              {addOrUpdateWillLoading ? (
                 <CustomActivityIndicator />
-              ) : addWillIsError ? (
+              ) : addOrUpdateWillIsError ? (
                 <FontAwesome
                   name="close"
                   size={styles.iconError.fontSize}
                   color={styles.iconError.color}
                 />
-              ) : addWillIsSuccess ? (
+              ) : addOrUpdateWillIsSuccess ? (
                 <FontAwesome
                   name="check-circle"
                   size={styles.icon.fontSize}
@@ -183,8 +183,8 @@ const WillGenerationScreen = () => {
           <View
             style={[
               styles.actionContainer,
-              generateWordHashByWillIdIsError && styles.actionContainerError,
-              generateWordHashByWillIdIsSuccess &&
+              generateWordFileHashIsError && styles.actionContainerError,
+              generateWordFileHashIsSuccess &&
                 styles.actionContainerSuccess,
             ]}
           >
@@ -192,23 +192,23 @@ const WillGenerationScreen = () => {
               <Text
                 style={[
                   styles.actionName,
-                  generateWordHashByWillIdIsError && styles.actionNameError,
-                  generateWordHashByWillIdIsSuccess && styles.actionNameSuccess,
+                  generateWordFileHashIsError && styles.actionNameError,
+                  generateWordFileHashIsSuccess && styles.actionNameSuccess,
                 ]}
               >
                 Generating will document
               </Text>
             </View>
             <View>
-              {generateWordHashByWillIdLoading ? (
+              {generateWordFileHashLoading ? (
                 <CustomActivityIndicator />
-              ) : generateWordHashByWillIdIsError ? (
+              ) : generateWordFileHashIsError ? (
                 <FontAwesome
                   name="close"
                   size={styles.iconError.fontSize}
                   color={styles.iconError.color}
                 />
-              ) : generateWordHashByWillIdIsSuccess ? (
+              ) : generateWordFileHashIsSuccess ? (
                 <FontAwesome
                   name="check-circle"
                   size={styles.icon.fontSize}
@@ -218,19 +218,19 @@ const WillGenerationScreen = () => {
             </View>
           </View>
 
-          {addWillIsError ? (
+          {addOrUpdateWillIsError ? (
             <View style={styles.actionError}>
               <Text style={styles.actionNameError}>
-                Saving will error : {addWillError.data.error?.message}
+                Saving will error : {addOrUpdateWillError.data.error?.message}
               </Text>
             </View>
           ) : null}
 
-          {generateWordHashByWillIdError ? (
+          {generateWordFileHashError ? (
             <View style={styles.actionError}>
               <Text style={styles.actionNameError}>
                 Generating will document error :
-                {generateWordHashByWillIdError.data.error?.message}
+                {generateWordFileHashError.data.error?.message}
               </Text>
             </View>
           ) : null}

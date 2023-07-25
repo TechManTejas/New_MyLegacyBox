@@ -1,4 +1,5 @@
 export const SCREEN_NAMES = {
+  peronsalInfoScreen: "PERSONAL_INFO_SCREEN",
 
   homeAddNomineeScreen: "HOME_ADD_NOMINEE_SCREEN",
   sharedArtifactsNavigator: "SHARED_ARTIFACTS_NAVIGATOR",
@@ -75,24 +76,21 @@ export const SCREEN_NAMES = {
 
   nomineeScreen: "NOMINEE_SCREEN",
   addNomineeScreen: "ADD_NOMINEE_SCREEN",
+  updateNomineeScreen: "UPDATE_NOMINEE_SCREEN",
 
+  willAddNomineeScreen: "WILL_ADD_NOMINEE_SCREEN",
+  willUpdateNomineeScreen: "WILL_UPDATE_NOMINEE_SCREEN",
   willScreen: "WILL_SCREEN",
 
   willInfoScreen: "WILL_INFO_SCREEN",
 
-  willPersonalInfoScreen: "WILL_PERSONAL_INFO_SCREEN",
-
   willWitnessesScreen: "WILL_WITNESSES_SCREEN",
-  willWitnessInfoScreen: "WILL_WITNESS_INFO_SCREEN",
-
   willBeneficiariesScreen: "WILL_BENEFICIARIES_SCREEN",
-  willBeneficiaryInfoScreen: "WILL_BENEFICIARY_INFO_SCREEN",
 
   willAssetsScreen: "WILL_ASSETS_SCREEN",
   willAssetInfoScreen: "WILL_ASSET_INFO_SCREEN",
 
   willExecutorScreen: "WILL_EXECUTOR_SCREEN",
-  willExecutorInfoScreen: "WILL_EXECUTOR_INFO_SCREEN",
 
   willDeclarationScreen: "WILL_DECLARATION_SCREEN",
 

@@ -28,15 +28,15 @@ const SingleSharedArtifactTypeScreen = ({ route }) => {
       financialArtifactType,
     });
 
-  if (isFetching || isLoading) return <CustomActivityIndicator />;
+  if (isFetching || isLoading || data === undefined) return <CustomActivityIndicator />;
 
   return (
     <View style={styles.screen}>
-      {data.data.length === 0 ? (
+      {data.ids.length === 0 ? (
         <Empty message="No Information" />
       ) : (
         <FlatList
-          data={data.data}
+          data={ data !== undefined ? data.ids.map((id) => data.entities[id]): []}
           renderItem={({ item, index }) => (
             <NomineeFinancialArtifactViewCard
               key={index}

@@ -72,7 +72,7 @@ const RealEstateScreen = () => {
       <View style={styles.listContainer}>
         <FlatList
           contentContainerStyle={styles.listContentContainer}
-          data={data.ids.map((id) => data.entities[id])}
+          data={ data !== undefined ? data.ids.map((id) => data.entities[id]): []}
           renderItem={({ item }) => (
             <FinancialInstitutionHoldingItem
               title={item.holding.propertyName}
@@ -166,6 +166,7 @@ const RealEstateScreen = () => {
         modalVisible={modalVisible}
         setModalVisible={setModalVisible}
         artifactDetails={artifactDetails}
+        setArtifactDetails={setArtifactDetails}
       />
     </View>
   );

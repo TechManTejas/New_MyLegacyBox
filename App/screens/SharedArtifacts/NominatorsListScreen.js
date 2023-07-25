@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  FlatList,
-  Pressable,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
+import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
 import { useTheme } from "../../theme/ThemeProvider";
 import { useGetAllNominatorsQuery } from "../../services/assetSharing/assetSharingApiSlice";
 import CustomActivityIndicator from "../../components/Common/CustomActivityIndicator";
@@ -67,17 +60,19 @@ const NominatorsListScreen = () => {
     });
   };
 
-  if (isLoading || isFetching) return <CustomActivityIndicator />;
+  if (isLoading || isFetching || data === undefined)
+    return <CustomActivityIndicator />;
 
   return (
     <View style={styles.screen}>
-      {data.data.length === 0 ? (
+      {data?.ids.length === 0 ? (
         <Empty message="No nominators" />
       ) : (
         <View style={styles.nominatorContainer}>
-
           <FlatList
-            data={data.data}
+            data={
+              data !== undefined ? data.ids.map((id) => data.entities[id]) : []
+            }
             numColumns={2}
             renderItem={({ item, index }) => {
               return (
@@ -102,29 +97,6 @@ const NominatorsListScreen = () => {
               );
             }}
           />
-
-          {/* {data.data.map((item, index) => {
-            return (
-              <View style={styles.nominatorWrapper} key={index}>
-                <Pressable
-                  style={[
-                    styles.nominatorbtn,
-                    index % 2 === 0 && styles.noMarginRight,
-                  ]}
-                  onPress={() => openSharedArtifacts(item)}
-                >
-                  <FontAwesome5
-                    name="user-tie"
-                    size={fontSize.x4l}
-                    color={colors.blue}
-                  />
-                  <Text style={styles.nomineeName}>
-                    {item.nominator.aliasName}
-                  </Text>
-                </Pressable>
-              </View>
-            );
-          })} */}
         </View>
       )}
     </View>

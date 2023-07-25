@@ -43,7 +43,7 @@ const InsuranceListScreen = () => {
       {isFoucused && <StatusBar barStyle="dark-content" backgroundColor={colors.white100} />}
       <FlatList
         contentContainerStyle={styles.listContentContainer}
-        data={data.ids.map((id) => data.entities[id])}
+        data={ data !== undefined ? data.ids.map((id) => data.entities[id]): []}
         renderItem={({ item }) => (
           <FinancialInstitutionItemCard
             {...item}

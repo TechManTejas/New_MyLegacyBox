@@ -18,18 +18,13 @@ import { useDispatch } from "react-redux";
 import { setToolTipMessage } from "../services/tooltipMessage/tooltipMessage";
 
 const AssetsWithNomineeScreen = ({ route }) => {
-
   const { nomineeEmail, nominee } = route.params;
 
   const dispatch = useDispatch();
 
   useFocusEffect(
     useCallback(() => {
-      dispatch(
-        setToolTipMessage(
-          `Assets you shared with ${nominee}`
-        )
-      );
+      dispatch(setToolTipMessage(`Assets you shared with ${nominee}`));
     }, [])
   );
 
@@ -42,7 +37,7 @@ const AssetsWithNomineeScreen = ({ route }) => {
       backgroundColor: "white",
       paddingHorizontal: spacing.md,
       paddingBottom: spacing.lg,
-      height: "100%"
+      height: "100%",
     },
     btn: {
       backgroundColor: colors.blue500,
@@ -77,7 +72,7 @@ const AssetsWithNomineeScreen = ({ route }) => {
       backgroundColor: "white",
       elevation: 3,
       borderRadius: spacing.sm,
-      marginBottom: spacing.md
+      marginBottom: spacing.md,
     },
     sectiontitle: {
       fontFamily: fontFamily.semiBold,
@@ -89,8 +84,6 @@ const AssetsWithNomineeScreen = ({ route }) => {
     },
   });
 
-  
-
   const [revokeAssetAccessFromNominee] =
     useRevokeAssetAccessFromNomineeMutation();
 
@@ -99,7 +92,7 @@ const AssetsWithNomineeScreen = ({ route }) => {
       nomineeEmail,
       financialArtifactId,
     };
-    revokeAssetAccessFromNominee(assetAndNomineeDetails).unwrap();
+    revokeAssetAccessFromNominee(assetAndNomineeDetails);
   };
 
   const { data, isLoading, isFetching } =
@@ -108,7 +101,9 @@ const AssetsWithNomineeScreen = ({ route }) => {
   if (isLoading || isFetching) return <CustomActivityIndicator />;
 
   const filterArtifact = (institute) =>
-    data.data.filter((item) => item.financialArtifactType === institute);
+    Object.values(data.entities).filter(
+      (item) => item.financialArtifactType === institute
+    );
 
   const allArtifactsData = institutes.map((institute) => ({
     artifactsData: filterArtifact(institute),
@@ -124,8 +119,8 @@ const AssetsWithNomineeScreen = ({ route }) => {
         </Text>
       </View> */}
 
-      {data.data.length === 0 ? (
-        <Empty message="No data to show"/>
+      {data.ids.length === 0 || data === undefined ? (
+        <Empty message="No data to show" />
       ) : (
         <View>
           <FlatList

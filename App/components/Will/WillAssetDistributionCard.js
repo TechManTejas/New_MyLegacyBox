@@ -3,7 +3,7 @@ import { getAssetsSelector } from "../../services/willForm/willFormSlice"
 import { Pressable, StyleSheet, Text, View } from "react-native"
 import { useTheme } from "../../theme/ThemeProvider"
 
-const WillAssetDistributionCard = () => {
+const WillAssetDistributionCard = ({ beneficiariesMap }) => {
 
     const { theme: { spacing, colors, fontSize, fontFamily } } = useTheme()
 
@@ -48,7 +48,7 @@ const WillAssetDistributionCard = () => {
                     Object.entries(item.allocations).map(([key, val], idx) => {
                         return (
                             <View style={styles.personpercentage} key={idx}>
-                                <Text style={styles.allocperson}>{key}</Text>
+                                <Text style={styles.allocperson}>{beneficiariesMap[key]?.fullName}</Text>
                                 <Text style={styles.allocpercent}>{val} %</Text>
                             </View>
                         )

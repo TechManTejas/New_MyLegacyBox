@@ -8,12 +8,14 @@ import CustomHeaderTitle from "../components/Common/CustomHeaderTitle";
 import { StyleSheet } from "react-native";
 import CustomHeaderRightIcon from "../components/Common/CustomHeaderRightIcon";
 import AssetsWithNomineeScreen from "../screens/AssetsWithNomineeScreen";
+import UpdateNomineeForm from "../components/Nominee/UpdateNomineeForm";
 
 const Stack = createStackNavigator();
 
 const NomineeNavigation = () => {
-
-  const { theme: { colors } } = useTheme();
+  const {
+    theme: { colors },
+  } = useTheme();
 
   const styles = StyleSheet.create({
     headerStyle: {
@@ -49,8 +51,17 @@ const NomineeNavigation = () => {
           component={AddNomineeForm}
           options={{
             headerShown: true,
-            title: "Add Nominee",
+            title: "Add A Member",
           }}
+        />
+
+        <Stack.Screen
+          name={SCREEN_NAMES.updateNomineeScreen}
+          component={UpdateNomineeForm}
+          options={({ route }) => ({
+            headerShown: true,
+            title: `Edit ${route.params.nominee.fullName}'s Details`,
+          })}
         />
 
         <Stack.Screen
@@ -60,9 +71,7 @@ const NomineeNavigation = () => {
             headerShown: true,
             title: `Shared With ${route.params.nominee}`,
           })}
-          
         />
-
       </Stack.Group>
     </Stack.Navigator>
   );

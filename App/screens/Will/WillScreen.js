@@ -1,4 +1,4 @@
-import { View, StyleSheet, FlatList } from "react-native";
+import { View, StyleSheet, ScrollView } from "react-native";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import { useTheme } from "../../theme/ThemeProvider";
@@ -6,16 +6,12 @@ import BlueButton from "../../components/Common/Button/BlueButton";
 import { useDispatch } from "react-redux";
 import { clearWillFormRedux } from "../../services/willForm/willFormSlice";
 import { SCREEN_NAMES } from "../../constants/screenNames";
-import { useGetWillsQuery } from "../../services/will/willSlice";
-import CustomActivityIndicator from "../../components/Common/CustomActivityIndicator";
-import WillItem from "../../components/Will/WillItem";
-import Empty from "../../components/Common/Empty";
 import CustomCarousel from "../../components/Common/Carousel";
 import { WillCarouselData } from "../../data/Carouseldata";
+import WillDownloadCard from "../../components/Will/WillDownloadCard";
 
 const WillScreen = () => {
   const navigation = useNavigation();
-  const { data, isLoading, isFetching, isError, error } = useGetWillsQuery();
 
   const dispatch = useDispatch();
 
@@ -31,7 +27,7 @@ const WillScreen = () => {
   const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: colors.white100
+      backgroundColor: colors.white100,
     },
     listContainer: {
       flex: 1,
@@ -51,33 +47,22 @@ const WillScreen = () => {
     },
     carouselContainer: {
       paddingHorizontal: spacing.lg,
-       marginBottom: spacing.lg
-    }
+      marginBottom: spacing.lg,
+    },
   });
-
-  if (isLoading || isFetching) return <CustomActivityIndicator />;
 
   return (
     <View style={styles.container}>
-      <View style={styles.listContainer}>
-
+      <ScrollView style={styles.listContainer}>
         <View style={styles.carouselContainer}>
           <CustomCarousel carouselData={WillCarouselData} />
         </View>
-
-        <FlatList
-          contentContainerStyle={styles.listContentContainer}
-          data={data.ids.map((id) => data.entities[id])}
-          renderItem={({ item }) => <WillItem will={item} />}
-          keyExtractor={({ _id }) => _id}
-          ListEmptyComponent={() => <Empty message="No wills available" />}
-        />
-      </View>
+        <WillDownloadCard />
+      </ScrollView>
 
       <View style={styles.footer}>
         <BlueButton outline title="Create My Will" onPress={pressHandler} />
       </View>
-
     </View>
   );
 };

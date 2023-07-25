@@ -46,6 +46,39 @@ export const nomineeValidator = z
         message: "Enter a valid email",
       }),
 
+    age: z
+      .number({
+        invalid_type_error: "Invalid type for number",
+      })
+      .refine((value) => !isNaN(value), {
+        message: "Input should be a numeric value",
+      })
+      .refine((value) => value >= 18, {
+        message: "Min age should be 18",
+      })
+      .optional(),
+
+    aadharNumber: z
+      .string({
+        invalid_type_error: "Invalid type for Aadhar number",
+      })
+      .refine((value) => !isNaN(value), {
+        message: "Input should be a numeric value",
+      })
+      .refine((value) => /^\d{12}$/.test(value), {
+        message: "Number should be of 12 digits",
+      })
+      .optional(),
+
+    fathersName: z
+      .string({
+        invalid_type_error: "Invalid type for father's name",
+      })
+      .refine((value) => /^[A-Za-z\s]+$/.test(value), {
+        message: "Input should be a non-numeric value",
+      })
+      .optional(),
+
     address: addressValidator.optional(),
   })
   .strict();
