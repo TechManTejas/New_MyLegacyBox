@@ -100,12 +100,6 @@ const AssetSharingModal = ({
     artifactDetails.financialArtifactId
   );
 
-  console.group("Group 1");
-  console.log(data?.data);
-  console.log(artifactDetails);
-  console.log();
-  console.groupEnd()
-
   const [
     revokeAssetAccessFromNominee,
     { isLoading: revokeAssetAccessFromNomineeLoading },

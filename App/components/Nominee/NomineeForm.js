@@ -9,7 +9,7 @@ import {
 import CustomInputGroup from "../Form/CustomInputGroup";
 import { useTheme } from "../../theme/ThemeProvider";
 import BlueButton from "../Common/Button/BlueButton";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import CustomKeyboardAvoidingScrollView from "../Common/CustomKeyboardAvoidingScrollView";
 import { nomineeValidator } from "../../utils/form/validators";
 import CustomDropDownInput from "../Common/CustomDropDownInput";
@@ -25,6 +25,8 @@ const NomineeForm = ({
   isLoading,
   initialValues,
 }) => {
+  const route = useRoute();
+
   const navigation = useNavigation();
   const [customErrors, setCustomErrors] = useState({});
   const [globalErrorMessage, setGlobalErrorMessage] = useState("");
@@ -172,7 +174,11 @@ const NomineeForm = ({
           <CustomKeyboardAvoidingScrollView keyboardVerticalOffset={100}>
             <View style={styles.container}>
               <View style={styles.sectionTitleContainer}>
-                <Text style={styles.sectionTitle}>Member's Details</Text>
+                <Text style={styles.sectionTitle}>
+                  {ctaCaption === "Confirm"
+                    ? `${route.params.nominee.fullName}'s Details`
+                    : "Member's Details"}
+                </Text>
               </View>
               <CustomInputGroup
                 name="fullName"
@@ -261,7 +267,9 @@ const NomineeForm = ({
 
               <View style={styles.sectionTitleContainer}>
                 <View style={styles.row}>
-                  <Text style={styles.sectionTitle}>Will Details</Text>
+                  <Text style={styles.sectionTitle}>
+                    Additional Information
+                  </Text>
                   <Text style={[styles.sectionSubTitle, styles.leftPadded]}>
                     optional
                   </Text>
