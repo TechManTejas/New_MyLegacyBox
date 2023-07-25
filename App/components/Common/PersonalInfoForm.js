@@ -14,10 +14,32 @@ import { toFormikValidationSchema } from "zod-formik-adapter";
 import CustomInputGroup from "../Form/CustomInputGroup";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { personalInfoUpdateValidator } from "../../utils/form/validators/personalInfoUpdateValidator";
-import { useSavePersonalInfoMutation } from "../../services/personalInfo/personalInfoSlice";
+import {
+  useGetPersonalInfoQuery,
+  useSavePersonalInfoMutation,
+} from "../../services/personalInfo/personalInfoSlice";
 import BlueButton from "./Button/BlueButton";
+import { useEffect } from "react";
+import CustomActivityIndicator from "./CustomActivityIndicator";
 
-const PersonalInfoForm = ({ initialValues }) => {
+const PersonalInfoForm = () => {
+  const getPersonalInfoOptions = useGetPersonalInfoQuery();
+
+  const {
+    data,
+    isLoading: getPersonalInfoLoading,
+    isFetching,
+  } = getPersonalInfoOptions;
+
+  const [initialValues, setInitialValues] = useState({});
+
+  useEffect(() => {
+    setInitialValues(
+      data?.data && typeof data.data === "object" ? data.data : {}
+    );
+    console.log(data);
+    console.log("hi");
+  }, [data]);
 
   const [savePersonalInfo, { isLoading }] = useSavePersonalInfoMutation();
 
@@ -149,12 +171,16 @@ const PersonalInfoForm = ({ initialValues }) => {
       position: "absolute",
       bottom: 0,
       backgroundColor: colors.white100,
-      flexDirection: "row",
+      flexDirection: "column",
       paddingVertical: spacing.md,
       paddingBottom: spacing.lg,
       paddingHorizontal: spacing.lg,
+      width: "100%"
     },
   });
+
+  if (isFetching || getPersonalInfoLoading || !data?.data)
+    return <CustomActivityIndicator />;
 
   return (
     <View style={styles.container}>
@@ -166,7 +192,6 @@ const PersonalInfoForm = ({ initialValues }) => {
           initialValues={{
             fathersName: initialValues?.fathersName || "",
             gender: initialValues?.gender || "",
-            age: initialValues?.age || "",
             dateOfBirth: initialValues?.dateOfBirth
               ? new Date(initialValues?.dateOfBirth)
               : undefined,
@@ -236,23 +261,7 @@ const PersonalInfoForm = ({ initialValues }) => {
                     }
                     showSelectedIcon
                   />
-                  <CustomInputGroup
-                    name="age"
-                    placeholder="Enter age"
-                    title="Age"
-                    onChangeText={(value) => {
-                      if (value == " " || value == "") setFieldValue("age", "");
-                      else if (!isNaN(value)) setFieldValue("age", +value);
-                    }}
-                    onBlur={handleBlur("age")}
-                    value={values.age}
-                    textContentType="number"
-                    messages={
-                      customErrors.age
-                        ? [{ id: "fullName", text: customErrors.age }]
-                        : undefined
-                    }
-                  />
+
                   <CustomInputGroup
                     name="fathersName"
                     placeholder="Enter your Father's Full Name"
@@ -456,14 +465,6 @@ const PersonalInfoForm = ({ initialValues }) => {
                     numberOfLines={10}
                     textTransformNormal
                   />
-
-                  {globalErrorMessage ? (
-                    <View style={styles.marginBottomSmall}>
-                      <Text style={styles.errorMessage}>
-                        {globalErrorMessage}
-                      </Text>
-                    </View>
-                  ) : null}
                 </View>
               </CustomKeyboardAvoidingScrollView>
             );
@@ -483,6 +484,11 @@ const PersonalInfoForm = ({ initialValues }) => {
           disabled={isLoading}
           isLoading={isLoading}
         />
+        {globalErrorMessage ? (
+          <View style={styles.marginBottomSmall}>
+            <Text style={styles.errorMessage}>{globalErrorMessage}</Text>
+          </View>
+        ) : null}
       </View>
     </View>
   );

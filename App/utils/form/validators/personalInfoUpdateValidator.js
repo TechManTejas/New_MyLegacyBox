@@ -5,7 +5,6 @@ import { NOMINEE_GENDER_MAP } from "../../../constants/nominee";
 export const personalInfoUpdateValidator = z
   .object({
     gender: z.enum(Object.values(NOMINEE_GENDER_MAP)).optional(),
-    age: z.number().optional(),
     fathersName: z.string().optional(),
     dateOfBirth: z.date().optional(),
     aadharNumber: z

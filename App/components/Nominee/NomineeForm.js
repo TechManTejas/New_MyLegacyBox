@@ -79,7 +79,7 @@ const NomineeForm = ({
 
     const cleanedValues = cleanObjectAndTrim({ ...values });
 
-    if (ctaCaption === "Edit") delete cleanedValues["email"];
+    if (ctaCaption === "Confirm") delete cleanedValues["email"];
 
     try {
       await apiCallback({ ...cleanedValues, ...defaultBody }).unwrap();
@@ -172,11 +172,11 @@ const NomineeForm = ({
           <CustomKeyboardAvoidingScrollView keyboardVerticalOffset={100}>
             <View style={styles.container}>
               <View style={styles.sectionTitleContainer}>
-                <Text style={styles.sectionTitle}>Nominee Details</Text>
+                <Text style={styles.sectionTitle}>Member's Details</Text>
               </View>
               <CustomInputGroup
                 name="fullName"
-                placeholder="Enter nominee's full name"
+                placeholder="Enter member's full name"
                 title="Full Name"
                 onChange={handleChange("fullName")}
                 onBlur={handleBlur("fullName")}
@@ -190,7 +190,7 @@ const NomineeForm = ({
 
               <CustomDropDownInput
                 title="Gender"
-                placeholder="Select nominee's gender"
+                placeholder="Select member's gender"
                 data={objectToDropDownLabelAndValues(
                   NOMINEE_GENDER_TO_TITLE_MAP
                 )}
@@ -211,7 +211,7 @@ const NomineeForm = ({
 
               <CustomDropDownInput
                 title="Relationship"
-                placeholder="Select nominee's relationship with you"
+                placeholder="Select member's relationship with you"
                 data={objectToDropDownLabelAndValues(
                   NOMINEE_RELATIONSHIP_TO_TITLE_MAP
                 )}
@@ -232,7 +232,7 @@ const NomineeForm = ({
 
               <CustomInputGroup
                 name="phoneNumber"
-                placeholder="Enter nominee's phone number"
+                placeholder="Enter member's phone number"
                 title="Phone Number"
                 onChange={handleChange("phoneNumber")}
                 onBlur={handleBlur("phoneNumber")}
@@ -245,9 +245,9 @@ const NomineeForm = ({
               />
 
               <CustomInputGroup
-                disabled={ctaCaption === "Edit"}
+                disabled={ctaCaption === "Confirm"}
                 name="email"
-                placeholder="Enter nominee's email"
+                placeholder="Enter member's email"
                 title="Email"
                 onChange={handleChange("email")}
                 onBlur={handleBlur("email")}
@@ -267,13 +267,13 @@ const NomineeForm = ({
                   </Text>
                 </View>
                 <Text style={styles.sectionInfo}>
-                  This section is required to use this person in will
+                  Required to be included in the Will
                 </Text>
               </View>
               <CustomInputGroup
                 optional
                 name="age"
-                placeholder="Enter nominee's age"
+                placeholder="Enter member's age"
                 title="Age"
                 onChangeText={(value) => {
                   if (value == " " || value == "") setFieldValue("age", "");
@@ -287,13 +287,13 @@ const NomineeForm = ({
                     ? [{ id: "fullName", text: customErrors.age }]
                     : undefined
                 }
-                subTitle="required for beneficiary"
+                subTitle="Required for Beneficiary/Executor/Witness"
               />
 
               <CustomInputGroup
                 optional
                 name="aadharNumber"
-                placeholder="Enter nominee's Aadhar Number"
+                placeholder="Enter member's Aadhar Number"
                 title="Aadhar Number"
                 onChange={handleChange("aadharNumber")}
                 onBlur={handleBlur("aadharNumber")}
@@ -303,13 +303,13 @@ const NomineeForm = ({
                     ? [{ id: "aadharNumber", text: customErrors.aadharNumber }]
                     : undefined
                 }
-                subTitle="required for witness"
+                subTitle="Required for Witness"
               />
 
               <CustomInputGroup
                 optional
                 name="fathersName"
-                placeholder="Enter nominee's father's name"
+                placeholder="Enter member's father's name"
                 title="Father's Name"
                 onChange={handleChange("fathersName")}
                 onBlur={handleBlur("fathersName")}
@@ -319,7 +319,7 @@ const NomineeForm = ({
                     ? [{ id: "fathersName", text: customErrors.fathersName }]
                     : undefined
                 }
-                subTitle="required for witness and executor"
+                subTitle="Required for Executor/Witness"
               />
 
               <View style={styles.sectionTitleContainer}>

@@ -5,12 +5,8 @@ import CustomHeaderLeftIcon from "../components/Common/CustomHeaderLeftIcon";
 import CustomHeaderTitle from "../components/Common/CustomHeaderTitle";
 import { StyleSheet } from "react-native";
 import WillScreen from "../screens/Will/WillScreen";
-import WillPersonalInfoScreen from "../screens/Will/WillPersonalInfoScreen";
-import WillWitnessInfoScreen from "../screens/Will/WillWitnessInfoScreen";
-import WillBeneficiaryInfoScreen from "../screens/Will/WillBeneficiaryInfoScreen";
 import WillAssetsScreen from "../screens/Will/WillAssetsScreen";
 import WillAssetInfoScreen from "../screens/Will/WillAssetInfoScreen";
-import WillExecutorInfoScreen from "../screens/Will/WillExecutorInfoScreen";
 import WillDeclarationScreen from "../screens/Will/WillDeclarationScreen";
 import WillGenerationScreen from "../screens/Will/WillGenerationScreen";
 import WillInfoScreen from "../screens/Will/WillInfoScreen";
@@ -67,33 +63,6 @@ const WillNavigation = () => {
         />
 
         <Stack.Screen
-          name={SCREEN_NAMES.willPersonalInfoScreen}
-          component={WillPersonalInfoScreen}
-          options={{
-            headerShown: true,
-            title: "Testator Information",
-          }}
-        />
-
-        <Stack.Screen
-          name={SCREEN_NAMES.willWitnessInfoScreen}
-          component={WillWitnessInfoScreen}
-          options={{
-            headerShown: true,
-            title: "Witness to my Will",
-          }}
-        />
-
-        <Stack.Screen
-          name={SCREEN_NAMES.willBeneficiaryInfoScreen}
-          component={WillBeneficiaryInfoScreen}
-          options={{
-            headerShown: true,
-            title: "Beneficiary Information",
-          }}
-        />
-
-        <Stack.Screen
           name={SCREEN_NAMES.willAssetsScreen}
           component={WillAssetsScreen}
           options={{
@@ -108,15 +77,6 @@ const WillNavigation = () => {
           options={{
             headerShown: true,
             title: "Asset Allocation",
-          }}
-        />
-
-        <Stack.Screen
-          name={SCREEN_NAMES.willExecutorInfoScreen}
-          component={WillExecutorInfoScreen}
-          options={{
-            headerShown: true,
-            title: "Executor of my Will",
           }}
         />
 
@@ -141,19 +101,19 @@ const WillNavigation = () => {
         <Stack.Screen
           name={SCREEN_NAMES.willAddNomineeScreen}
           component={AddNomineeForm}
-          options={{
+          options={({ route }) => ({
             headerShown: true,
-            title: "Add Nominee",
-          }}
+            title: "Add a Member",
+          })}
         />
 
         <Stack.Screen
           name={SCREEN_NAMES.willUpdateNomineeScreen}
           component={UpdateNomineeForm}
-          options={{
+          options={({ route }) => ({
             headerShown: true,
-            title: "Edit Nominee",
-          }}
+            title: `Edit ${route.params.nominee.fullName}'s Details`,
+          })}
         />
       </Stack.Group>
     </Stack.Navigator>

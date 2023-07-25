@@ -73,7 +73,8 @@ const WillInfoScreen = () => {
 
     if (
       !(isFetching || isLoading) &&
-      (data?.data !== null) && typeof data.data === "object"
+      data?.data &&
+      typeof data.data === "object"
     ) {
       allFilled =
         data?.data.hasOwnProperty("gender") &&
@@ -184,10 +185,6 @@ const WillInfoScreen = () => {
             tickCondition={executors.length == 2}
             title={"Add Executors"}
             subtitle={"Executor handles wealth distribution of the Testator"}
-            warnCondition={executors.length != 2}
-            warnMsg={
-              "To avoid any future conflict, an executor should not be a beneficiary or a witness"
-            }
             optional={true}
             onPress={() => {
               setNomineesType("executors");

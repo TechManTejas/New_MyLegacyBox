@@ -98,22 +98,22 @@ const WillDownloadCard = () => {
       fontSize: fontSize.xxl,
       lineHeight: fontSize.xxl + fontSize.xxs,
       marginBottom: -spacing.xs,
-      color: colors.blue500
+      color: colors.blue500,
     },
     date: {
       fontFamily: fontFamily.regular,
       fontSize: fontSize.sm,
       lineHeight: fontSize.md,
       marginTop: spacing.xs,
-      color: colors.black300
+      color: colors.black300,
     },
     assetHolders: {
       color: colors.black400,
       fontFamily: fontFamily.regular,
     },
     willSubHeader: {
-        width: "70%"
-    }
+      width: "70%",
+    },
   });
 
   const generateDownloadLink = async () => {
@@ -130,11 +130,12 @@ const WillDownloadCard = () => {
     }
   };
 
-  if (isLoading || isFetching) return <CustomActivityIndicator />;
+  if (isLoading || isFetching || data === undefined)
+    return <CustomActivityIndicator />;
 
   if (data?.data === null) return <Empty message="No Will Created Yet" />;
 
-  if (data?.data !== null && typeof data.data === "object") {
+  if (data?.data && typeof data.data === "object") {
     return (
       <View style={styles.card}>
         <View style={styles.willHeader}>
@@ -143,7 +144,8 @@ const WillDownloadCard = () => {
               {data.data.personalInfo.fullName}
             </Text>
             <Text style={styles.date}>
-              created on {new Date(data.data.willDate).toDateString().replace(/^\w+ /, "")}
+              created on{" "}
+              {new Date(data.data.willDate).toDateString().replace(/^\w+ /, "")}
             </Text>
           </View>
           <Pressable
@@ -183,19 +185,21 @@ const WillDownloadCard = () => {
           </View>
         </View>
 
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Executors</Text>
-          <View>
-            {data.data.executors.map((executor, idx) => {
-              return (
-                <View key={idx} style={styles.nomineeInfo}>
-                  <Text style={styles.nomineeName}>{executor.fullName}</Text>
-                  <Text style={styles.nomineeEmail}>{executor.email}</Text>
-                </View>
-              );
-            })}
+        {data.data.executors !== [] && (
+          <View style={styles.section}>
+            <Text style={styles.sectionTitle}>Executors</Text>
+            <View>
+              {data.data.executors.map((executor, idx) => {
+                return (
+                  <View key={idx} style={styles.nomineeInfo}>
+                    <Text style={styles.nomineeName}>{executor.fullName}</Text>
+                    <Text style={styles.nomineeEmail}>{executor.email}</Text>
+                  </View>
+                );
+              })}
+            </View>
           </View>
-        </View>
+        )}
 
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Asset Distribution</Text>

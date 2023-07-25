@@ -55,8 +55,10 @@ const DrawerNavigation = () => {
         name={SCREEN_NAMES.peronsalInfoScreen}
         component={PersonalInfoScreen}
         options={{
+          
           title: "Personal Info",
         }}
+        listeners={({navigation}) => ({blur: () => navigation.setParams({goBack: undefined})})}
       />
       <Drawer.Screen
         name={SCREEN_NAMES.sharedArtifactsNavigator}

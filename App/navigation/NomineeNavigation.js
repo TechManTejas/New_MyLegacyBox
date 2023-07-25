@@ -51,17 +51,17 @@ const NomineeNavigation = () => {
           component={AddNomineeForm}
           options={{
             headerShown: true,
-            title: "Add Nominee",
+            title: "Add A Member",
           }}
         />
 
         <Stack.Screen
           name={SCREEN_NAMES.updateNomineeScreen}
           component={UpdateNomineeForm}
-          options={{
+          options={({ route }) => ({
             headerShown: true,
-            title: "Edit Nominee",
-          }}
+            title: `Edit ${route.params.nominee.fullName}'s Details`,
+          })}
         />
 
         <Stack.Screen

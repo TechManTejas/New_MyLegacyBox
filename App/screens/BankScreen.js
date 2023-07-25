@@ -145,6 +145,7 @@ const BankScreen = ({ route }) => {
         modalVisible={modalVisible}
         setModalVisible={setModalVisible}
         artifactDetails={artifactDetails}
+        setArtifactDetails={setArtifactDetails}
       />
     </View>
   );

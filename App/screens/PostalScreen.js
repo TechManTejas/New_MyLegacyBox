@@ -142,6 +142,7 @@ const PostalScreen = ({ route }) => {
         modalVisible={modalVisible}
         setModalVisible={setModalVisible}
         artifactDetails={artifactDetails}
+        setArtifactDetails={setArtifactDetails}
       />
     </View>
   );

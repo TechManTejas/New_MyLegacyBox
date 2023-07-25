@@ -166,6 +166,7 @@ const RealEstateScreen = () => {
         modalVisible={modalVisible}
         setModalVisible={setModalVisible}
         artifactDetails={artifactDetails}
+        setArtifactDetails={setArtifactDetails}
       />
     </View>
   );

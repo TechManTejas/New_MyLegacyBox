@@ -2,8 +2,8 @@ import BottomSheet, {
   BottomSheetBackdrop,
   BottomSheetFlatList,
 } from "@gorhom/bottom-sheet";
-import { useCallback, useRef } from "react";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { useCallback, useEffect, useRef } from "react";
+import { BackHandler, Pressable, StyleSheet, Text, View } from "react-native";
 import { useGetNomineesQuery } from "../../services/nominee/nomineeSlice";
 import { useNavigation } from "@react-navigation/native";
 import { useTheme } from "../../theme/ThemeProvider";
@@ -31,8 +31,35 @@ const WillNomineeModal = ({
   nomineesType,
   setNomineesType,
 }) => {
+
+  const snapPoints = ["70%"];
+  const sheetRef = useRef(null);
+  modalVisible && sheetRef.current?.snapToIndex(0);
+
   const dispatch = useDispatch();
   const navigation = useNavigation();
+
+  useEffect(() => {
+
+    const backAction = () => {
+
+      if (modalVisible) {
+        setModalVisible(false);
+        setNomineesType("");
+        sheetRef.current?.close()
+        return true;
+      }
+      return false
+
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      backAction
+    );
+
+    return () => backHandler.remove();
+  }, [modalVisible]);
 
   const {
     theme: { colors, fontSize, spacing, fontFamily },
@@ -76,9 +103,7 @@ const WillNomineeModal = ({
     },
   });
 
-  const snapPoints = ["70%"];
-  const sheetRef = useRef(null);
-  modalVisible && sheetRef.current?.snapToIndex(0);
+
 
   const nomineeList = useGetNomineesQuery();
 
@@ -87,16 +112,19 @@ const WillNomineeModal = ({
       get: useSelector((state) => getBeneficiariesSelector(state)) || [],
       add: addBeneficiaryRedux,
       remove: removeBeneficiaryRedux,
+      shareMessage: "Add Beneficiary",
     },
     witnesses: {
       get: useSelector((state) => getWitnessesSelector(state)) || [],
       add: addWitnessRedux,
       remove: removeWitnessRedux,
+      shareMessage: "Add Witness",
     },
     executors: {
       get: useSelector((state) => getExecutorsSelector(state)) || [],
       add: addExecutorRedux,
       remove: removeExecutorRedux,
+      shareMessage: "Add Executor",
     },
   };
 
@@ -127,7 +155,9 @@ const WillNomineeModal = ({
     >
       <View style={{ flex: 1 }}>
         <View style={styles.modalheader}>
-          <Text style={styles.modalheadertext}>Share with</Text>
+          <Text style={styles.modalheadertext}>
+            {nomineesType && typeFunctionMap[nomineesType].shareMessage}
+          </Text>
           <Pressable
             style={styles.modalbtn}
             onPress={() => {
@@ -138,7 +168,9 @@ const WillNomineeModal = ({
           </Pressable>
         </View>
         <View style={styles.modalContent}>
-          {nomineeList.isLoading || nomineeList.isFetching ? (
+          {nomineeList.isLoading ||
+          nomineeList.isFetching ||
+          nomineeList.data === undefined ? (
             <View style={{ paddingTop: spacing.xl }}>
               <CustomActivityIndicator />
             </View>
@@ -149,9 +181,7 @@ const WillNomineeModal = ({
           ) : nomineesType ? (
             <BottomSheetFlatList
               style={styles.flatList}
-              data={Object.values(
-                nomineeList.data !== undefined ? nomineeList.data.entities : {}
-              )}
+              data={Object.values(nomineeList.data?.entities)}
               keyExtractor={(item) => item._id}
               renderItem={({ item }) => {
                 return typeFunctionMap[nomineesType].get.some(
@@ -176,8 +206,8 @@ const WillNomineeModal = ({
                     usedNominees={usedNominees}
                     item={item}
                     disableCallback={
-                      (nomineesType !== "beneficiaries" &&
-                        typeFunctionMap[nomineesType].get.length === 2)
+                      nomineesType !== "beneficiaries" &&
+                      typeFunctionMap[nomineesType].get.length === 2
                     }
                     callBack={() => {
                       dispatch(typeFunctionMap[nomineesType].add(item));

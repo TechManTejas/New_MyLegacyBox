@@ -15,7 +15,7 @@ const UpdateNomineeForm = () => {
     <NomineeForm
       apiCallback={updateNominee}
       isLoading={isLoading}
-      ctaCaption="Edit"
+      ctaCaption="Confirm"
       defaultBody={{_id}}
       initialValues={nomineeFields}
     />

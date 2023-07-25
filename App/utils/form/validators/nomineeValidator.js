@@ -53,6 +53,9 @@ export const nomineeValidator = z
       .refine((value) => !isNaN(value), {
         message: "Input should be a numeric value",
       })
+      .refine((value) => value >= 18, {
+        message: "Min age should be 18",
+      })
       .optional(),
 
     aadharNumber: z

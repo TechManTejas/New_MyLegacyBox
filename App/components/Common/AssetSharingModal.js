@@ -1,11 +1,9 @@
 import BottomSheet, {
   BottomSheetBackdrop,
   BottomSheetFlatList,
-  BottomSheetScrollView,
-  BottomSheetView,
 } from "@gorhom/bottom-sheet";
-import { useCallback, useRef } from "react";
-import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import { useCallback, useEffect, useRef } from "react";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import {
   useGetNomineesForAnArtifactQuery,
   useRevokeAssetAccessFromNomineeMutation,
@@ -18,12 +16,42 @@ import CustomActivityIndicator from "./CustomActivityIndicator";
 import Empty from "./Empty";
 import ShareNomineeModalCard from "../Nominee/ShareNomineeModalCard";
 import { SCREEN_NAMES } from "../../constants/screenNames";
+import { BackHandler } from "react-native";
 
 const AssetSharingModal = ({
   modalVisible,
   setModalVisible,
   artifactDetails,
+  setArtifactDetails,
 }) => {
+  const snapPoints = ["70%"];
+  const sheetRef = useRef(null);
+  modalVisible && sheetRef.current?.snapToIndex(0);
+
+  useEffect(() => {
+
+    if (!modalVisible) {
+      setArtifactDetails({
+        financialArtifactId: "",
+        financialArtifactType: "",
+      })
+    }
+
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      () => {
+        if (modalVisible) {
+          setModalVisible(false);
+          sheetRef.current?.close();
+          return true;
+        }
+        return false;
+      }
+    );
+
+    return () => backHandler.remove();
+  }, [modalVisible]);
+
   const {
     theme: { colors, fontSize, spacing, fontFamily },
   } = useTheme();
@@ -66,15 +94,17 @@ const AssetSharingModal = ({
     },
   });
 
-  const snapPoints = ["70%"];
-  const sheetRef = useRef(null);
-  modalVisible && sheetRef.current?.snapToIndex(0);
-
   const nomineeList = useGetNomineesQuery();
 
   const { data, isLoading, isFetching } = useGetNomineesForAnArtifactQuery(
     artifactDetails.financialArtifactId
   );
+
+  console.group("Group 1");
+  console.log(data?.data);
+  console.log(artifactDetails);
+  console.log();
+  console.groupEnd()
 
   const [
     revokeAssetAccessFromNominee,
@@ -117,7 +147,9 @@ const AssetSharingModal = ({
       ref={sheetRef}
       snapPoints={snapPoints}
       enablePanDownToClose={true}
-      onClose={() => setModalVisible(false)}
+      onClose={() => {
+        setModalVisible(false);
+      }}
       index={-1}
       backdropComponent={renderBackdrop}
     >
@@ -147,15 +179,17 @@ const AssetSharingModal = ({
               <Empty message="No Nominees Available" />
             </View>
           ) : (
-            <BottomSheetFlatList
+            artifactDetails.financialArtifactId && <BottomSheetFlatList
               style={styles.flatList}
               data={Object.values(
-                nomineeList.data !== undefined ? nomineeList.data.entities : {}
+                nomineeList.data ? nomineeList.data.entities : {}
               )}
               keyExtractor={(item) => item._id}
               renderItem={({ item }) => {
                 return Object.values(
-                  ((data?.data !== null) && typeof data.data === "object")  ? data.data.nominees : {}
+                  data?.data && typeof data.data === "object"
+                    ? data.data.nominees
+                    : {}
                 ).some((c) => c.email === item.email) ? (
                   <ShareNomineeModalCard
                     isApproved

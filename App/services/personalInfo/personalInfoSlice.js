@@ -13,7 +13,7 @@ export const peronalInfoSlice = personalInfoApiSlice.injectEndpoints({
         method: "PUT",
         body: info,
       }),
-      invalidatesTags: [QUERY_TAGS.personalInfo],
+      invalidatesTags: (res, err) => (err ? [] : [QUERY_TAGS.personalInfo]),
     }),
   }),
   overrideExisting: true,
