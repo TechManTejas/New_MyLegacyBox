@@ -16,8 +16,8 @@ export const willDeclarationInfoValidator = z
         required_error: "Declaration is required",
         invalid_type_error: "Invalid type for Declaration",
       })
-      .refine((v) => v === "YES" || v === "yes" || v === "Yes", {
-        message: 'Declaration must be agreed with "YES", "Yes", or "yes"',
+      .refine((v) => v.toLowerCase() === "yes", {
+        message: 'Declaration must be agreed a "yes"',
       }),
   })
   .strict();
