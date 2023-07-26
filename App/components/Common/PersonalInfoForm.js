@@ -37,8 +37,6 @@ const PersonalInfoForm = () => {
     setInitialValues(
       data?.data && typeof data.data === "object" ? data.data : {}
     );
-    console.log(data);
-    console.log("hi");
   }, [data]);
 
   const [savePersonalInfo, { isLoading }] = useSavePersonalInfoMutation();
@@ -207,6 +205,7 @@ const PersonalInfoForm = () => {
           innerRef={formRef}
           validateOnChange={false}
           validateOnBlur={false}
+          enableReinitialize
         >
           {({ handleChange, setFieldValue, handleBlur, values }) => {
             return (
