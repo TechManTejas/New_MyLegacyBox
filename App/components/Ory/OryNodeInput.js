@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Text, Pressable } from "react-native";
+import React, { useState } from "react";
+import { Pressable, StyleSheet, Text } from "react-native";
 import {
   getNodeId,
   getNodeTitle,
@@ -8,6 +8,9 @@ import {
 } from "../../utils/oryForm";
 import CustomInputGroup from "../Form/CustomInputGroup";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
+import { useTheme } from "../../theme/ThemeProvider";
+import { useRoute } from "@react-navigation/core";
+import { SCREEN_NAMES } from "../../constants/screenNames";
 
 const guessAttributeVariant = ({ attributes }) => {
   if (!isUiNodeInputAttributes(attributes)) {
@@ -108,6 +111,21 @@ const OryNodeInput = ({
   const name = getNodeId(node);
   const title = metaLabelModifier(getNodeTitle(node));
 
+  const {
+    theme: { fontFamily, fontSize, spacing, colors },
+  } = useTheme();
+
+  const styles = StyleSheet.create({
+    toolTipMessage: {
+      fontFamily: fontFamily.regular,
+      fontSize: fontSize.md,
+      lineHeight: spacing.lg,
+      color: colors.blue500,
+    },
+  });
+
+  const route = useRoute()
+
   return (
     <CustomInputGroup
       name={name}
@@ -119,23 +137,15 @@ const OryNodeInput = ({
       disabled={disabled}
       messages={node.messages}
       {...extraProps}
+      info={
+        title === "Password" && route.name === SCREEN_NAMES.registerScreen ? (
+          <Text style={styles.toolTipMessage}>
+            Password should be of 8 Characters or more & combination of Letters,
+            Numbers and Special characters.
+          </Text>
+        ) : null
+      }
     />
-    // <View>
-    //   <Text>{title}</Text>
-    //   <TextInput
-    //     onChange={onChange}
-    //     onChangeText={onChange}
-    //     value={value ? String(value) : ""}
-    //     editable={!disabled}
-    //     {...extraProps}
-    //   />
-
-    //   <>
-    //     {node.messages?.map(({ text, id }, index) => (
-    //       <Text key={`message-${name}-${id}-${index}`}>{text}</Text>
-    //     ))}
-    //   </>
-    // </View>
   );
 };
 

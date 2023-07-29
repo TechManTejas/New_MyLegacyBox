@@ -62,7 +62,9 @@ const CashScreen = () => {
       <View style={styles.listContainer}>
         <FlatList
           contentContainerStyle={styles.listContentContainer}
-          data={ data !== undefined ? data.ids.map((id) => data.entities[id]): []}
+          data={
+            data !== undefined ? data.ids.map((id) => data.entities[id]) : []
+          }
           renderItem={({ item }) => (
             <FinancialInstitutionHoldingItem
               holdingClass={item.holdingClass}
@@ -70,10 +72,6 @@ const CashScreen = () => {
               title={item.holding.nameOfParty}
               tagLabel={CASH_TYPE_TO_TITLE_MAP[item.holding.cashType]}
               content={[
-                {
-                  key: "Nominee",
-                  value: item.holding.nominee || "Not Available",
-                },
                 { key: "Phone Number", value: item.holding.phoneNumberOfParty },
                 {
                   key: "Date of Transaction",
@@ -86,6 +84,10 @@ const CashScreen = () => {
                   value: item.holding.amount
                     ? `Rs. ${numberWithCommas(item.holding.amount)}`
                     : "Not Available",
+                },
+                {
+                  key: "Nominee",
+                  value: item.holding.nominee || "Not Available",
                 },
                 {
                   key: "Address",

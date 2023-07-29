@@ -63,7 +63,9 @@ const ProvidentFundScreen = () => {
       <View style={styles.listContainer}>
         <FlatList
           contentContainerStyle={styles.listContentContainer}
-          data={ data !== undefined ? data.ids.map((id) => data.entities[id]): []}
+          data={
+            data !== undefined ? data.ids.map((id) => data.entities[id]) : []
+          }
           renderItem={({ item }) => (
             <FinancialInstitutionHoldingItem
               title={item.holding.employerName}
@@ -71,16 +73,16 @@ const ProvidentFundScreen = () => {
               updatedAt={item.updatedAt}
               tagLabel={PROVIDENT_FUND_TYPE_TO_TITLE_MAP[item.holding.pfType]}
               content={[
-                {
-                  key: "Nominee",
-                  value: item.holding.nominee || "Not Available",
-                },
                 { key: "UAN", value: item.holding.uan },
                 {
                   key: "Amount",
                   value: item.holding.amount
                     ? `Rs. ${numberWithCommas(item.holding.amount)}`
                     : "Not available",
+                },
+                {
+                  key: "Nominee",
+                  value: item.holding.nominee || "Not Available",
                 },
               ]}
               editButtonCallBack={() => {
