@@ -83,7 +83,9 @@ const InsuranceScreen = ({ route }) => {
           }
           ListHeaderComponentStyle={styles.listHeader}
           contentContainerStyle={styles.listContentContainer}
-          data={ data !== undefined ? data.ids.map((id) => data.entities[id]): []}
+          data={
+            data !== undefined ? data.ids.map((id) => data.entities[id]) : []
+          }
           renderItem={({ item }) => (
             <FinancialInstitutionHoldingCard
               holdingClass={item.holdingClass}
@@ -91,16 +93,16 @@ const InsuranceScreen = ({ route }) => {
               updatedAt={item.updatedAt}
               tagLabel={POLICY_TYPE_TO_TITLE_MAP[item.holding.policyType]}
               content={[
-                {
-                  key: "Nominee",
-                  value: item.holding.nominee || "Not Available",
-                },
                 { key: "Home Branch ", value: item.holding.homeBranch },
                 { key: "Policy Number ", value: item.holding.policyNumber },
                 {
                   key: "Beneficiary ",
                   value:
                     POLICY_BENEFICIERY_TO_TITLE_MAP[item.holding.beneficiary],
+                },
+                {
+                  key: "Nominee",
+                  value: item.holding.nominee || "Not Available",
                 },
                 { type: "divider" },
                 {

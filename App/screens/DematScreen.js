@@ -62,7 +62,9 @@ const DematScreen = () => {
       <View style={styles.listContainer}>
         <FlatList
           contentContainerStyle={styles.listContentContainer}
-          data={ data !== undefined ? data.ids.map((id) => data.entities[id]): []}
+          data={
+            data !== undefined ? data.ids.map((id) => data.entities[id]) : []
+          }
           renderItem={({ item }) => (
             <FinancialInstitutionHoldingItem
               title={item.holding.broker}
@@ -70,11 +72,11 @@ const DematScreen = () => {
               holdingClass={item.holdingClass}
               tagLabel={DEMAT_TYPE_MAP_TO_TITLE_MAP[item.holding.dematType]}
               content={[
+                { key: "Customer ID", value: item.holding.customerId },
                 {
                   key: "Nominee",
                   value: item.holding.nominee || "Not Available",
                 },
-                { key: "Customer ID", value: item.holding.customerId },
                 { type: "divider" },
                 {
                   key: "Relationship Manager",

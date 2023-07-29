@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, TextInput, View } from "react-native";
 import { useTheme } from "../../theme/ThemeProvider";
 import CustomErrorMessageGroup from "./CustomErrorMessageGroup";
+import CustomToolTip from "../Common/CustomToolTip";
+import { Ionicons } from "@expo/vector-icons";
 
 const CustomInputGroup = ({
   name,
@@ -26,6 +28,7 @@ const CustomInputGroup = ({
   optional,
   textContentType,
   textTransformNormal,
+  info,
   ...extraProps
 }) => {
   const [hasError, setHasError] = useState(false);
@@ -94,7 +97,7 @@ const CustomInputGroup = ({
       // paddingHorizontal: spacing.sm,
       paddingHorizontal: spacing.lg,
       height: 40,
-      
+
       // borderRadius: 20
     },
     multilineInput: {
@@ -117,7 +120,7 @@ const CustomInputGroup = ({
     },
     subTitleContainer: {
       marginBottom: spacing.sm,
-      marginTop: -spacing.xs
+      marginTop: -spacing.xs,
     },
     subTitle: {
       color: colors.black300,
@@ -125,12 +128,29 @@ const CustomInputGroup = ({
       fontSize: fontSize.sm,
       lineHeight: fontSize.md,
     },
+    iconContainer: {
+      paddingLeft: spacing.sm,
+    },
   });
 
   return (
     <View style={styles.container}>
       <View style={styles.labelContainer}>
         <Text style={styles.label}>{title}</Text>
+        {info && (
+          <CustomToolTip
+            icon={
+              <Ionicons
+                name="information-circle-outline"
+                size={fontSize.default}
+                color={colors.blue500}
+              />
+            }
+            message={info}
+            position={"top"}
+            style={styles.iconContainer}
+          />
+        )}
         {optional ? <Text style={styles.labelOptional}>optional</Text> : null}
       </View>
       {subTitle ? (

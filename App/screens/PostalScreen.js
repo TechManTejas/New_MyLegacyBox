@@ -82,7 +82,9 @@ const PostalScreen = ({ route }) => {
           }
           ListHeaderComponentStyle={styles.listHeader}
           contentContainerStyle={styles.listContentContainer}
-          data={ data !== undefined ? data.ids.map((id) => data.entities[id]): []}
+          data={
+            data !== undefined ? data.ids.map((id) => data.entities[id]) : []
+          }
           renderItem={({ item }) => (
             <FinancialInstitutionHoldingCard
               updatedAt={item.updatedAt}
@@ -94,16 +96,16 @@ const PostalScreen = ({ route }) => {
                 POSTAL_ACCOUNT_OWNERSHIP_TO_TITLE_MAP[item.holding.ownership]
               }
               content={[
-                {
-                  key: "Nominee",
-                  value: item.holding.nominee || "Not Available",
-                },
                 { key: "Account Number", value: item.holding.accountNumber },
                 {
                   key: "Amount ",
                   value: item.holding.amount
                     ? `Rs. ${numberWithCommas(item.holding.amount)}`
                     : "Not Available",
+                },
+                {
+                  key: "Nominee",
+                  value: item.holding.nominee || "Not Available",
                 },
               ]}
               editButtonCallBack={() => {
