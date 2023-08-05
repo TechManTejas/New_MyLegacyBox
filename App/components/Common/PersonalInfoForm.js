@@ -173,11 +173,11 @@ const PersonalInfoForm = () => {
       paddingVertical: spacing.md,
       paddingBottom: spacing.lg,
       paddingHorizontal: spacing.lg,
-      width: "100%"
+      width: "100%",
     },
   });
 
-  if (isFetching || getPersonalInfoLoading || !data?.data)
+  if (isFetching || getPersonalInfoLoading)
     return <CustomActivityIndicator />;
 
   return (
