@@ -62,7 +62,7 @@ const NomineeScreenCard = ({
       color: colors.blue500,
       fontSize: fontSize.xl,
       lineHeight: fontSize.xxl,
-      // width: "75%",
+      width: "55%",
     },
     type: {
       fontFamily: fontFamily.regular,
