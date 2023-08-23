@@ -2,7 +2,7 @@
   "expo": {
     "name": "Oiconomos",
     "slug": "oiconomos-mobile-app",
-    "version": "1.0.6",
+    "version": "1.0.7",
     "orientation": "portrait",
     "owner": "oiconomos",
     "icon": "./assets/icon.png",
@@ -28,7 +28,7 @@
         "backgroundColor": "#FFFFFF"
       },
       "package": "com.oiconomos.www",
-      "versionCode": 7
+      "versionCode": 8
     },
     "web": {
       "favicon": "./assets/favicon.png"
