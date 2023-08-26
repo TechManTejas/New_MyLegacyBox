@@ -4,6 +4,7 @@ import FontAwesome from "@expo/vector-icons/FontAwesome";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import { Feather } from "@expo/vector-icons";
 import CustomActivityIndicator from "../Common/CustomActivityIndicator";
+import { NOMINEE_RELATIONSHIP_TO_TITLE_MAP } from "../../constants/nominee";
 
 const WillSectionCard = ({
   sectiontitle,
@@ -200,7 +201,7 @@ const WillSectionCard = ({
               <View>
                 <Text style={styles.disabledtext}>{item.fullName}</Text>
                 <Text style={styles.disabledsubtext}>
-                  {item.relationship}
+                  {NOMINEE_RELATIONSHIP_TO_TITLE_MAP[item.relationship]}
                 </Text>
               </View>
             </Pressable>
