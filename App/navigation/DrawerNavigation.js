@@ -9,6 +9,8 @@ import CustomHeaderLeftIcon from "../components/Common/CustomHeaderLeftIcon";
 import CustomHeaderTitle from "../components/Common/CustomHeaderTitle";
 import SharedArtifactsNavigation from "./SharedArtifactsNavigation";
 import PersonalInfoScreen from "../screens/PersonalInfoScreen";
+import { useDispatch } from "react-redux";
+import { setShowModal } from "../services/appTour/appTour";
 
 const Drawer = createDrawerNavigator();
 
@@ -27,6 +29,8 @@ const DrawerNavigation = () => {
       margin: 0,
     },
   });
+
+  const dispatch = useDispatch()
 
   return (
     <Drawer.Navigator
@@ -55,10 +59,11 @@ const DrawerNavigation = () => {
         name={SCREEN_NAMES.peronsalInfoScreen}
         component={PersonalInfoScreen}
         options={{
-          
           title: "Personal Info",
         }}
-        listeners={({navigation}) => ({blur: () => navigation.setParams({goBack: undefined})})}
+        listeners={({ navigation }) => ({
+          blur: () => navigation.setParams({ goBack: undefined }),
+        })}
       />
       <Drawer.Screen
         name={SCREEN_NAMES.sharedArtifactsNavigator}
@@ -74,6 +79,19 @@ const DrawerNavigation = () => {
         options={{
           title: "Feedback",
         }}
+      />
+      <Drawer.Screen
+        name={"APP_TOUR_MODAL"}
+        component={FeedbackScreen}
+        options={{
+          title: "App Tour",
+        }}
+        listeners={() => ({
+          drawerItemPress: (e) => {
+            e.preventDefault();
+            dispatch(setShowModal(true));
+          },
+        })}
       />
       <Drawer.Screen
         name={"tab2"}

@@ -1,4 +1,4 @@
-import { compose, configureStore } from "@reduxjs/toolkit";
+import {  configureStore } from "@reduxjs/toolkit";
 import { vaultApiSlice } from "./api/vaultApiSlice";
 import { nomineeApiSlice } from "./api/nomineeApiSlice";
 import { feedbackApiSlice } from "./api/feedbackApiSlice";
@@ -8,19 +8,14 @@ import willFormReducer from "./willForm/willFormSlice";
 import { sharedArtifactApiSlice } from "./api/sharedArtifactApiSlice";
 import tooltipMessageReducer from "./tooltipMessage/tooltipMessage";
 import { personalInfoApiSlice } from "./api/personalInfoApiSlice";
-
-const composeEnhancers =
-  typeof window === "object" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
-        // Specify extension’s options like name, actionsDenylist, actionsCreators, serialize...
-      })
-    : compose;
+import appTourReducer from "./appTour/appTour";
 
 export const store = configureStore({
   reducer: {
     auth: authReducer,
     willForm: willFormReducer,
     tooltipMessage: tooltipMessageReducer,
+    appTour: appTourReducer,
     [vaultApiSlice.reducerPath]: vaultApiSlice.reducer,
     [nomineeApiSlice.reducerPath]: nomineeApiSlice.reducer,
     [feedbackApiSlice.reducerPath]: feedbackApiSlice.reducer,
@@ -36,5 +31,4 @@ export const store = configureStore({
       .concat(willApiSlice.middleware)
       .concat(sharedArtifactApiSlice.middleware)
       .concat(personalInfoApiSlice.middleware)
-  // enhancers: composeEnhancers,
 });

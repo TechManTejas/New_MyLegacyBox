@@ -2,6 +2,8 @@ import { Dimensions, StyleSheet, View, Image } from "react-native";
 import Animated, { FadeInLeft, SlideOutRight } from "react-native-reanimated";
 import { useTheme } from "../theme/ThemeProvider";
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { setShowModal } from "../services/appTour/appTour";
 
 const AnimatedSplashScreen = ({
   setSplashScreenVisible,
@@ -60,9 +62,14 @@ const AnimatedSplashScreen = ({
     },
   });
 
+  const dispatch = useDispatch();
+
   useEffect(() => {
     const animationEndInterval = setTimeout(
-      () => setSplashScreenVisible(false),
+      () => {
+        setSplashScreenVisible(false)
+        dispatch(setShowModal(true));
+      },
       7000
     );
     const coverEndInterval = setTimeout(() => setCoverVisible(false), 3000);
