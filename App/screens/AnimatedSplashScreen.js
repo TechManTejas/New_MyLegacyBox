@@ -4,6 +4,7 @@ import { useTheme } from "../theme/ThemeProvider";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { setShowModal } from "../services/appTour/appTour";
+import { getItemAsync } from "expo-secure-store";
 
 const AnimatedSplashScreen = ({
   setSplashScreenVisible,
@@ -65,13 +66,13 @@ const AnimatedSplashScreen = ({
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const animationEndInterval = setTimeout(
-      () => {
-        setSplashScreenVisible(false)
-        dispatch(setShowModal(true));
-      },
-      7000
-    );
+    const animationEndInterval = setTimeout(() => {
+      setSplashScreenVisible(false);
+
+      getItemAsync("appInfoShown").then((res) => {
+        if (res !== 'true') dispatch(setShowModal(true));
+      });
+    }, 7000);
     const coverEndInterval = setTimeout(() => setCoverVisible(false), 3000);
 
     return () => {
@@ -85,7 +86,11 @@ const AnimatedSplashScreen = ({
   return (
     splashScreenVisible && (
       <View style={styles.screen}>
-        <Image style={styles.logo} fadeDuration={0} source={require("../../assets/icon.png")} />
+        <Image
+          style={styles.logo}
+          fadeDuration={0}
+          source={require("../../assets/icon.png")}
+        />
 
         <View style={styles.animatedTextBlock}>
           {text.split("").map((char, id) => (

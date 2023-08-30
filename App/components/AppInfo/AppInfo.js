@@ -12,24 +12,30 @@ import {
   import InfoItem from "./InfoItem";
   import { useDispatch, useSelector } from "react-redux";
   import { setShowModal } from "../../services/appTour/appTour";
+import { getItemAsync, setItemAsync } from "expo-secure-store";
   
   const AppInfo = () => {
     const {
-      theme: { colors, fontFamily, spacing },
+      theme: { colors, fontFamily, spacing, fontSize },
     } = useTheme();
   
     const styles = StyleSheet.create({
       modal: {
         backgroundColor: colors.white100,
-        flex: 1
+        flex: 1,
+
+        // borderWidth: 1,
+        // borderColor: colors.black300
       },
   
       indicatorContainer: {
         flexDirection: "row",
         justifyContent: "center",
-        marginBottom: spacing.u90,
-        paddingBottom: spacing.u90,
-        paddingTop: spacing.md
+        marginBottom: spacing.u100,
+        paddingBottom: spacing.u100,
+
+        // borderWidth: 1,
+        // borderColor: colors.black300
       },
       indicator: {
         height: 8,
@@ -43,22 +49,25 @@ import {
       },
   
       buttonContainer: {
+        // borderWidth: 1,
+        // borderColor: colors.black300,
+
         flexDirection: "row",
         alignItems: "center",
-        justifyContent: "center",
+        justifyContent: "space-between",
   
+        paddingBottom: spacing.lg,
         paddingHorizontal: spacing.xl,
-        paddingVertical: spacing.lg,
       },
       skipButtonContainer: {
         borderRadius: spacing.xl,
-        backgroundColor: colors.blue600,
+        backgroundColor: colors.blue100,
         paddingHorizontal: spacing.xl,
         paddingVertical: spacing.sm,
       },
       skipButton: {
         fontFamily: fontFamily.semiBold,
-        color: colors.white100,
+        color: colors.blue300,
       },
     });
   
@@ -81,10 +90,19 @@ import {
     const dispatch = useDispatch()
   
     const appTourModalVisible = useSelector((state) => state.appTour.showModal)
+
+    const hideAppInfo = () => {
+        dispatch(setShowModal(false))
+        getItemAsync("appInfoShown").then((res) => {
+            if (res === null) setItemAsync("appInfoShown", 'true')
+        })
+    }
   
     return (
       <Modal transparent visible={appTourModalVisible} animationType="slide">
         <View style={styles.modal}>
+
+         
           <FlatList
             data={APP_INFO_DATA}
             onViewableItemsChanged={onViewCallBackRef.current}
@@ -95,6 +113,7 @@ import {
             renderItem={({ item }) => <InfoItem item={item} />}
             keyExtractor={(item) => item.id}
             ref={flatListRef}
+
           />
   
           <View style={styles.indicatorContainer}>
@@ -110,8 +129,9 @@ import {
           </View>
   
           <View style={styles.buttonContainer}>
+            <Text></Text>
             <Pressable
-              onPress={() => dispatch(setShowModal(false))}
+              onPress={hideAppInfo}
               style={styles.skipButtonContainer}
             >
               <Text style={styles.skipButton}>SKIP</Text>

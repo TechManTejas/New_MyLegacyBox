@@ -81,6 +81,7 @@ const spacing = {
   u52: 52,
   u56: 56,
   u90: 90,
+  u100: 100
 };
 
 const fontSize = {
