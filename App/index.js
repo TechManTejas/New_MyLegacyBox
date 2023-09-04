@@ -21,6 +21,7 @@ import { usePreventScreenCapture } from "expo-screen-capture";
 import AnimatedSplashScreen from "./screens/AnimatedSplashScreen";
 import AppSecurityLayer from "./components/Common/AppSecurityLayer";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import AppInfo from "./components/AppInfo/AppInfo";
 
 function App() {
   // usePreventScreenCapture();
@@ -44,6 +45,7 @@ function App() {
           <AuthProvider>
             <SplashScreen>
               <SafeAreaProvider>
+                <AppInfo />
                 <AnimatedSplashScreen
                   splashScreenVisible={splashScreenVisible}
                   setSplashScreenVisible={setSplashScreenVisible}
