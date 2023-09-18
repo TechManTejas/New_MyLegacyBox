@@ -2,7 +2,7 @@ import { View, Text, StyleSheet, Pressable, FlatList } from "react-native";
 import { useTheme } from "../../theme/ThemeProvider";
 import FinancialHoldingItemWrapper from "../FinancialHolding/FinancialHoldingItemWrapper";
 import CustomPill from "./Pill/CustomPill";
-import { FontAwesome5 } from "@expo/vector-icons";
+import { FontAwesome5, FontAwesome } from "@expo/vector-icons";
 
 const FinancialInstitutionHoldingCard = ({
   holdingClass,
@@ -12,6 +12,7 @@ const FinancialInstitutionHoldingCard = ({
   tagLabel,
   editButtonCallBack,
   shareButtonCallBack,
+  notesButtonCallBack
 }) => {
   const {
     theme: { colors, fontFamily, fontSize, spacing },
@@ -108,8 +109,7 @@ const FinancialInstitutionHoldingCard = ({
       alignItems: "center",
       backgroundColor: colors.blue500,
       borderRadius: 5,
-      paddingVertical: 2,
-      paddingHorizontal: spacing.sm,
+      padding: spacing.sm
     },
     buttomText: {
       color: colors.white,
@@ -137,6 +137,9 @@ const FinancialInstitutionHoldingCard = ({
     sharebtn: {
       marginLeft: spacing.xs,
     },
+    notesbtn: {
+      marginLeft: spacing.xs,
+    },
   });
 
   return (
@@ -147,7 +150,7 @@ const FinancialInstitutionHoldingCard = ({
         <View style={styles.btngroup}>
           {editButtonCallBack && (
             <Pressable onPress={editButtonCallBack} style={styles.buttom}>
-              <Text style={styles.buttomText}>Edit</Text>
+              {/* <Text style={styles.buttomText}>Edit</Text> */}
               <FontAwesome5 name="pen" size={10} color="white" />
             </Pressable>
           )}
@@ -156,8 +159,17 @@ const FinancialInstitutionHoldingCard = ({
               onPress={shareButtonCallBack}
               style={[styles.buttom, styles.sharebtn]}
             >
-              <Text style={styles.buttomText}>Share</Text>
+              {/* <Text style={styles.buttomText}>Share</Text> */}
               <FontAwesome5 name="share-alt" size={10} color="white" />
+            </Pressable>
+          )}
+                    {notesButtonCallBack && (
+            <Pressable
+              onPress={notesButtonCallBack}
+              style={[styles.buttom, styles.notesbtn]}
+            >
+              {/* <Text style={styles.buttomText}>Share</Text> */}
+              <FontAwesome name="sticky-note" size={10} color="white" />
             </Pressable>
           )}
         </View>

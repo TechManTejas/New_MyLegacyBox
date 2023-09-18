@@ -15,6 +15,7 @@ import {
 import { numberWithCommas } from "../utils/manipulators";
 import { useState } from "react";
 import AssetSharingModal from "../components/Common/AssetSharingModal";
+import NotesModal from "../components/Common/NotesModal";
 
 const RealEstateScreen = () => {
   const navigation = useNavigation();
@@ -36,8 +37,11 @@ const RealEstateScreen = () => {
     });
   };
 
-  const [modalVisible, setModalVisible] = useState(false);
+  const [assetModalVisible, setassetModalVisible] = useState(false);
+  const [notesModalVisible, setNotesModalVisible] = useState(false);
+
   const [artifactDetails, setArtifactDetails] = useState({
+    financialArtifact: {},
     financialArtifactId: "",
     financialArtifactType: "",
   });
@@ -72,7 +76,9 @@ const RealEstateScreen = () => {
       <View style={styles.listContainer}>
         <FlatList
           contentContainerStyle={styles.listContentContainer}
-          data={ data !== undefined ? data.ids.map((id) => data.entities[id]): []}
+          data={
+            data !== undefined ? data.ids.map((id) => data.entities[id]) : []
+          }
           renderItem={({ item }) => (
             <FinancialInstitutionHoldingItem
               title={item.holding.propertyName}
@@ -145,7 +151,15 @@ const RealEstateScreen = () => {
                   financialArtifactId: item._id,
                   financialArtifactType: item.holdingType,
                 });
-                setModalVisible(true);
+                setassetModalVisible(true);
+              }}
+              notesButtonCallBack={() => {
+                setArtifactDetails({
+                  financialArtifact: item,
+                  financialArtifactId: item._id,
+                  financialArtifactType: item.holdingType,
+                });
+                setNotesModalVisible(true);
               }}
             />
           )}
@@ -163,10 +177,28 @@ const RealEstateScreen = () => {
         />
       </View>
       <AssetSharingModal
-        modalVisible={modalVisible}
-        setModalVisible={setModalVisible}
+        modalVisible={assetModalVisible}
+        setModalVisible={setassetModalVisible}
         artifactDetails={artifactDetails}
         setArtifactDetails={setArtifactDetails}
+      />
+      <NotesModal
+        modalVisible={notesModalVisible}
+        setModalVisible={setNotesModalVisible}
+        artifactDetails={artifactDetails}
+        setArtifactDetails={setArtifactDetails}
+        params={[
+          {
+            key: "Property Name: ",
+            value:
+              artifactDetails.financialArtifact?.holding?.propertyName ?? "",
+          },
+          {
+            key: "Description: ",
+            value:
+              artifactDetails.financialArtifact?.holding?.description ?? "",
+          },
+        ]}
       />
     </View>
   );

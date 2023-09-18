@@ -25,9 +25,11 @@ const NotesModal = ({
   const [notes, setNotes] = useState("");
   const notesRef = useRef(null);
 
-  const { data, isLoading, isFetching } = useGetNotesByArtifactIdQuery(
+  const { data, isLoading, isFetching, error } = useGetNotesByArtifactIdQuery(
     artifactDetails.financialArtifactId
   );
+
+  console.log({data, error, isLoading});
 
   useEffect(() => {
     setNotes(data?.data?.note || "");

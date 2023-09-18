@@ -18,6 +18,7 @@ import {
 import { numberWithCommas } from "../utils/manipulators";
 import { useState } from "react";
 import AssetSharingModal from "../components/Common/AssetSharingModal";
+import NotesModal from "../components/Common/NotesModal";
 
 const PostalScreen = ({ route }) => {
   const navigation = useNavigation();
@@ -38,12 +39,14 @@ const PostalScreen = ({ route }) => {
     });
   };
 
-  const [modalVisible, setModalVisible] = useState(false);
+  const [assetModalVisible, setassetModalVisible] = useState(false);
+  const [notesModalVisible, setNotesModalVisible] = useState(false);
+
   const [artifactDetails, setArtifactDetails] = useState({
+    financialArtifact: {},
     financialArtifactId: "",
     financialArtifactType: "",
   });
-
   const styles = StyleSheet.create({
     container: {
       flex: 1,
@@ -123,7 +126,15 @@ const PostalScreen = ({ route }) => {
                   financialArtifactId: item._id,
                   financialArtifactType: item.holdingType,
                 });
-                setModalVisible(true);
+                setassetModalVisible(true);
+              }}
+              notesButtonCallBack={() => {
+                setArtifactDetails({
+                  financialArtifact: item,
+                  financialArtifactId: item._id,
+                  financialArtifactType: item.holdingType,
+                });
+                setNotesModalVisible(true);
               }}
             />
           )}
@@ -141,10 +152,30 @@ const PostalScreen = ({ route }) => {
         />
       </View>
       <AssetSharingModal
-        modalVisible={modalVisible}
-        setModalVisible={setModalVisible}
+        modalVisible={assetModalVisible}
+        setModalVisible={setassetModalVisible}
         artifactDetails={artifactDetails}
         setArtifactDetails={setArtifactDetails}
+      />
+      <NotesModal
+        modalVisible={notesModalVisible}
+        setModalVisible={setNotesModalVisible}
+        artifactDetails={artifactDetails}
+        setArtifactDetails={setArtifactDetails}
+        params={[
+          {
+            key: "Account Type: ",
+            value:
+              POSTAL_ACCOUNT_TYPES_TO_TITLE_MAP[
+                artifactDetails.financialArtifact?.holding?.accountType
+              ] ?? "",
+          },
+          {
+            key: "Account Number: ",
+            value:
+              artifactDetails.financialArtifact?.holding?.accountNumber ?? "",
+          },
+        ]}
       />
     </View>
   );

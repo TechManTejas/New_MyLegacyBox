@@ -12,6 +12,7 @@ import { DEMAT_TYPE_MAP_TO_TITLE_MAP } from "../constants/financialHoldings/dema
 import { numberWithCommas } from "../utils/manipulators";
 import { useState } from "react";
 import AssetSharingModal from "../components/Common/AssetSharingModal";
+import NotesModal from "../components/Common/NotesModal";
 
 const DematScreen = () => {
   const navigation = useNavigation();
@@ -26,8 +27,11 @@ const DematScreen = () => {
     navigation.navigate(SCREEN_NAMES.addDematFinancialHoldingScreen);
   };
 
-  const [modalVisible, setModalVisible] = useState(false);
+  const [assetModalVisible, setassetModalVisible] = useState(false);
+  const [notesModalVisible, setNotesModalVisible] = useState(false);
+
   const [artifactDetails, setArtifactDetails] = useState({
+    financialArtifact: {},
     financialArtifactId: "",
     financialArtifactType: "",
   });
@@ -108,7 +112,15 @@ const DematScreen = () => {
                   financialArtifactId: item._id,
                   financialArtifactType: item.holdingType,
                 });
-                setModalVisible(true);
+                setassetModalVisible(true);
+              }}
+              notesButtonCallBack={() => {
+                setArtifactDetails({
+                  financialArtifact: item,
+                  financialArtifactId: item._id,
+                  financialArtifactType: item.holdingType,
+                });
+                setNotesModalVisible(true);
               }}
             />
           )}
@@ -126,10 +138,29 @@ const DematScreen = () => {
         />
       </View>
       <AssetSharingModal
-        modalVisible={modalVisible}
-        setModalVisible={setModalVisible}
+        modalVisible={assetModalVisible}
+        setModalVisible={setassetModalVisible}
         artifactDetails={artifactDetails}
         setArtifactDetails={setArtifactDetails}
+      />
+      <NotesModal
+        modalVisible={notesModalVisible}
+        setModalVisible={setNotesModalVisible}
+        artifactDetails={artifactDetails}
+        setArtifactDetails={setArtifactDetails}
+        params={[
+          {
+            key: "Broker Name: ",
+            value:
+              DEMAT_TYPE_MAP_TO_TITLE_MAP[
+                artifactDetails?.financialArtifact?.holding?.broker
+              ] ?? "",
+          },
+          {
+            key: "Type: ",
+            value: artifactDetails?.financialArtifact?.holding?.dematType ?? "",
+          },
+        ]}
       />
     </View>
   );
