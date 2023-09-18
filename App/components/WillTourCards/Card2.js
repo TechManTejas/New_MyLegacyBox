@@ -20,6 +20,7 @@ const Card2 = () => {
       paddingBottom: spacing.md,
       fontSize: fontSize.default,
       lineHeight: fontSize.lg + spacing.xxs,
+      flexShrink: 1
     },
     boldText: {
       fontFamily: fontFamily.semiBold,

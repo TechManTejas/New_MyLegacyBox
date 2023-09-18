@@ -20,6 +20,7 @@ const Card3 = () => {
       paddingBottom: spacing.md,
       fontSize: fontSize.default,
       lineHeight: fontSize.lg + spacing.xxs,
+      flexShrink: 1,
     },
     boldText: {
       fontFamily: fontFamily.semiBold,
@@ -34,17 +35,16 @@ const Card3 = () => {
       marginTop: spacing.xl,
       marginBottom: spacing.lg,
     },
+    imageContainer: {
+      alignItems: "center",
+      justifyContent: "center",
+      marginBottom: spacing.lg,
+    },
   });
 
   return (
     <View style={styles.page}>
-      <View
-        style={{
-          alignItems: "center",
-          justifyContent: "center",
-          marginBottom: spacing.lg,
-        }}
-      >
+      <View style={styles.imageContainer}>
         <Image
           style={{ width: 260, height: 200 }}
           alt=""

@@ -20,6 +20,7 @@ const Card1 = () => {
       color: colors.black500,
       fontSize: fontSize.default,
       lineHeight: fontSize.lg + spacing.xxs,
+      flexShrink: 1
     },
     bulletTextContainer: {
       marginVertical: spacing.md,
@@ -35,6 +36,7 @@ const Card1 = () => {
       marginLeft: spacing.md,
       fontSize: fontSize.default,
       lineHeight: fontSize.lg + spacing.xxs,
+      flexShrink: 1
     },
     titleText: {
       fontFamily: fontFamily.semiBold,
@@ -61,7 +63,8 @@ const Card1 = () => {
         <Text style={[styles.text, { textAlign: "justify" }]}>
           Creating a Will is a very simple but thoughtful step one can take. A
           Will is a legal instrument that can provide several benefits to an
-          individual as well as the family over a very long period of time such as
+          individual as well as the family over a very long period of time such
+          as
         </Text>
         <View style={styles.bulletTextContainer}>
           <View style={styles.iconTextContainer}>
