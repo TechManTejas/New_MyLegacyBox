@@ -27,16 +27,12 @@ const WillNavigation = () => {
     },
   });
 
-  const message =
-    "Today is the right age for you to create your will. Writing a will helps to stay organized, plan for any unforeseen event, and ensure that loved ones are financially protected even when we cannot be there for them. ";
-
   return (
     <Stack.Navigator
       initialRouteName={SCREEN_NAMES.willScreen}
       screenOptions={({ navigation }) => ({
         headerStyle: styles.headerStyle,
         headerLeft: () => <CustomHeaderLeftIcon navigation={navigation} />,
-        headerRight: () => <CustomHeaderRightIcon message={message} />,
         headerTitleAlign: "center",
         headerTitle: (props) => <CustomHeaderTitle {...props} />,
         headerBackVisible: false,

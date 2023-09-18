@@ -1,5 +1,5 @@
 import { View, StyleSheet, ScrollView } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { useTheme } from "../../theme/ThemeProvider";
 import BlueButton from "../../components/Common/Button/BlueButton";
@@ -9,11 +9,27 @@ import { SCREEN_NAMES } from "../../constants/screenNames";
 import CustomCarousel from "../../components/Common/Carousel";
 import { WillCarouselData } from "../../data/Carouseldata";
 import WillDownloadCard from "../../components/Will/WillDownloadCard";
+import { setShowWillTourModal } from "../../services/appTours/appTours";
+import { getItemAsync, setItemAsync } from "expo-secure-store";
+import { useAuth } from "../../authentication/AuthProvider";
 
 const WillScreen = () => {
   const navigation = useNavigation();
 
   const dispatch = useDispatch();
+
+  const { session } = useAuth()
+
+  useEffect(() => {
+
+    getItemAsync(`willTourShown-${session.identity.id}`).then((res) => {
+      if (res !== "true") {
+        dispatch(setShowWillTourModal(true));
+        setItemAsync(`willTourShown-${session.identity.id}`, "true");
+      }
+    });
+
+  }, []);
 
   const {
     theme: { spacing, colors },

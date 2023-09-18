@@ -8,7 +8,7 @@ import {
 import React from "react";
 import { useTheme } from "../../theme/ThemeProvider";
 
-const InfoItem = ({ item }) => {
+const HomeTourItem = ({ item }) => {
   const { width } = useWindowDimensions();
   const {
     theme: { colors, spacing, fontFamily, fontSize },
@@ -19,18 +19,12 @@ const InfoItem = ({ item }) => {
       alignItems: "center",
       paddingTop: spacing.md,
       paddingBottom: spacing.sm,
-
-    //   borderWidth: 1,
-    //   borderColor: colors.black300,
     },
     image: {
       flex: 5,
       width: width,
       resizeMode: "contain",
       marginBottom: spacing.md,
-
-    //   borderWidth: 1,
-    //   borderColor: colors.black300,
     },
     title: {
       color: colors.blue,
@@ -41,9 +35,6 @@ const InfoItem = ({ item }) => {
       lineHeight: fontSize.xxxl,
       width: width,
       textAlign: "center",
-
-    //   borderWidth: 1,
-    //   borderColor: colors.black300,
     },
     message: {
       color: colors.blue,
@@ -51,12 +42,8 @@ const InfoItem = ({ item }) => {
       lineHeight: fontSize.lg,
       paddingHorizontal: spacing.xl,
       paddingBottom: spacing.xl,
-      
       width: width,
       textAlign: "center",
-
-    //   borderWidth: 1,
-    //   borderColor: colors.black300,
     },
   });
 
@@ -66,8 +53,6 @@ const InfoItem = ({ item }) => {
       <View
         style={{
           justifyContent: "flex-end",
-        //   borderWidth: 1,
-        //   borderColor: colors.black300,
           flex: 2,
         }}
       >
@@ -78,4 +63,4 @@ const InfoItem = ({ item }) => {
   );
 };
 
-export default InfoItem;
+export default HomeTourItem;

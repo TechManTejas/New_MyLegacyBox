@@ -8,14 +8,14 @@ import willFormReducer from "./willForm/willFormSlice";
 import { sharedArtifactApiSlice } from "./api/sharedArtifactApiSlice";
 import tooltipMessageReducer from "./tooltipMessage/tooltipMessage";
 import { personalInfoApiSlice } from "./api/personalInfoApiSlice";
-import appTourReducer from "./appTour/appTour";
+import appToursReducer from "./appTours/appTours";
 
 export const store = configureStore({
   reducer: {
     auth: authReducer,
     willForm: willFormReducer,
     tooltipMessage: tooltipMessageReducer,
-    appTour: appTourReducer,
+    appTours: appToursReducer,
     [vaultApiSlice.reducerPath]: vaultApiSlice.reducer,
     [nomineeApiSlice.reducerPath]: nomineeApiSlice.reducer,
     [feedbackApiSlice.reducerPath]: feedbackApiSlice.reducer,

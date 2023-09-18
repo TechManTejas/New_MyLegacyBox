@@ -21,7 +21,8 @@ import { usePreventScreenCapture } from "expo-screen-capture";
 import AnimatedSplashScreen from "./screens/AnimatedSplashScreen";
 import AppSecurityLayer from "./components/Common/AppSecurityLayer";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import AppInfo from "./components/AppInfo/AppInfo";
+import HomeTourModal from "./components/TourModals/HomeTourModal";
+import WillTourModal from "./components/TourModals/WillTourModal";
 
 function App() {
   // usePreventScreenCapture();
@@ -32,9 +33,8 @@ function App() {
 
   useEffect(() => {
     Updates.addListener((event) => {
-      if (event.type === Updates.UpdateEventType.UPDATE_AVAILABLE) {
+      if (event.type === Updates.UpdateEventType.UPDATE_AVAILABLE)
         alert("An update is available, Restart the app to see it");
-      }
     });
   }, []);
 
@@ -45,11 +45,12 @@ function App() {
           <AuthProvider>
             <SplashScreen>
               <SafeAreaProvider>
-                <AppInfo />
                 <AnimatedSplashScreen
                   splashScreenVisible={splashScreenVisible}
                   setSplashScreenVisible={setSplashScreenVisible}
                 />
+                <HomeTourModal/>
+                <WillTourModal/>
                 {/* <AppSecurityLayer splashScreenVisible={splashScreenVisible} /> */}
                 <RootNavigation />
               </SafeAreaProvider>
