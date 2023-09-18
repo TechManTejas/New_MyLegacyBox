@@ -29,7 +29,7 @@ const NotesModal = ({
     artifactDetails.financialArtifactId
   );
 
-  console.log({data, error, isLoading});
+  console.log({ data, isLoading, isFetching, error });
 
   useEffect(() => {
     setNotes(data?.data?.note || "");
