@@ -9,6 +9,7 @@ import { sharedArtifactApiSlice } from "./api/sharedArtifactApiSlice";
 import tooltipMessageReducer from "./tooltipMessage/tooltipMessage";
 import { personalInfoApiSlice } from "./api/personalInfoApiSlice";
 import appToursReducer from "./appTours/appTours";
+import { notesApiSlice } from "./api/notesApiSlice";
 
 export const store = configureStore({
   reducer: {
@@ -21,7 +22,8 @@ export const store = configureStore({
     [feedbackApiSlice.reducerPath]: feedbackApiSlice.reducer,
     [willApiSlice.reducerPath]: willApiSlice.reducer,
     [sharedArtifactApiSlice.reducerPath]: sharedArtifactApiSlice.reducer,
-    [personalInfoApiSlice.reducerPath]: personalInfoApiSlice.reducer
+    [personalInfoApiSlice.reducerPath]: personalInfoApiSlice.reducer,
+    [notesApiSlice.reducerPath]: nomineeApiSlice.reducer
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware()
@@ -31,4 +33,5 @@ export const store = configureStore({
       .concat(willApiSlice.middleware)
       .concat(sharedArtifactApiSlice.middleware)
       .concat(personalInfoApiSlice.middleware)
+      .concat(notesApiSlice.middleware)
 });

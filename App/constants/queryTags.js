@@ -26,5 +26,7 @@ export const QUERY_TAGS = {
   shareAsset: "SHARE_ASSET",
   feedback: "feedback",
 
-  personalInfo: "PERSONAL_INFO"
+  personalInfo: "PERSONAL_INFO",
+
+  notes: "NOTES"
 };
