@@ -12,12 +12,16 @@ import { HOME_TOUR_DATA } from "../../data/HomeTourData";
 import HomeTourItems from "./HomeTourItem";
 import { useDispatch, useSelector } from "react-redux";
 import { setShowHomeTourModal } from "../../services/appTours/appTours";
+import Animated, {
+  FadeInDown,
+  SlideInDown,
+  SlideOutDown,
+} from "react-native-reanimated";
 
 const HomeTourModal = () => {
+  const dispatch = useDispatch();
 
-  const dispatch = useDispatch()
-
-  const showModal = useSelector((state) => state.appTours.showHomeTourModal)
+  const showModal = useSelector((state) => state.appTours.showHomeTourModal);
 
   const {
     theme: { colors, fontFamily, spacing },
@@ -78,14 +82,16 @@ const HomeTourModal = () => {
   const flatListRef = useRef(null);
 
   const hideModal = () => {
-
-    dispatch(setShowHomeTourModal(false))
-
-  }
+    dispatch(setShowHomeTourModal(false));
+  };
 
   return (
-    <Modal transparent visible={showModal} animationType="slide">
-      <View style={styles.modal}>
+    <Modal transparent visible={showModal} animationType="none">
+      <Animated.View
+        entering={SlideInDown.duration(350)}
+        exiting={SlideOutDown.duration(350)}
+        style={styles.modal}
+      >
         <FlatList
           data={HOME_TOUR_DATA}
           onViewableItemsChanged={onViewCallBackRef.current}
@@ -116,7 +122,7 @@ const HomeTourModal = () => {
             <Text style={styles.skipButton}>SKIP</Text>
           </Pressable>
         </View>
-      </View>
+      </Animated.View>
     </Modal>
   );
 };

@@ -23,7 +23,7 @@ export const store = configureStore({
     [willApiSlice.reducerPath]: willApiSlice.reducer,
     [sharedArtifactApiSlice.reducerPath]: sharedArtifactApiSlice.reducer,
     [personalInfoApiSlice.reducerPath]: personalInfoApiSlice.reducer,
-    [notesApiSlice.reducerPath]: nomineeApiSlice.reducer
+    [notesApiSlice.reducerPath]: notesApiSlice.reducer
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware()
