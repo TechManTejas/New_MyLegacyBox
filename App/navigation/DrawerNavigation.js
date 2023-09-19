@@ -9,8 +9,7 @@ import CustomHeaderLeftIcon from "../components/Common/CustomHeaderLeftIcon";
 import CustomHeaderTitle from "../components/Common/CustomHeaderTitle";
 import SharedArtifactsNavigation from "./SharedArtifactsNavigation";
 import PersonalInfoScreen from "../screens/PersonalInfoScreen";
-import { useDispatch } from "react-redux";
-import { setShowModal } from "../services/appTour/appTour";
+import AppToursScreen from "../screens/AppToursScreen";
 
 const Drawer = createDrawerNavigator();
 
@@ -29,8 +28,6 @@ const DrawerNavigation = () => {
       margin: 0,
     },
   });
-
-  const dispatch = useDispatch()
 
   return (
     <Drawer.Navigator
@@ -81,17 +78,11 @@ const DrawerNavigation = () => {
         }}
       />
       <Drawer.Screen
-        name={"APP_TOUR_MODAL"}
-        component={FeedbackScreen}
+        name={"APP_TOURS"}
+        component={AppToursScreen}
         options={{
-          title: "App Tour",
+          title: "App Tours",
         }}
-        listeners={() => ({
-          drawerItemPress: (e) => {
-            e.preventDefault();
-            dispatch(setShowModal(true));
-          },
-        })}
       />
       <Drawer.Screen
         name={"tab2"}

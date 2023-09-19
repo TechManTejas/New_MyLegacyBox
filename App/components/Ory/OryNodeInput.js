@@ -37,17 +37,6 @@ const guessAttributeVariant = ({ attributes }) => {
   }
 };
 
-const typeToState = ({ type, disabled }) => {
-  if (disabled) {
-    return "disabled";
-  }
-  switch (type) {
-    case "error":
-      return "error";
-  }
-  return undefined;
-};
-
 const OryNodeInput = ({
   node,
   value,
@@ -76,7 +65,6 @@ const OryNodeInput = ({
       extraProps.autoCapitalize = "none";
       extraProps.secureTextEntry = !showPassword;
       extraProps.autoCorrect = false;
-      // custom prop for our input element (for toggle functionality)
       extraProps.IconRightComponent = ({ style, color, size }) => (
         <Pressable
           style={style}
@@ -104,9 +92,7 @@ const OryNodeInput = ({
       extraProps.maxLength = 13;
   }
 
-  if (textInputOverride) {
-    extraProps = textInputOverride(node, extraProps);
-  }
+  if (textInputOverride) extraProps = textInputOverride(node, extraProps);
 
   const name = getNodeId(node);
   const title = metaLabelModifier(getNodeTitle(node));
@@ -124,7 +110,7 @@ const OryNodeInput = ({
     },
   });
 
-  const route = useRoute()
+  const route = useRoute();
 
   return (
     <CustomInputGroup

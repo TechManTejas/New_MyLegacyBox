@@ -27,8 +27,11 @@ const ProvidentFundScreen = () => {
     navigation.navigate(SCREEN_NAMES.addProvidentFundFinancialHoldingScreen);
   };
 
-  const [modalVisible, setModalVisible] = useState(false);
+  const [assetModalVisible, setassetModalVisible] = useState(false);
+  const [notesModalVisible, setNotesModalVisible] = useState(false);
+
   const [artifactDetails, setArtifactDetails] = useState({
+    financialArtifact: {},
     financialArtifactId: "",
     financialArtifactType: "",
   });
@@ -99,7 +102,15 @@ const ProvidentFundScreen = () => {
                   financialArtifactId: item._id,
                   financialArtifactType: item.holdingType,
                 });
-                setModalVisible(true);
+                setassetModalVisible(true);
+              }}
+              notesButtonCallBack={() => {
+                setArtifactDetails({
+                  financialArtifact: item,
+                  financialArtifactId: item._id,
+                  financialArtifactType: item.holdingType,
+                });
+                setNotesModalVisible(true);
               }}
             />
           )}
@@ -117,10 +128,30 @@ const ProvidentFundScreen = () => {
         />
       </View>
       <AssetSharingModal
-        modalVisible={modalVisible}
-        setModalVisible={setModalVisible}
+        modalVisible={assetModalVisible}
+        setModalVisible={setassetModalVisible}
         artifactDetails={artifactDetails}
         setArtifactDetails={setArtifactDetails}
+      />
+      <NotesModal
+        modalVisible={notesModalVisible}
+        setModalVisible={setNotesModalVisible}
+        artifactDetails={artifactDetails}
+        setArtifactDetails={setArtifactDetails}
+        params={[
+          {
+            key: "Employer Name: ",
+            value:
+              artifactDetails.financialArtifact?.holding?.employerName ?? "",
+          },
+          {
+            key: "Type: ",
+            value:
+              PROVIDENT_FUND_TYPE_TO_TITLE_MAP[
+                artifactDetails.financialArtifact?.holding?.pfType
+              ] ?? "",
+          },
+        ]}
       />
     </View>
   );

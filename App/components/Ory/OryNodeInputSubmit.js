@@ -16,7 +16,6 @@ const OryNodeInputSubmit = ({
 
   return (
     <BlueButton
-      extraSpaceTop
       disabled={isSubmitting || notAllowedToSubmit}
       isLoading={isSubmitting}
       title={title}

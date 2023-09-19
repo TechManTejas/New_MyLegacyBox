@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getNodeId, isUiNodeInputAttributes } from "../../utils/oryForm";
 import CustomErrorMessageGroup from "../Form/CustomErrorMessageGroup";
-import OryFlowMessages from "./OryFlowMessages";
 import OryNode from "./OryNode";
 
 const OrySelfServiceFlow = ({ flow, only, onSubmit, textInputOverride }) => {
@@ -23,14 +22,10 @@ const OrySelfServiceFlow = ({ flow, only, onSubmit, textInputOverride }) => {
   };
 
   useEffect(() => {
-    if (!flow) {
-      return;
-    }
+    if (!flow) return;
 
     const nodes = flow.ui.nodes.filter(({ group }) => {
-      if (only) {
-        return group === only || group === "default";
-      }
+      if (only) return group === only || group === "default";
       return true;
     });
 

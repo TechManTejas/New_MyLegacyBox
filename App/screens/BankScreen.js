@@ -1,4 +1,4 @@
-import { View, StyleSheet, FlatList, Modal } from "react-native";
+import { View, StyleSheet, FlatList } from "react-native";
 import { useTheme } from "../theme/ThemeProvider";
 import { useGetFinancialHoldingForBankQuery } from "../services/financialHolding/financialHoldingSlice";
 import CustomActivityIndicator from "../components/Common/CustomActivityIndicator";
@@ -18,6 +18,7 @@ import {
 import { numberWithCommas } from "../utils/manipulators";
 import { useState } from "react";
 import AssetSharingModal from "../components/Common/AssetSharingModal";
+import NotesModal from "../components/Common/NotesModal";
 
 const BankScreen = ({ route }) => {
   const navigation = useNavigation();
@@ -39,8 +40,11 @@ const BankScreen = ({ route }) => {
     });
   };
 
-  const [modalVisible, setModalVisible] = useState(false);
+  const [assetModalVisible, setassetModalVisible] = useState(false);
+  const [notesModalVisible, setNotesModalVisible] = useState(false);
+
   const [artifactDetails, setArtifactDetails] = useState({
+    financialArtifact: {},
     financialArtifactId: "",
     financialArtifactType: "",
   });
@@ -123,7 +127,15 @@ const BankScreen = ({ route }) => {
                     financialArtifactId: item._id,
                     financialArtifactType: item.holdingType,
                   });
-                  setModalVisible(true);
+                  setassetModalVisible(true);
+                }}
+                notesButtonCallBack={() => {
+                  setArtifactDetails({
+                    financialArtifact: item,
+                    financialArtifactId: item._id,
+                    financialArtifactType: item.holdingType,
+                  });
+                  setNotesModalVisible(true);
                 }}
               />
             );
@@ -142,10 +154,26 @@ const BankScreen = ({ route }) => {
         />
       </View>
       <AssetSharingModal
-        modalVisible={modalVisible}
-        setModalVisible={setModalVisible}
+        modalVisible={assetModalVisible}
+        setModalVisible={setassetModalVisible}
         artifactDetails={artifactDetails}
         setArtifactDetails={setArtifactDetails}
+      />
+      <NotesModal
+        modalVisible={notesModalVisible}
+        setModalVisible={setNotesModalVisible}
+        artifactDetails={artifactDetails}
+        setArtifactDetails={setArtifactDetails}
+        params={[
+          {
+            key: "Account Type: ",
+            value: BANK_ACCOUNT_TYPES_TO_TITLE_MAP[artifactDetails.financialArtifact?.holding?.accountType] ?? "",
+          },
+          {
+            key: "Account Number: ",
+            value: artifactDetails.financialArtifact?.holding?.accountNumber?? ""
+          }
+        ]}
       />
     </View>
   );

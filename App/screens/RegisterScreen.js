@@ -6,12 +6,13 @@ import {
   Text,
   useWindowDimensions,
   StatusBar,
+  KeyboardAvoidingView,
 } from "react-native";
 import { useIsFocused, useNavigation } from "@react-navigation/native";
 import { useAuth } from "../authentication/AuthProvider";
 import { useTheme } from "../theme/ThemeProvider";
 import { kratosClient } from "../authentication/kratosSdk";
-import OrySelfServiceFlow from "../components/Ory/OrySelfServiceFlow";
+import OrySelfServiceSignUpFlow from "../components/Ory/OrySelfServiceSignUpFlow";
 import { SCREEN_NAMES } from "../constants/screenNames";
 import { handleFormSubmitError } from "../utils/oryForm";
 import CustomSafeView from "../components/Common/CustomSafeView";
@@ -153,7 +154,8 @@ const RegisterScreen = () => {
 
         <View style={styles.formWrapper}>
           <View style={styles.formContainer}>
-            <OrySelfServiceFlow flow={flow} onSubmit={onSubmit} />
+            <OrySelfServiceSignUpFlow flow={flow} onSubmit={onSubmit} />
+
             <View style={styles.formFooter}>
               <Text style={styles.caption}>
                 By signing in you agree to our{" "}

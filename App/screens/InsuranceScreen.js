@@ -19,6 +19,7 @@ import {
 import { numberWithCommas } from "../utils/manipulators";
 import { useState } from "react";
 import AssetSharingModal from "../components/Common/AssetSharingModal";
+import NotesModal from "../components/Common/NotesModal";
 
 const InsuranceScreen = ({ route }) => {
   const navigation = useNavigation();
@@ -39,8 +40,11 @@ const InsuranceScreen = ({ route }) => {
     });
   };
 
-  const [modalVisible, setModalVisible] = useState(false);
+  const [assetModalVisible, setassetModalVisible] = useState(false);
+  const [notesModalVisible, setNotesModalVisible] = useState(false);
+
   const [artifactDetails, setArtifactDetails] = useState({
+    financialArtifact: {},
     financialArtifactId: "",
     financialArtifactType: "",
   });
@@ -153,7 +157,15 @@ const InsuranceScreen = ({ route }) => {
                   financialArtifactId: item._id,
                   financialArtifactType: item.holdingType,
                 });
-                setModalVisible(true);
+                setassetModalVisible(true);
+              }}
+              notesButtonCallBack={() => {
+                setArtifactDetails({
+                  financialArtifact: item,
+                  financialArtifactId: item._id,
+                  financialArtifactType: item.holdingType,
+                });
+                setNotesModalVisible(true);
               }}
             />
           )}
@@ -171,10 +183,30 @@ const InsuranceScreen = ({ route }) => {
         />
       </View>
       <AssetSharingModal
-        modalVisible={modalVisible}
-        setModalVisible={setModalVisible}
+        modalVisible={assetModalVisible}
+        setModalVisible={setassetModalVisible}
         artifactDetails={artifactDetails}
         setArtifactDetails={setArtifactDetails}
+      />
+      <NotesModal
+        modalVisible={notesModalVisible}
+        setModalVisible={setNotesModalVisible}
+        artifactDetails={artifactDetails}
+        setArtifactDetails={setArtifactDetails}
+        params={[
+          {
+            key: "Policy Name: ",
+            value:
+              POLICY_TYPE_TO_TITLE_MAP[
+                artifactDetails.financialArtifact?.holding?.policyType
+              ] ?? "",
+          },
+          {
+            key: "Policy Number: ",
+            value:
+              artifactDetails.financialArtifact?.holding?.policyNumber ?? "",
+          },
+        ]}
       />
     </View>
   );

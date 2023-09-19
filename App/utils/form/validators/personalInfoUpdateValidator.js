@@ -4,9 +4,9 @@ import { NOMINEE_GENDER_MAP } from "../../../constants/nominee";
 
 export const personalInfoUpdateValidator = z
   .object({
-    gender: z.enum(Object.values(NOMINEE_GENDER_MAP)).optional(),
-    fathersName: z.string().optional(),
-    dateOfBirth: z.date().optional(),
+    gender: z.enum(Object.values(NOMINEE_GENDER_MAP)),
+    fathersName: z.string(),
+    dateOfBirth: z.date(),
     aadharNumber: z
       .string()
       .refine((value) => !isNaN(Number(value)), {
@@ -14,8 +14,7 @@ export const personalInfoUpdateValidator = z
       })
       .refine((value) => /^\d{12}$/.test(value), {
         message: "Number should be of 12 digits",
-      })
-      .optional(),
-    address: addressValidator.optional(),
+      }),
+    address: addressValidator,
   })
   .strict();

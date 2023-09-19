@@ -1,4 +1,4 @@
-export const APP_INFO_DATA = [
+export const HOME_TOUR_DATA = [
     {
       id: "ob11",
       image: require("../assets/images/intro/1shaded.png"),

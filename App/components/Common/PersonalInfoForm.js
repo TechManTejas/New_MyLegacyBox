@@ -21,8 +21,14 @@ import {
 import BlueButton from "./Button/BlueButton";
 import { useEffect } from "react";
 import CustomActivityIndicator from "./CustomActivityIndicator";
+import { useNavigation } from "@react-navigation/core";
+import { useAuth } from "../../authentication/AuthProvider";
 
 const PersonalInfoForm = () => {
+  const navigation = useNavigation();
+
+  const { session } = useAuth();
+
   const getPersonalInfoOptions = useGetPersonalInfoQuery();
 
   const {
@@ -104,6 +110,7 @@ const PersonalInfoForm = () => {
 
     try {
       await savePersonalInfo({ ...cleanedValues }).unwrap();
+      navigation.goBack();
     } catch (error) {
       setGlobalErrorMessage(error?.data?.error?.message || error.message);
     }
@@ -177,8 +184,7 @@ const PersonalInfoForm = () => {
     },
   });
 
-  if (isFetching || getPersonalInfoLoading)
-    return <CustomActivityIndicator />;
+  if (isFetching || getPersonalInfoLoading) return <CustomActivityIndicator />;
 
   return (
     <View style={styles.container}>
@@ -235,6 +241,23 @@ const PersonalInfoForm = () => {
                       }}
                     />
                   )}
+
+                  <CustomInputGroup
+                    disabled
+                    title="Full Name"
+                    value={`${session?.identity.traits.name.first} ${session?.identity.traits.name.last}`}
+                  />
+
+                  <CustomInputGroup
+                    disabled
+                    title="Email Address"
+                    value={session.identity.traits.email}
+                  />
+                  <CustomInputGroup
+                    disabled
+                    title="Phone Number"
+                    value={session.identity.traits.phone}
+                  />
 
                   <View style={styles.sectionTitleContainer}>
                     <Text style={styles.sectionTitle}>Personal Details</Text>
