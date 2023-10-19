@@ -184,7 +184,7 @@ const WillAssetInfoForm = ({
                               name={`${id}.${_id}`}
                               placeholder={`Enter allocation for ${beneficiariesMap[_id].fullName}`}
                               title={`${beneficiariesMap[_id].fullName}'s allocation`}
-                              onChange={(value) => {
+                              onChangeText={(value) => {
                                 const stringValue = String(value);
 
                                 if (

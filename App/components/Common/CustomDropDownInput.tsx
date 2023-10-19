@@ -5,7 +5,23 @@ import { useTheme } from "../../theme/ThemeProvider";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import CustomErrorMessageGroup from "../Form/CustomErrorMessageGroup";
 
-const CustomDropDownInput = ({
+interface CustomDropDownInputProps {
+  title: string
+  data: []
+  placeholder: string
+  value: string
+  // onChange: 
+  // onBlur:
+  // labelField:
+  // valueField:
+  // messages: []
+  optional:boolean
+  textTransformNormal: boolean
+  showSelectedIcon: boolean
+  backgroundColor:string
+} 
+
+const CustomDropDownInput: React.FC<CustomDropDownInputProps> = ({
   title,
   data,
   placeholder,

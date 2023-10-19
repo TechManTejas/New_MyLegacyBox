@@ -1,4 +1,4 @@
-import { FlatList, StyleSheet, View } from "react-native";
+import { FlatList, StyleSheet, View, ViewToken } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import { useTheme } from "../../theme/ThemeProvider";
 import SliderItem from "./SliderItem";
@@ -32,8 +32,13 @@ const Slider = () => {
   const [carouselIndex, setCarouselIndex] = useState(0);
   const viewConfigRef = useRef({ viewAreaCoveragePercentThreshold: 50 });
 
-  const onViewCallBackRef = useRef(({ viewableItems }) => {
-    if (viewableItems.length > 0) setVisibleItemIndex(viewableItems[0].index);
+  interface ViewableItemsProps {
+    viewableItems: ViewToken[];
+  }
+
+  const onViewCallBackRef = useRef(({ viewableItems }: ViewableItemsProps) => {
+    if (viewableItems.length > 0)
+      setVisibleItemIndex(viewableItems[0].index as number);
   });
 
   useEffect(() => {

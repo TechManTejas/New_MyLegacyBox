@@ -1,7 +1,7 @@
 import React from "react";
 import CustomWebView from "../../components/Common/CustomWebView";
 
-const PrivacyPolicyScreen: React.FC<{}> = () => (
+const PrivacyPolicyScreen = () => (
   <CustomWebView uri="https://www.oiconomos.com" />
 );
 

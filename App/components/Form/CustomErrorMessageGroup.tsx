@@ -2,7 +2,22 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { useTheme } from "../../theme/ThemeProvider";
 
-const CustomErrorMessageGroup = ({ name, messages = [], extraSpaceTop }) => {
+interface MessageProps {
+  text: string;
+  id: string;
+}
+
+interface CustomErrorMessageGroup {
+  name?: string;
+  messages?: MessageProps[];
+  extraSpaceTop?: boolean;
+}
+
+const CustomErrorMessageGroup: React.FC<CustomErrorMessageGroup> = ({
+  name,
+  messages = [],
+  extraSpaceTop,
+}) => {
   const {
     theme: { colors, spacing, fontSize, fontFamily },
   } = useTheme();

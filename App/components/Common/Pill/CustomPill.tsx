@@ -2,7 +2,16 @@ import { View, Text, StyleSheet } from "react-native";
 import React from "react";
 import { useTheme } from "../../../theme/ThemeProvider";
 
-const CustomPill = ({
+interface CustomPillProps {
+  label: string;
+  labelBold: boolean;
+  size: "sm";
+  backgroundColor: string;
+  color: string;
+  containerStyle: {};
+}
+
+const CustomPill: React.FC<CustomPillProps> = ({
   label,
   labelBold,
   size,

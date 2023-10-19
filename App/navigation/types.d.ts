@@ -1,3 +1,5 @@
+import { StackNavigationProp } from "@react-navigation/stack";
+
 type Nominee = {
   fullName: string;
 };
@@ -134,3 +136,6 @@ export type RootStackParamList = {
   WillStackParamList &
   FinancialHoldingStackParamList &
   FinancialInstitutionStackParamList;
+
+export type AllScreenNavigationProp =
+  StackNavigationProp<RootStackParamList>;

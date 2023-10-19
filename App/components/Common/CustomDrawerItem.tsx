@@ -1,8 +1,16 @@
-import { View, Text, Pressable, StyleSheet } from "react-native";
+import { Text, Pressable, StyleSheet } from "react-native";
 import React from "react";
 import { useTheme } from "../../theme/ThemeProvider";
 
-const CustomDrawerItem = ({
+interface CustomDrawerItemProps {
+  IconComponent: any
+  iconName: string
+  title: string
+  bold :boolean,
+  onPress: ()=>void
+}
+
+const CustomDrawerItem: React.FC<CustomDrawerItemProps> = ({
   IconComponent,
   iconName,
   title,

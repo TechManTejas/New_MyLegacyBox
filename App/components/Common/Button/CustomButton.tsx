@@ -1,9 +1,37 @@
 import React from "react";
-import { Pressable, Text, StyleSheet, View } from "react-native";
+import {
+  Pressable,
+  Text,
+  StyleSheet,
+  View,
+  StyleProp,
+  TextStyle,
+  ViewStyle,
+} from "react-native";
 import { useTheme } from "../../../theme/ThemeProvider";
 import CustomActivityIndicator from "../CustomActivityIndicator";
 
-const CustomButton = ({
+interface CustomButtonProps {
+  title?: string;
+  onPress?: () => void;
+  size?: "xs" | "sm";
+  elevation?: number;
+  color?: string;
+  buttonStyle?: StyleProp<ViewStyle>;
+  textStyle?: StyleProp<TextStyle>;
+  backgroundColor?: string;
+  backgroundColorPressed?: string;
+  disabled?: boolean;
+  expandHorizontal?: boolean;
+  uppercase?: boolean;
+  extraSpaceTop?: boolean;
+  outline?: boolean;
+  Icon?: any;
+  iconName?: string;
+  isLoading?: boolean;
+}
+
+const CustomButton: React.FC<CustomButtonProps> = ({
   title,
   onPress,
   size,

@@ -66,7 +66,6 @@ const AnimatedSplashScreen: React.FC<AnimatedSplashScreenProps> = ({
   });
 
   useEffect(() => {
-
     const animationEndInterval = setTimeout(() => {
       setSplashScreenVisible(false);
     }, 7000);

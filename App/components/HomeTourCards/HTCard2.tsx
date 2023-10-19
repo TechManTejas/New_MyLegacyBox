@@ -1,6 +1,5 @@
 import { Dimensions, Image, StyleSheet, Text, View } from "react-native";
 import { useTheme } from "../../theme/ThemeProvider";
-import { Entypo, FontAwesome } from "@expo/vector-icons";
 
 const HTCard2 = () => {
   const {
@@ -37,7 +36,6 @@ const HTCard2 = () => {
       fontFamily: fontFamily.semiBold,
       fontSize: fontSize.lg,
       lineHeight: fontSize.xl,
-      // marginTop: spacing.xl,
       marginBottom: spacing.xs,
       color: colors.blue,
     },
@@ -75,8 +73,8 @@ const HTCard2 = () => {
         <View style={styles.featureContainer}>
           <Text style={[styles.text]}>
             <Text style={styles.subTitle}>My Will</Text> Creating a Will could
-            not be easier than doing it via “My Will”. Draft your legally valid Will
-            in just 10 minutes.
+            not be easier than doing it via “My Will”. Draft your legally valid
+            Will in just 10 minutes.
           </Text>
           <Text style={[styles.text]}>
             The best thing : No additional cost, No time limitation

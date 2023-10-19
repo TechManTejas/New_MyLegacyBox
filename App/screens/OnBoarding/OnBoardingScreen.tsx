@@ -4,11 +4,12 @@ import OnBoardingFooter from "../../components/OnBoarding/OnBoardingFooter";
 import OnBoardingSlidesList from "../../components/OnBoarding/OnBoardingSlidesList";
 import { useTheme } from "../../theme/ThemeProvider";
 import CustomSafeView from "../../components/Common/CustomSafeView";
-import React from "react"
+import React from "react";
 
 const OnBoardingScreen = () => {
-
-  const { theme: { colors } } = useTheme();
+  const {
+    theme: { colors },
+  } = useTheme();
 
   const isFoucused = useIsFocused();
 
@@ -23,7 +24,9 @@ const OnBoardingScreen = () => {
 
   return (
     <CustomSafeView safeViewStyle={styles.safeViewStyle}>
-      {isFoucused && <StatusBar barStyle="light-content" backgroundColor={colors.white700} />}
+      {isFoucused && (
+        <StatusBar barStyle="light-content" backgroundColor={colors.white700} />
+      )}
       <View style={styles.list}>
         <OnBoardingSlidesList />
       </View>

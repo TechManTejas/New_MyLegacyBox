@@ -43,7 +43,12 @@ const MCTCard2 = () => {
         <Text style={styles.titleText}>Create Profiles</Text>
       </View>
 
-      <Text style={[styles.text, { textAlign: "justify", marginBottom: spacing.md }]}>
+      <Text
+        style={[
+          styles.text,
+          { textAlign: "justify", marginBottom: spacing.md },
+        ]}
+      >
         In order to assign various roles for individuals in your Will such as
         beneficiaries, witnesses, or executors, you need to create profiles for
         each of them by clicking “Add” shown on the bottom of the page
