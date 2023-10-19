@@ -5,19 +5,34 @@ import {
   View,
   Text,
   useWindowDimensions,
+  ImageSourcePropType,
 } from "react-native";
 import { useTheme } from "../../theme/ThemeProvider";
 
-const OnBoardingSlide = ({ item }) => {
+interface OnBoardingSlideProps {
+  item: {
+    id: string;
+    image: ImageSourcePropType;
+    title: string;
+    subTitle?: string;
+    titleBold?: boolean;
+    titleCapitalize?: boolean;
+    message: string;
+  };
+}
+
+const OnBoardingSlide: React.FC<OnBoardingSlideProps> = ({ item }) => {
   const { width } = useWindowDimensions();
-  const { theme: { colors, spacing, fontFamily, fontSize } } = useTheme();
+  const {
+    theme: { colors, spacing, fontFamily, fontSize },
+  } = useTheme();
 
   const styles = StyleSheet.create({
     container: {
       alignItems: "center",
       flex: 1,
       paddingTop: spacing.md,
-      paddingBottom: spacing.sm
+      paddingBottom: spacing.sm,
     },
     image: {
       flex: 3,
@@ -70,16 +85,12 @@ const OnBoardingSlide = ({ item }) => {
 
   return (
     <View style={styles.container}>
-      <Image
-        source={item.image}
-        style={[styles.image, item.imagePadded && styles.shrinkWidthByXl]}
-      />
-      {/* titleBold */}
+      <Image source={item.image} style={styles.image} />
       <View style={styles.content}>
         <Text
           style={[
             styles.title,
-            item.subTitle && styles.marginBottomXs,
+            item.subTitle ? styles.marginBottomXs : {},
             item.titleBold && styles.boldAndEnlargeText,
             item.titleCapitalize && styles.capitatlize,
           ]}

@@ -20,7 +20,7 @@ const Card1 = () => {
       color: colors.black500,
       fontSize: fontSize.default,
       lineHeight: fontSize.lg + spacing.xxs,
-      flexShrink: 1
+      flexShrink: 1,
     },
     bulletTextContainer: {
       marginVertical: spacing.md,
@@ -36,7 +36,7 @@ const Card1 = () => {
       marginLeft: spacing.md,
       fontSize: fontSize.default,
       lineHeight: fontSize.lg + spacing.xxs,
-      flexShrink: 1
+      flexShrink: 1,
     },
     titleText: {
       fontFamily: fontFamily.semiBold,

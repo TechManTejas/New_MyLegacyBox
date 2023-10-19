@@ -1,7 +1,6 @@
 import { View, Text, StyleSheet, Dimensions, Image } from "react-native";
 import React from "react";
 import { useTheme } from "../../theme/ThemeProvider";
-import { Entypo, FontAwesome } from "@expo/vector-icons";
 
 const MCTCard1 = () => {
   const { width } = Dimensions.get("window");
@@ -45,12 +44,26 @@ const MCTCard1 = () => {
       </View>
 
       <View>
-        <Text style={[styles.text, { textAlign: "justify", marginBottom: spacing.u90 }]}>
+        <Text
+          style={[
+            styles.text,
+            { textAlign: "justify", marginBottom: spacing.u90 },
+          ]}
+        >
           Add your loved and trusted ones to “My Circle” whom you would like to
           assign various roles in your succession plan
         </Text>
 
-        <Text style={[styles.text, { textAlign: "justify",  marginBottom: spacing.u100, color: colors.blue600, }]}>
+        <Text
+          style={[
+            styles.text,
+            {
+              textAlign: "justify",
+              marginBottom: spacing.u100,
+              color: colors.blue600,
+            },
+          ]}
+        >
           Swipe right to know details &gt;&gt;
         </Text>
       </View>

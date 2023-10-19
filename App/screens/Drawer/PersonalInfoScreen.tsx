@@ -1,10 +1,9 @@
 import { View, StyleSheet } from "react-native";
 import React from "react";
-import { useTheme } from "../../theme/ThemeProvider"; 
-import PersonalInfoForm from "../../components/Common/PersonalInfoForm"; 
+import { useTheme } from "../../theme/ThemeProvider";
+import PersonalInfoForm from "../../components/Common/PersonalInfoForm";
 
 const PersonalInfoScreen = () => {
-
   const {
     theme: { colors },
   } = useTheme();
@@ -16,11 +15,9 @@ const PersonalInfoScreen = () => {
     },
   });
 
-  
-
   return (
     <View style={styles.container}>
-      <PersonalInfoForm/>
+      <PersonalInfoForm />
     </View>
   );
 };

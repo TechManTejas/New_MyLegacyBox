@@ -19,7 +19,7 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ children }) => {
   const { sessionToken, syncSession } = useAuth();
 
   useEffect(() => {
-    const loadModuleImages = (images) =>
+    const loadModuleImages = (images: string[]) =>
       images.map((image) => Asset.fromModule(image).downloadAsync());
 
     const prepare = () => {

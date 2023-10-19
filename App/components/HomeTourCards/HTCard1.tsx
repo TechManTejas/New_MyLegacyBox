@@ -84,13 +84,11 @@ const HTCard1: React.FC<HTCard1Props> = ({ slideList }) => {
         <Text style={styles.titleText}>Welcome to</Text>
         <Image
           style={styles.brandImage}
-          alt=""
           source={require("../../assets/images/logoFullDark.png")}
         />
       </View>
       <Image
         style={styles.buddyImageStyle}
-        alt=""
         source={require("../../assets/images/buddy.png")}
       />
       <Pressable onPress={slideList} style={styles.getStartedButton}>

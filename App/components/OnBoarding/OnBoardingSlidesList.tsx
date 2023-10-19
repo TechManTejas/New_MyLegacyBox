@@ -1,13 +1,14 @@
 import React, { useRef, useState } from "react";
-import { FlatList, StyleSheet, View } from "react-native";
+import { FlatList, StyleSheet, View, ViewToken } from "react-native";
 import { ON_BOARDING_SLIDES_DATA } from "../../data/onBoardingData";
 import { useTheme } from "../../theme/ThemeProvider";
 import OnboardSlide from "./OnBoardingSlide";
 import { useEffect } from "react";
 
 const OnBoardingSlidesList = () => {
-
-  const { theme: { colors, spacing } } = useTheme();
+  const {
+    theme: { colors, spacing },
+  } = useTheme();
 
   const styles = StyleSheet.create({
     flatListContainer: {
@@ -31,31 +32,37 @@ const OnBoardingSlidesList = () => {
     },
   });
 
+  interface OnViewCallBackRefProps {
+    viewableItems: ViewToken[];
+  }
+
   const [visibleItemIndex, setVisibleItemIndex] = useState(0);
-  const onViewCallBackRef = useRef(({ viewableItems }) => {
-    if(viewableItems.length > 0) {
-      setVisibleItemIndex(viewableItems[0].index);
+  const onViewCallBackRef = useRef(
+    ({ viewableItems }: OnViewCallBackRefProps) => {
+      if (viewableItems.length > 0) {
+        setVisibleItemIndex(viewableItems[0].index as number);
+      }
     }
-   
-  }, []);
+  );
 
   const viewConfigRef = useRef({
     viewAreaCoveragePercentThreshold: 50,
   });
 
-  const flatListRef = useRef(null)
-  const [carouselIndex, setCarouselIndex] = useState(0)
+  const flatListRef = useRef<FlatList | null>(null);
+  const [carouselIndex, setCarouselIndex] = useState(0);
 
   useEffect(() => {
+    const interval = setInterval(() => {
+      setCarouselIndex((carouselIndex + 1) % ON_BOARDING_SLIDES_DATA.length);
+      flatListRef.current?.scrollToIndex({
+        index: carouselIndex,
+        animated: true,
+      });
+    }, 5000);
 
-      const interval = setInterval(() => {
-          setCarouselIndex((carouselIndex + 1) % ON_BOARDING_SLIDES_DATA.length)
-          flatListRef.current.scrollToIndex({ index: carouselIndex, animated: true })
-      }, 5000)
-
-      return () => clearInterval(interval)
-
-  }, [carouselIndex])
+    return () => clearInterval(interval);
+  }, [carouselIndex]);
 
   return (
     <View style={styles.flatListContainer}>
@@ -68,7 +75,6 @@ const OnBoardingSlidesList = () => {
         horizontal
         renderItem={({ item }) => <OnboardSlide item={item} />}
         keyExtractor={(item) => item.id}
-        style={styles.flatList}
         ref={flatListRef}
       />
       <View style={styles.indicatorContainer}>

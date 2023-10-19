@@ -1,13 +1,15 @@
-import React from "react"
+import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import { Linking, StyleSheet, Text, View } from "react-native";
 import { useTheme } from "../../theme/ThemeProvider";
-import { SCREEN_NAMES } from "../../constants/screenNames";
 import BlueButton from "../Common/Button/BlueButton";
+import { AllScreenNavigationProp } from "../../navigation/types";
 
 const OnBoardingFooter = () => {
-  const navigation = useNavigation();
-  const { theme: { spacing, colors, fontFamily, fontSize } } = useTheme();
+  const navigation = useNavigation<AllScreenNavigationProp>();
+  const {
+    theme: { spacing, colors, fontFamily, fontSize },
+  } = useTheme();
 
   const styles = StyleSheet.create({
     footerContainer: {
@@ -17,7 +19,6 @@ const OnBoardingFooter = () => {
       borderWidth: StyleSheet.hairlineWidth,
       borderColor: colors.blue200,
       backgroundColor: colors.white100,
-      // backgroundColor : colors.blue500,
       borderTopLeftRadius: spacing.xl,
       borderTopRightRadius: spacing.xl,
     },
@@ -64,7 +65,7 @@ const OnBoardingFooter = () => {
               uppercase
               expandHorizontal
               onPress={() => {
-                navigation.navigate(SCREEN_NAMES.loginScreen);
+                navigation.navigate("LOGIN_SCREEN");
               }}
             />
             <View style={{ width: spacing.md }} />
@@ -73,16 +74,27 @@ const OnBoardingFooter = () => {
               uppercase
               expandHorizontal
               onPress={() => {
-                navigation.navigate(SCREEN_NAMES.registerScreen);
+                navigation.navigate("REGISTER_SCREEN");
               }}
             />
           </View>
           <Text style={styles.caption}>
             By signing up you agree to our{" "}
-            <Text style={styles.captionBold} onPress={() => Linking.openURL("https://www.oiconomos.com/privacy-policy")}>
+            <Text
+              style={styles.captionBold}
+              onPress={() =>
+                Linking.openURL("https://www.oiconomos.com/privacy-policy")
+              }
+            >
               Terms & Conditions
-            </Text> and{" "}
-            <Text style={styles.captionBold} onPress={() => Linking.openURL("https://www.oiconomos.com/privacy-policy")}>
+            </Text>{" "}
+            and{" "}
+            <Text
+              style={styles.captionBold}
+              onPress={() =>
+                Linking.openURL("https://www.oiconomos.com/privacy-policy")
+              }
+            >
               Privacy Policy
             </Text>
           </Text>

@@ -1,9 +1,20 @@
-import { View, Text, Dimensions, StyleSheet, Image } from "react-native";
+import {
+  View,
+  Text,
+  Dimensions,
+  StyleSheet,
+  Image,
+  ImageSourcePropType,
+} from "react-native";
 import React from "react";
 import { useTheme } from "../../theme/ThemeProvider";
 
 interface SliderItemProps {
-    item: string
+  item: {
+    title: string;
+    subtitle: string;
+    img: ImageSourcePropType;
+  };
 }
 
 const SliderItem: React.FC<SliderItemProps> = ({ item }) => {
@@ -48,15 +59,9 @@ const SliderItem: React.FC<SliderItemProps> = ({ item }) => {
     <View style={styles.card}>
       <View>
         <Text style={styles.title}>{item.title}</Text>
-        <Text style={styles.content}>
-          {item.subtitle}
-        </Text>
+        <Text style={styles.content}>{item.subtitle}</Text>
       </View>
-      <Image
-        style={styles.image}
-        resizeMode="center"
-        source={item.img}
-      />
+      <Image style={styles.image} resizeMode="center" source={item.img} />
     </View>
   );
 };

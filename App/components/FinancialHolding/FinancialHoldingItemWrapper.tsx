@@ -21,6 +21,7 @@ const FinancialHoldingItemWrapper: React.FC<
       borderColor: colors.black300,
       borderRadius: spacing.xs,
     },
+
     financialHoldingContainer: {
       paddingTop: spacing.md,
     },
@@ -43,6 +44,7 @@ const FinancialHoldingItemWrapper: React.FC<
       color: colors.white100,
       textTransform: "uppercase",
     },
+
     row: {
       flexDirection: "row",
       flexWrap: "wrap",
@@ -52,6 +54,7 @@ const FinancialHoldingItemWrapper: React.FC<
     rowAlignEnd: {
       alignItems: "flex-end",
     },
+
     backgroundColorGreen: {
       backgroundColor: colors.green600,
     },

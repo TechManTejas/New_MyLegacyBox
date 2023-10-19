@@ -1,7 +1,9 @@
+import { ImageSourcePropType } from "react-native";
+
 const path = "../assets/images";
 
 export interface CarouselDataProps {
-  img: string;
+  img: ImageSourcePropType;
   title: string;
   subtitle: string;
   align: string;

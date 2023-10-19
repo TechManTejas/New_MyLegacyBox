@@ -47,7 +47,6 @@ const Card3 = () => {
       <View style={styles.imageContainer}>
         <Image
           style={{ width: 260, height: 200 }}
-          alt=""
           source={require("../../assets/images/test3.jpg")}
         />
       </View>

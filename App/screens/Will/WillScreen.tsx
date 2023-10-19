@@ -31,8 +31,6 @@ const WillScreen = () => {
 
   }, []);
 
-
-
   const {
     theme: { spacing, colors },
   } = useTheme();

@@ -1,11 +1,19 @@
-import React from "react"
+import React from "react";
 import { Pressable, StyleSheet } from "react-native";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import { useTheme } from "../../theme/ThemeProvider";
+import { NavigationProp } from "@react-navigation/native";
 
-const CustomHeaderLeftIcon = ({ navigation }) => {
+interface CustomHeaderLeftIconProps {
+  navigation: NavigationProp<ReactNavigation.RootParamList>;
+}
 
-  const { theme: { colors, spacing, fontSize } } = useTheme();
+const CustomHeaderLeftIcon: React.FC<CustomHeaderLeftIconProps> = ({
+  navigation,
+}) => {
+  const {
+    theme: { colors, spacing, fontSize },
+  } = useTheme();
 
   const styles = StyleSheet.create({
     headerLeftIcon: {

@@ -4,8 +4,9 @@ import { useTheme } from "../../theme/ThemeProvider";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 
 const UnderDevelopment = () => {
-
-  const { theme: { colors, spacing, fontSize, fontFamily } } = useTheme();
+  const {
+    theme: { colors, spacing, fontSize, fontFamily },
+  } = useTheme();
 
   const styles = StyleSheet.create({
     container: {

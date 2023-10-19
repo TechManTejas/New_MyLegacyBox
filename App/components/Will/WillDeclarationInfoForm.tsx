@@ -12,14 +12,15 @@ import CustomInputGroup from "../Form/CustomInputGroup";
 import { setDeclarationInfoRedux } from "../../redux/form/willFormSlice";
 import BlueButton from "../Common/Button/BlueButton";
 import { willDeclarationInfoValidator } from "../../utils/form/validators/will/willDeclarationInfoValidator";
-import { SCREEN_NAMES } from "../../constants/screenNames";
 
 const WillDeclarationInfoForm = ({ initialValues, defaultBody }) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const [customErrors, setCustomErrors] = useState({});
 
-  const { theme: { colors, spacing, fontSize, fontFamily } } = useTheme();
+  const {
+    theme: { colors, spacing, fontSize, fontFamily },
+  } = useTheme();
 
   const styles = StyleSheet.create({
     container: {
@@ -92,21 +93,22 @@ const WillDeclarationInfoForm = ({ initialValues, defaultBody }) => {
       setGlobalErrorMessage(error.message);
     }
 
-    const isValid = customErrorWithValidation({ values, errors: validationErrors })
+    const isValid = customErrorWithValidation({
+      values,
+      errors: validationErrors,
+    });
 
-    if (!isValid) return
+    if (!isValid) return;
 
-    const cleanedValues = cleanObjectAndTrim({ ...values })
+    const cleanedValues = cleanObjectAndTrim({ ...values });
 
     try {
-      dispatch(setDeclarationInfoRedux(cleanedValues))
-      navigation.goBack()
-    } 
-    catch (error) {
-      setGlobalErrorMessage(error?.data?.error?.message || error.message)
+      dispatch(setDeclarationInfoRedux(cleanedValues));
+      navigation.goBack();
+    } catch (error) {
+      setGlobalErrorMessage(error?.data?.error?.message || error.message);
     }
-
-  }, [])
+  }, []);
 
   return (
     <Formik
@@ -126,7 +128,7 @@ const WillDeclarationInfoForm = ({ initialValues, defaultBody }) => {
                 name="place"
                 placeholder="Enter the place"
                 title="Place"
-                onChange={handleChange("place")}
+                onChangeText={handleChange("place")}
                 onBlur={handleBlur("place")}
                 value={values.place}
                 messages={
@@ -141,7 +143,7 @@ const WillDeclarationInfoForm = ({ initialValues, defaultBody }) => {
                 placeholder="Enter your declaration"
                 title='Type "YES" to agree with the below declaration'
                 subTitle="I maintain good health and possess a sound mind. This Will is made by me of my own independent decision and free volition. I have not been influenced, cajoled, or coerced in any manner whatsoever."
-                onChange={handleChange("declaration")}
+                onChangeText={handleChange("declaration")}
                 onBlur={handleBlur("declaration")}
                 value={values.declaration}
                 messages={

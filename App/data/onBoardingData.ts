@@ -2,7 +2,6 @@ export const ON_BOARDING_SLIDES_DATA = [
   {
     id: "ob1",
     image: require("../assets/images/1.png"),
-    // imagePadded: true,
     title: "Oiconomos",
     subTitle: "A personal finance succession management solution",
     titleBold: true,

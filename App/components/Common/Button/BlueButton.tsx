@@ -1,8 +1,29 @@
 import React from "react";
 import { useTheme } from "../../../theme/ThemeProvider";
 import CustomButton from "./CustomButton";
+import { StyleProp, ViewStyle, TextStyle } from "react-native";
 
-const BlueButton = ({
+interface BlueButtonProps {
+  title?: string;
+  onPress?: () => void;
+  size?: "xs" | "sm";
+  elevation?: number;
+  color?: string;
+  buttonStyle?: StyleProp<ViewStyle>;
+  textStyle?: StyleProp<TextStyle>;
+  backgroundColor?: string;
+  backgroundColorPressed?: string;
+  disabled?: boolean;
+  expandHorizontal?: boolean;
+  uppercase?: boolean;
+  extraSpaceTop?: boolean;
+  outline?: boolean;
+  Icon?: any;
+  iconName?: string;
+  isLoading?: boolean;
+}
+
+const BlueButton: React.FC<BlueButtonProps> = ({
   title,
   onPress,
   size,
@@ -16,7 +37,7 @@ const BlueButton = ({
   extraSpaceTop,
   Icon,
   iconName,
-  isLoading
+  isLoading,
 }) => {
   const {
     theme: { colors },
@@ -39,7 +60,7 @@ const BlueButton = ({
     extraSpaceTop,
     Icon,
     iconName,
-    isLoading
+    isLoading,
   };
 
   return <CustomButton {...props} />;

@@ -1,8 +1,12 @@
-import React from "react"
+import React from "react";
 import { Text, StyleSheet } from "react-native";
 import { useTheme } from "../../theme/ThemeProvider";
 
-const CustomHeaderTitle = ({ children }) => {
+interface CustomHeaderTitleProps {
+  children: string;
+}
+
+const CustomHeaderTitle: React.FC<CustomHeaderTitleProps> = ({ children }) => {
   const {
     theme: { colors, spacing, fontFamily, fontSize },
   } = useTheme();

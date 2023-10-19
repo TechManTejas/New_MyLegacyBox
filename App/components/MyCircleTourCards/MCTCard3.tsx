@@ -43,12 +43,17 @@ const MCTCard3 = () => {
         <Text style={styles.titleText}>Review Shared Details</Text>
       </View>
 
-        <Text style={[styles.text, { textAlign: "justify", marginBottom: spacing.lg }]}>
-          View the financial information that you are sharing with each of the
-          members by clicking “Open” on their profile
-        </Text>
+      <Text
+        style={[
+          styles.text,
+          { textAlign: "justify", marginBottom: spacing.lg },
+        ]}
+      >
+        View the financial information that you are sharing with each of the
+        members by clicking “Open” on their profile
+      </Text>
 
-        <View style={{ alignItems: "center", justifyContent: "center" }}>
+      <View style={{ alignItems: "center", justifyContent: "center" }}>
         <Image
           alt=""
           source={require("../../assets/images/openNominee.png")}
