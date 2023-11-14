@@ -141,7 +141,7 @@ const PartnershipHoldingForm = ({
                 name="nameOfFirm"
                 placeholder="Enter your Firm name"
                 title="Firm Name"
-                onChange={handleChange("nameOfFirm")}
+                onChangeText={handleChange("nameOfFirm")}
                 onBlur={handleBlur("nameOfFirm")}
                 value={values.nameOfFirm}
                 messages={
@@ -161,9 +161,9 @@ const PartnershipHoldingForm = ({
                 name="panNumber"
                 placeholder="Enter PAN number"
                 title="PAN Number"
-                onChange={handleChange("panNumber")}
+                onChangeText={handleChange("panNumber")}
                 onBlur={handleBlur("panNumber")}
-                value={values.panNumber}
+                value={String(values.panNumber)}
                 messages={
                   customErrors.panNumber
                     ? [
@@ -187,7 +187,7 @@ const PartnershipHoldingForm = ({
                     setFieldValue("percentageHolding", +value);
                 }}
                 onBlur={handleBlur("percentageHolding")}
-                value={values.percentageHolding}
+                value={String(values.percentageHolding)}
                 messages={
                   customErrors.percentageHolding
                     ? [

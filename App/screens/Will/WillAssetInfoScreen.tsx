@@ -43,7 +43,7 @@ const WillAssetInfoScreen = () => {
       (acc, v) => {
         acc[v] = beneficiaries.reduce((internalAcc, { _id }) => {
           if (v in valuesMap) internalAcc[_id] = valuesMap[v][_id];
-          else internalAcc[_id] = undefined;
+          else internalAcc[_id] = "";
           return internalAcc;
         }, {});
         return acc;

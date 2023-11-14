@@ -31,6 +31,9 @@ interface initialStateType {
     declaration: string;
   };
   selectedAssets: EntityState<WillFormSliceType>;
+  residualDistData: any[];
+  secondaryDistData: any[];
+  willRolesTracker: any[];
 }
 
 const initialState: initialStateType = {
@@ -44,6 +47,9 @@ const initialState: initialStateType = {
     declaration: "",
   },
   selectedAssets: selectedAssetsAdapter.getInitialState(),
+  residualDistData: [],
+  secondaryDistData: [],
+  willRolesTracker: [],
 };
 
 export const willFormSlice = createSlice({
@@ -99,15 +105,29 @@ export const willFormSlice = createSlice({
     removeSelectedAssetRedux: (state, action) => {
       selectedAssetsAdapter.removeOne(state.selectedAssets, action.payload);
     },
+    addResidualDistData: (state, action) => {
+      state.residualDistData = action.payload;
+    },
+    addSecondaryDistData: (state, action) => {
+      state.secondaryDistData = action.payload;
+    },
     clearAssets: (state) => {
       state.assets = [];
+      state.residualDistData = [];
+      state.secondaryDistData = [];
       return state;
+    },
+    setWillRolesTracker: (state, action) => {
+      state.willRolesTracker = action.payload;
     },
     clearWillFormRedux: () => initialState,
   },
 });
 
 export const {
+  setWillRolesTracker,
+  addResidualDistData,
+  addSecondaryDistData,
   setPersonalInfoRedux,
   setDeclarationInfoRedux,
   addWitnessRedux,
@@ -129,6 +149,21 @@ export const {
 const willFormSelector = (state: { willForm: any }) => state.willForm;
 
 export const getWill = createSelector(willFormSelector, (willForm) => willForm);
+
+export const getWillRolesTrackerData = createSelector(
+  willFormSelector,
+  (willForm) => willForm.willRolesTracker
+);
+
+export const getResidualDistData = createSelector(
+  willFormSelector,
+  (willForm) => willForm.residualDistData
+);
+
+export const getSecondaryDistData = createSelector(
+  willFormSelector,
+  (willForm) => willForm.secondaryDistData
+);
 
 export const getPersonalInfoSelector = createSelector(
   willFormSelector,

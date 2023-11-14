@@ -7,20 +7,20 @@ import { Formik } from "formik";
 import { toFormikValidationSchema } from "zod-formik-adapter";
 import CustomKeyboardAvoidingScrollView from "../Common/CustomKeyboardAvoidingScrollView";
 import CustomInputGroup from "../Form/CustomInputGroup";
-import { SCREEN_NAMES } from "../../constants/screenNames";
 import WillFormContainer from "./WillFormContainer";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getSelectedAssetsEntitiesSelector,
   setAssetRedux,
 } from "../../redux/form/willFormSlice";
+import { AllScreenNavigationProp } from "../../navigation/types";
 
 const WillAssetInfoForm = ({
   initialValues,
   sectionTitles,
   beneficiariesMap,
 }) => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<AllScreenNavigationProp>();
   const [customErrors, setCustomErrors] = useState({});
   const [globalErrorMessage, setGlobalErrorMessage] = useState("");
   const formRef = useRef();
@@ -97,6 +97,14 @@ const WillAssetInfoForm = ({
       fontFamily: fontFamily.regular,
       color: colors.red,
     },
+
+    individualCard: {
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent: "space-between",
+    },
+    left: { width: "70%" },
+    right: { width: "30%" },
   });
 
   const customErrorWithValidation = useCallback(({ values, errors }) => {
@@ -136,7 +144,7 @@ const WillAssetInfoForm = ({
 
     dispatch(setAssetRedux(allocationValues));
 
-    navigation.navigate(SCREEN_NAMES.willInfoScreen);
+    navigation.navigate("WILL_ASSET_INDEX_SCREEN");
   }, []);
 
   return (
@@ -162,7 +170,7 @@ const WillAssetInfoForm = ({
                 {Object.entries(sectionTitles).map(([k, v]) => (
                   <React.Fragment key={`allocation-section-${k}`}>
                     <View style={styles.sectionTitleContainer}>
-                      <Text style={styles.sectionTitle}>{k} allocation</Text>
+                      <Text style={styles.sectionTitle}>{k}</Text>
                     </View>
                     {v.map(({ id, title }) => (
                       <View key={`allocation-section-${id}`}>
@@ -179,38 +187,44 @@ const WillAssetInfoForm = ({
                         </View>
                         {Object.entries(initialValues[id]).map(
                           ([_id, allocation]) => (
-                            <CustomInputGroup
+                            <View
+                              style={styles.individualCard}
                               key={`allocation-input-${id}-${_id}`}
-                              name={`${id}.${_id}`}
-                              placeholder={`Enter allocation for ${beneficiariesMap[_id].fullName}`}
-                              title={`${beneficiariesMap[_id].fullName}'s allocation`}
-                              onChangeText={(value) => {
-                                const stringValue = String(value);
-
-                                if (
-                                  !value ||
-                                  stringValue.charAt(stringValue.length - 1) ===
-                                    "."
-                                ) {
-                                  setFieldValue(`${id}.${_id}`, value);
-                                } else {
-                                  setFieldValue(`${id}.${_id}`, +value);
-                                }
-                              }}
-                              onBlur={handleBlur(`${id}.${_id}`)}
-                              value={values[id][_id]}
-                              keyboardType="numeric"
-                              messages={
-                                customErrors[id] && customErrors[id][_id]
-                                  ? [
-                                      {
-                                        id: "name",
-                                        text: customErrors[id][_id],
-                                      },
-                                    ]
-                                  : undefined
-                              }
-                            />
+                            >
+                              <Text
+                                style={styles.left}
+                              >{`${beneficiariesMap[_id].fullName}`}</Text>
+                              <View style={styles.right}>
+                                <CustomInputGroup
+                                marginBottom={spacing.xs}
+                                  name={`${id}.${_id}`}
+                                  placeholder={`Enter %`}
+                                  onChangeText={(value) => {
+                                    if (!Number.isNaN(Number(value))) {
+                                      value.charAt(value.length - 1) === "."
+                                        ? setFieldValue(`${id}.${_id}`, value)
+                                        : setFieldValue(
+                                            `${id}.${_id}`,
+                                            Number(value)
+                                          );
+                                    }
+                                  }}
+                                  onBlur={handleBlur(`${id}.${_id}`)}
+                                  value={String(values[id][_id])}
+                                  keyboardType="numeric"
+                                  messages={
+                                    customErrors[id] && customErrors[id][_id]
+                                      ? [
+                                          {
+                                            id: "name",
+                                            text: customErrors[id][_id],
+                                          },
+                                        ]
+                                      : undefined
+                                  }
+                                />
+                              </View>
+                            </View>
                           )
                         )}
 

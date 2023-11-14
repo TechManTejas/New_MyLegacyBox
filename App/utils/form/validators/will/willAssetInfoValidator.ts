@@ -5,7 +5,7 @@ export const willAssetInfoValidator = z.record(
     .record(
       z
         .number({
-          required_error: "Allocation is required",
+          required_error: "Entry is required",
           invalid_type_error: "Invalid type for Allocation",
         })
         .min(0)

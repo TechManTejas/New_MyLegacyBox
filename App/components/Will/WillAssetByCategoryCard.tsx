@@ -18,15 +18,13 @@ const WillAssetByCategoryCard: React.FC<WillAssetByCategoryCardProps> = ({
 
   const styles = StyleSheet.create({
     cardContainer: {
-      // marginTop: spacing.sm,
-      // paddingTop: spacing.sm,
       paddingBottom: spacing.sm,
-      borderBottomWidth: StyleSheet.hairlineWidth,
+      // borderBottomWidth: StyleSheet.hairlineWidth,
       borderBottomColor: colors.black200,
       marginBottom: spacing.lg,
     },
     categoryTitleContainer: {
-      borderBottomWidth: StyleSheet.hairlineWidth,
+      // borderBottomWidth: StyleSheet.hairlineWidth,
       borderBottomColor: colors.black200,
       paddingBottom: spacing.sm,
     },
@@ -36,7 +34,7 @@ const WillAssetByCategoryCard: React.FC<WillAssetByCategoryCardProps> = ({
       lineHeight: fontSize.lg,
     },
     allAssetContainer: {
-      paddingTop: spacing.lg,
+      paddingTop: spacing.xs,
     },
   });
 

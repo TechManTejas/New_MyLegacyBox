@@ -135,8 +135,8 @@ const ProvidentFundHoldingForm = ({
         pfType: initialValues?.pfType || "",
         uan: initialValues?.uan || "",
         employerName: initialValues?.employerName || "",
-        amount: initialValues?.amount || undefined,
-        nominee: initialValues?.nominee || undefined
+        amount: initialValues?.amount || "",
+        nominee: initialValues?.nominee || ""
       }}
       validateOnChange={false}
       validateOnBlur={false}
@@ -149,7 +149,7 @@ const ProvidentFundHoldingForm = ({
                 name="uan"
                 placeholder="Enter your UAN"
                 title="UAN"
-                onChange={handleChange("uan")}
+                onChangeText={handleChange("uan")}
                 onBlur={handleBlur("uan")}
                 value={values.uan}
                 messages={
@@ -169,7 +169,7 @@ const ProvidentFundHoldingForm = ({
                 name="employerName"
                 placeholder="Enter Employer name"
                 title="Employer Name"
-                onChange={handleChange("employerName")}
+                onChangeText={handleChange("employerName")}
                 onBlur={handleBlur("employerName")}
                 value={values.employerName}
                 messages={
@@ -210,7 +210,7 @@ const ProvidentFundHoldingForm = ({
                 placeholder="Enter Nominee"
                 title="Nominee"
                 optional
-                onChange={handleChange("nominee")}
+                onChangeText={handleChange("nominee")}
                 onBlur={handleBlur("nominee")}
                 value={values.nominee}
                 messages={
@@ -229,13 +229,13 @@ const ProvidentFundHoldingForm = ({
                 name="amount"
                 placeholder="Enter the Amount"
                 title="Amount (in Rs)"
-                onChange={(value) => {
+                onChangeText={(value) => {
                   if (value == " " || value == "")
                     setFieldValue("amount", +value);
                   else if (!isNaN(value)) setFieldValue("amount", +value);
                 }}
                 onBlur={handleBlur("amount")}
-                value={values.amount}
+                value={String(values.amount)}
                 messages={
                   customErrors.amount
                     ? [

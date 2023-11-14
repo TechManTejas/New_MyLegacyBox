@@ -121,8 +121,8 @@ const PostalHoldingForm = ({
         accountType: initialValues?.accountType || "",
         accountNumber: initialValues?.accountNumber || "",
         ownership: initialValues?.ownership || "",
-        amount: initialValues?.amount || undefined,
-        nominee: initialValues?.nominee || undefined,
+        amount: initialValues?.amount || "",
+        nominee: initialValues?.nominee || "",
         pranNumber: initialValues?.pranNumber || "",
       }}
       validateOnChange={false}
@@ -163,7 +163,7 @@ const PostalHoldingForm = ({
                   name="pranNumber"
                   placeholder="Enter your PRAN Number"
                   title="PRAN Number"
-                  onChange={handleChange("pranNumber")}
+                  onChangeText={handleChange("pranNumber")}
                   onBlur={handleBlur("pranNumber")}
                   value={values.pranNumber}
                   messages={
@@ -202,7 +202,7 @@ const PostalHoldingForm = ({
                 name="accountNumber"
                 placeholder="Enter your Account Number"
                 title="Account Number"
-                onChange={handleChange("accountNumber")}
+                onChangeText={handleChange("accountNumber")}
                 onBlur={handleBlur("accountNumber")}
                 value={values.accountNumber}
                 messages={
@@ -221,7 +221,7 @@ const PostalHoldingForm = ({
                 placeholder="Enter Nominee"
                 title="Nominee"
                 optional
-                onChange={handleChange("nominee")}
+                onChangeText={handleChange("nominee")}
                 onBlur={handleBlur("nominee")}
                 value={values.nominee}
                 messages={
@@ -239,12 +239,12 @@ const PostalHoldingForm = ({
                 name="amount"
                 placeholder="Enter the Balance"
                 title="Balance (in Rs)"
-                onChange={(value) => {
+                onChangeText={(value) => {
                   if (value == " " || value == "") setFieldValue("amount", "");
                   else if (!isNaN(value)) setFieldValue("amount", +value);
                 }}
                 onBlur={handleBlur("amount")}
-                value={values.amount}
+                value={String(values.amount)}
                 messages={
                   customErrors.amount
                     ? [

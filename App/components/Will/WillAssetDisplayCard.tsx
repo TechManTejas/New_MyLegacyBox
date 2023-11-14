@@ -46,8 +46,6 @@ const WillAssetDisplayCard = ({ asset }) => {
     titleButtonContainer: {
       flexDirection: "row",
       alignItems: "center",
-      //   marginBottom: spacing.xs
-      //   justifyContent: "",
     },
   });
 
@@ -231,12 +229,22 @@ const WillAssetDisplayCard = ({ asset }) => {
   );
 
   return (
-    <View style={styles.assetContainer}>
+    <View
+      style={[
+        styles.assetContainer,
+        {
+          borderWidth: StyleSheet.hairlineWidth,
+          borderColor: colors.black300,
+          padding: spacing.md,
+          borderRadius: spacing.md,
+        },
+      ]}
+    >
       <View style={styles.titleButtonContainer}>
         <Text style={styles.itemTitle}>{asset.itemTitle}</Text>
         <Pressable onPress={toggleInfoButton} style={styles.button}>
           <FontAwesome
-            name={infoCardVisible ? "arrow-down" : "arrow-right"}
+            name={infoCardVisible ? "arrow-up" : "arrow-down"}
             size={10}
             color={colors.black300}
           />
@@ -246,7 +254,7 @@ const WillAssetDisplayCard = ({ asset }) => {
       {infoCardVisible ? (
         <View style={{ marginTop: spacing.xs }}>
           {getContents(asset).map((item, index) => (
-            <WillToggleCard key={index + "will-toggle-card"} contents={item} />
+            <WillToggleCard key={index + "will-toggle-card"+ item[0].value} contents={item} />
           ))}
         </View>
       ) : null}

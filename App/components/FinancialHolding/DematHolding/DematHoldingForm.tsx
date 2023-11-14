@@ -136,8 +136,8 @@ const DematHoldingForm = ({
         dematType: initialValues?.dematType || "",
         poc: initialValues?.poc || "",
         pocNumber: initialValues?.pocNumber || "",
-        investedAmount: initialValues?.investedAmount || undefined,
-        nominee: initialValues?.nominee || undefined,
+        investedAmount: initialValues?.investedAmount || "",
+        nominee: initialValues?.nominee || "",
       }}
       validateOnChange={false}
       validateOnBlur={false}
@@ -150,7 +150,7 @@ const DematHoldingForm = ({
                 name="broker"
                 placeholder="Enter your Broker name"
                 title="Broker"
-                onChange={handleChange("broker")}
+                onChangeText={handleChange("broker")}
                 onBlur={handleBlur("broker")}
                 value={values.broker}
                 messages={
@@ -190,7 +190,7 @@ const DematHoldingForm = ({
                 name="customerId"
                 placeholder="Enter your Customer ID"
                 title="Customer ID"
-                onChange={handleChange("customerId")}
+                onChangeText={handleChange("customerId")}
                 onBlur={handleBlur("customerId")}
                 value={values.customerId}
                 messages={
@@ -210,7 +210,7 @@ const DematHoldingForm = ({
                 placeholder="Enter Nominee"
                 title="Nominee"
                 optional
-                onChange={handleChange("nominee")}
+                onChangeText={handleChange("nominee")}
                 onBlur={handleBlur("nominee")}
                 value={values.nominee}
                 messages={
@@ -229,7 +229,7 @@ const DematHoldingForm = ({
                 name="poc"
                 placeholder="Enter Point of contact name"
                 title="Point of contact"
-                onChange={handleChange("poc")}
+                onChangeText={handleChange("poc")}
                 onBlur={handleBlur("poc")}
                 value={values.poc}
                 messages={
@@ -250,7 +250,7 @@ const DematHoldingForm = ({
                 name="pocNumber"
                 placeholder="Phone number of point of contact"
                 title="Point of contact's number"
-                onChange={handleChange("pocNumber")}
+                onChangeText={handleChange("pocNumber")}
                 onBlur={handleBlur("pocNumber")}
                 value={values.pocNumber}
                 messages={
@@ -271,14 +271,14 @@ const DematHoldingForm = ({
                 name="investedAmount"
                 placeholder="Enter the Invested Amount"
                 title="Invested Amount (in Rs)"
-                onChange={(value) => {
+                onChangeText={(value) => {
                   if (value == " " || value == "")
                     setFieldValue("investedAmount", "");
                   else if (!isNaN(value))
                     setFieldValue("investedAmount", +value);
                 }}
                 onBlur={handleBlur("investedAmount")}
-                value={values.investedAmount}
+                value={String(values.investedAmount)}
                 messages={
                   customErrors.investedAmount
                     ? [

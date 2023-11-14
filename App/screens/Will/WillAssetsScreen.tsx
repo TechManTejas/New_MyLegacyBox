@@ -23,7 +23,6 @@ import { addSelectedAssetRedux } from "../../redux/form/willFormSlice";
 import { PROVIDENT_FUND_TYPE_TO_TITLE_MAP } from "../../constants/financialHoldings/providentFundHolding";
 import { useMemo } from "react";
 import { BANK_ACCOUNT_OWNERSHIP_MAP } from "../../constants/financialHoldings/bankHolding";
-import { SCREEN_NAMES } from "../../constants/screenNames";
 
 const WillAssetsScreen = () => {
   const navigation = useNavigation();
@@ -75,7 +74,8 @@ const WillAssetsScreen = () => {
     theme: { spacing, colors, fontFamily, fontSize },
   } = useTheme();
 
-  const financialData = useMemo(() => {
+  const financialData = useMemo(() => {  
+    
     return allFinancialHoldingData && allFinancialHoldingData.ids
       ? allFinancialHoldingData.ids
           .map((id) => allFinancialHoldingData.entities[id])
@@ -317,17 +317,19 @@ const WillAssetsScreen = () => {
           <SectionList
             sections={sectionListData}
             keyExtractor={({ _id }) => _id}
-            renderItem={({ item, index, section }) => (
-              <View style={styles.assetContainerStyle}>
-                <WillAssetCard
-                  {...getItemTitleAndSubTitle(item, section.title)}
-                  pressHandler={(itemTitle) => {
-                    pressHandler(item, section.title, itemTitle);
-                  }}
-                  selected={!!selectedAssetsEntities[item._id]}
-                />
-              </View>
-            )}
+            renderItem={({ item, index, section }) => {
+              return (
+                <View style={styles.assetContainerStyle}>
+                  <WillAssetCard
+                    {...getItemTitleAndSubTitle(item, section.title)}
+                    pressHandler={(itemTitle) => {
+                      pressHandler(item, section.title, itemTitle);
+                    }}
+                    selected={!!selectedAssetsEntities[item._id]}
+                  />
+                </View>
+              );
+            }}
             renderSectionHeader={({ section: { title } }) => (
               <View style={styles.sectionTitleContainer}>
                 <Text style={styles.sectionTitle}>{title}</Text>

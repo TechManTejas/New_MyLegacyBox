@@ -3,9 +3,22 @@ import React from "react";
 import BlueButton from "../Common/Button/BlueButton";
 import { useTheme } from "../../theme/ThemeProvider";
 
-const WillFormContainer = ({ children, Handler, nextDisabled, title }) => {
+interface WillFormContainerProps {
+  children?: React.ReactNode;
+  Handler?: () => void;
+  nextDisabled?: boolean;
+  title?: string;
+}
 
-  const { theme: { spacing, colors }} = useTheme()
+const WillFormContainer: React.FC<WillFormContainerProps> = ({
+  children,
+  Handler,
+  nextDisabled,
+  title,
+}) => {
+  const {
+    theme: { spacing, colors },
+  } = useTheme();
 
   const styles = StyleSheet.create({
     container: {
@@ -33,7 +46,7 @@ const WillFormContainer = ({ children, Handler, nextDisabled, title }) => {
       <View style={styles.formContainer}>{children}</View>
       <View style={styles.footer}>
         <BlueButton
-          title={ title ? title : "Confirm"}
+          title={title ? title : "Confirm"}
           expandHorizontal
           onPress={Handler}
           disabled={nextDisabled}
@@ -41,6 +54,6 @@ const WillFormContainer = ({ children, Handler, nextDisabled, title }) => {
       </View>
     </View>
   );
-}
+};
 
 export default WillFormContainer;
