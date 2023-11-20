@@ -137,10 +137,10 @@ const WillSecondaryDistPrevCard: React.FC<WillSecondaryDistPrevCardProps> = ({
                           <View key={index2} style={styles.distCard}>
                             <View>
                               <Text style={styles.fullNameText}>
-                                {item2.beneficiaries.fullName}
+                                {item2.beneficiary.fullName}
                               </Text>
                               <Text style={styles.emailText}>
-                                {item2.beneficiaries.email}
+                                {item2.beneficiary.email}
                               </Text>
                             </View>
                             <Text style={styles.percentText}>

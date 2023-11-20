@@ -426,8 +426,8 @@ const WillDownloadCard = () => {
         <View style={styles.assetDistContainer}>
           <Text style={styles.assetDistText}>
             {distributionView
-              ? "Distribution by Beneficiaries" 
-              : "Distribution by Assets" }
+              ? "Distribution by Beneficiaries"
+              : "Distribution by Assets"}
           </Text>
           <Switch
             trackColor={{ false: colors.blue300, true: colors.blue300 }}
@@ -499,10 +499,16 @@ const WillDownloadCard = () => {
           </View>
         )}
 
-        <WillResidualDistPrevCard residualData={data?.data?.residualDistData} />
+        <WillResidualDistPrevCard
+          residualData={
+            data?.data?.residualDistData ? data?.data?.residualDistData : []
+          }
+        />
 
         <WillSecondaryDistPrevCard
-          secondaryData={data?.data?.secondaryDistData}
+          secondaryData={
+            data?.data?.secondaryDistData ? data?.data?.secondaryDistData : []
+          }
         />
       </View>
     );

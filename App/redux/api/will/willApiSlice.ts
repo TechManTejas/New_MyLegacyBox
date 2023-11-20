@@ -1,4 +1,4 @@
-import  Constants  from 'expo-constants';
+import Constants from "expo-constants";
 // import { createEntityAdapter, createSelector } from "@reduxjs/toolkit";
 import { QUERY_TAGS } from "../../../constants/queryTags";
 import { rootApiSlice } from "../rootApi";
@@ -15,8 +15,7 @@ export const extendedWillApiSlice = rootApiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getWill: builder.query({
       query: () => "/wills/will",
-      providesTags: [QUERY_TAGS.will]
-        
+      providesTags: [QUERY_TAGS.will],
     }),
     addOrUpdateWill: builder.mutation({
       query: (will) => ({
@@ -24,7 +23,7 @@ export const extendedWillApiSlice = rootApiSlice.injectEndpoints({
         method: "PUT",
         body: will,
       }),
-      invalidatesTags: [QUERY_TAGS.will]
+      invalidatesTags: [QUERY_TAGS.will],
     }),
     generateWordFileHash: builder.mutation({
       query: () => ({
@@ -41,13 +40,13 @@ export const extendedWillApiSlice = rootApiSlice.injectEndpoints({
 export const {
   useGetWillQuery,
   useAddOrUpdateWillMutation,
-  useGenerateWordFileHashMutation
+  useGenerateWordFileHashMutation,
 } = extendedWillApiSlice;
 
-// const baseUrl = `http://${
-//   Constants.expoGoConfig?.debuggerHost?.split(":")[0]
-// }${BASE_API_URL_LOCAL_SUFFIX}`; 
+const baseUrl = `http://${
+  Constants.expoGoConfig?.debuggerHost?.split(":")[0]
+}${BASE_API_URL_LOCAL_SUFFIX}`;
 
-const baseUrl = BASE_API_URL
+// const baseUrl = BASE_API_URL
 
 export const generateWordFileWillByHashUrl = `${baseUrl}/wills/word-file/:hashedWillId`;

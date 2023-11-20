@@ -74,8 +74,7 @@ const WillAssetsScreen = () => {
     theme: { spacing, colors, fontFamily, fontSize },
   } = useTheme();
 
-  const financialData = useMemo(() => {  
-    
+  const financialData = useMemo(() => {
     return allFinancialHoldingData && allFinancialHoldingData.ids
       ? allFinancialHoldingData.ids
           .map((id) => allFinancialHoldingData.entities[id])
@@ -97,15 +96,76 @@ const WillAssetsScreen = () => {
         ? [
             {
               title: "Bank",
-              data: bankData.ids.map((id) => bankData.entities[id]),
+              data: financialData
+                .filter(
+                  (financialHolding) =>
+                    financialHolding.holdingType ===
+                    FINANCIAL_HOLDING_TYPE_MAP.bank
+                )
+                .reduce(
+                  (acc, holding) => {
+                    if (!acc.lookup[holding.parentId]) {
+                      acc.lookup[holding.parentId] = true;
+                      acc.ids.push(holding.parentId);
+                    }
+
+                    return acc;
+                  },
+                  {
+                    lookup: {},
+                    ids: [],
+                  }
+                )
+                .ids.map((parentId) => bankData.entities[parentId]),
+              //  bankData.ids.map((id) => bankData.entities[id]),
             },
             {
               title: "Postal",
-              data: postalData.ids.map((id) => postalData.entities[id]),
+              data: financialData
+                .filter(
+                  (financialHolding) =>
+                    financialHolding.holdingType ===
+                    FINANCIAL_HOLDING_TYPE_MAP.postal
+                )
+                .reduce(
+                  (acc, holding) => {
+                    if (!acc.lookup[holding.parentId]) {
+                      acc.lookup[holding.parentId] = true;
+                      acc.ids.push(holding.parentId);
+                    }
+
+                    return acc;
+                  },
+                  {
+                    lookup: {},
+                    ids: [],
+                  }
+                )
+                .ids.map((parentId) => postalData.entities[parentId]),
             },
             {
               title: "Insurance",
-              data: insuranceData.ids.map((id) => insuranceData.entities[id]),
+              data: financialData
+                .filter(
+                  (financialHolding) =>
+                    financialHolding.holdingType ===
+                    FINANCIAL_HOLDING_TYPE_MAP.insurance
+                )
+                .reduce(
+                  (acc, holding) => {
+                    if (!acc.lookup[holding.parentId]) {
+                      acc.lookup[holding.parentId] = true;
+                      acc.ids.push(holding.parentId);
+                    }
+
+                    return acc;
+                  },
+                  {
+                    lookup: {},
+                    ids: [],
+                  }
+                )
+                .ids.map((parentId) => insuranceData.entities[parentId]),
             },
             {
               title: "Demat",
@@ -163,7 +223,7 @@ const WillAssetsScreen = () => {
                   FINANCIAL_HOLDING_TYPE_MAP.cash
               ),
             },
-          ]
+          ].filter((section) => section.data && section.data.length > 0)
         : undefined;
 
     return result;

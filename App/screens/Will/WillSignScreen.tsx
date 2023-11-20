@@ -168,16 +168,32 @@ const WillSignScreen = () => {
 
   useEffect(() => {
     if (initRender.current) initRender.current = false;
-    else addWillToDbAndGenerateWord(will);
+    else
+      addWillToDbAndGenerateWord({
+        ...will,
+        residualDistribution: will.residualDistData.map((data) => ({
+          _id: data.beneficiary._id,
+          allocation: data.percent,
+        })),
+        secondaryDistribution: will.secondaryDistData.map((data) => ({
+          _id: data.beneficiary._id,
+          isAssignedToLinealDescendant: data.distType === 1,
+          beneficiaryDistribution:
+            data.distType !== 1
+              ? data.distribution.map((distData) => ({
+                  _id: distData.beneficiary._id,
+                  allocation: distData.percent,
+                }))
+              : [],
+        })),
+      });
   }, [gdi.declaration]);
 
   return (
     <WillFormContainer Handler={submit}>
       {error && (
         <View>
-          <Text style={styles.errorText}>
-            invalid inputs
-          </Text>
+          <Text style={styles.errorText}>invalid inputs</Text>
         </View>
       )}
       <View style={styles.container}>

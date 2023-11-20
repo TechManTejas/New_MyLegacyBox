@@ -68,7 +68,7 @@ const WillSecondaryDistributionScreen = () => {
 
             return {
               id: index2,
-              beneficiaries: item2,
+              beneficiary: item2,
               percent: individualDist ? individualDist.percent : "",
             };
           }),
@@ -170,7 +170,7 @@ const WillSecondaryDistributionScreen = () => {
                     return (
                       <View key={nestedIndex} style={styles.individualCard}>
                         <Text style={styles.left}>
-                          {beneficiary?.beneficiaries?.fullName}
+                          {beneficiary?.beneficiary?.fullName}
                         </Text>
                         <View style={styles.right}>
                           <CustomInputGroup
