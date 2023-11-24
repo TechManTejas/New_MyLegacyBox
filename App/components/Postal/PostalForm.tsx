@@ -152,7 +152,7 @@ const PostalForm = ({
         address: {
           city: initialValues?.address?.city || "",
           state: initialValues?.address?.state || "",
-          pinCode: initialValues?.address?.pinCode || undefined,
+          pinCode: initialValues?.address?.pinCode || "",
           street: initialValues?.address?.street || "",
           country: initialValues?.address?.country || "",
         },
@@ -172,7 +172,7 @@ const PostalForm = ({
                 name="branchName"
                 placeholder="Enter your Branch Name"
                 title="Branch Name"
-                onChange={handleChange("branchName")}
+                onChangeText={handleChange("branchName")}
                 onBlur={handleBlur("branchName")}
                 value={values.branchName}
                 messages={
@@ -186,7 +186,7 @@ const PostalForm = ({
                 name="ifsc"
                 placeholder="Enter your IFSC"
                 title="IFSC code"
-                onChange={handleChange("ifsc")}
+                onChangeText={handleChange("ifsc")}
                 onBlur={handleBlur("ifsc")}
                 value={values.ifsc}
                 messages={
@@ -201,7 +201,7 @@ const PostalForm = ({
                 name="customerId"
                 placeholder="Enter your Customer ID"
                 title="Customer ID"
-                onChange={handleChange("customerId")}
+                onChangeText={handleChange("customerId")}
                 onBlur={handleBlur("customerId")}
                 value={values.customerId}
                 messages={
@@ -216,7 +216,7 @@ const PostalForm = ({
                 name="poc"
                 placeholder="Point of contact name"
                 title="Point of contact"
-                onChange={handleChange("poc")}
+                onChangeText={handleChange("poc")}
                 onBlur={handleBlur("poc")}
                 value={values.poc}
                 messages={
@@ -231,7 +231,7 @@ const PostalForm = ({
                 name="pocNumber"
                 placeholder="Phone number of point of contact"
                 title="Point of contact's number"
-                onChange={handleChange("pocNumber")}
+                onChangeText={handleChange("pocNumber")}
                 onBlur={handleBlur("pocNumber")}
                 value={values.pocNumber}
                 textContentType="telephoneNumber"
@@ -258,7 +258,7 @@ const PostalForm = ({
                     name="address.city"
                     placeholder="Enter City"
                     title="City"
-                    onChange={handleChange("address.city")}
+                    onChangeText={handleChange("address.city")}
                     onBlur={handleBlur("address.city")}
                     value={values.address.city}
                     textContentType="addressCity"
@@ -281,7 +281,7 @@ const PostalForm = ({
                     name="address.state"
                     placeholder="Enter state"
                     title="State"
-                    onChange={handleChange("address.state")}
+                    onChangeText={handleChange("address.state")}
                     onBlur={handleBlur("address.state")}
                     value={values.address.state}
                     textContentType="addressState"
@@ -320,7 +320,7 @@ const PostalForm = ({
                       );
                       handleBlur("address.pinCode");
                     }}
-                    value={values.address.pinCode}
+                    value={String(values.address.pinCode)}
                     textContentType="postalCode"
                     messages={
                       customErrors.address?.pinCode
@@ -342,7 +342,7 @@ const PostalForm = ({
                     name="address.country"
                     placeholder="Enter country"
                     title="country"
-                    onChange={handleChange("address.country")}
+                    onChangeText={handleChange("address.country")}
                     onBlur={handleBlur("address.country")}
                     value={values.address.country}
                     textContentType="countryName"
@@ -365,7 +365,7 @@ const PostalForm = ({
                 name="address.street"
                 placeholder="Enter the address"
                 title="Address Line 1"
-                onChange={handleChange("address.street")}
+                onChangeText={handleChange("address.street")}
                 onBlur={handleBlur("address.street")}
                 value={values.address.street}
                 textContentType="fullStreetAddress"

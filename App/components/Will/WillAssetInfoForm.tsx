@@ -7,20 +7,20 @@ import { Formik } from "formik";
 import { toFormikValidationSchema } from "zod-formik-adapter";
 import CustomKeyboardAvoidingScrollView from "../Common/CustomKeyboardAvoidingScrollView";
 import CustomInputGroup from "../Form/CustomInputGroup";
-import { SCREEN_NAMES } from "../../constants/screenNames";
 import WillFormContainer from "./WillFormContainer";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getSelectedAssetsEntitiesSelector,
   setAssetRedux,
 } from "../../redux/form/willFormSlice";
+import { AllScreenNavigationProp } from "../../navigation/types";
 
 const WillAssetInfoForm = ({
   initialValues,
   sectionTitles,
   beneficiariesMap,
 }) => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<AllScreenNavigationProp>();
   const [customErrors, setCustomErrors] = useState({});
   const [globalErrorMessage, setGlobalErrorMessage] = useState("");
   const formRef = useRef();
@@ -42,8 +42,6 @@ const WillAssetInfoForm = ({
       backgroundColor: colors.white100,
     },
     sectionTitleContainer: {
-      borderBottomWidth: StyleSheet.hairlineWidth,
-      borderColor: colors.black200,
       marginBottom: spacing.md,
     },
     sectionDevider: {
@@ -62,16 +60,18 @@ const WillAssetInfoForm = ({
       fontFamily: fontFamily.semiBold,
       lineHeight: fontSize.xl,
       paddingBottom: spacing.xs,
-      color: colors.black500,
+      color: colors.blue500,
     },
     sectionAllocationTitleContainer: {
       marginBottom: spacing.sm,
     },
     sectionAllocationTitle: {
       fontFamily: fontFamily.semiBold,
-      lineHeight: fontSize.xl,
+      // lineHeight: fontSize.xl,
       paddingBottom: spacing.xs,
       color: colors.blue400,
+      fontSize: fontSize.xl,
+      lineHeight: fontSize.xxl,
     },
     sectionSubTitle: {
       fontFamily: fontFamily.regular,
@@ -96,6 +96,29 @@ const WillAssetInfoForm = ({
       fontSize: fontSize.sm,
       fontFamily: fontFamily.regular,
       color: colors.red,
+    },
+
+    individualCard: {
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent: "space-between",
+    },
+    left: { width: "70%" },
+    right: { width: "30%" },
+
+    sectionContainer: {
+      backgroundColor: colors.white500,
+      marginBottom: spacing.xl,
+      padding: spacing.md,
+      borderRadius: spacing.sm,
+    },
+
+    childContainer: {
+      backgroundColor: colors.white100,
+      marginBottom: spacing.md,
+      padding: spacing.sm,
+      paddingTop: spacing.md,
+      borderRadius: spacing.sm,
     },
   });
 
@@ -131,12 +154,20 @@ const WillAssetInfoForm = ({
     if (!isValid) return;
 
     const allocationValues = Object.values(selectedAssetsEntities).map(
-      (asset) => ({ ...asset, allocations: values[asset._id] })
+      (asset) => {
+
+        const data = values[asset._id];    
+
+        for (let key in data) 
+          if (data.hasOwnProperty(key) && data[key] === "") data[key] = 0;
+
+        return { ...asset, allocations: data };
+      }
     );
 
     dispatch(setAssetRedux(allocationValues));
 
-    navigation.navigate(SCREEN_NAMES.willInfoScreen);
+    navigation.navigate("WILL_ASSET_INDEX_SCREEN");
   }, []);
 
   return (
@@ -160,12 +191,18 @@ const WillAssetInfoForm = ({
             <CustomKeyboardAvoidingScrollView keyboardVerticalOffset={100}>
               <View style={styles.container}>
                 {Object.entries(sectionTitles).map(([k, v]) => (
-                  <React.Fragment key={`allocation-section-${k}`}>
+                  <View
+                    style={styles.sectionContainer}
+                    key={`allocation-section-${k}`}
+                  >
                     <View style={styles.sectionTitleContainer}>
-                      <Text style={styles.sectionTitle}>{k} allocation</Text>
+                      <Text style={styles.sectionTitle}>{k}</Text>
                     </View>
                     {v.map(({ id, title }) => (
-                      <View key={`allocation-section-${id}`}>
+                      <View
+                        style={styles.childContainer}
+                        key={`allocation-section-${id}`}
+                      >
                         <View style={styles.sectionAllocationTitleContainer}>
                           <Text style={styles.sectionAllocationTitle}>
                             {title}
@@ -178,46 +215,52 @@ const WillAssetInfoForm = ({
                           ) : null}
                         </View>
                         {Object.entries(initialValues[id]).map(
-                          ([_id, allocation]) => (
-                            <CustomInputGroup
-                              key={`allocation-input-${id}-${_id}`}
-                              name={`${id}.${_id}`}
-                              placeholder={`Enter allocation for ${beneficiariesMap[_id].fullName}`}
-                              title={`${beneficiariesMap[_id].fullName}'s allocation`}
-                              onChangeText={(value) => {
-                                const stringValue = String(value);
-
-                                if (
-                                  !value ||
-                                  stringValue.charAt(stringValue.length - 1) ===
-                                    "."
-                                ) {
-                                  setFieldValue(`${id}.${_id}`, value);
-                                } else {
-                                  setFieldValue(`${id}.${_id}`, +value);
-                                }
-                              }}
-                              onBlur={handleBlur(`${id}.${_id}`)}
-                              value={values[id][_id]}
-                              keyboardType="numeric"
-                              messages={
-                                customErrors[id] && customErrors[id][_id]
-                                  ? [
-                                      {
-                                        id: "name",
-                                        text: customErrors[id][_id],
-                                      },
-                                    ]
-                                  : undefined
-                              }
-                            />
-                          )
+                          ([_id, allocation]) => {
+                            return (
+                              <View
+                                style={styles.individualCard}
+                                key={`allocation-input-${id}-${_id}`}
+                              >
+                                <Text
+                                  style={styles.left}
+                                >{`${beneficiariesMap[_id].fullName}`}</Text>
+                                <View style={styles.right}>
+                                  <CustomInputGroup
+                                    marginBottom={spacing.xs}
+                                    name={`${id}.${_id}`}
+                                    placeholder={`Enter %`}
+                                    onChangeText={(value) => {
+                                      if (!Number.isNaN(Number(value))) {
+                                        value.charAt(value.length - 1) === "."
+                                          ? setFieldValue(`${id}.${_id}`, value)
+                                          : setFieldValue(
+                                              `${id}.${_id}`,
+                                              Number(value)
+                                            );
+                                      }
+                                    }}
+                                    onBlur={handleBlur(`${id}.${_id}`)}
+                                    value={String(values[id][_id])}
+                                    keyboardType="numeric"
+                                    messages={
+                                      customErrors[id] && customErrors[id][_id]
+                                        ? [
+                                            {
+                                              id: "name",
+                                              text: customErrors[id][_id],
+                                            },
+                                          ]
+                                        : undefined
+                                    }
+                                  />
+                                </View>
+                              </View>
+                            );
+                          }
                         )}
-
-                        <View style={styles.sectionDevider}></View>
                       </View>
                     ))}
-                  </React.Fragment>
+                  </View>
                 ))}
                 {globalErrorMessage ? (
                   <Text style={styles.errorMessage}>{globalErrorMessage}</Text>

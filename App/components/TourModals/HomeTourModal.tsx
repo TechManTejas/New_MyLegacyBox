@@ -5,12 +5,12 @@ import {
   FlatList,
   Pressable,
   StyleSheet,
+  ViewToken,
 } from "react-native";
 import React, { useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setShowHomeTourModal } from "../../redux/appTour/appTour";
 import { useTheme } from "../../theme/ThemeProvider";
-import { HOME_TOUR_DATA } from "../../data/HomeTourData";
 import HTCard1 from "../HomeTourCards/HTCard1";
 import HTCard2 from "../HomeTourCards/HTCard2";
 
@@ -64,9 +64,13 @@ const WillTourModal = () => {
 
   const [visibleItemIndex, setVisibleItemIndex] = useState(0);
 
-  const onViewCallBackRef = useRef(({ viewableItems }) => {
+  interface ViewableItemsProps {
+    viewableItems: ViewToken[];
+  }
+
+  const onViewCallBackRef = useRef(({ viewableItems }: ViewableItemsProps) => {
     if (viewableItems.length > 0) {
-      setVisibleItemIndex(viewableItems[0].index);
+      setVisibleItemIndex(viewableItems[0].index as number);
     }
   });
 
@@ -81,8 +85,8 @@ const WillTourModal = () => {
   };
 
   const slideList = () => {
-    flatListRef.current?.scrollToEnd({ animated: true })
-  }
+    flatListRef.current?.scrollToEnd({ animated: true });
+  };
 
   return (
     <Modal transparent visible={showModal} animationType="slide">
@@ -99,7 +103,7 @@ const WillTourModal = () => {
         />
 
         <View style={styles.indicatorContainer}>
-          {HOME_TOUR_DATA.map((_, index) => (
+          {[<HTCard1 slideList={slideList} />, <HTCard2 />].map((_, index) => (
             <View
               key={index}
               style={[

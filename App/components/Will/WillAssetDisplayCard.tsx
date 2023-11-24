@@ -46,8 +46,6 @@ const WillAssetDisplayCard = ({ asset }) => {
     titleButtonContainer: {
       flexDirection: "row",
       alignItems: "center",
-      //   marginBottom: spacing.xs
-      //   justifyContent: "",
     },
   });
 
@@ -231,12 +229,23 @@ const WillAssetDisplayCard = ({ asset }) => {
   );
 
   return (
-    <View style={styles.assetContainer}>
+    <View
+      style={[
+        styles.assetContainer,
+        {
+          // borderWidth: StyleSheet.hairlineWidth,
+          // borderColor: colors.black300,
+          padding: spacing.md,
+          borderRadius: spacing.md,
+          backgroundColor: colors.white100,
+        },
+      ]}
+    >
       <View style={styles.titleButtonContainer}>
         <Text style={styles.itemTitle}>{asset.itemTitle}</Text>
         <Pressable onPress={toggleInfoButton} style={styles.button}>
           <FontAwesome
-            name={infoCardVisible ? "arrow-down" : "arrow-right"}
+            name={infoCardVisible ? "arrow-up" : "arrow-down"}
             size={10}
             color={colors.black300}
           />
@@ -246,15 +255,21 @@ const WillAssetDisplayCard = ({ asset }) => {
       {infoCardVisible ? (
         <View style={{ marginTop: spacing.xs }}>
           {getContents(asset).map((item, index) => (
-            <WillToggleCard key={index + "will-toggle-card"} contents={item} />
+            <WillToggleCard
+              key={index + "will-toggle-card" + item[0].value}
+              contents={item}
+            />
           ))}
         </View>
       ) : null}
 
       <View>
-        {Object.entries(asset.allocations).map(([_id, percent], idx) => (
-          <WillNamePercentCard key={idx} percent={percent} _id={_id} />
-        ))}
+        {Object.entries(asset.allocations).map(([_id, percent], idx) => {
+          if (percent !== 0)
+            return (
+              <WillNamePercentCard key={idx} percent={percent} _id={_id} />
+            );
+        })}
       </View>
     </View>
   );

@@ -155,7 +155,7 @@ const PrivateLimitedCompanyHoldingForm = ({
                 name="nameOfCompany"
                 placeholder="Enter the name of the Company"
                 title="Company Name"
-                onChange={handleChange("nameOfCompany")}
+                onChangeText={handleChange("nameOfCompany")}
                 onBlur={handleBlur("nameOfCompany")}
                 value={values.nameOfCompany}
                 messages={
@@ -175,7 +175,7 @@ const PrivateLimitedCompanyHoldingForm = ({
                 name="cinNumber"
                 placeholder="Enter the CIN"
                 title="CIN"
-                onChange={handleChange("cinNumber")}
+                onChangeText={handleChange("cinNumber")}
                 onBlur={handleBlur("cinNumber")}
                 value={values.cinNumber}
                 messages={
@@ -197,7 +197,7 @@ const PrivateLimitedCompanyHoldingForm = ({
                 data={objectToDropDownLabelAndValues(
                   PRIVATE_LIMITED_COMPANY_TYPE_MAP_TO_TITLE_MAP
                 )}
-                onChange={(value) => {
+                onChangeText={(value) => {
                   setFieldValue("natureOfInvestment", value);
                   setFieldValue("noOfSharesHeld", "");
                   setFieldValue("shareCertificateNumber", "");
@@ -235,7 +235,7 @@ const PrivateLimitedCompanyHoldingForm = ({
                         setFieldValue("noOfSharesHeld", +value);
                     }}
                     onBlur={handleBlur("noOfSharesHeld")}
-                    value={values.noOfSharesHeld}
+                    value={String(values.noOfSharesHeld)}
                     messages={
                       customErrors.noOfSharesHeld
                         ? [
@@ -253,7 +253,7 @@ const PrivateLimitedCompanyHoldingForm = ({
                     name="shareCertificateNumber"
                     placeholder="Enter the Share Certificate Number"
                     title="Share Certificate Number"
-                    onChange={handleChange("shareCertificateNumber")}
+                    onChangeText={handleChange("shareCertificateNumber")}
                     onBlur={handleBlur("shareCertificateNumber")}
                     value={values.shareCertificateNumber}
                     messages={

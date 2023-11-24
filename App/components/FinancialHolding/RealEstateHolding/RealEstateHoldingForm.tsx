@@ -164,20 +164,19 @@ const RealEstateHoldingForm = ({
         propertyName: initialValues?.propertyName || "",
         ownershipStatus: initialValues?.ownershipStatus || "",
         realEstateType: defaultBody?.realEstateType,
-        ownershipStatus: initialValues?.ownershipStatus || "",
-        propertyValue: initialValues?.propertyValue || undefined,
+        propertyValue: initialValues?.propertyValue || "",
         dateOfPurchase: initialValues?.dateOfPurchase
           ? new Date(initialValues?.dateOfPurchase)
-          : undefined,
-        propertyArea: initialValues?.propertyArea || undefined,
-        nominee: initialValues?.nominee || undefined,
+          : "",
+        propertyArea: initialValues?.propertyArea || "",
+        nominee: initialValues?.nominee || "",
         propertyAreaUnit: initialValues?.propertyAreaUnit || "",
-        ownershipPercentage: initialValues?.ownershipPercentage || undefined,
+        ownershipPercentage: initialValues?.ownershipPercentage || "",
         description: initialValues?.description || "",
         address: {
           city: initialValues?.address?.city || "",
           state: initialValues?.address?.state || "",
-          pinCode: initialValues?.address?.pinCode || undefined,
+          pinCode: initialValues?.address?.pinCode || "",
           street: initialValues?.address?.street || "",
           country: initialValues?.address?.country || "",
         },
@@ -219,7 +218,7 @@ const RealEstateHoldingForm = ({
                 name="propertyName"
                 placeholder="Enter the Property Name"
                 title="Name"
-                onChange={handleChange("propertyName")}
+                onChangeText={handleChange("propertyName")}
                 onBlur={handleBlur("propertyName")}
                 value={values.propertyName}
                 messages={
@@ -245,7 +244,7 @@ const RealEstateHoldingForm = ({
                   setFieldValue("ownershipStatus", value);
                   if (value === REAL_ESTATE_OWNERSHIP_STATUS_MAP.owned)
                     setFieldValue("ownershipPercentage", 100);
-                  else setFieldValue("ownershipPercentage", undefined);
+                  else setFieldValue("ownershipPercentage", "");
                 }}
                 value={values.ownershipStatus}
                 messages={
@@ -265,14 +264,14 @@ const RealEstateHoldingForm = ({
                 name="ownershipPercentage"
                 placeholder="Enter the ownership %"
                 title="Ownership %"
-                onChange={(value) => {
+                onChangeText={(value) => {
                   if (value == " " || value == "")
                     setFieldValue("ownershipPercentage", "");
                   else if (!isNaN(value))
                     setFieldValue("ownershipPercentage", +value);
                 }}
                 onBlur={handleBlur("ownershipPercentage")}
-                value={values.ownershipPercentage}
+                value={String(values.ownershipPercentage)}
                 messages={
                   customErrors.ownershipPercentage
                     ? [
@@ -296,14 +295,14 @@ const RealEstateHoldingForm = ({
                     name="propertyArea"
                     placeholder="Enter the Property Area"
                     title="Area"
-                    onChange={(value) => {
+                    onChangeText={(value) => {
                       if (value == " " || value == "")
                         setFieldValue("propertyArea", "");
                       else if (!isNaN(value))
                         setFieldValue("propertyArea", +value);
                     }}
                     onBlur={handleBlur("propertyArea")}
-                    value={values.propertyArea}
+                    value={String(values.propertyArea)}
                     messages={
                       customErrors.propertyArea
                         ? [
@@ -347,14 +346,14 @@ const RealEstateHoldingForm = ({
                 name="propertyValue"
                 placeholder="Enter the Property value (in Rs.)"
                 title="Property value (in Rs.)"
-                onChange={(value) => {
+                onChangeText={(value) => {
                   if (value == " " || value == "")
                     setFieldValue("propertyValue", "");
                   else if (!isNaN(value))
                     setFieldValue("propertyValue", +value);
                 }}
                 onBlur={handleBlur("propertyValue")}
-                value={values.propertyValue}
+                value={String(values.propertyValue)}
                 messages={
                   customErrors.propertyValue
                     ? [
@@ -411,7 +410,7 @@ const RealEstateHoldingForm = ({
                 name="description"
                 placeholder="Enter the Description"
                 title="Description"
-                onChange={handleChange("description")}
+                onChangeText={handleChange("description")}
                 onBlur={handleBlur("description")}
                 value={values.description}
                 messages={
@@ -440,7 +439,7 @@ const RealEstateHoldingForm = ({
                     name="address.city"
                     placeholder="Enter City"
                     title="City"
-                    onChange={handleChange("address.city")}
+                    onChangeText={handleChange("address.city")}
                     onBlur={handleBlur("address.city")}
                     value={values.address.city}
                     textContentType="addressCity"
@@ -463,7 +462,7 @@ const RealEstateHoldingForm = ({
                     name="address.state"
                     placeholder="Enter state"
                     title="State"
-                    onChange={handleChange("address.state")}
+                    onChangeText={handleChange("address.state")}
                     onBlur={handleBlur("address.state")}
                     value={values.address.state}
                     textContentType="addressState"
@@ -502,7 +501,7 @@ const RealEstateHoldingForm = ({
                       );
                       handleBlur("address.pinCode");
                     }}
-                    value={values.address.pinCode}
+                    value={String(values.address.pinCode)}
                     textContentType="postalCode"
                     messages={
                       customErrors.address?.pinCode
@@ -524,7 +523,7 @@ const RealEstateHoldingForm = ({
                     name="address.country"
                     placeholder="Enter country"
                     title="country"
-                    onChange={handleChange("address.country")}
+                    onChangeText={handleChange("address.country")}
                     onBlur={handleBlur("address.country")}
                     value={values.address.country}
                     textContentType="countryName"
@@ -547,7 +546,7 @@ const RealEstateHoldingForm = ({
                 name="address.street"
                 placeholder="Enter the address"
                 title="Address Line 1"
-                onChange={handleChange("address.street")}
+                onChangeText={handleChange("address.street")}
                 onBlur={handleBlur("address.street")}
                 value={values.address.street}
                 textContentType="fullStreetAddress"

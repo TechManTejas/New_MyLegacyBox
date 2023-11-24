@@ -5,30 +5,28 @@ import { useTheme } from "../../theme/ThemeProvider";
 import BlueButton from "../../components/Common/Button/BlueButton";
 import { useDispatch } from "react-redux";
 import { clearWillFormRedux } from "../../redux/form/willFormSlice";
-import { SCREEN_NAMES } from "../../constants/screenNames";
 import CustomCarousel from "../../components/Common/Carousel";
 import { WillCarouselData } from "../../data/Carouseldata";
 import WillDownloadCard from "../../components/Will/WillDownloadCard";
 import { getItemAsync, setItemAsync } from "expo-secure-store";
 import { useAuth } from "../../authentication/AuthProvider";
 import { setShowWillTourModal } from "../../redux/appTour/appTour";
+import { AllScreenNavigationProp } from "../../navigation/types";
 
 const WillScreen = () => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<AllScreenNavigationProp>();
 
   const dispatch = useDispatch();
 
-  const { session } = useAuth()
+  const { session } = useAuth();
 
   useEffect(() => {
-
     getItemAsync(`willTourShown-${session?.identity.id}`).then((res) => {
       if (res !== "true") {
         dispatch(setShowWillTourModal(true));
         setItemAsync(`willTourShown-${session?.identity.id}`, "true");
       }
     });
-
   }, []);
 
   const {
@@ -37,7 +35,7 @@ const WillScreen = () => {
 
   const pressHandler = () => {
     dispatch(clearWillFormRedux());
-    navigation.navigate(SCREEN_NAMES.willInfoScreen);
+    navigation.navigate("WILL_INDEX_SCREEN");
   };
 
   const styles = StyleSheet.create({

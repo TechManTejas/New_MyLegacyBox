@@ -35,9 +35,6 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ children }) => {
           require("../../assets/images/1.png"),
           require("../../assets/images/2.png"),
           require("../../assets/images/3.png"),
-          require("../../assets/images/logoFullDark.png"),
-          require("../../assets/images/logoFullLight.png"),
-          require("../../assets/images/logoSmallLight.png"),
         ]),
       ])
         .then(async () => {

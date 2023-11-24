@@ -20,7 +20,7 @@ const WillNomeineeModalCard = ({
     result: false,
     type: undefined,
   });
-
+  
   useEffect(() => {
     const res = usedNominees?.find((nominee) => nominee._id === item._id);
     if (res) setDisableNominee({ result: true, type: res.type });
@@ -129,7 +129,7 @@ const WillNomeineeModalCard = ({
     executors: "Assigned as a executor",
   };
 
-  return propertyChecks[nomineesType] ? (
+  return propertyChecks[nomineesType] || disableNominee.type!==undefined ? (
     <Pressable
       style={[styles.modalCardContainer, isApproved && styles.approvednominee]}
       disabled={disableCallback || disableNominee.result}

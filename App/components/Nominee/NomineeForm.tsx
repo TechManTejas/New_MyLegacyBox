@@ -176,7 +176,7 @@ const NomineeForm = ({
         address: {
           city: initialValues?.address?.city || "",
           state: initialValues?.address?.state || "",
-          pinCode: initialValues?.address?.pinCode || undefined,
+          pinCode: initialValues?.address?.pinCode || "",
           street: initialValues?.address?.street || "",
           country: initialValues?.address?.country || "",
         },
@@ -199,7 +199,7 @@ const NomineeForm = ({
                 name="fullName"
                 placeholder="Enter member's full name"
                 title="Full Name"
-                onChange={handleChange("fullName")}
+                onChangeText={handleChange("fullName")}
                 onBlur={handleBlur("fullName")}
                 value={values.fullName}
                 messages={
@@ -215,7 +215,7 @@ const NomineeForm = ({
                 data={objectToDropDownLabelAndValues(
                   NOMINEE_GENDER_TO_TITLE_MAP
                 )}
-                onChange={handleChange("gender")}
+                onChangeText={handleChange("gender")}
                 value={values.gender}
                 messages={
                   customErrors.gender
@@ -236,7 +236,7 @@ const NomineeForm = ({
                 data={objectToDropDownLabelAndValues(
                   NOMINEE_RELATIONSHIP_TO_TITLE_MAP
                 )}
-                onChange={handleChange("relationship")}
+                onChangeText={handleChange("relationship")}
                 value={values.relationship}
                 messages={
                   customErrors.relationship
@@ -255,7 +255,7 @@ const NomineeForm = ({
                 name="phoneNumber"
                 placeholder="Enter member's phone number"
                 title="Phone Number"
-                onChange={handleChange("phoneNumber")}
+                onChangeText={handleChange("phoneNumber")}
                 onBlur={handleBlur("phoneNumber")}
                 value={values.phoneNumber}
                 messages={
@@ -305,7 +305,7 @@ const NomineeForm = ({
                   else if (!isNaN(value)) setFieldValue("age", +value);
                 }}
                 onBlur={handleBlur("age")}
-                value={values.age}
+                value={String(values.age)}
                 messages={
                   customErrors.age
                     ? [{ id: "age", text: customErrors.age }]
@@ -319,7 +319,7 @@ const NomineeForm = ({
                 name="aadharNumber"
                 placeholder="Enter member's Aadhar Number"
                 title="Aadhar Number"
-                onChange={handleChange("aadharNumber")}
+                onChangeText={handleChange("aadharNumber")}
                 onBlur={handleBlur("aadharNumber")}
                 value={values.aadharNumber}
                 messages={
@@ -335,7 +335,7 @@ const NomineeForm = ({
                 name="fathersName"
                 placeholder="Enter member's father's name"
                 title="Father's Name"
-                onChange={handleChange("fathersName")}
+                onChangeText={handleChange("fathersName")}
                 onBlur={handleBlur("fathersName")}
                 value={values.fathersName}
                 messages={
@@ -366,7 +366,7 @@ const NomineeForm = ({
                     name="address.city"
                     placeholder="Enter City"
                     title="City"
-                    onChange={handleChange("address.city")}
+                    onChangeText={handleChange("address.city")}
                     onBlur={handleBlur("address.city")}
                     value={values.address.city}
                     textContentType="addressCity"
@@ -389,7 +389,7 @@ const NomineeForm = ({
                     name="address.state"
                     placeholder="Enter state"
                     title="State"
-                    onChange={handleChange("address.state")}
+                    onChangeText={handleChange("address.state")}
                     onBlur={handleBlur("address.state")}
                     value={values.address.state}
                     textContentType="addressState"
@@ -428,7 +428,7 @@ const NomineeForm = ({
                       );
                       handleBlur("address.pinCode");
                     }}
-                    value={values.address.pinCode}
+                    value={String(values.address.pinCode)}
                     textContentType="postalCode"
                     messages={
                       customErrors.address?.pinCode
@@ -450,7 +450,7 @@ const NomineeForm = ({
                     name="address.country"
                     placeholder="Enter country"
                     title="country"
-                    onChange={handleChange("address.country")}
+                    onChangeText={handleChange("address.country")}
                     onBlur={handleBlur("address.country")}
                     value={values.address.country}
                     textContentType="countryName"
@@ -473,7 +473,7 @@ const NomineeForm = ({
                 name="address.street"
                 placeholder="Enter the address"
                 title="Address Line 1"
-                onChange={handleChange("address.street")}
+                onChangeText={handleChange("address.street")}
                 onBlur={handleBlur("address.street")}
                 value={values.address.street}
                 textContentType="fullStreetAddress"

@@ -11,7 +11,7 @@ export const store = configureStore({
     willForm: willFormSlice,
     [rootApiSlice.reducerPath]: rootApiSlice.reducer,
     screenInfo: screenInfoReducer,
-    appTours: appTourReducer
+    appTours: appTourReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(rootApiSlice.middleware),

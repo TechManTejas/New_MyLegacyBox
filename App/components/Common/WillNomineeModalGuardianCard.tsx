@@ -1,9 +1,8 @@
 import React from "react";
-import { View, Text, StyleSheet, Pressable } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import { useTheme } from "../../theme/ThemeProvider";
 import { FontAwesome } from "@expo/vector-icons";
 import CustomDropDownInput from "./CustomDropDownInput";
-import { NOMINEE_RELATIONSHIP_TO_TITLE_MAP } from "../../constants/nominee";
 
 const WillNomineeModalGuardianCard = ({
   callBack,

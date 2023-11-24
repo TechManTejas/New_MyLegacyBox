@@ -9,7 +9,6 @@ import { useNavigation } from "@react-navigation/native";
 import { useTheme } from "../../theme/ThemeProvider";
 import CustomActivityIndicator from "./CustomActivityIndicator";
 import Empty from "./Empty";
-import { SCREEN_NAMES } from "../../constants/screenNames";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addBeneficiaryRedux,
@@ -22,19 +21,27 @@ import {
   removeExecutorRedux,
   removeWitnessRedux,
   editBeneficiaryRedux,
+  getWillRolesTrackerData,
+  setWillRolesTracker,
 } from "../../redux/form/willFormSlice";
 import WillNomeineeModalCard from "./WillNomineeModalCard";
-import { useState } from "react";
 import WillNomineeModalGuardianCard from "./WillNomineeModalGuardianCard";
 
-const WillNomineeModal = ({
+interface WillNomineeModalProps {
+  modalVisible: boolean;
+  setModalVisible: React.Dispatch<React.SetStateAction<boolean>>;
+  nomineesType: string;
+  setNomineesType: React.Dispatch<React.SetStateAction<string>>;
+}
+
+const WillNomineeModal: React.FC<WillNomineeModalProps> = ({
   modalVisible,
   setModalVisible,
   nomineesType,
   setNomineesType,
 }) => {
   const snapPoints = ["70%"];
-  const sheetRef = useRef(null);
+  const sheetRef = useRef<BottomSheet | null>(null);
   modalVisible && sheetRef.current?.snapToIndex(0);
 
   const dispatch = useDispatch();
@@ -129,7 +136,7 @@ const WillNomineeModal = ({
     },
   };
 
-  const [usedNominees, setUsedNominees] = useState([]);
+  const usedRoles = useSelector((state) => getWillRolesTrackerData(state));
 
   const renderBackdrop = useCallback(
     (props) => (
@@ -142,12 +149,11 @@ const WillNomineeModal = ({
     []
   );
 
-
   return (
     <BottomSheet
       ref={sheetRef}
       snapPoints={snapPoints}
-      enablePanDownToClose={true}
+      // enablePanDownToClose={true}
       onClose={() => {
         setModalVisible(false);
         setNomineesType("");
@@ -169,6 +175,7 @@ const WillNomineeModal = ({
             <Text style={styles.modalbtntext}>+ My Circle</Text>
           </Pressable>
         </View>
+
         <View style={styles.modalContent}>
           {nomineeList.isLoading ||
           nomineeList.isFetching ||
@@ -198,9 +205,11 @@ const WillNomineeModal = ({
                         dispatch(
                           typeFunctionMap[nomineesType].remove(item._id)
                         );
-                        setUsedNominees(
-                          usedNominees.filter(
-                            (nominee) => nominee._id !== item._id
+                        dispatch(
+                          setWillRolesTracker(
+                            usedRoles.filter(
+                              (nominee) => nominee._id !== item._id
+                            )
                           )
                         );
                       }}
@@ -208,7 +217,7 @@ const WillNomineeModal = ({
                   ) : (
                     <WillNomeineeModalCard
                       nomineesType={nomineesType}
-                      usedNominees={usedNominees}
+                      usedNominees={usedRoles}
                       item={item}
                       disableCallback={
                         nomineesType !== "beneficiaries" &&
@@ -216,10 +225,12 @@ const WillNomineeModal = ({
                       }
                       callBack={() => {
                         dispatch(typeFunctionMap[nomineesType].add(item));
-                        setUsedNominees([
-                          ...usedNominees,
-                          { _id: item._id, type: nomineesType },
-                        ]);
+                        dispatch(
+                          setWillRolesTracker([
+                            ...usedRoles,
+                            { _id: item._id, type: nomineesType },
+                          ])
+                        );
                       }}
                     />
                   );

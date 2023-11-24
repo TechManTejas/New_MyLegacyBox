@@ -1,5 +1,5 @@
 import { View, Text, Pressable, StyleSheet, Linking } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { useTheme } from "../../theme/ThemeProvider";
 import { FontAwesome5 } from "@expo/vector-icons";
 import {
@@ -10,6 +10,25 @@ import CustomActivityIndicator from "../Common/CustomActivityIndicator";
 import { generateWordFileWillByHashUrl } from "../../redux/api/will/willApiSlice";
 import Empty from "../Common/Empty";
 import WillAssetByCategoryCard from "./WillAssetByCategoryCard";
+import { NOMINEE_RELATIONSHIP_TO_TITLE_MAP } from "../../constants/nominee";
+import WillBeneficiaryPrevModeToggler from "./WillBeneficiaryPrevModeToggler";
+import { PROVIDENT_FUND_TYPE_TO_TITLE_MAP } from "../../constants/financialHoldings/providentFundHolding";
+import { REAL_ESTATE_OWNERSHIP_STATUS_TO_TITLE_MAP } from "../../constants/financialHoldings/realEstateHolding";
+import { PRIVATE_LIMITED_COMPANY_TYPE_MAP_TO_TITLE_MAP } from "../../constants/financialHoldings/privateLimitedHolding";
+import { DEMAT_TYPE_MAP_TO_TITLE_MAP } from "../../constants/financialHoldings/dematHolding";
+import {
+  POSTAL_ACCOUNT_OWNERSHIP_TO_TITLE_MAP,
+  POSTAL_ACCOUNT_TYPES_TO_TITLE_MAP,
+} from "../../constants/financialHoldings/postalHolding";
+import {
+  BANK_ACCOUNT_OWNERSHIP_TO_TITLE_MAP,
+  BANK_ACCOUNT_TYPES_TO_TITLE_MAP,
+} from "../../constants/financialHoldings/bankHolding";
+import WillSecondaryDistPrevCard from "./WillSecondaryDistPrevCard";
+import WillAssetBeneficiaryToggler from "./WillAssetBeneficiaryToggler";
+import WillResidualDistPrevCard from "./WillResidualDistPrevCard";
+import { Switch } from "react-native-paper";
+import WillPreviewNomineesCard from "./WillPreviewNomineesCard";
 
 const WillDownloadCard = () => {
   const [generateWordFileHash] = useGenerateWordFileHashMutation();
@@ -114,6 +133,50 @@ const WillDownloadCard = () => {
     willSubHeader: {
       width: "70%",
     },
+
+    beneficiaryFullName: {
+      fontFamily: fontFamily.semiBold,
+      color: colors.green700,
+    },
+    beneficiaryEmail: {
+      fontFamily: fontFamily.regular,
+      fontSize: fontSize.md,
+      lineHeight: fontSize.default,
+      color: colors.blue400,
+    },
+    beneficiaryRelationship: {
+      fontFamily: fontFamily.regular,
+      fontSize: fontSize.md,
+      lineHeight: fontSize.default,
+      color: colors.black400,
+    },
+    beneficiaryNameEmail: {
+      flexDirection: "row",
+      alignItems: "flex-start",
+      justifyContent: "space-between",
+    },
+    beneficiaryContainer: {
+      marginBottom: spacing.md,
+      borderWidth: StyleSheet.hairlineWidth,
+      borderRadius: spacing.md,
+      padding: spacing.md,
+      borderColor: colors.black300,
+    },
+    assetDistContainer: {
+      marginTop: spacing.xl,
+      flexDirection: "row",
+      alignItems: "flex-end",
+      justifyContent: "space-between",
+      borderBottomWidth: StyleSheet.hairlineWidth,
+      borderBottomColor: colors.black200,
+      paddingBottom: spacing.sm,
+    },
+    assetDistText: {
+      fontFamily: fontFamily.semiBold,
+      color: colors.blue500,
+      fontSize: fontSize.default,
+      lineHeight: fontSize.lg,
+    },
   });
 
   const ASSETS_TYPE = [
@@ -129,6 +192,179 @@ const WillDownloadCard = () => {
     { type: "PROVIDENT_FUND", title: "Provident Fund" },
   ];
 
+  const getContents = (singleAsset) => {
+    let totalContents = [];
+
+    switch (singleAsset.section) {
+      case "BANK":
+        totalContents = singleAsset.children.map((item) => {
+          return [
+            {
+              key: "Account Type",
+              value: BANK_ACCOUNT_TYPES_TO_TITLE_MAP[item.holding.accountType],
+            },
+            {
+              key: "Account Ownership",
+              value:
+                BANK_ACCOUNT_OWNERSHIP_TO_TITLE_MAP[item.holding.ownership],
+            },
+            {
+              key: "Account Number",
+              value: item.holding.accountNumber,
+            },
+          ];
+        });
+        break;
+      case "POSTAL":
+        totalContents = singleAsset.children.map((item, index) => {
+          return [
+            {
+              key: "Account Type",
+              value:
+                POSTAL_ACCOUNT_TYPES_TO_TITLE_MAP[item.holding.accountType],
+            },
+            {
+              key: "Account Ownership",
+              value:
+                POSTAL_ACCOUNT_OWNERSHIP_TO_TITLE_MAP[item.holding.ownership],
+            },
+            {
+              key: "Account Number",
+              value: item.holding.accountNumber,
+            },
+          ];
+        });
+        break;
+      case "INSURANCE":
+        totalContents = singleAsset.children.map((item, index) => {
+          return [
+            {
+              key: "Policy Name",
+              value: item.holding.policyName,
+            },
+            {
+              key: "Policy Type",
+              value: item.holding.policyType,
+            },
+            {
+              key: "Policy Number",
+              value: item.holding.policyNumber,
+            },
+          ];
+        });
+        break;
+      case "DEMAT":
+        const dematContent = [
+          {
+            key: "Account Type",
+            value:
+              DEMAT_TYPE_MAP_TO_TITLE_MAP[singleAsset.asset.holding.dematType],
+          },
+        ];
+        totalContents.push(dematContent);
+
+        break;
+
+      case "PROPRIETORSHIP":
+        const proprietorshipContent = [
+          {
+            key: "Organisation Name",
+            value: singleAsset.asset.holding.organisationName,
+          },
+          {
+            key: "GST Number",
+            value: singleAsset.asset.holding.gstNumber,
+          },
+        ];
+        totalContents.push(proprietorshipContent);
+
+        break;
+      case "PARTNERSHIP":
+        const partnershipContent = [
+          {
+            key: "Firm Name",
+            value: singleAsset.asset.holding.nameOfFirm,
+          },
+          {
+            key: "PAN Number",
+            value: singleAsset.asset.holding.panNumber,
+          },
+        ];
+        totalContents.push(partnershipContent);
+
+        break;
+      case "PRIVATE_LIMITED_COMPANY":
+        const privateLimitedCompany = [
+          {
+            key: "Company Name",
+            value: singleAsset.asset.holding.nameOfCompany,
+          },
+          {
+            key: "CIN Number",
+            value: singleAsset.asset.holding.cinNumber,
+          },
+          {
+            key: "Nature of Investment",
+            value:
+              PRIVATE_LIMITED_COMPANY_TYPE_MAP_TO_TITLE_MAP[
+                singleAsset.asset.holding.natureOfInvestment
+              ],
+          },
+        ];
+        totalContents.push(privateLimitedCompany);
+
+        break;
+      case "CASH":
+        const cashContent = [
+          {
+            key: "Date of Transaction",
+            value: new Date(singleAsset.asset.holding.dateOfTransaction)
+              .toDateString()
+              .replace(/^\w+ /, ""),
+          },
+        ];
+        totalContents.push(cashContent);
+        break;
+      case "REAL_ESTATE":
+        const realEstateContent = [
+          {
+            key: "Ownership Status",
+            value:
+              REAL_ESTATE_OWNERSHIP_STATUS_TO_TITLE_MAP[
+                singleAsset.asset.holding.ownershipStatus
+              ],
+          },
+          {
+            key: "Ownership %",
+            value: `${singleAsset.asset.holding.ownershipPercentage} %`,
+          },
+        ];
+        totalContents.push(realEstateContent);
+        break;
+      case "PROVIDENT_FUND":
+        const pFContent = [
+          {
+            key: "UAN",
+            value: singleAsset.asset.holding.uan,
+          },
+          {
+            key: "PF Type",
+            value:
+              PROVIDENT_FUND_TYPE_TO_TITLE_MAP[
+                singleAsset.asset.holding.pfType
+              ],
+          },
+        ];
+        totalContents.push(pFContent);
+        break;
+
+      default:
+        break;
+    }
+
+    return totalContents;
+  };
+
   const generateDownloadLink = async () => {
     try {
       const result = await generateWordFileHash().unwrap();
@@ -142,6 +378,8 @@ const WillDownloadCard = () => {
       console.log(error);
     }
   };
+
+  const [distributionView, setDistributionView] = useState(false);
 
   if (isLoading || isFetching || data === undefined)
     return <CustomActivityIndicator />;
@@ -170,63 +408,108 @@ const WillDownloadCard = () => {
           </Pressable>
         </View>
 
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Beneficiaries</Text>
-          <View>
-            {data.data.beneficiaries.map((beneficiary, idx) => {
-              return (
-                <View key={idx} style={styles.nomineeInfo}>
-                  <Text style={styles.nomineeName}>{beneficiary.fullName}</Text>
-                  <Text style={styles.nomineeEmail}>{beneficiary.email}</Text>
-                </View>
-              );
-            })}
-          </View>
+        <WillPreviewNomineesCard
+          nomineesList={data?.data?.beneficiaries}
+          header="Beneficiaries"
+        />
+
+        <WillPreviewNomineesCard
+          nomineesList={data?.data?.witnesses}
+          header="Witnesses"
+        />
+
+        <WillPreviewNomineesCard
+          nomineesList={data?.data?.executors}
+          header="Executors"
+        />
+
+        <View style={styles.assetDistContainer}>
+          <Text style={styles.assetDistText}>
+            {distributionView
+              ? "Distribution by Beneficiaries"
+              : "Distribution by Assets"}
+          </Text>
+          <Switch
+            trackColor={{ false: colors.blue300, true: colors.blue300 }}
+            thumbColor={colors.blue500}
+            value={distributionView}
+            onValueChange={() => setDistributionView((prev) => !prev)}
+            style={{ marginBottom: -spacing.md }}
+          />
         </View>
 
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Witnesses</Text>
-          <View>
-            {data.data.witnesses.map((witness, idx) => {
-              return (
-                <View key={idx} style={styles.nomineeInfo}>
-                  <Text style={styles.nomineeName}>{witness.fullName}</Text>
-                  <Text style={styles.nomineeEmail}>{witness.email}</Text>
-                </View>
-              );
-            })}
-          </View>
-        </View>
-
-        {data.data.executors !== [] && (
+        {!distributionView ? (
           <View style={styles.section}>
-            <Text style={styles.sectionTitle}>Executors</Text>
-            <View>
-              {data.data.executors.map((executor, idx) => {
-                return (
-                  <View key={idx} style={styles.nomineeInfo}>
-                    <Text style={styles.nomineeName}>{executor.fullName}</Text>
-                    <Text style={styles.nomineeEmail}>{executor.email}</Text>
+            {ASSETS_TYPE.map((assetDetail, idx) => (
+              <WillAssetByCategoryCard
+                key={idx}
+                assetList={data.data.assets.filter(
+                  (asset) => asset.section === assetDetail.type
+                )}
+                title={assetDetail.title}
+              />
+            ))}
+          </View>
+        ) : (
+          <View style={{ marginTop: spacing.md }}>
+            {data?.data?.beneficiaries.map((beneficiary, idx) => {
+              return (
+                <View key={idx} style={styles.beneficiaryContainer}>
+                  <View style={styles.beneficiaryNameEmail}>
+                    <View>
+                      <Text style={styles.beneficiaryFullName}>
+                        {beneficiary.fullName}
+                      </Text>
+                      <Text style={styles.beneficiaryEmail}>
+                        {beneficiary.email}
+                      </Text>
+                    </View>
+                    <Text style={styles.beneficiaryRelationship}>
+                      {
+                        NOMINEE_RELATIONSHIP_TO_TITLE_MAP[
+                          beneficiary.relationship
+                        ]
+                      }
+                    </Text>
                   </View>
-                );
-              })}
-            </View>
+
+                  <View style={{ marginTop: spacing.md }}>
+                    {data?.data?.assets.map((asset, idx2) => {
+                      if (
+                        Object.keys(asset.allocations).some(
+                          (id) => id === beneficiary._id
+                        )
+                      ) {
+                        const detailsCardContent = getContents(asset);
+
+                        return (
+                          <WillBeneficiaryPrevModeToggler
+                            key={idx2}
+                            contents={detailsCardContent}
+                            title={asset.itemTitle}
+                            percent={asset.allocations[beneficiary._id]}
+                          />
+                        );
+                      }
+                    })}
+                  </View>
+                </View>
+              );
+            })}
           </View>
         )}
 
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Asset Distribution</Text>
+        <WillResidualDistPrevCard
+          residualData={
+            data?.data?.residualDistData ? data?.data?.residualDistData : []
+          }
+        />
 
-          {ASSETS_TYPE.map((assetDetail, idx) => (
-            <WillAssetByCategoryCard
-              key={idx}
-              assetList={data.data.assets.filter(
-                (asset) => asset.section === assetDetail.type
-              )}
-              title={assetDetail.title}
-            />
-          ))}
-        </View>
+        <WillSecondaryDistPrevCard
+          secondaryData={
+            data?.data?.secondaryDistData ? data?.data?.secondaryDistData : []
+          }
+        />
       </View>
     );
   }

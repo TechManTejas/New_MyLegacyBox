@@ -2,6 +2,7 @@ import {
   View,
   Text,
   Modal,
+  ViewToken,
   FlatList,
   Pressable,
   StyleSheet,
@@ -64,9 +65,13 @@ const MyCircleTourModal = () => {
 
   const [visibleItemIndex, setVisibleItemIndex] = useState(0);
 
-  const onViewCallBackRef = useRef(({ viewableItems }) => {
+  interface ViewableItemsProps {
+    viewableItems: ViewToken[];
+  }
+
+  const onViewCallBackRef = useRef(({ viewableItems }: ViewableItemsProps) => {
     if (viewableItems.length > 0) {
-      setVisibleItemIndex(viewableItems[0].index);
+      setVisibleItemIndex(viewableItems[0].index as number);
     }
   });
 
