@@ -74,7 +74,7 @@ const WillResidualDistributionScreen = () => {
       return {
         id: index,
         beneficiary: item,
-        percent: existingData ? existingData.percent : "",
+        percent: existingData ? existingData.percent : "0",
       };
     })
   );
@@ -86,7 +86,7 @@ const WillResidualDistributionScreen = () => {
       setState((prev) => {
         const prevState = [...prev];
         const findToUpdate = prevState.find((obj) => obj.id === id);
-        findToUpdate["percent"] = `${val}`;
+        findToUpdate["percent"] = `${Number(val)}`;
         return prevState;
       });
     }

@@ -5,21 +5,23 @@ import NomineeScreenCardWrapper from "./NomineeScreenCardWrapper";
 import CustomPill from "../Common/Pill/CustomPill";
 import { MaterialIcons } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
+import WillMinorTag from "../Will/WillMinorTag";
 
 interface ContentType {
-  key?: string
-  value?: string
-  type?: "divider"
+  key?: string;
+  value?: string;
+  type?: "divider";
 }
 
 interface NomineeScreenCardType {
-  holdingClass: string
-  updatedAt: Date
-  content: Array<ContentType>
-  title: string
-  tagLabel: string
-  openButtonCallBack: () => void
-  editButtonCallBack: () => void
+  holdingClass: string;
+  updatedAt: Date;
+  content: Array<ContentType>;
+  title: string;
+  tagLabel: string;
+  openButtonCallBack: () => void;
+  editButtonCallBack: () => void;
+  age: number;
 }
 
 const NomineeScreenCard: React.FC<NomineeScreenCardType> = ({
@@ -30,6 +32,7 @@ const NomineeScreenCard: React.FC<NomineeScreenCardType> = ({
   tagLabel,
   openButtonCallBack,
   editButtonCallBack,
+  age,
 }) => {
   const {
     theme: { colors, fontFamily, fontSize, spacing },
@@ -78,7 +81,7 @@ const NomineeScreenCard: React.FC<NomineeScreenCardType> = ({
       color: colors.blue500,
       fontSize: fontSize.xl,
       lineHeight: fontSize.xxl,
-      width: "55%",
+      // width: "55%",
     },
     type: {
       fontFamily: fontFamily.regular,
@@ -160,7 +163,12 @@ const NomineeScreenCard: React.FC<NomineeScreenCardType> = ({
   return (
     <NomineeScreenCardWrapper holdingClass={holdingClass}>
       <View style={styles.infoHeaderContainer}>
-        <Text style={styles.name}>{title || "Unknown"}</Text>
+
+        <View style={{flexDirection: "row", alignItems: "flex-start", width: "45%" }}>
+          <Text style={styles.name}>{title || "Unknown"} </Text>
+          {age < 18 && <WillMinorTag />}
+        </View>
+
         <View style={styles.btngroup}>
           {editButtonCallBack && (
             <Pressable onPress={editButtonCallBack} style={styles.buttom}>
@@ -178,6 +186,7 @@ const NomineeScreenCard: React.FC<NomineeScreenCardType> = ({
             </Pressable>
           )}
         </View>
+
       </View>
 
       {updatedAt && (

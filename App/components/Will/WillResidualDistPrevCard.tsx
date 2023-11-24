@@ -9,10 +9,7 @@ const WillResidualDistPrevCard = ({ residualData }) => {
 
   const styles = StyleSheet.create({
     residualSection: {
-      borderWidth: StyleSheet.hairlineWidth,
-      borderColor: colors.black300,
-      borderRadius: spacing.md,
-    //   marginHorizontal: spacing.md,
+      //   marginHorizontal: spacing.md,
       padding: spacing.md,
     },
     residualName: {
@@ -39,42 +36,54 @@ const WillResidualDistPrevCard = ({ residualData }) => {
     residualNameEmail: {},
 
     titleContainer: {
-    //   marginHorizontal: spacing.md,
-      marginBottom: spacing.sm,
+      // marginBottom: spacing.sm,
       borderBottomWidth: StyleSheet.hairlineWidth,
       borderBlockColor: colors.black200,
-      paddingBottom: spacing.sm,
+      // paddingBottom: spacing.sm,
     },
     titleText: {
       fontFamily: fontFamily.semiBold,
       color: colors.blue500,
+      fontSize: fontSize.lg,
+      lineHeight: fontSize.xl,
+      paddingHorizontal: spacing.lg,
+      paddingVertical: spacing.lg,
     },
   });
 
   return (
     residualData.length !== 0 && (
-      <>
+      <View
+        style={{
+          borderWidth: StyleSheet.hairlineWidth,
+          borderColor: colors.black300,
+          borderRadius: spacing.md,
+        }}
+      >
         <View style={styles.titleContainer}>
           <Text style={styles.titleText}>Residuary Distribution</Text>
         </View>
         <View style={styles.residualSection}>
           {residualData.map((item, index) => {
-            return (
-              <View key={index} style={styles.residualCard}>
-                <View>
-                  <Text style={styles.residualName}>
-                    {item.beneficiary.fullName}
-                  </Text>
-                  <Text style={styles.residualEmail}>
-                    {item.beneficiary.email}
+            if (item.percent !== "0")
+              return (
+                <View key={index} style={styles.residualCard}>
+                  <View>
+                    <Text style={styles.residualName}>
+                      {item.beneficiary.fullName}
+                    </Text>
+                    <Text style={styles.residualEmail}>
+                      {item.beneficiary.email}
+                    </Text>
+                  </View>
+                  <Text style={styles.residualPercentage}>
+                    {item.percent} %
                   </Text>
                 </View>
-                <Text style={styles.residualPercentage}>{item.percent} %</Text>
-              </View>
-            );
+              );
           })}
         </View>
-      </>
+      </View>
     )
   );
 };

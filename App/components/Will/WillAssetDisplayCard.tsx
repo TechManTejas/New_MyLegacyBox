@@ -233,10 +233,11 @@ const WillAssetDisplayCard = ({ asset }) => {
       style={[
         styles.assetContainer,
         {
-          borderWidth: StyleSheet.hairlineWidth,
-          borderColor: colors.black300,
+          // borderWidth: StyleSheet.hairlineWidth,
+          // borderColor: colors.black300,
           padding: spacing.md,
           borderRadius: spacing.md,
+          backgroundColor: colors.white100,
         },
       ]}
     >
@@ -254,15 +255,21 @@ const WillAssetDisplayCard = ({ asset }) => {
       {infoCardVisible ? (
         <View style={{ marginTop: spacing.xs }}>
           {getContents(asset).map((item, index) => (
-            <WillToggleCard key={index + "will-toggle-card"+ item[0].value} contents={item} />
+            <WillToggleCard
+              key={index + "will-toggle-card" + item[0].value}
+              contents={item}
+            />
           ))}
         </View>
       ) : null}
 
       <View>
-        {Object.entries(asset.allocations).map(([_id, percent], idx) => (
-          <WillNamePercentCard key={idx} percent={percent} _id={_id} />
-        ))}
+        {Object.entries(asset.allocations).map(([_id, percent], idx) => {
+          if (percent !== 0)
+            return (
+              <WillNamePercentCard key={idx} percent={percent} _id={_id} />
+            );
+        })}
       </View>
     </View>
   );

@@ -43,10 +43,10 @@ export const {
   useGenerateWordFileHashMutation,
 } = extendedWillApiSlice;
 
-const baseUrl = `http://${
-  Constants.expoGoConfig?.debuggerHost?.split(":")[0]
-}${BASE_API_URL_LOCAL_SUFFIX}`;
+// const baseUrl = `http://${
+//   Constants.expoGoConfig?.debuggerHost?.split(":")[0]
+// }${BASE_API_URL_LOCAL_SUFFIX}`;
 
-// const baseUrl = BASE_API_URL
+const baseUrl = BASE_API_URL
 
 export const generateWordFileWillByHashUrl = `${baseUrl}/wills/word-file/:hashedWillId`;

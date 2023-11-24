@@ -16,11 +16,11 @@ const WillSecondaryDistPrevCard: React.FC<WillSecondaryDistPrevCardProps> = ({
 
   const styles = StyleSheet.create({
     titleContainer: {
-      marginTop: spacing.lg,
+      // marginTop: spacing.lg,
       marginBottom: spacing.sm,
-      borderBottomWidth: StyleSheet.hairlineWidth,
-      borderBlockColor: colors.black200,
-      paddingBottom: spacing.sm,
+      // borderBottomWidth: StyleSheet.hairlineWidth,
+      // borderBottomColor: colors.black200,
+      // paddingBottom: spacing.sm,
     },
     titleText: {
       fontFamily: fontFamily.semiBold,
@@ -29,10 +29,11 @@ const WillSecondaryDistPrevCard: React.FC<WillSecondaryDistPrevCardProps> = ({
 
     secondaryCard: {
       padding: spacing.md,
-      borderWidth: StyleSheet.hairlineWidth,
-      borderColor: colors.black300,
+      // borderWidth: StyleSheet.hairlineWidth,
+      // borderColor: colors.black300,
       borderRadius: spacing.md,
       marginBottom: spacing.md,
+      backgroundColor: colors.white100
     },
     secondarySection: {},
     secondaryName: {
@@ -86,7 +87,7 @@ const WillSecondaryDistPrevCard: React.FC<WillSecondaryDistPrevCardProps> = ({
 
   return (
     secondaryData.length !== 0 && (
-      <>
+      <View style={{  borderRadius: spacing.md, padding: spacing.md, marginTop: spacing.lg, backgroundColor: colors.white400 }}>
         <View style={styles.titleContainer}>
           <Text style={styles.titleText}>Contigent Distribution</Text>
         </View>
@@ -133,21 +134,22 @@ const WillSecondaryDistPrevCard: React.FC<WillSecondaryDistPrevCardProps> = ({
                   {item.distType === 2 && (
                     <View>
                       {item.distribution.map((item2, index2) => {
-                        return (
-                          <View key={index2} style={styles.distCard}>
-                            <View>
-                              <Text style={styles.fullNameText}>
-                                {item2.beneficiary.fullName}
-                              </Text>
-                              <Text style={styles.emailText}>
-                                {item2.beneficiary.email}
+                        if (item2.percent !== "0")
+                          return (
+                            <View key={index2} style={styles.distCard}>
+                              <View>
+                                <Text style={styles.fullNameText}>
+                                  {item2.beneficiary.fullName}
+                                </Text>
+                                <Text style={styles.emailText}>
+                                  {item2.beneficiary.email}
+                                </Text>
+                              </View>
+                              <Text style={styles.percentText}>
+                                {item2.percent} %
                               </Text>
                             </View>
-                            <Text style={styles.percentText}>
-                              {item2.percent} %
-                            </Text>
-                          </View>
-                        );
+                          );
                       })}
                     </View>
                   )}
@@ -156,7 +158,7 @@ const WillSecondaryDistPrevCard: React.FC<WillSecondaryDistPrevCardProps> = ({
             }
           })}
         </View>
-      </>
+      </View>
     )
   );
 };

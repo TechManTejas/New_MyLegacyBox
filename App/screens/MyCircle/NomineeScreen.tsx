@@ -90,6 +90,7 @@ const NomineeScreen = () => {
           renderItem={({ item }) => {
             return (
               <NomineeScreenCard
+                age={item.age}
                 nomineeScreen={true}
                 title={item.fullName}
                 holdingClass={

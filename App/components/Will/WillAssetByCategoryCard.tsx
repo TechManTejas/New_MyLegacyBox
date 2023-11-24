@@ -19,12 +19,14 @@ const WillAssetByCategoryCard: React.FC<WillAssetByCategoryCardProps> = ({
   const styles = StyleSheet.create({
     cardContainer: {
       paddingBottom: spacing.sm,
-      // borderBottomWidth: StyleSheet.hairlineWidth,
       borderBottomColor: colors.black200,
       marginBottom: spacing.lg,
+      // borderWidth: StyleSheet.hairlineWidth,
+      padding: spacing.lg,
+      borderRadius: spacing.md,
+      backgroundColor: colors.white400
     },
     categoryTitleContainer: {
-      // borderBottomWidth: StyleSheet.hairlineWidth,
       borderBottomColor: colors.black200,
       paddingBottom: spacing.sm,
     },

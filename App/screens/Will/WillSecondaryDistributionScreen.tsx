@@ -1,5 +1,5 @@
 import { ScrollView, View, Text, StyleSheet } from "react-native";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import WillInfoCard from "../../components/Common/WillInfoCard";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -69,7 +69,7 @@ const WillSecondaryDistributionScreen = () => {
             return {
               id: index2,
               beneficiary: item2,
-              percent: individualDist ? individualDist.percent : "",
+              percent: individualDist ? individualDist.percent : "0",
             };
           }),
       };
@@ -109,23 +109,23 @@ const WillSecondaryDistributionScreen = () => {
   };
 
   const onChangeText = (val: string, index: number, nestedIndex: number) => {
-    if (/^\d+$/.test(val) || val === "") {
+
+      
       setState((prev) => {
         const prevState = [...prev];
         const findToUpdate = prevState.find((obj) => obj.id === index);
         const findToUpdate2 = findToUpdate["distribution"].find(
           (inputElem) => inputElem.id === nestedIndex
         );
-        findToUpdate2["percent"] = `${val}`;
+        findToUpdate2["percent"] = `${Number(val)}`;
         return prevState;
       });
-    }
+    
   };
 
   const dispatch = useDispatch();
 
   const validateAndSaveData = () => {
-
     let total = 0;
     let hasType2 = false;
 
@@ -148,7 +148,9 @@ const WillSecondaryDistributionScreen = () => {
 
   return (
     <WillFormContainer Handler={validateAndSaveData}>
-      <ScrollView style={{ flex: 1, backgroundColor: "white", marginBottom: 30 }}>
+      <ScrollView
+        style={{ flex: 1, backgroundColor: "white", marginBottom: 30 }}
+      >
         <WillInfoCard content="A secondary beneficiary clause in a will, often referred to as a 'contingent beneficiary' clause, specifies what should happen to a bequest or property if the primary beneficiary is unable to inherit or predeceases the testator." />
 
         {state.map((item, index) => {
@@ -184,6 +186,7 @@ const WillSecondaryDistributionScreen = () => {
                                 (item2) => item2?.id === nestedIndex
                               )[0]["percent"]
                             }
+                            keyboardType="numeric"
                           />
                         </View>
                       </View>

@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Pressable } from "react-native";
 import React, { useState } from "react";
 import { useTheme } from "../../theme/ThemeProvider";
 import { RadioButton } from "react-native-paper";
@@ -15,7 +15,7 @@ const WillSecondaryCard: React.FC<WillSecondaryCardProp> = ({
   changeToType1,
   distributionCard,
   distData,
-  isError
+  isError,
 }) => {
   const {
     theme: { spacing, colors, fontFamily, fontSize },
@@ -54,41 +54,49 @@ const WillSecondaryCard: React.FC<WillSecondaryCardProp> = ({
       color: colors.red400,
     },
   });
-  
-  const distCheck = distData.reduce((acc, curr) => acc + Number(curr.percent), 0)
 
-  const check100 = distCheck===100 || distCheck===99.99
+  const distCheck = distData.reduce(
+    (acc, curr) => acc + Number(curr.percent),
+    0
+  );
+
+  const check100 = distCheck === 100 || distCheck === 99.99;
 
   return (
     <View style={styles.card}>
       <Text style={styles.beneficiaryName}>{beneficiaryName}</Text>
 
       <View>
-        <View style={[styles.option, { marginBottom: spacing.xs }]}>
+        <Pressable
+          onPress={changeToType1}
+          style={[styles.option, { marginBottom: spacing.xs }]}
+        >
           <RadioButton
             value="1"
             status={distType === 1 ? "checked" : "unchecked"}
-            onPress={changeToType1}
             color={colors.blue500}
           />
           <Text style={styles.optionText}>Lineal Descendants</Text>
-        </View>
+        </Pressable>
 
-        <View style={styles.option}>
+        <Pressable onPress={changeToType2} style={styles.option}>
           <RadioButton
             value="2"
             status={distType === 2 ? "checked" : "unchecked"}
-            onPress={changeToType2}
             color={colors.blue500}
           />
-          <Text style={styles.optionText}>Distribute among other beneficiaries</Text>
-        </View>
+          <Text style={styles.optionText}>
+            Distribute among other beneficiaries
+          </Text>
+        </Pressable>
 
-          {!check100 && distType===2 && isError && <View>
+        {!check100 && distType === 2 && isError && (
+          <View>
             <Text style={styles.errorText}>
               Sum of all the distribution should be 100 or 99.99
             </Text>
-          </View>}
+          </View>
+        )}
 
         {distType === 2 && distributionCard}
       </View>
