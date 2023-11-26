@@ -21,7 +21,6 @@ const WillAssetByCategoryCard: React.FC<WillAssetByCategoryCardProps> = ({
       paddingBottom: spacing.sm,
       borderBottomColor: colors.black200,
       marginBottom: spacing.lg,
-      // borderWidth: StyleSheet.hairlineWidth,
       padding: spacing.lg,
       borderRadius: spacing.md,
       backgroundColor: colors.white400
@@ -34,6 +33,7 @@ const WillAssetByCategoryCard: React.FC<WillAssetByCategoryCardProps> = ({
       fontFamily: fontFamily.semiBold,
       fontSize: fontSize.default,
       lineHeight: fontSize.lg,
+      color: colors.blue500
     },
     allAssetContainer: {
       paddingTop: spacing.xs,
