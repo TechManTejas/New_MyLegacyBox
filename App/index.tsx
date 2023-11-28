@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
-
+import messaging from "@react-native-firebase/messaging";
+import "expo-dev-client";
 import { LogBox } from "react-native";
 import * as ExpoSplashScreen from "expo-splash-screen";
 import * as Updates from "expo-updates";
 import "react-native-url-polyfill/auto";
 import "react-native-gesture-handler";
+import { PermissionsAndroid } from "react-native";
 
 import { ThemeProvider } from "./theme/ThemeProvider";
 import { AuthProvider } from "./authentication/AuthProvider";
@@ -24,6 +26,7 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import HomeTourModal from "./components/TourModals/HomeTourModal";
 import WillTourModal from "./components/TourModals/WillTourModal";
 import MyCircleTourModal from "./components/TourModals/MyCircleTourModal";
+import { Alert } from "react-native";
 
 function App() {
   // usePreventScreenCapture();
@@ -37,6 +40,28 @@ function App() {
       }
     });
   }, []);
+
+  useEffect(() => {
+    PermissionsAndroid.request(
+      PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS
+    ).then((permissionStatus) => {
+      if (permissionStatus === "granted") {
+        messaging()
+          .getToken()
+          .then((token) => {
+            console.log(token);
+          });
+      }
+    });
+  }, []);
+
+  // messaging().onMessage(async (remoteMessage) => {
+  //   console.log("A new FCM message arrived!", JSON.stringify(remoteMessage))
+  // });
+
+  messaging().setBackgroundMessageHandler(async (remoteMessage) => {
+    console.log("Message handled in the background!", remoteMessage);
+  });
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
@@ -52,7 +77,7 @@ function App() {
 
                 <HomeTourModal />
                 <WillTourModal />
-                <MyCircleTourModal/>
+                <MyCircleTourModal />
 
                 {/* <AppSecurityLayer splashScreenVisible={splashScreenVisible} /> */}
                 <RootNavigator />
