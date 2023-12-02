@@ -1,14 +1,10 @@
 import { View, StyleSheet, Linking, Text } from "react-native";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
 import { useTheme } from "../../theme/ThemeProvider";
 import CustomInputGroup from "../../components/Form/CustomInputGroup";
 import WillFormContainer from "../../components/Will/WillFormContainer";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  getDeclarationSelector,
-  getWill,
-  setDeclarationInfoRedux,
-} from "../../redux/form/willFormSlice";
+import { useSelector } from "react-redux";
+import { getWill } from "../../redux/form/willFormSlice";
 import { useNavigation } from "@react-navigation/native";
 import {
   generateWordFileWillByHashUrl,
@@ -150,52 +146,39 @@ const WillSignScreen = () => {
     place: "",
   });
 
-  const [error, setError] = useState(false);
-
-  const dispatch = useDispatch();
-
   const submit = () => {
-    if (declarationInfo.declaration.trim().toUpperCase() === "YES") {
-      dispatch(setDeclarationInfoRedux(declarationInfo));
-    } else {
-      setError(true);
-    }
+    addWillToDbAndGenerateWord({
+      ...will,
+      residualDistribution: will.residualDistData.map((data) => ({
+        _id: data.beneficiary._id,
+        allocation: data.percent,
+      })),
+      secondaryDistribution: will.secondaryDistData.map((data) => ({
+        _id: data.beneficiary._id,
+        isAssignedToLinealDescendant: data.distType === 1,
+        beneficiaryDistribution:
+          data.distType !== 1
+            ? data.distribution.map((distData) => ({
+                _id: distData.beneficiary._id,
+                allocation: distData.percent,
+              }))
+            : [],
+      })),
+      declarationInfo: {
+        place: declarationInfo.place,
+        declaration: declarationInfo.declaration,
+      },
+    });
   };
 
-  const gdi = useSelector((state) => getDeclarationSelector(state));
-
-  const initRender = useRef(true);
-
-  useEffect(() => {
-    if (initRender.current) initRender.current = false;
-    else
-      addWillToDbAndGenerateWord({
-        ...will,
-        residualDistribution: will.residualDistData.map((data) => ({
-          _id: data.beneficiary._id,
-          allocation: data.percent,
-        })),
-        secondaryDistribution: will.secondaryDistData.map((data) => ({
-          _id: data.beneficiary._id,
-          isAssignedToLinealDescendant: data.distType === 1,
-          beneficiaryDistribution:
-            data.distType !== 1
-              ? data.distribution.map((distData) => ({
-                  _id: distData.beneficiary._id,
-                  allocation: distData.percent,
-                }))
-              : [],
-        })),
-      });
-  }, [gdi.declaration]);
-
   return (
-    <WillFormContainer Handler={submit}>
-      {error && (
-        <View>
-          <Text style={styles.errorText}>invalid inputs</Text>
-        </View>
-      )}
+    <WillFormContainer
+      nextDisabled={
+        declarationInfo.place === "" ||
+        declarationInfo.declaration.trim().toUpperCase() !== "YES"
+      }
+      Handler={submit}
+    >
       <View style={styles.container}>
         <CustomInputGroup
           placeholder="Enter the place"

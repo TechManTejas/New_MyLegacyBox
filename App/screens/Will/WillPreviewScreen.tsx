@@ -103,16 +103,17 @@ const WillPreviewScreen = () => {
       borderColor: colors.black300,
     },
 
-    screen: { marginHorizontal: spacing.md },
+    screen: {
+      marginHorizontal: spacing.md,
+    },
 
     assetDistContainer: {
       marginTop: spacing.xl,
       flexDirection: "row",
-      alignItems: "flex-end",
+      alignItems: "center",
       justifyContent: "space-between",
       borderBottomWidth: StyleSheet.hairlineWidth,
       borderBottomColor: colors.black200,
-      paddingBottom: spacing.sm,
     },
     assetDistText: {
       fontFamily: fontFamily.semiBold,
@@ -364,15 +365,14 @@ const WillPreviewScreen = () => {
         <View style={styles.assetDistContainer}>
           <Text style={styles.assetDistText}>
             {distributionView
-              ?   "Distribution by Beneficiaries"
-              :  "Distribution by Assets"}
+              ? "Distribution by Beneficiaries"
+              : "Distribution by Assets"}
           </Text>
           <Switch
             trackColor={{ false: colors.blue300, true: colors.blue300 }}
             thumbColor={colors.blue500}
             value={distributionView}
             onValueChange={() => setDistributionView((prev) => !prev)}
-            style={{ marginBottom: -spacing.md }}
           />
         </View>
 
@@ -440,8 +440,6 @@ const WillPreviewScreen = () => {
         <WillResidualDistPrevCard residualData={rawWill.residualDistData} />
 
         <WillSecondaryDistPrevCard secondaryData={rawWill.secondaryDistData} />
-
-        <View style={{ marginBottom: 30 }}></View>
       </ScrollView>
     </WillFormContainer>
   );

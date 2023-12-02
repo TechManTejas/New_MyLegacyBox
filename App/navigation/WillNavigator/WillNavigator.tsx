@@ -1,8 +1,6 @@
 import React from "react";
 import WillAssetsScreen from "../../screens/Will/WillAssetsScreen";
 import WillAssetInfoScreen from "../../screens/Will/WillAssetInfoScreen";
-import WillDeclarationScreen from "../../screens/Will/WillDeclarationScreen";
-import WillGenerationScreen from "../../screens/Will/WillGenerationScreen";
 import { StackType } from "../RootNavigator/RootNavigator";
 import WillIndexScreen from "../../screens/Will/WillIndexScreen";
 import WillRoleAssigncreen from "../../screens/Will/WillRoleAssignScreen";
@@ -93,24 +91,6 @@ const WillNavigator: React.FC<StackType> = ({ Stack }) => {
         options={{
           headerShown: true,
           title: "Asset Distribution",
-        }}
-      />
-
-      <Stack.Screen
-        name={"WILL_DECLARATION_SCREEN"}
-        component={WillDeclarationScreen}
-        options={{
-          headerShown: true,
-          title: "Declaration",
-        }}
-      />
-
-      <Stack.Screen
-        name={"WILL_GENERATION_SCREEN"}
-        component={WillGenerationScreen}
-        options={{
-          headerShown: true,
-          title: "E-Will Generation",
         }}
       />
     </Stack.Group>

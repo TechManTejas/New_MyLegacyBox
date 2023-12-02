@@ -13,14 +13,12 @@ const WillInfoCard: React.FC<WillInfoCardProps> = ({
   customContent,
 }) => {
   const {
-    theme: { colors, spacing, fontFamily, fontSize },
+    theme: { colors, spacing, fontFamily, fontSize, tailWindColors },
   } = useTheme();
 
   const styles = StyleSheet.create({
     card: {
-      // borderWidth: StyleSheet.hairlineWidth,
-      // borderColor: colors.black300,
-      backgroundColor: colors.white500,
+      backgroundColor: tailWindColors.lime50,
       marginVertical: spacing.lg,
       marginHorizontal: spacing.lg,
       borderRadius: spacing.sm,

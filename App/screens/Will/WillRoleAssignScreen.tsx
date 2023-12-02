@@ -27,13 +27,17 @@ const WillRoleAssigncreen = () => {
 
   const navigation = useNavigation();
 
-  const [nomineesType, setNomineesType] = useState("");
-  const [modalVisible, setModalVisible] = useState(false);
+  const [modalState, setModalState] = useState({
+    nomineesType: "",
+    modalVisible: false,
+  });
 
-  const [showBeneficiaries, setShowBeneficiaries] = useState(false);
-  const [showGuardians, setShowGuardians] = useState(false);
-  const [showWitnesses, setShowWitnesses] = useState(false);
-  const [showExecutors, setShowExecutors] = useState(false);
+  const [showNominee, setShowNominees] = useState({
+    beneficiaries: false,
+    witnesses: false,
+    guardians: false,
+    executors: false,
+  });
 
   const dispatch = useDispatch();
 
@@ -44,7 +48,6 @@ const WillRoleAssigncreen = () => {
       isInitialRender.current = false;
     } else {
       dispatch(clearAssets());
-
     }
   }, [beneficiaries]);
 
@@ -59,7 +62,7 @@ const WillRoleAssigncreen = () => {
           <WillInfoCard content="Allocate different roles to the members you've included in your 'My Circle' for your Will. It's important to note that a member cannot be assigned roles that create conflicts of interest, as such conflicts may lead to potential legal complications and disputes in the Will in future." />
           <View style={{ marginBottom: spacing.xxxl }}>
             <WillTab
-              areNomineesDisplayed={showBeneficiaries}
+              areNomineesDisplayed={showNominee.beneficiaries}
               icon={
                 <UsersGroup
                   height={24}
@@ -73,63 +76,72 @@ const WillRoleAssigncreen = () => {
               }
               tabTitle="Add Beneficiaries"
               onPress={() => {
-                setNomineesType("beneficiaries");
-                setModalVisible(true);
+                setModalState({
+                  nomineesType: "beneficiaries",
+                  modalVisible: true,
+                });
               }}
               nominees={beneficiaries}
-              showNomineesOnPress={() => setShowBeneficiaries((prev) => !prev)}
+              showNomineesOnPress={() =>
+                setShowNominees((prev) => ({ ...prev, beneficiaries: true }))
+              }
               elevated
               dataFilled={beneficiaries.length !== 0}
               showPlusIcon
             />
-            {showBeneficiaries && beneficiaries.length !== 0 && (
+            {showNominee.beneficiaries && beneficiaries.length !== 0 && (
               <WillMemberRelationCard membersList={beneficiaries} />
             )}
 
-            {!beneficiaries.every(
-                (beneficiary) => beneficiary.age >= 18
-              ) && <WillTab
-              showPlusIcon
-              areNomineesDisplayed={showGuardians}
-              icon={
-                <UsersGroup
-                  height={24}
-                  width={24}
-                  color={
-                    beneficiaries.filter((beneficiary) => beneficiary.age < 18)
-                      .length > 0 &&
-                    beneficiaries
-                      .filter((beneficiary) => beneficiary.age < 18)
-                      .every((beneficiary) => beneficiary.guardian)
-                      ? colors.green500
-                      : beneficiaries.every(
-                          (beneficiary) => beneficiary.age >= 18
-                        )
-                      ? colors.black300
-                      : colors.blue500
-                  }
-                />
-              }
-              tabTitle="Add Guardian for minor(s)"
-              onPress={() => {
-                setNomineesType("guardian");
-                setModalVisible(true);
-              }}
-              elevated
-              nominees={beneficiaries}
-              showNomineesOnPress={() => setShowGuardians((prev) => !prev)}
-              disabled={beneficiaries.every(
-                (beneficiary) => beneficiary.age >= 18
-              )}
-              dataFilled={
-                beneficiaries.filter((beneficiary) => beneficiary.age < 18)
-                  .length > 0 &&
-                beneficiaries
-                  .filter((beneficiary) => beneficiary.age < 18)
-                  .every((beneficiary) => beneficiary.guardian)
-              }
-            />}
-            {showGuardians &&
+            {!beneficiaries.every((beneficiary) => beneficiary.age >= 18) && (
+              <WillTab
+                showPlusIcon
+                areNomineesDisplayed={showNominee.guardians}
+                icon={
+                  <UsersGroup
+                    height={24}
+                    width={24}
+                    color={
+                      beneficiaries.filter(
+                        (beneficiary) => beneficiary.age < 18
+                      ).length > 0 &&
+                      beneficiaries
+                        .filter((beneficiary) => beneficiary.age < 18)
+                        .every((beneficiary) => beneficiary.guardian)
+                        ? colors.green500
+                        : beneficiaries.every(
+                            (beneficiary) => beneficiary.age >= 18
+                          )
+                        ? colors.black300
+                        : colors.blue500
+                    }
+                  />
+                }
+                tabTitle="Add Guardian for minor(s)"
+                onPress={() => {
+                  setModalState({
+                    nomineesType: "guardian",
+                    modalVisible: true,
+                  });
+                }}
+                elevated
+                nominees={beneficiaries}
+                showNomineesOnPress={() =>
+                  setShowNominees((prev) => ({ ...prev, guardians: true }))
+                }
+                disabled={beneficiaries.every(
+                  (beneficiary) => beneficiary.age >= 18
+                )}
+                dataFilled={
+                  beneficiaries.filter((beneficiary) => beneficiary.age < 18)
+                    .length > 0 &&
+                  beneficiaries
+                    .filter((beneficiary) => beneficiary.age < 18)
+                    .every((beneficiary) => beneficiary.guardian)
+                }
+              />
+            )}
+            {showNominee.guardians &&
               beneficiaries.length !== 0 &&
               beneficiaries.filter(
                 (beneficiary) => beneficiary.age < 18 && beneficiary.guardian
@@ -144,8 +156,8 @@ const WillRoleAssigncreen = () => {
               )}
 
             <WillTab
-            showPlusIcon
-              areNomineesDisplayed={showWitnesses}
+              showPlusIcon
+              areNomineesDisplayed={showNominee.witnesses}
               icon={
                 <UsersGroup
                   height={24}
@@ -157,21 +169,25 @@ const WillRoleAssigncreen = () => {
               }
               tabTitle="Add Witnesses"
               onPress={() => {
-                setNomineesType("witnesses");
-                setModalVisible(true);
+                setModalState({
+                  nomineesType: "witnesses",
+                  modalVisible: true,
+                });
               }}
               nominees={witnesses}
-              showNomineesOnPress={() => setShowWitnesses((prev) => !prev)}
+              showNomineesOnPress={() =>
+                setShowNominees((prev) => ({ ...prev, witnesses: true }))
+              }
               elevated
               dataFilled={witnesses.length === 2}
             />
-            {showWitnesses && witnesses.length !== 0 && (
+            {showNominee.witnesses && witnesses.length !== 0 && (
               <WillMemberRelationCard membersList={witnesses} />
             )}
 
             <WillTab
-            showPlusIcon
-              areNomineesDisplayed={showExecutors}
+              showPlusIcon
+              areNomineesDisplayed={showNominee.executors}
               icon={
                 <UsersGroup
                   height={24}
@@ -183,27 +199,26 @@ const WillRoleAssigncreen = () => {
               }
               tabTitle="Add Executors"
               onPress={() => {
-                setNomineesType("executors");
-                setModalVisible(true);
+                setModalState({
+                  nomineesType: "executors",
+                  modalVisible: true,
+                });
               }}
               nominees={executors}
-              showNomineesOnPress={() => setShowExecutors((prev) => !prev)}
+              showNomineesOnPress={() =>
+                setShowNominees((prev) => ({ ...prev, executors: true }))
+              }
               elevated
               dataFilled={executors.length !== 0}
             />
-            {showExecutors && executors.length !== 0 && (
+            {showNominee.executors && executors.length !== 0 && (
               <WillMemberRelationCard membersList={executors} />
             )}
           </View>
         </ScrollView>
       </WillFormContainer>
 
-      <WillNomineeModal
-        modalVisible={modalVisible}
-        setModalVisible={setModalVisible}
-        nomineesType={nomineesType}
-        setNomineesType={setNomineesType}
-      />
+      <WillNomineeModal modalState={modalState} setModalState={setModalState} />
     </>
   );
 };

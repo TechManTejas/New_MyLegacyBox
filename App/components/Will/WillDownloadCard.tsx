@@ -182,7 +182,7 @@ const WillDownloadCard = () => {
   const ASSETS_TYPE = [
     { type: "BANK", title: "Bank" },
     { type: "POSTAL", title: "Postal" },
-    { type: "INSURANCE", title: "Insurane" },
+    { type: "INSURANCE", title: "Insurance" },
     { type: "DEMAT", title: "Demat" },
     { type: "PROPRIETORSHIP", title: "Proprietorship" },
     { type: "PARTNERSHIP", title: "Partnership" },
