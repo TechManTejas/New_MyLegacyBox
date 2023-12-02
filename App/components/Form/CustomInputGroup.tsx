@@ -16,62 +16,62 @@ import CustomErrorMessageGroup from "./CustomErrorMessageGroup";
 import CustomToolTip from "../Common/CustomToolTip";
 import { Ionicons } from "@expo/vector-icons";
 
-// interface MessageProps {
-//   text: string;
-//   id: string;
-// }
+interface MessageProps {
+  text: string;
+  id: string;
+}
 
-// interface CustomInputGroup {
-//   title?: string;
-//   subTitle?: string;
-//   marginBottom?: number;
-//   onPressIn?: (e: NativeSyntheticEvent<NativeTouchEvent>) => void;
-//   onChange?: (e: NativeSyntheticEvent<TextInputChangeEventData>) => void;
-//   onFocus?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void;
-//   onChangeText?: (text: string) => void;
-//   onBlur?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void;
-//   onTouchStart?: (event: GestureResponderEvent) => void;
-//   pointerEvents?: "box-none" | "none" | "box-only" | "auto" | undefined;
-//   value?: string;
-//   placeholder?: string;
-//   disabled?: boolean;
-//   messages?: MessageProps[];
-//   IconLeftComponent?: any;
-//   IconRightComponent?: any;
-//   placeholderSuffix?: string;
-//   multiline?: boolean;
-//   numberOfLines?: number;
-//   optional?: boolean;
-//   textContentType?:
-//     | "none"
-//     | "URL"
-//     | "addressCity"
-//     | "addressCityAndState"
-//     | "addressState"
-//     | "countryName"
-//     | "creditCardNumber"
-//     | "emailAddress"
-//     | "familyName"
-//     | "fullStreetAddress"
-//     | "givenName"
-//     | "jobTitle"
-//     | "location"
-//     | "middleName"
-//     | "name"
-//     | "namePrefix"
-//     | "nameSuffix"
-//     | "nickname"
-//     | "organizationName"
-//     | "postalCode"
-//     | "streetAddressLine1"
-//     | "streetAddressLine2"
-//     | "sublocality";
-//   textTransformNormal?: boolean;
-//   info?: React.JSX.Element;
-//   loader?: boolean;
-// }
+interface CustomInputGroup {
+  title?: string;
+  subTitle?: string;
+  marginBottom?: number;
+  onPressIn?: (e: NativeSyntheticEvent<NativeTouchEvent>) => void;
+  onChange?: (e: NativeSyntheticEvent<TextInputChangeEventData>) => void;
+  onFocus?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void;
+  onChangeText?: (text: string) => void;
+  onBlur?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void;
+  onTouchStart?: (event: GestureResponderEvent) => void;
+  pointerEvents?: "box-none" | "none" | "box-only" | "auto" | undefined;
+  value?: string;
+  placeholder?: string;
+  disabled?: boolean;
+  messages?: MessageProps[];
+  IconLeftComponent?: any;
+  IconRightComponent?: any;
+  placeholderSuffix?: string;
+  multiline?: boolean;
+  numberOfLines?: number;
+  optional?: boolean;
+  textContentType?:
+    | "none"
+    | "URL"
+    | "addressCity"
+    | "addressCityAndState"
+    | "addressState"
+    | "countryName"
+    | "creditCardNumber"
+    | "emailAddress"
+    | "familyName"
+    | "fullStreetAddress"
+    | "givenName"
+    | "jobTitle"
+    | "location"
+    | "middleName"
+    | "name"
+    | "namePrefix"
+    | "nameSuffix"
+    | "nickname"
+    | "organizationName"
+    | "postalCode"
+    | "streetAddressLine1"
+    | "streetAddressLine2"
+    | "sublocality";
+  textTransformNormal?: boolean;
+  info?: React.JSX.Element;
+  loader?: boolean;
+}
 
-const CustomInputGroup = ({
+const CustomInputGroup: React.FC<CustomInputGroup> = ({
   // name,
   title,
   subTitle,
@@ -195,11 +195,6 @@ const CustomInputGroup = ({
       paddingLeft: spacing.sm,
     },
   });
-
-  if (extraProps.isLogging)
-    console.log(
-      value
-    );
 
   return (
     <View style={styles.container}>

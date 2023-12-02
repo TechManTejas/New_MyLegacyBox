@@ -1,9 +1,7 @@
 import { View, StyleSheet, Text, ScrollView } from "react-native";
 import React, { useState } from "react";
 import { useTheme } from "../../theme/ThemeProvider";
-import CustomKeyboardAvoidingScrollView from "../../components/Common/CustomKeyboardAvoidingScrollView";
 import CustomInputGroup from "../../components/Form/CustomInputGroup";
-import BlueButton from "../../components/Common/Button/BlueButton";
 import { useNavigation } from "@react-navigation/native";
 import WillInfoCard from "../../components/Common/WillInfoCard";
 import {
@@ -137,6 +135,7 @@ const WillResidualDistributionScreen = () => {
                         state.filter((item) => item.id === index)[0]["percent"]
                       }
                       onChangeText={(val) => updateValues(val, index)}
+                      keyboardType="numeric"
                     />
                   </View>
                 </View>

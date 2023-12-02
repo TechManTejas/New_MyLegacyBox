@@ -28,31 +28,37 @@ import WillNomeineeModalCard from "./WillNomineeModalCard";
 import WillNomineeModalGuardianCard from "./WillNomineeModalGuardianCard";
 
 interface WillNomineeModalProps {
-  modalVisible: boolean;
-  setModalVisible: React.Dispatch<React.SetStateAction<boolean>>;
-  nomineesType: string;
-  setNomineesType: React.Dispatch<React.SetStateAction<string>>;
+  modalState: {
+    nomineesType: string;
+    modalVisible: boolean;
+  };
+  setModalState: React.Dispatch<
+    React.SetStateAction<{
+      nomineesType: string;
+      modalVisible: boolean;
+    }>
+  >;
 }
 
 const WillNomineeModal: React.FC<WillNomineeModalProps> = ({
-  modalVisible,
-  setModalVisible,
-  nomineesType,
-  setNomineesType,
+  modalState,
+  setModalState,
 }) => {
   const snapPoints = ["70%"];
   const sheetRef = useRef<BottomSheet | null>(null);
-  modalVisible && sheetRef.current?.snapToIndex(0);
+
+  modalState.modalVisible && sheetRef.current?.snapToIndex(0);
 
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
+  const onBottomSheetClose = () => {};
+
   useEffect(() => {
     const backAction = () => {
-      if (modalVisible) {
-        setModalVisible(false);
-        setNomineesType("");
+      if (modalState.modalVisible) {
         sheetRef.current?.close();
+        setModalState({ modalVisible: false, nomineesType: "" });
         return true;
       }
       return false;
@@ -64,7 +70,7 @@ const WillNomineeModal: React.FC<WillNomineeModalProps> = ({
     );
 
     return () => backHandler.remove();
-  }, [modalVisible]);
+  }, [modalState.modalVisible]);
 
   const {
     theme: { colors, fontSize, spacing, fontFamily },
@@ -149,22 +155,22 @@ const WillNomineeModal: React.FC<WillNomineeModalProps> = ({
     []
   );
 
+  console.log(modalState);
+
   return (
     <BottomSheet
       ref={sheetRef}
       snapPoints={snapPoints}
-      // enablePanDownToClose={true}
-      onClose={() => {
-        setModalVisible(false);
-        setNomineesType("");
-      }}
+      enablePanDownToClose={true}
+      onClose={onBottomSheetClose}
       index={-1}
       backdropComponent={renderBackdrop}
     >
       <View style={{ flex: 1 }}>
         <View style={styles.modalheader}>
           <Text style={styles.modalheadertext}>
-            {nomineesType && typeFunctionMap[nomineesType].shareMessage}
+            {modalState.nomineesType &&
+              typeFunctionMap[modalState.nomineesType].shareMessage}
           </Text>
           <Pressable
             style={styles.modalbtn}
@@ -187,23 +193,25 @@ const WillNomineeModal: React.FC<WillNomineeModalProps> = ({
             <View style={{ paddingTop: spacing.xl }}>
               <Empty message="No Nominees Available" />
             </View>
-          ) : nomineesType ? (
-            nomineesType !== "guardian" ? (
+          ) : modalState.nomineesType ? (
+            modalState.nomineesType !== "guardian" ? (
               <BottomSheetFlatList
                 style={styles.flatList}
                 data={Object.values(nomineeList.data?.entities)}
                 keyExtractor={(item) => item._id}
                 renderItem={({ item }) => {
-                  return typeFunctionMap[nomineesType].get.some(
+                  return typeFunctionMap[modalState.nomineesType].get.some(
                     (c) => c._id === item._id
                   ) ? (
                     <WillNomeineeModalCard
-                      nomineesType={nomineesType}
+                      nomineesType={modalState.nomineesType}
                       isApproved
                       item={item}
                       callBack={() => {
                         dispatch(
-                          typeFunctionMap[nomineesType].remove(item._id)
+                          typeFunctionMap[modalState.nomineesType].remove(
+                            item._id
+                          )
                         );
                         dispatch(
                           setWillRolesTracker(
@@ -216,19 +224,22 @@ const WillNomineeModal: React.FC<WillNomineeModalProps> = ({
                     />
                   ) : (
                     <WillNomeineeModalCard
-                      nomineesType={nomineesType}
+                      nomineesType={modalState.nomineesType}
                       usedNominees={usedRoles}
                       item={item}
                       disableCallback={
-                        nomineesType !== "beneficiaries" &&
-                        typeFunctionMap[nomineesType].get.length === 2
+                        modalState.nomineesType !== "beneficiaries" &&
+                        typeFunctionMap[modalState.nomineesType].get.length ===
+                          2
                       }
                       callBack={() => {
-                        dispatch(typeFunctionMap[nomineesType].add(item));
+                        dispatch(
+                          typeFunctionMap[modalState.nomineesType].add(item)
+                        );
                         dispatch(
                           setWillRolesTracker([
                             ...usedRoles,
-                            { _id: item._id, type: nomineesType },
+                            { _id: item._id, type: modalState.nomineesType },
                           ])
                         );
                       }}
@@ -239,7 +250,7 @@ const WillNomineeModal: React.FC<WillNomineeModalProps> = ({
             ) : (
               <BottomSheetFlatList
                 style={styles.flatList}
-                data={typeFunctionMap[nomineesType].get}
+                data={typeFunctionMap[modalState.nomineesType].get}
                 keyExtractor={(item) => item._id}
                 renderItem={({ item, index }) => {
                   return item.age < 18 ? (
@@ -249,7 +260,7 @@ const WillNomineeModal: React.FC<WillNomineeModalProps> = ({
                       nominees={Object.values(nomineeList.data?.entities)}
                       callBack={(_id) => {
                         dispatch(
-                          typeFunctionMap[nomineesType].update({
+                          typeFunctionMap[modalState.nomineesType].update({
                             index,
                             beneficiary: {
                               ...item,

@@ -62,6 +62,10 @@ export const willFormSlice = createSlice({
     setDeclarationInfoRedux: (state, action) => {
       state.declarationInfo = action.payload;
     },
+    setWitnessRedux: (state, action) => {
+      state.witnesses = action.payload;
+      return state;
+    },
     addWitnessRedux: (state, action) => {
       state.witnesses.push(action.payload);
     },
@@ -70,6 +74,10 @@ export const willFormSlice = createSlice({
         (elem) => elem._id !== action.payload
       );
     },
+    setExecutorRedux: (state, action) => {
+      state.executors = action.payload;
+      return state;
+    },
     addExecutorRedux: (state, action) => {
       state.executors.push(action.payload);
     },
@@ -77,6 +85,10 @@ export const willFormSlice = createSlice({
       state.executors = state.executors.filter(
         (elem) => elem._id !== action.payload
       );
+    },
+    setBeneficiaryRedux: (state, action) => {
+      state.beneficiaries = action.payload;
+      return state;
     },
     addBeneficiaryRedux: (state, action) => {
       state.beneficiaries.push(action.payload);
@@ -125,6 +137,10 @@ export const willFormSlice = createSlice({
 });
 
 export const {
+  setBeneficiaryRedux,
+  setExecutorRedux,
+  setWitnessRedux,
+
   setWillRolesTracker,
   addResidualDistData,
   addSecondaryDistData,

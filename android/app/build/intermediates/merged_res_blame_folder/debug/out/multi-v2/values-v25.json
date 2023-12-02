@@ -1,0 +1,20 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.oiconomos.www.app-mergeDebugResources-53:/values-v25/values-v25.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\tanma\\.gradle\\caches\\transforms-3\\1ee63b54993a2b8911f1a8b3ee433fd6\\transformed\\appcompat-1.4.1\\res\\values-v25\\values-v25.xml",
+                    "from": {
+                        "startLines": "2,3,4,6",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "55,126,209,308",
+                        "endLines": "2,3,5,7",
+                        "endColumns": "70,82,12,12",
+                        "endOffsets": "121,204,303,414"
+                    }
+                }
+            ]
+        }
+    ]
+}

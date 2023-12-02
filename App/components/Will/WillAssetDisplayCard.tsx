@@ -233,8 +233,6 @@ const WillAssetDisplayCard = ({ asset }) => {
       style={[
         styles.assetContainer,
         {
-          // borderWidth: StyleSheet.hairlineWidth,
-          // borderColor: colors.black300,
           padding: spacing.md,
           borderRadius: spacing.md,
           backgroundColor: colors.white100,
