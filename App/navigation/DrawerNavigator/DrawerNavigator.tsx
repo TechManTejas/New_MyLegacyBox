@@ -23,6 +23,7 @@ import PrivacyPolicyScreen from "../../screens/Drawer/PrivacyPolicyScreen";
 import AboutUsScreen from "../../screens/Drawer/AboutUsScreen";
 import NominatorsListScreen from "../../screens/Drawer/SharedArtifacts/NominatorsListScreen";
 import AppToursScreen from "../../screens/Drawer/AppToursScreen";
+import ArchivedAssetsScreen from "../../screens/Drawer/ArchivedAssetsScreen";
 
 const Drawer = createDrawerNavigator<DrawerStackParamList>();
 
@@ -81,6 +82,13 @@ const DrawerNavigator: React.FC<StackType> = ({ Stack }) => {
         component={NominatorsListScreen}
         options={{
           title: "Shared with me",
+        }}
+      />
+      <Drawer.Screen
+        name={"ARCHIVED_ASSETS_SCREEN"}
+        component={ArchivedAssetsScreen}
+        options={{
+          title: "Archived Assets",
         }}
       />
       <Drawer.Screen

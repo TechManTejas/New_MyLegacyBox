@@ -9,7 +9,6 @@ const WillResidualDistPrevCard = ({ residualData }) => {
 
   const styles = StyleSheet.create({
     residualSection: {
-      //   marginHorizontal: spacing.md,
       padding: spacing.md,
     },
     residualName: {
@@ -31,23 +30,19 @@ const WillResidualDistPrevCard = ({ residualData }) => {
       flexDirection: "row",
       alignItems: "flex-start",
       justifyContent: "space-between",
-      marginBottom: spacing.sm,
+      marginBottom: spacing.md,
+      backgroundColor: colors.white100,
+      padding: spacing.md,
+      borderRadius: spacing.sm,
     },
-    residualNameEmail: {},
 
-    titleContainer: {
-      // marginBottom: spacing.sm,
-      borderBottomWidth: StyleSheet.hairlineWidth,
-      borderBlockColor: colors.black200,
-      // paddingBottom: spacing.sm,
-    },
     titleText: {
       fontFamily: fontFamily.semiBold,
       color: colors.blue500,
-      fontSize: fontSize.lg,
-      lineHeight: fontSize.xl,
+      fontSize: fontSize.default,
+      lineHeight: fontSize.lg,
       paddingHorizontal: spacing.lg,
-      paddingVertical: spacing.lg,
+      paddingTop: spacing.lg,
     },
   });
 
@@ -55,12 +50,11 @@ const WillResidualDistPrevCard = ({ residualData }) => {
     residualData.length !== 0 && (
       <View
         style={{
-          borderWidth: StyleSheet.hairlineWidth,
-          borderColor: colors.black300,
           borderRadius: spacing.md,
+          backgroundColor: colors.white400,
         }}
       >
-        <View style={styles.titleContainer}>
+        <View>
           <Text style={styles.titleText}>Residuary Distribution</Text>
         </View>
         <View style={styles.residualSection}>

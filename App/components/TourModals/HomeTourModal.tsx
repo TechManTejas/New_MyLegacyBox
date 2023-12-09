@@ -13,11 +13,14 @@ import { setShowHomeTourModal } from "../../redux/appTour/appTour";
 import { useTheme } from "../../theme/ThemeProvider";
 import HTCard1 from "../HomeTourCards/HTCard1";
 import HTCard2 from "../HomeTourCards/HTCard2";
+import { RootStoreType } from "../../redux/store";
 
 const WillTourModal = () => {
   const dispatch = useDispatch();
 
-  const showModal = useSelector((state) => state.appTours.showHomeTourModal);
+  const showModal = useSelector(
+    (state: RootStoreType) => state.appTours.showHomeTourModal
+  );
 
   const {
     theme: { colors, fontFamily, spacing },

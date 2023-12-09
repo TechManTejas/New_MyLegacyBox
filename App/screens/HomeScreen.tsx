@@ -1,5 +1,12 @@
 import React, { useEffect } from "react";
-import { View, StyleSheet, ScrollView, StatusBar, Text } from "react-native";
+import {
+  View,
+  StyleSheet,
+  ScrollView,
+  StatusBar,
+  Text,
+  PermissionsAndroid,
+} from "react-native";
 import CustomSafeView from "../components/Common/CustomSafeView";
 import HomeHeader from "../components/Home/HomeHeader";
 import { useTheme } from "../theme/ThemeProvider";
@@ -13,6 +20,8 @@ import { useAuth } from "../authentication/AuthProvider";
 import { useDispatch } from "react-redux";
 import { getItemAsync, setItemAsync } from "expo-secure-store";
 import { setShowHomeTourModal } from "../redux/appTour/appTour";
+
+import messaging from "@react-native-firebase/messaging";
 
 const HomeScreen: React.FC<{}> = () => {
   const {
@@ -109,6 +118,24 @@ const HomeScreen: React.FC<{}> = () => {
     };
   }, []);
 
+  useEffect(() => {
+    getItemAsync("permissionStatus").then((status) => {
+      if (status !== "granted") {
+        PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS
+        ).then((permissionStatus) => {
+          if (permissionStatus === "granted") {
+            messaging()
+              .getToken()
+              .then(() => {
+                setItemAsync("permissionStatus", permissionStatus);
+              });
+          }
+        });
+      }
+    });
+  }, []);
+
   return (
     <CustomSafeView>
       <ScrollView>
@@ -140,8 +167,7 @@ const HomeScreen: React.FC<{}> = () => {
           <MajorMenu title="home" menuData={HOME_MAJOR_MENU_DATA} />
           <MinorMenu title="home" centered menuData={HOME_MINOR_MENU_DATA} />
 
-          <Slider/>
-
+          <Slider />
         </View>
       </ScrollView>
     </CustomSafeView>

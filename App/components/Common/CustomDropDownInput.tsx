@@ -6,20 +6,20 @@ import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import CustomErrorMessageGroup from "../Form/CustomErrorMessageGroup";
 
 interface CustomDropDownInputProps {
-  title: string
-  data: []
-  placeholder: string
-  value: string
-  // onChange: 
+  title: string;
+  data: [];
+  placeholder: string;
+  value: string;
+  // onChange:
   // onBlur:
   // labelField:
   // valueField:
   // messages: []
-  optional:boolean
-  textTransformNormal: boolean
-  showSelectedIcon: boolean
-  backgroundColor:string
-} 
+  optional: boolean;
+  textTransformNormal: boolean;
+  showSelectedIcon: boolean;
+  backgroundColor: string;
+}
 
 const CustomDropDownInput: React.FC<CustomDropDownInputProps> = ({
   title,
@@ -75,9 +75,7 @@ const CustomDropDownInput: React.FC<CustomDropDownInputProps> = ({
     dropdownContainer: {
       elevation: 1,
       shadowColor: colors.black100,
-      // backgroundColor: colors.white100,
       borderWidth: StyleSheet.hairlineWidth,
-      // borderColor: colors.black100,
       borderRadius: spacing.md,
       height: 47,
       paddingHorizontal: spacing.sm,

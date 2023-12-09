@@ -165,7 +165,7 @@ const WillDownloadCard = () => {
     assetDistContainer: {
       marginTop: spacing.xl,
       flexDirection: "row",
-      alignItems: "flex-end",
+      alignItems: "center",
       justifyContent: "space-between",
       borderBottomWidth: StyleSheet.hairlineWidth,
       borderBottomColor: colors.black200,
@@ -434,7 +434,6 @@ const WillDownloadCard = () => {
             thumbColor={colors.blue500}
             value={distributionView}
             onValueChange={() => setDistributionView((prev) => !prev)}
-            style={{ marginBottom: -spacing.md }}
           />
         </View>
 

@@ -215,7 +215,7 @@ const NomineeForm = ({
                 data={objectToDropDownLabelAndValues(
                   NOMINEE_GENDER_TO_TITLE_MAP
                 )}
-                onChangeText={handleChange("gender")}
+                onChange={handleChange("gender")}
                 value={values.gender}
                 messages={
                   customErrors.gender
@@ -236,7 +236,7 @@ const NomineeForm = ({
                 data={objectToDropDownLabelAndValues(
                   NOMINEE_RELATIONSHIP_TO_TITLE_MAP
                 )}
-                onChangeText={handleChange("relationship")}
+                onChange={handleChange("relationship")}
                 value={values.relationship}
                 messages={
                   customErrors.relationship

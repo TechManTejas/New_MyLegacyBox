@@ -113,12 +113,6 @@ const AssetsWithNomineeScreen = ({ route }) => {
 
   return (
     <View style={styles.screen}>
-      {/* <View style={styles.assetCountDiv}>
-        <Text style={styles.assetCountText}>
-          Total Data Shared: {data.data.length}
-        </Text>
-      </View> */}
-
       {data.ids.length === 0 || data === undefined ? (
         <Empty message="No data to show" />
       ) : (

@@ -15,6 +15,8 @@ import {
   PRIVATE_LIMITED_COMPANY_TYPE_MAP,
   PRIVATE_LIMITED_COMPANY_TYPE_MAP_TO_TITLE_MAP,
 } from "../../constants/financialHoldings/privateLimitedHolding";
+import { useDeleteFinancialHoldingByIdMutation } from "../../redux/api/vault/financialHolding/allHoldings/allHoldings";
+import AssetDeleteModal from "../../components/Common/AssetDeleteModal";
 
 const PrivateLimitedCompanyScreen = () => {
   const navigation = useNavigation();
@@ -40,6 +42,18 @@ const PrivateLimitedCompanyScreen = () => {
     financialArtifactId: "",
     financialArtifactType: "",
   });
+
+  const [assetToDelete, setAssetToDelete] = useState({
+    isVisible: false,
+    assedId: "",
+  });
+
+  const closeAssetDeleteModal = () => {
+    setAssetToDelete({ isVisible: false, assedId: "" });
+  };
+
+  const [deleteFinancialHoldingByIdMutation] =
+    useDeleteFinancialHoldingByIdMutation();
 
   const styles = StyleSheet.create({
     container: {
@@ -136,6 +150,12 @@ const PrivateLimitedCompanyScreen = () => {
                 });
                 setNotesModalVisible(true);
               }}
+              deleteButtonCallBack={() => {
+                setAssetToDelete({
+                  isVisible: true,
+                  assedId: item._id,
+                });
+              }}
             />
           )}
           keyExtractor={({ _id }) => _id}
@@ -176,6 +196,18 @@ const PrivateLimitedCompanyScreen = () => {
               : "",
           },
         ]}
+      />
+      <AssetDeleteModal
+        crossButtonCLick={closeAssetDeleteModal}
+        assetDeleteModalVisible={assetToDelete.isVisible}
+        archiveButtonCallback={() => {
+          deleteFinancialHoldingByIdMutation(assetToDelete.assedId).then(() => {
+            setAssetToDelete({ isVisible: false, assedId: "" });
+          });
+        }}
+        deleteButtonCallback={() => {
+          console.log("delete button clicked");
+        }}
       />
     </View>
   );

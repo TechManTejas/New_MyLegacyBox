@@ -11,6 +11,8 @@ import React, { useState } from "react";
 import AssetSharingModal from "../../components/Common/AssetSharingModal";
 import NotesModal from "../../components/Common/NotesModal";
 import { useGetFinancialHoldingForProprietorshipQuery } from "../../redux/api/vault/financialHolding/proprietorship/proprietorshipApiSlice";
+import { useDeleteFinancialHoldingByIdMutation } from "../../redux/api/vault/financialHolding/allHoldings/allHoldings";
+import AssetDeleteModal from "../../components/Common/AssetDeleteModal";
 
 const ProprietorshipScreen = () => {
   const navigation = useNavigation();
@@ -34,6 +36,18 @@ const ProprietorshipScreen = () => {
     financialArtifactId: "",
     financialArtifactType: "",
   });
+
+  const [assetToDelete, setAssetToDelete] = useState({
+    isVisible: false,
+    assedId: "",
+  });
+
+  const closeAssetDeleteModal = () => {
+    setAssetToDelete({ isVisible: false, assedId: "" });
+  };
+
+  const [deleteFinancialHoldingByIdMutation] =
+    useDeleteFinancialHoldingByIdMutation();
 
   const styles = StyleSheet.create({
     container: {
@@ -98,6 +112,12 @@ const ProprietorshipScreen = () => {
                 });
                 setNotesModalVisible(true);
               }}
+              deleteButtonCallBack={() => {
+                setAssetToDelete({
+                  isVisible: true,
+                  assedId: item._id,
+                });
+              }}
             />
           )}
           keyExtractor={({ _id }) => _id}
@@ -138,6 +158,18 @@ const ProprietorshipScreen = () => {
               : "",
           },
         ]}
+      />
+      <AssetDeleteModal
+        crossButtonCLick={closeAssetDeleteModal}
+        assetDeleteModalVisible={assetToDelete.isVisible}
+        archiveButtonCallback={() => {
+          deleteFinancialHoldingByIdMutation(assetToDelete.assedId).then(() => {
+            setAssetToDelete({ isVisible: false, assedId: "" });
+          });
+        }}
+        deleteButtonCallback={() => {
+          console.log("delete button clicked");
+        }}
       />
     </View>
   );

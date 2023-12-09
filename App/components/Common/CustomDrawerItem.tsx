@@ -3,11 +3,11 @@ import React from "react";
 import { useTheme } from "../../theme/ThemeProvider";
 
 interface CustomDrawerItemProps {
-  IconComponent: any
-  iconName: string
-  title: string
-  bold :boolean,
-  onPress: ()=>void
+  IconComponent: any;
+  iconName: string;
+  title: string;
+  bold: boolean;
+  onPress: () => void;
 }
 
 const CustomDrawerItem: React.FC<CustomDrawerItemProps> = ({

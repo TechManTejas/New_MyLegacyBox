@@ -4,7 +4,6 @@ import {
   ActivityIndicator,
   Alert,
   AppState,
-  BackHandler,
   Button,
   Dimensions,
   ImageBackground,

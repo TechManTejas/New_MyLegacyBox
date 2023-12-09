@@ -285,7 +285,7 @@ const PersonalInfoForm = () => {
                     data={objectToDropDownLabelAndValues(
                       GENDER_MAP_TO_TITLE_MAP
                     )}
-                    onChangeText={handleChange("gender")}
+                    onChange={handleChange("gender")}
                     value={values.gender}
                     messages={
                       customErrors.gender

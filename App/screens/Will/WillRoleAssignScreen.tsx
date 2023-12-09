@@ -83,7 +83,10 @@ const WillRoleAssigncreen = () => {
               }}
               nominees={beneficiaries}
               showNomineesOnPress={() =>
-                setShowNominees((prev) => ({ ...prev, beneficiaries: true }))
+                setShowNominees((prev) => ({
+                  ...prev,
+                  beneficiaries: !prev.beneficiaries,
+                }))
               }
               elevated
               dataFilled={beneficiaries.length !== 0}
@@ -127,7 +130,10 @@ const WillRoleAssigncreen = () => {
                 elevated
                 nominees={beneficiaries}
                 showNomineesOnPress={() =>
-                  setShowNominees((prev) => ({ ...prev, guardians: true }))
+                  setShowNominees((prev) => ({
+                    ...prev,
+                    guardians: !prev.guardians,
+                  }))
                 }
                 disabled={beneficiaries.every(
                   (beneficiary) => beneficiary.age >= 18
@@ -176,7 +182,10 @@ const WillRoleAssigncreen = () => {
               }}
               nominees={witnesses}
               showNomineesOnPress={() =>
-                setShowNominees((prev) => ({ ...prev, witnesses: true }))
+                setShowNominees((prev) => ({
+                  ...prev,
+                  witnesses: !prev.witnesses,
+                }))
               }
               elevated
               dataFilled={witnesses.length === 2}
@@ -206,7 +215,10 @@ const WillRoleAssigncreen = () => {
               }}
               nominees={executors}
               showNomineesOnPress={() =>
-                setShowNominees((prev) => ({ ...prev, executors: true }))
+                setShowNominees((prev) => ({
+                  ...prev,
+                  executors: !prev.executors,
+                }))
               }
               elevated
               dataFilled={executors.length !== 0}
@@ -218,7 +230,13 @@ const WillRoleAssigncreen = () => {
         </ScrollView>
       </WillFormContainer>
 
-      <WillNomineeModal modalState={modalState} setModalState={setModalState} />
+      <WillNomineeModal
+        closeModal={() => {
+          setModalState({ modalVisible: false, nomineesType: "" });
+        }}
+        openModal={() => {}}
+        modalState={modalState}
+      />
     </>
   );
 };

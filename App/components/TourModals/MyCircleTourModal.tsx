@@ -12,12 +12,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { setShowMyCircleTourModal } from "../../redux/appTour/appTour";
 import { useTheme } from "../../theme/ThemeProvider";
 import { MY_CIRCLE_TOUR_DATA } from "../../data/MyCircleTourData";
+import { RootStoreType } from "../../redux/store";
 
 const MyCircleTourModal = () => {
   const dispatch = useDispatch();
 
   const showModal = useSelector(
-    (state) => state.appTours.showMyCircleTourModal
+    (state: RootStoreType) => state.appTours.showMyCircleTourModal
   );
 
   const {

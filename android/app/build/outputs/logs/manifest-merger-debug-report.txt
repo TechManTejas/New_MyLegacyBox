@@ -31,7 +31,6 @@ MERGED from [:expo-local-authentication] D:\Projects\billboard-native-app\node_m
 MERGED from [:expo-screen-capture] D:\Projects\billboard-native-app\node_modules\expo-screen-capture\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [:expo-secure-store] D:\Projects\billboard-native-app\node_modules\expo-secure-store\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [:expo-splash-screen] D:\Projects\billboard-native-app\node_modules\expo-splash-screen\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-7:12
-MERGED from [:expo-system-ui] D:\Projects\billboard-native-app\node_modules\expo-system-ui\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [:expo-modules-core] D:\Projects\billboard-native-app\node_modules\expo-modules-core\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-18:12
 MERGED from [:expo-dev-menu-interface] D:\Projects\billboard-native-app\node_modules\expo-dev-menu-interface\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [com.facebook.react:react-android:0.72.6] C:\Users\tanma\.gradle\caches\transforms-3\03c9a15751944c8f51be065d0e3b10c0\transformed\jetified-react-android-0.72.6-debug\AndroidManifest.xml:2:1-7:12
@@ -469,8 +468,6 @@ MERGED from [:expo-secure-store] D:\Projects\billboard-native-app\node_modules\e
 MERGED from [:expo-secure-store] D:\Projects\billboard-native-app\node_modules\expo-secure-store\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:expo-splash-screen] D:\Projects\billboard-native-app\node_modules\expo-splash-screen\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:expo-splash-screen] D:\Projects\billboard-native-app\node_modules\expo-splash-screen\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
-MERGED from [:expo-system-ui] D:\Projects\billboard-native-app\node_modules\expo-system-ui\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
-MERGED from [:expo-system-ui] D:\Projects\billboard-native-app\node_modules\expo-system-ui\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:expo-modules-core] D:\Projects\billboard-native-app\node_modules\expo-modules-core\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:6:5-44
 MERGED from [:expo-modules-core] D:\Projects\billboard-native-app\node_modules\expo-modules-core\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:6:5-44
 MERGED from [:expo-dev-menu-interface] D:\Projects\billboard-native-app\node_modules\expo-dev-menu-interface\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44

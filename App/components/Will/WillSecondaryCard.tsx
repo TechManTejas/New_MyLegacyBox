@@ -6,6 +6,10 @@ import { RadioButton } from "react-native-paper";
 interface WillSecondaryCardProp {
   beneficiaryName: string;
   distType: 1 | 2;
+  changeToType2: () => void
+  changeToType1: () => void
+  distributionCard: React.ReactNode
+  isError: boolean
 }
 
 const WillSecondaryCard: React.FC<WillSecondaryCardProp> = ({
@@ -75,6 +79,7 @@ const WillSecondaryCard: React.FC<WillSecondaryCardProp> = ({
             value="1"
             status={distType === 1 ? "checked" : "unchecked"}
             color={colors.blue500}
+            onPress={changeToType1}
           />
           <Text style={styles.optionText}>Lineal Descendants</Text>
         </Pressable>
@@ -84,6 +89,7 @@ const WillSecondaryCard: React.FC<WillSecondaryCardProp> = ({
             value="2"
             status={distType === 2 ? "checked" : "unchecked"}
             color={colors.blue500}
+            onPress={changeToType2}
           />
           <Text style={styles.optionText}>
             Distribute among other beneficiaries

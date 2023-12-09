@@ -19,6 +19,8 @@ import { numberWithCommas } from "../../utils/manipulators";
 import React, { useState } from "react";
 import AssetSharingModal from "../../components/Common/AssetSharingModal";
 import NotesModal from "../../components/Common/NotesModal";
+import AssetDeleteModal from "../../components/Common/AssetDeleteModal";
+import { useDeleteFinancialHoldingByIdMutation } from "../../redux/api/vault/financialHolding/allHoldings/allHoldings";
 
 const BankScreen = ({ route }) => {
   const navigation = useNavigation();
@@ -27,7 +29,7 @@ const BankScreen = ({ route }) => {
 
   const bank = useSelector((state) => selectBankById(state, _id));
 
-  const { data, isLoading, isFetching, error, isError } =
+  const { data, isLoading, isFetching } =
     useGetFinancialHoldingForBankQuery(_id);
 
   const {
@@ -49,6 +51,18 @@ const BankScreen = ({ route }) => {
     financialArtifactId: "",
     financialArtifactType: "",
   });
+
+  const [assetToDelete, setAssetToDelete] = useState({
+    isVisible: false,
+    assedId: "",
+  });
+
+  const closeAssetDeleteModal = () => {
+    setAssetToDelete({ isVisible: false, assedId: "" });
+  };
+
+  const [deleteFinancialHoldingByIdMutation] =
+    useDeleteFinancialHoldingByIdMutation();
 
   const styles = StyleSheet.create({
     container: {
@@ -103,7 +117,10 @@ const BankScreen = ({ route }) => {
                   BANK_ACCOUNT_OWNERSHIP_TO_TITLE_MAP[item?.holding.ownership]
                 }
                 content={[
-                  { key: "Account Number", value: item?.holding.accountNumber },
+                  {
+                    key: "Account Number",
+                    value: item?.holding.accountNumber,
+                  },
                   {
                     key: "Amount ",
                     value: item.holding.amount
@@ -140,6 +157,12 @@ const BankScreen = ({ route }) => {
                   });
                   setNotesModalVisible(true);
                 }}
+                deleteButtonCallBack={() => {
+                  setAssetToDelete({
+                    isVisible: true,
+                    assedId: item._id,
+                  });
+                }}
               />
             );
           }}
@@ -147,6 +170,7 @@ const BankScreen = ({ route }) => {
           ListEmptyComponent={() => <Empty message="No holdings available" />}
         />
       </View>
+
       <View style={styles.footer}>
         <BlueButton
           outline
@@ -156,12 +180,14 @@ const BankScreen = ({ route }) => {
           onPress={pressHandler}
         />
       </View>
+
       <AssetSharingModal
         modalVisible={assetModalVisible}
         setModalVisible={setassetModalVisible}
         artifactDetails={artifactDetails}
         setArtifactDetails={setArtifactDetails}
       />
+
       <NotesModal
         modalVisible={notesModalVisible}
         setModalVisible={setNotesModalVisible}
@@ -185,6 +211,19 @@ const BankScreen = ({ route }) => {
               : "",
           },
         ]}
+      />
+
+      <AssetDeleteModal
+        crossButtonCLick={closeAssetDeleteModal}
+        assetDeleteModalVisible={assetToDelete.isVisible}
+        archiveButtonCallback={() => {
+          deleteFinancialHoldingByIdMutation(assetToDelete.assedId).then(() => {
+            setAssetToDelete({ isVisible: false, assedId: "" });
+          });
+        }}
+        deleteButtonCallback={() => {
+          console.log("delete button clicked");
+        }}
       />
     </View>
   );

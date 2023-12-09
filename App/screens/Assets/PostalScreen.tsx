@@ -19,6 +19,8 @@ import { numberWithCommas } from "../../utils/manipulators";
 import React, { useState } from "react";
 import AssetSharingModal from "../../components/Common/AssetSharingModal";
 import NotesModal from "../../components/Common/NotesModal";
+import { useDeleteFinancialHoldingByIdMutation } from "../../redux/api/vault/financialHolding/allHoldings/allHoldings";
+import AssetDeleteModal from "../../components/Common/AssetDeleteModal";
 
 const PostalScreen = ({ route }) => {
   const navigation = useNavigation();
@@ -47,6 +49,18 @@ const PostalScreen = ({ route }) => {
     financialArtifactId: "",
     financialArtifactType: "",
   });
+
+  const [assetToDelete, setAssetToDelete] = useState({
+    isVisible: false,
+    assedId: "",
+  });
+
+  const closeAssetDeleteModal = () => {
+    setAssetToDelete({ isVisible: false, assedId: "" });
+  };
+
+  const [deleteFinancialHoldingByIdMutation] =
+    useDeleteFinancialHoldingByIdMutation();
 
   const styles = StyleSheet.create({
     container: {
@@ -137,6 +151,12 @@ const PostalScreen = ({ route }) => {
                 });
                 setNotesModalVisible(true);
               }}
+              deleteButtonCallBack={() => {
+                setAssetToDelete({
+                  isVisible: true,
+                  assedId: item._id,
+                });
+              }}
             />
           )}
           keyExtractor={({ _id }) => _id}
@@ -181,6 +201,18 @@ const PostalScreen = ({ route }) => {
               : "",
           },
         ]}
+      />
+      <AssetDeleteModal
+        crossButtonCLick={closeAssetDeleteModal}
+        assetDeleteModalVisible={assetToDelete.isVisible}
+        archiveButtonCallback={() => {
+          deleteFinancialHoldingByIdMutation(assetToDelete.assedId).then(() => {
+            setAssetToDelete({ isVisible: false, assedId: "" });
+          });
+        }}
+        deleteButtonCallback={() => {
+          console.log("delete button clicked");
+        }}
       />
     </View>
   );

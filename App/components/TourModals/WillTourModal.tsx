@@ -12,11 +12,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { setShowWillTourModal } from "../../redux/appTour/appTour";
 import { WILL_TOUR_DATA } from "../../data/WillTourData";
 import { useTheme } from "../../theme/ThemeProvider";
+import { RootStoreType } from "../../redux/store";
 
 const WillTourModal = () => {
   const dispatch = useDispatch();
 
-  const showModal = useSelector((state) => state.appTours.showWillTourModal);
+  const showModal = useSelector(
+    (state: RootStoreType) => state.appTours.showWillTourModal
+  );
 
   const {
     theme: { colors, fontFamily, spacing },

@@ -34,6 +34,7 @@ export type DrawerStackParamList = {
   PRIVACY_POLICY: undefined;
   FAQ: undefined;
   CONTACT_US: undefined;
+  ARCHIVED_ASSETS_SCREEN: undefined;
 };
 
 type FinancialInstitutionStackParamList = {
