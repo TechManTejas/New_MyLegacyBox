@@ -2,8 +2,9 @@ import { View, Text, StyleSheet, Pressable, FlatList } from "react-native";
 import { useTheme } from "../../theme/ThemeProvider";
 import FinancialHoldingItemWrapper from "../FinancialHolding/FinancialHoldingItemWrapper";
 import CustomPill from "./Pill/CustomPill";
-import { FontAwesome5, FontAwesome } from "@expo/vector-icons";
+import { FontAwesome5, FontAwesome, Entypo } from "@expo/vector-icons";
 import React from "react";
+import { useRoute } from "@react-navigation/native";
 
 interface ContentProps {
   type?: string;
@@ -21,6 +22,8 @@ interface FinancialInstitutionHoldingCardProps {
   shareButtonCallBack: () => void;
   notesButtonCallBack: () => void;
   deleteButtonCallBack: () => void;
+  unarchiveButtonCallBack: () => void;
+  permanentDeleteButtonCallBack: () => void;
   widthKey: number;
 }
 
@@ -36,6 +39,8 @@ const FinancialInstitutionHoldingCard: React.FC<
   shareButtonCallBack,
   notesButtonCallBack,
   deleteButtonCallBack,
+  permanentDeleteButtonCallBack,
+  unarchiveButtonCallBack,
   widthKey,
 }) => {
   const {
@@ -171,6 +176,8 @@ const FinancialInstitutionHoldingCard: React.FC<
     },
   });
 
+  const { name } = useRoute()
+
   return (
     <FinancialHoldingItemWrapper
       shareBtnCallBack={shareButtonCallBack}
@@ -206,6 +213,24 @@ const FinancialInstitutionHoldingCard: React.FC<
               style={[styles.buttom, styles.sharebtn]}
             >
               {/* <Text style={styles.buttomText}>Share</Text> */}
+              <FontAwesome5 name="trash" size={10} color={"white"} />
+            </Pressable>
+          )}
+          {unarchiveButtonCallBack && (
+            <Pressable
+              onPress={unarchiveButtonCallBack}
+              style={[styles.buttom, styles.sharebtn]}
+            >
+              {/* <Text style={styles.buttomText}>Unarchive</Text> */}
+              <Entypo name="back-in-time" size={10} color="white" />
+            </Pressable>
+          )}
+          {permanentDeleteButtonCallBack && (
+            <Pressable
+              onPress={permanentDeleteButtonCallBack}
+              style={[styles.buttom, styles.sharebtn, name==="ARCHIVED_ASSETS_SCREEN" && { backgroundColor: colors.red500 }]}
+            >
+              {/* <Text style={styles.buttomText}>Delete</Text> */}
               <FontAwesome5 name="trash" size={10} color={"white"} />
             </Pressable>
           )}

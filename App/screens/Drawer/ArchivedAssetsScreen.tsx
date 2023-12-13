@@ -1,7 +1,11 @@
-import { View, Text, FlatList } from "react-native";
+import { View, Text, FlatList, Alert } from "react-native";
 import React from "react";
 import { useTheme } from "../../theme/ThemeProvider";
-import { useGetArchivedFinancialHoldingsQuery } from "../../redux/api/vault/financialHolding/allHoldings/allHoldings";
+import {
+  useGetArchivedFinancialHoldingsQuery,
+  usePermanentlyDeleteFinancialHoldingMutation,
+  useUnarchiveFinancialHoldingByIdMutation,
+} from "../../redux/api/vault/financialHolding/allHoldings/allHoldings";
 import CustomActivityIndicator from "../../components/Common/CustomActivityIndicator";
 import FinancialInstitutionHoldingCard from "../../components/Common/FinancialInstitutionHoldingCard";
 import {
@@ -34,6 +38,55 @@ const ArchivedAssetsScreen = () => {
   const { data, isLoading, isFetching } =
     useGetArchivedFinancialHoldingsQuery();
 
+  const [unarchiveFinancialHolding] =
+    useUnarchiveFinancialHoldingByIdMutation();
+
+  const [permanentlyDeleteFinancialHolding] =
+    usePermanentlyDeleteFinancialHoldingMutation();
+
+  const unarchiveButtonCallBack = (financialHoldingId: string) => {
+    unarchiveFinancialHolding(financialHoldingId)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const permanentDeleteButtonCallBack = (financialHoldingId: string) => {
+    permanentlyDeleteFinancialHolding(financialHoldingId)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const confirmDeleteHolding = (financialHoldingId: string) => {
+    Alert.alert("Permanently Delete", "Are you sure you want to delete ?", [
+      {
+        text: "Delete",
+        onPress: () => {
+          permanentlyDeleteFinancialHolding(financialHoldingId)
+            .then((res) => {
+              console.log(res);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        },
+        style: "destructive",
+        isPreferred: true,
+      },
+      {
+        text: "Cancel",
+        style: "cancel",
+      },
+    ]);
+  };
+
   if (isFetching || isLoading) return <CustomActivityIndicator />;
 
   if (data !== undefined)
@@ -47,6 +100,12 @@ const ArchivedAssetsScreen = () => {
           if (asset.holdingType === "BANK")
             return (
               <FinancialInstitutionHoldingCard
+                unarchiveButtonCallBack={() =>
+                  unarchiveButtonCallBack(asset?._id)
+                }
+                permanentDeleteButtonCallBack={() =>
+                  confirmDeleteHolding(asset?._id)
+                }
                 key={asset?._id}
                 holdingClass={asset?.holdingClass}
                 updatedAt={asset.updatedAt}
@@ -78,6 +137,12 @@ const ArchivedAssetsScreen = () => {
           if (asset.holdingType === "POSTAL")
             return (
               <FinancialInstitutionHoldingCard
+                unarchiveButtonCallBack={() =>
+                  unarchiveButtonCallBack(asset?._id)
+                }
+                permanentDeleteButtonCallBack={() =>
+                  confirmDeleteHolding(asset?._id)
+                }
                 updatedAt={asset.updatedAt}
                 holdingClass={asset.holdingClass}
                 title={
@@ -108,6 +173,12 @@ const ArchivedAssetsScreen = () => {
           if (asset.holdingType === "INSURANCE")
             return (
               <FinancialInstitutionHoldingCard
+                unarchiveButtonCallBack={() =>
+                  unarchiveButtonCallBack(asset?._id)
+                }
+                permanentDeleteButtonCallBack={() =>
+                  confirmDeleteHolding(asset?._id)
+                }
                 holdingClass={asset.holdingClass}
                 title={asset.holding.policyName}
                 updatedAt={asset.updatedAt}
@@ -169,6 +240,12 @@ const ArchivedAssetsScreen = () => {
           if (asset.holdingType === "DEMAT")
             return (
               <FinancialInstitutionHoldingCard
+                unarchiveButtonCallBack={() =>
+                  unarchiveButtonCallBack(asset?._id)
+                }
+                permanentDeleteButtonCallBack={() =>
+                  confirmDeleteHolding(asset?._id)
+                }
                 title={asset.holding.broker}
                 updatedAt={asset.updatedAt}
                 holdingClass={asset.holdingClass}
@@ -202,6 +279,12 @@ const ArchivedAssetsScreen = () => {
           if (asset.holdingType === "CASH")
             return (
               <FinancialInstitutionHoldingCard
+                unarchiveButtonCallBack={() =>
+                  unarchiveButtonCallBack(asset?._id)
+                }
+                permanentDeleteButtonCallBack={() =>
+                  confirmDeleteHolding(asset?._id)
+                }
                 holdingClass={asset.holdingClass}
                 updatedAt={asset.updatedAt}
                 title={asset.holding.nameOfParty}
@@ -240,6 +323,12 @@ const ArchivedAssetsScreen = () => {
           if (asset.holdingType === "REALESTATE")
             return (
               <FinancialInstitutionHoldingCard
+                unarchiveButtonCallBack={() =>
+                  unarchiveButtonCallBack(asset?._id)
+                }
+                permanentDeleteButtonCallBack={() =>
+                  confirmDeleteHolding(asset?._id)
+                }
                 title={asset.holding.propertyName}
                 holdingClass={asset.holdingClass}
                 tagLabel={
@@ -302,6 +391,12 @@ const ArchivedAssetsScreen = () => {
           if (asset.holdingType === "PROVIDENTFUND")
             return (
               <FinancialInstitutionHoldingCard
+                unarchiveButtonCallBack={() =>
+                  unarchiveButtonCallBack(asset?._id)
+                }
+                permanentDeleteButtonCallBack={() =>
+                  confirmDeleteHolding(asset?._id)
+                }
                 title={asset.holding.employerName}
                 holdingClass={asset.holdingClass}
                 updatedAt={asset.updatedAt}

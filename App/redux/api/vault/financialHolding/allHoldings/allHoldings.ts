@@ -42,14 +42,26 @@ export const extendedFinancialHoldingApiSlice = rootApiSlice.injectEndpoints({
               },
             ],
     }),
-    deleteFinancialHoldingById: builder.mutation({
+    archiveFinancialHoldingById: builder.mutation({
+      query: (financialHoldingId) => ({
+        url: `/vault/financial-holdings/archive/${financialHoldingId}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: [QUERY_TAGS.financialHolding, QUERY_TAGS.archivedAssets],
+    }),
+    unarchiveFinancialHoldingById: builder.mutation({
+      query: (financialHoldingId) => ({
+        url: `/vault/financial-holdings/unarchive/${financialHoldingId}`,
+        method: "POST",
+      }),
+      invalidatesTags: [QUERY_TAGS.financialHolding, QUERY_TAGS.archivedAssets],
+    }),
+    permanentlyDeleteFinancialHolding: builder.mutation({
       query: (financialHoldingId) => ({
         url: `/vault/financial-holdings/${financialHoldingId}`,
         method: "DELETE",
       }),
-      invalidatesTags: [
-        QUERY_TAGS.financialHolding, QUERY_TAGS.archivedAssets
-      ],
+      invalidatesTags: [QUERY_TAGS.archivedAssets],
     }),
     getArchivedFinancialHoldings: builder.query({
       query: () => "/vault/archive-financial-holdings",
@@ -59,14 +71,16 @@ export const extendedFinancialHoldingApiSlice = rootApiSlice.injectEndpoints({
           responseData?.data || []
         );
       },
-      providesTags: [ QUERY_TAGS.archivedAssets ]
-    })
+      providesTags: [QUERY_TAGS.archivedAssets],
+    }),
   }),
   overrideExisting: true,
 });
 
 export const {
   useGetAllFinancialHoldingsQuery,
-  useDeleteFinancialHoldingByIdMutation,
-  useGetArchivedFinancialHoldingsQuery
+  useArchiveFinancialHoldingByIdMutation,
+  useGetArchivedFinancialHoldingsQuery,
+  useUnarchiveFinancialHoldingByIdMutation,
+  usePermanentlyDeleteFinancialHoldingMutation
 } = extendedFinancialHoldingApiSlice;

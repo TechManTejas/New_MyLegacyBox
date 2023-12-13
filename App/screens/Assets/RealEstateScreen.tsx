@@ -17,7 +17,7 @@ import React, { useState } from "react";
 import AssetSharingModal from "../../components/Common/AssetSharingModal";
 import { BottomTabStackParamList } from "../../navigation/types";
 import NotesModal from "../../components/Common/NotesModal";
-import { useDeleteFinancialHoldingByIdMutation } from "../../redux/api/vault/financialHolding/allHoldings/allHoldings";
+import { useArchiveFinancialHoldingByIdMutation } from "../../redux/api/vault/financialHolding/allHoldings/allHoldings";
 import AssetDeleteModal from "../../components/Common/AssetDeleteModal";
 
 const RealEstateScreen = () => {
@@ -59,8 +59,8 @@ const RealEstateScreen = () => {
     setAssetToDelete({ isVisible: false, assedId: "" });
   };
 
-  const [deleteFinancialHoldingByIdMutation] =
-    useDeleteFinancialHoldingByIdMutation();
+  const [archiveFinancialHoldingByIdMutation] =
+    useArchiveFinancialHoldingByIdMutation();
 
   const styles = StyleSheet.create({
     container: {
@@ -228,7 +228,7 @@ const RealEstateScreen = () => {
         crossButtonCLick={closeAssetDeleteModal}
         assetDeleteModalVisible={assetToDelete.isVisible}
         archiveButtonCallback={() => {
-          deleteFinancialHoldingByIdMutation(assetToDelete.assedId).then(() => {
+          archiveFinancialHoldingByIdMutation(assetToDelete.assedId).then(() => {
             setAssetToDelete({ isVisible: false, assedId: "" });
           });
         }}

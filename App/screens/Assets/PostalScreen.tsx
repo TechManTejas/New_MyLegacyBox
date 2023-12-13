@@ -19,7 +19,7 @@ import { numberWithCommas } from "../../utils/manipulators";
 import React, { useState } from "react";
 import AssetSharingModal from "../../components/Common/AssetSharingModal";
 import NotesModal from "../../components/Common/NotesModal";
-import { useDeleteFinancialHoldingByIdMutation } from "../../redux/api/vault/financialHolding/allHoldings/allHoldings";
+import { useArchiveFinancialHoldingByIdMutation } from "../../redux/api/vault/financialHolding/allHoldings/allHoldings";
 import AssetDeleteModal from "../../components/Common/AssetDeleteModal";
 
 const PostalScreen = ({ route }) => {
@@ -59,8 +59,8 @@ const PostalScreen = ({ route }) => {
     setAssetToDelete({ isVisible: false, assedId: "" });
   };
 
-  const [deleteFinancialHoldingByIdMutation] =
-    useDeleteFinancialHoldingByIdMutation();
+  const [archiveFinancialHoldingByIdMutation] =
+    useArchiveFinancialHoldingByIdMutation();
 
   const styles = StyleSheet.create({
     container: {
@@ -206,7 +206,7 @@ const PostalScreen = ({ route }) => {
         crossButtonCLick={closeAssetDeleteModal}
         assetDeleteModalVisible={assetToDelete.isVisible}
         archiveButtonCallback={() => {
-          deleteFinancialHoldingByIdMutation(assetToDelete.assedId).then(() => {
+          archiveFinancialHoldingByIdMutation(assetToDelete.assedId).then(() => {
             setAssetToDelete({ isVisible: false, assedId: "" });
           });
         }}

@@ -20,7 +20,7 @@ import React, { useState } from "react";
 import AssetSharingModal from "../../components/Common/AssetSharingModal";
 import NotesModal from "../../components/Common/NotesModal";
 import AssetDeleteModal from "../../components/Common/AssetDeleteModal";
-import { useDeleteFinancialHoldingByIdMutation } from "../../redux/api/vault/financialHolding/allHoldings/allHoldings";
+import { useArchiveFinancialHoldingByIdMutation } from "../../redux/api/vault/financialHolding/allHoldings/allHoldings";
 
 const BankScreen = ({ route }) => {
   const navigation = useNavigation();
@@ -61,8 +61,8 @@ const BankScreen = ({ route }) => {
     setAssetToDelete({ isVisible: false, assedId: "" });
   };
 
-  const [deleteFinancialHoldingByIdMutation] =
-    useDeleteFinancialHoldingByIdMutation();
+  const [archiveFinancialHoldingByIdMutation] =
+    useArchiveFinancialHoldingByIdMutation();
 
   const styles = StyleSheet.create({
     container: {
@@ -217,7 +217,7 @@ const BankScreen = ({ route }) => {
         crossButtonCLick={closeAssetDeleteModal}
         assetDeleteModalVisible={assetToDelete.isVisible}
         archiveButtonCallback={() => {
-          deleteFinancialHoldingByIdMutation(assetToDelete.assedId).then(() => {
+          archiveFinancialHoldingByIdMutation(assetToDelete.assedId).then(() => {
             setAssetToDelete({ isVisible: false, assedId: "" });
           });
         }}
