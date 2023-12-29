@@ -90,7 +90,7 @@ const RegisterScreen = () => {
   const cardMessages = [
     <Text>Been there, Done that! <Text style={{ fontFamily: fontFamily.semiBold }}>What's next??</Text> </Text>,
     <Text>Just trying to do a little better everyday;</Text>,
-    <Text>We start again.. <Text style={{ fontFamily: fontFamily.semiBold }}>For the family this time!!</Text> </Text>,
+    <Text>We start again.. <Text style={{ fontFamily: fontFamily.semiBold }}>this time for the Family!!</Text> </Text>,
   ];
 
   const styles = StyleSheet.create({

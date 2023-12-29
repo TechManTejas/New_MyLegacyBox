@@ -174,6 +174,7 @@ const OrySelfServiceSignUpFlow = ({
             node={node}
             isSubmitting={inProgress}
             onSubmitPress={onPress}
+            
           />
         );
       })}

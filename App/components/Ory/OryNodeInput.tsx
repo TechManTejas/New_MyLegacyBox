@@ -130,8 +130,12 @@ const OryNodeInput = ({
     
   }, [])  
 
+  console.log(name);
+  
+
   return (
     <CustomInputGroup
+      optional={name==="traits.referralCode"}
       name={name}
       placeholder={`Enter your ${title}`}
       title={title}
