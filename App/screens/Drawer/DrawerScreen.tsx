@@ -27,8 +27,6 @@ const DrawerScreen = (props) => {
 
   const logout = useCallback(() => {
 
-    dispatch(rootApiSlice.util.resetApiState())
-
     kratosClient
       .performNativeLogout({
         performNativeLogoutBody: {
@@ -38,6 +36,7 @@ const DrawerScreen = (props) => {
       .then(() => {
         setSession(null).then(() => {
           navigation.navigate("ONBOARDING_SCREEN");
+          // dispatch(rootApiSlice.util.resetApiState())
         });
       })
       .catch((error) => {

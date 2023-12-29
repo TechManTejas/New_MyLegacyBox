@@ -61,7 +61,7 @@ export const extendedFinancialHoldingApiSlice = rootApiSlice.injectEndpoints({
         url: `/vault/financial-holdings/${financialHoldingId}`,
         method: "DELETE",
       }),
-      invalidatesTags: [QUERY_TAGS.archivedAssets],
+      invalidatesTags: [QUERY_TAGS.archivedAssets, QUERY_TAGS.financialHolding],
     }),
     getArchivedFinancialHoldings: builder.query({
       query: () => "/vault/archive-financial-holdings",

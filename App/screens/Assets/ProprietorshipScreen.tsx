@@ -11,8 +11,12 @@ import React, { useState } from "react";
 import AssetSharingModal from "../../components/Common/AssetSharingModal";
 import NotesModal from "../../components/Common/NotesModal";
 import { useGetFinancialHoldingForProprietorshipQuery } from "../../redux/api/vault/financialHolding/proprietorship/proprietorshipApiSlice";
-import { useDeleteFinancialHoldingByIdMutation } from "../../redux/api/vault/financialHolding/allHoldings/allHoldings";
+import {
+  useArchiveFinancialHoldingByIdMutation,
+  usePermanentlyDeleteFinancialHoldingMutation,
+} from "../../redux/api/vault/financialHolding/allHoldings/allHoldings";
 import AssetDeleteModal from "../../components/Common/AssetDeleteModal";
+import { HOLDINGS_PROPS_MAP } from "../../data/AllHoldingsPropsData";
 
 const ProprietorshipScreen = () => {
   const navigation = useNavigation();
@@ -46,8 +50,11 @@ const ProprietorshipScreen = () => {
     setAssetToDelete({ isVisible: false, assedId: "" });
   };
 
-  const [deleteFinancialHoldingByIdMutation] =
-    useDeleteFinancialHoldingByIdMutation();
+  const [archiveFinancialHoldingByIdMutation] =
+    useArchiveFinancialHoldingByIdMutation();
+
+  const [permanentlyDeleteFinancialHolding] =
+    usePermanentlyDeleteFinancialHoldingMutation();
 
   const styles = StyleSheet.create({
     container: {
@@ -84,10 +91,7 @@ const ProprietorshipScreen = () => {
           }
           renderItem={({ item }) => (
             <FinancialInstitutionHoldingItem
-              title={item.holding.organisationName}
-              updatedAt={item.updatedAt}
-              holdingClass={item.holdingClass}
-              content={[{ key: "GST Number", value: item.holding.gstNumber }]}
+              { ...HOLDINGS_PROPS_MAP.PROPRIETORSHIP(item) }
               editButtonCallBack={() => {
                 navigation.navigate(
                   SCREEN_NAMES.updateProprietorshipFinancialHoldingScreen,
@@ -163,12 +167,20 @@ const ProprietorshipScreen = () => {
         crossButtonCLick={closeAssetDeleteModal}
         assetDeleteModalVisible={assetToDelete.isVisible}
         archiveButtonCallback={() => {
-          deleteFinancialHoldingByIdMutation(assetToDelete.assedId).then(() => {
-            setAssetToDelete({ isVisible: false, assedId: "" });
-          });
+          archiveFinancialHoldingByIdMutation(assetToDelete.assedId).then(
+            () => {
+              setAssetToDelete({ isVisible: false, assedId: "" });
+            }
+          );
         }}
         deleteButtonCallback={() => {
-          console.log("delete button clicked");
+          permanentlyDeleteFinancialHolding(assetToDelete.assedId)
+            .then(() => {
+              setAssetToDelete({ isVisible: false, assedId: "" });
+            })
+            .catch((err) => {
+              console.log(err);
+            });
         }}
       />
     </View>

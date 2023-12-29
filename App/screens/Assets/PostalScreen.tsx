@@ -11,16 +11,16 @@ import { useSelector } from "react-redux";
 import { selectPostalById } from "../../redux/api/vault/financialArtifact/postal/postalApiSlice";
 import FinancialInstitutionInfoCard from "../../components/Common/FinancialInstitutionInfoCard";
 import FinancialInstitutionHoldingCard from "../../components/Common/FinancialInstitutionHoldingCard";
-import {
-  POSTAL_ACCOUNT_OWNERSHIP_TO_TITLE_MAP,
-  POSTAL_ACCOUNT_TYPES_TO_TITLE_MAP,
-} from "../../constants/financialHoldings/postalHolding";
-import { numberWithCommas } from "../../utils/manipulators";
+import { POSTAL_ACCOUNT_TYPES_TO_TITLE_MAP } from "../../constants/financialHoldings/postalHolding";
 import React, { useState } from "react";
 import AssetSharingModal from "../../components/Common/AssetSharingModal";
 import NotesModal from "../../components/Common/NotesModal";
-import { useArchiveFinancialHoldingByIdMutation } from "../../redux/api/vault/financialHolding/allHoldings/allHoldings";
+import {
+  useArchiveFinancialHoldingByIdMutation,
+  usePermanentlyDeleteFinancialHoldingMutation,
+} from "../../redux/api/vault/financialHolding/allHoldings/allHoldings";
 import AssetDeleteModal from "../../components/Common/AssetDeleteModal";
+import { HOLDINGS_PROPS_MAP } from "../../data/AllHoldingsPropsData";
 
 const PostalScreen = ({ route }) => {
   const navigation = useNavigation();
@@ -29,6 +29,9 @@ const PostalScreen = ({ route }) => {
 
   const { data, isLoading, isFetching } =
     useGetFinancialHoldingForPostalQuery(_id);
+
+  const [permanentlyDeleteFinancialHolding] =
+    usePermanentlyDeleteFinancialHoldingMutation();
 
   const {
     theme: { spacing, colors },
@@ -105,27 +108,7 @@ const PostalScreen = ({ route }) => {
           }
           renderItem={({ item }) => (
             <FinancialInstitutionHoldingCard
-              updatedAt={item.updatedAt}
-              holdingClass={item.holdingClass}
-              title={
-                POSTAL_ACCOUNT_TYPES_TO_TITLE_MAP[item.holding.accountType]
-              }
-              tagLabel={
-                POSTAL_ACCOUNT_OWNERSHIP_TO_TITLE_MAP[item.holding.ownership]
-              }
-              content={[
-                { key: "Account Number", value: item.holding.accountNumber },
-                {
-                  key: "Amount ",
-                  value: item.holding.amount
-                    ? `Rs. ${numberWithCommas(item.holding.amount)}`
-                    : "Not Available",
-                },
-                {
-                  key: "Nominee",
-                  value: item.holding.nominee || "Not Available",
-                },
-              ]}
+              {...HOLDINGS_PROPS_MAP.POSTAL(item)}
               editButtonCallBack={() => {
                 navigation.navigate(
                   SCREEN_NAMES.updatePostalFinancialHoldingScreen,
@@ -206,12 +189,20 @@ const PostalScreen = ({ route }) => {
         crossButtonCLick={closeAssetDeleteModal}
         assetDeleteModalVisible={assetToDelete.isVisible}
         archiveButtonCallback={() => {
-          archiveFinancialHoldingByIdMutation(assetToDelete.assedId).then(() => {
-            setAssetToDelete({ isVisible: false, assedId: "" });
-          });
+          archiveFinancialHoldingByIdMutation(assetToDelete.assedId).then(
+            () => {
+              setAssetToDelete({ isVisible: false, assedId: "" });
+            }
+          );
         }}
         deleteButtonCallback={() => {
-          console.log("delete button clicked");
+          permanentlyDeleteFinancialHolding(assetToDelete.assedId)
+            .then(() => {
+              setAssetToDelete({ isVisible: false, assedId: "" });
+            })
+            .catch((err) => {
+              console.log(err);
+            });
         }}
       />
     </View>

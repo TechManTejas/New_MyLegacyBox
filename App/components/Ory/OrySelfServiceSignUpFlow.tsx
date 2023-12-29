@@ -80,6 +80,7 @@ const OrySelfServiceSignUpFlow = ({
   only,
   onSubmit,
   textInputOverride,
+  cardNo, setCardNo
 }) => {
   const [inProgress, setInProgress] = useState(false);
   const [values, setValues] = useState({});
@@ -92,7 +93,7 @@ const OrySelfServiceSignUpFlow = ({
     theme: { spacing, fontFamily, colors },
   } = useTheme();
 
-  const [cardNo, setCardNo] = useState(0);
+  
 
   const onChange = (name) => (value) =>
     setValues((values) => ({ ...values, [name]: value }));

@@ -9,7 +9,11 @@ interface AssetDeleteModalProps {
   crossButtonCLick: () => void;
   archiveButtonCallback: () => void;
   deleteButtonCallback: () => void;
+  permanentlyDeleteButtonCallback: () => void;
   onRequestClose?: () => void;
+  infoTitle: string;
+  infoMessage: string;
+  cancelButtonCallBack: () => void;
 }
 
 const AssetDeleteModal: React.FC<AssetDeleteModalProps> = ({
@@ -18,6 +22,10 @@ const AssetDeleteModal: React.FC<AssetDeleteModalProps> = ({
   onRequestClose,
   archiveButtonCallback,
   deleteButtonCallback,
+  permanentlyDeleteButtonCallback,
+  cancelButtonCallBack,
+  infoTitle,
+  infoMessage,
 }) => {
   const {
     theme: { colors, fontFamily, fontSize, spacing },
@@ -91,7 +99,7 @@ const AssetDeleteModal: React.FC<AssetDeleteModalProps> = ({
         <View style={styles.card}>
           <View style={styles.header}>
             <Text style={styles.headerText}>
-              Are you sure you want to delete it ?
+              {infoTitle ? infoTitle : "Are you sure you want to delete it ?"}
             </Text>
             <Pressable onPress={crossButtonCLick}>
               <Entypo name="cross" size={24} color={colors.black200} />
@@ -101,22 +109,51 @@ const AssetDeleteModal: React.FC<AssetDeleteModalProps> = ({
           <View>
             <View>
               <WillInfoCard
-                content="you can archive data for future reference"
+                content={
+                  infoMessage
+                    ? infoMessage
+                    : "you can archive data for future reference"
+                }
                 backgroundColor={colors.white500}
               />
             </View>
             <View style={styles.buttonContainer}>
-              <Pressable style={styles.button} onPress={archiveButtonCallback}>
-                <Text style={styles.buttonText}>Archive</Text>
-              </Pressable>
-              <Pressable
-                style={[styles.button, styles.secondaryBtn]}
-                onPress={deleteButtonCallback}
-              >
-                <Text style={[styles.buttonText, styles.secondaryText]}>
-                  Delete
-                </Text>
-              </Pressable>
+              {archiveButtonCallback && (
+                <Pressable
+                  style={styles.button}
+                  onPress={archiveButtonCallback}
+                >
+                  <Text style={styles.buttonText}>Archive</Text>
+                </Pressable>
+              )}
+              {deleteButtonCallback && (
+                <Pressable
+                  style={[styles.button, styles.secondaryBtn]}
+                  onPress={deleteButtonCallback}
+                >
+                  <Text style={[styles.buttonText, styles.secondaryText]}>
+                    Delete
+                  </Text>
+                </Pressable>
+              )}
+              {permanentlyDeleteButtonCallback && (
+                <Pressable
+                  style={styles.button}
+                  onPress={permanentlyDeleteButtonCallback}
+                >
+                  <Text style={styles.buttonText}>Delete</Text>
+                </Pressable>
+              )}
+              {cancelButtonCallBack && (
+                <Pressable
+                  style={[styles.button, styles.secondaryBtn]}
+                  onPress={cancelButtonCallBack}
+                >
+                  <Text style={[styles.buttonText, styles.secondaryText]}>
+                    Cancel
+                  </Text>
+                </Pressable>
+              )}
             </View>
           </View>
         </View>

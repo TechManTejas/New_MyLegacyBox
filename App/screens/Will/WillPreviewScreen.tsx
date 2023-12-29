@@ -28,7 +28,6 @@ import { PROVIDENT_FUND_TYPE_TO_TITLE_MAP } from "../../constants/financialHoldi
 import WillBeneficiaryPrevModeToggler from "../../components/Will/WillBeneficiaryPrevModeToggler";
 import WillSecondaryDistPrevCard from "../../components/Will/WillSecondaryDistPrevCard";
 import WillResidualDistPrevCard from "../../components/Will/WillResidualDistPrevCard";
-import WillAssetBeneficiaryToggler from "../../components/Will/WillAssetBeneficiaryToggler";
 import { Switch } from "react-native-paper";
 
 const WillPreviewScreen = () => {
@@ -378,7 +377,16 @@ const WillPreviewScreen = () => {
 
         {distributionView ? (
           <View style={{ marginTop: spacing.md }}>
-            {rawWill.beneficiaries.map((beneficiary, idx) => {
+            {rawWill.beneficiaries.filter((beneficiary) => {
+                if (rawWill.assets) {
+                  let sum = 0;
+                  rawWill.assets.forEach((asset) => {
+                    sum += asset.allocations[beneficiary._id];
+                  });
+                  return sum != 0;
+                }
+                return false;
+              }).map((beneficiary, idx) => {
               return (
                 <View key={idx} style={styles.beneficiaryContainer}>
                   <View style={styles.beneficiaryNameEmail}>
@@ -400,7 +408,7 @@ const WillPreviewScreen = () => {
                   </View>
 
                   <View style={{ marginTop: spacing.md }}>
-                    {rawWill.assets.map((asset, idx2) => {
+                    {rawWill.assets.filter(asset => asset.allocations[beneficiary._id] >0 ).map((asset, idx2) => {
                       if (
                         Object.keys(asset.allocations).some(
                           (id) => id === beneficiary._id

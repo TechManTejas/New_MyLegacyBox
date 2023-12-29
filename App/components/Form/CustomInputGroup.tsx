@@ -69,6 +69,7 @@ interface CustomInputGroup {
   textTransformNormal?: boolean;
   info?: React.JSX.Element;
   loader?: boolean;
+  defaultValue?: string
 }
 
 const CustomInputGroup: React.FC<CustomInputGroup> = ({
@@ -97,6 +98,7 @@ const CustomInputGroup: React.FC<CustomInputGroup> = ({
   info,
   loader,
   marginBottom,
+  defaultValue,
   ...extraProps
 }) => {
   const [_, setHasError] = useState(false);
@@ -258,7 +260,9 @@ const CustomInputGroup: React.FC<CustomInputGroup> = ({
           textContentType={textContentType}
           placeholderTextColor={styles.placeholder.color}
           multiline={multiline}
+          defaultValue={defaultValue}
           {...extraProps}
+          
         />
         {IconRightComponent ? (
           <IconRightComponent

@@ -177,7 +177,7 @@ const BankForm: React.FC<BankFormProps> = ({
         address: {
           city: initialValues?.address?.city || "",
           state: initialValues?.address?.state || "",
-          pinCode: initialValues?.address?.pinCode || undefined,
+          pinCode: initialValues?.address?.pinCode || "",
           street: initialValues?.address?.street || "",
           country: initialValues?.address?.country || "",
         },

@@ -17,8 +17,12 @@ import React, { useState } from "react";
 import AssetSharingModal from "../../components/Common/AssetSharingModal";
 import { BottomTabStackParamList } from "../../navigation/types";
 import NotesModal from "../../components/Common/NotesModal";
-import { useArchiveFinancialHoldingByIdMutation } from "../../redux/api/vault/financialHolding/allHoldings/allHoldings";
+import {
+  useArchiveFinancialHoldingByIdMutation,
+  usePermanentlyDeleteFinancialHoldingMutation,
+} from "../../redux/api/vault/financialHolding/allHoldings/allHoldings";
 import AssetDeleteModal from "../../components/Common/AssetDeleteModal";
+import { HOLDINGS_PROPS_MAP } from "../../data/AllHoldingsPropsData";
 
 const RealEstateScreen = () => {
   const navigation = useNavigation();
@@ -62,6 +66,9 @@ const RealEstateScreen = () => {
   const [archiveFinancialHoldingByIdMutation] =
     useArchiveFinancialHoldingByIdMutation();
 
+  const [permanentlyDeleteFinancialHolding] =
+    usePermanentlyDeleteFinancialHoldingMutation();
+
   const styles = StyleSheet.create({
     container: {
       flex: 1,
@@ -97,62 +104,7 @@ const RealEstateScreen = () => {
           }
           renderItem={({ item }) => (
             <FinancialInstitutionHoldingItem
-              title={item.holding.propertyName}
-              holdingClass={item.holdingClass}
-              tagLabel={
-                REAL_ESTATE_OWNERSHIP_STATUS_TO_TITLE_MAP[
-                  item.holding.ownershipStatus
-                ]
-              }
-              updatedAt={item.updatedAt}
-              content={[
-                {
-                  key: "Nominee",
-                  value: item.holding.nominee || "Not Available",
-                },
-                {
-                  key: "Ownership share",
-                  value: `${item.holding.ownershipPercentage} %`,
-                },
-                {
-                  key: "Area",
-                  value: item.holding.propertyArea
-                    ? `${item.holding.propertyArea}${
-                        item.holding.propertyAreaUnit
-                          ? " " +
-                            REAL_ESTATE_PROPERTY_AREA_UNIT_TO_TITLE_MAP[
-                              item.holding.propertyAreaUnit
-                            ]
-                          : ""
-                      }`
-                    : "Not available",
-                },
-                {
-                  key: "Property Value",
-                  value: item.holding.propertyValue
-                    ? `Rs. ${numberWithCommas(item.holding.propertyValue)}`
-                    : "Not Available",
-                },
-                {
-                  key: "Date of Purchase",
-                  value: item.holding.dateOfPurchase
-                    ? new Date(item.holding.dateOfPurchase)
-                        .toDateString()
-                        .replace(/^\w+ /, "")
-                    : "Not available",
-                },
-                { type: "divider" },
-                {
-                  key: "Address",
-                  value: item.holding.address
-                    ? `${item.holding.address.street},\n ${item.holding.address.city}, ${item.holding.address.state}, ${item.holding.address.pinCode}`
-                    : "Not Available",
-                },
-                {
-                  key: "Description",
-                  value: item.holding.decription || "Not Available",
-                },
-              ]}
+              { ...HOLDINGS_PROPS_MAP.REALESTATE(item) }
               editButtonCallBack={() => {
                 navigation.navigate(
                   SCREEN_NAMES.updateRealEstateFinancialHoldingScreen,
@@ -228,12 +180,20 @@ const RealEstateScreen = () => {
         crossButtonCLick={closeAssetDeleteModal}
         assetDeleteModalVisible={assetToDelete.isVisible}
         archiveButtonCallback={() => {
-          archiveFinancialHoldingByIdMutation(assetToDelete.assedId).then(() => {
-            setAssetToDelete({ isVisible: false, assedId: "" });
-          });
+          archiveFinancialHoldingByIdMutation(assetToDelete.assedId).then(
+            () => {
+              setAssetToDelete({ isVisible: false, assedId: "" });
+            }
+          );
         }}
         deleteButtonCallback={() => {
-          console.log("delete button clicked");
+          permanentlyDeleteFinancialHolding(assetToDelete.assedId)
+            .then(() => {
+              setAssetToDelete({ isVisible: false, assedId: "" });
+            })
+            .catch((err) => {
+              console.log(err);
+            });
         }}
       />
     </View>

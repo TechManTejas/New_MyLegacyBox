@@ -11,14 +11,21 @@ import React, { useState } from "react";
 import AssetSharingModal from "../../components/Common/AssetSharingModal";
 import NotesModal from "../../components/Common/NotesModal";
 import { useGetFinancialHoldingForPartnershipQuery } from "../../redux/api/vault/financialHolding/partnership/partnershipApiSlice";
-import { useDeleteFinancialHoldingByIdMutation } from "../../redux/api/vault/financialHolding/allHoldings/allHoldings";
+import {
+  useArchiveFinancialHoldingByIdMutation,
+  usePermanentlyDeleteFinancialHoldingMutation,
+} from "../../redux/api/vault/financialHolding/allHoldings/allHoldings";
 import AssetDeleteModal from "../../components/Common/AssetDeleteModal";
+import { HOLDINGS_PROPS_MAP } from "../../data/AllHoldingsPropsData";
 
 const PartnershipScreen = () => {
   const navigation = useNavigation();
 
   const { data, isLoading, isFetching } =
     useGetFinancialHoldingForPartnershipQuery();
+
+  const [permanentlyDeleteFinancialHolding] =
+    usePermanentlyDeleteFinancialHoldingMutation();
 
   const {
     theme: { spacing, colors },
@@ -46,8 +53,8 @@ const PartnershipScreen = () => {
     setAssetToDelete({ isVisible: false, assedId: "" });
   };
 
-  const [deleteFinancialHoldingByIdMutation] =
-    useDeleteFinancialHoldingByIdMutation();
+  const [archiveFinancialHoldingByIdMutation] =
+    useArchiveFinancialHoldingByIdMutation();
 
   const styles = StyleSheet.create({
     container: {
@@ -84,13 +91,7 @@ const PartnershipScreen = () => {
           }
           renderItem={({ item }) => (
             <FinancialInstitutionHoldingItem
-              title={item.holding.nameOfFirm}
-              updatedAt={item.updatedAt}
-              holdingClass={item.holdingClass}
-              content={[
-                { key: "PAN Number", value: item.holding.panNumber },
-                { key: "Holding %", value: item.holding.percentageHolding },
-              ]}
+              { ...HOLDINGS_PROPS_MAP.PARTNERSHIP(item) }
               editButtonCallBack={() => {
                 navigation.navigate(
                   SCREEN_NAMES.updatePartnershipFinancialHoldingScreen,
@@ -166,12 +167,20 @@ const PartnershipScreen = () => {
         crossButtonCLick={closeAssetDeleteModal}
         assetDeleteModalVisible={assetToDelete.isVisible}
         archiveButtonCallback={() => {
-          deleteFinancialHoldingByIdMutation(assetToDelete.assedId).then(() => {
-            setAssetToDelete({ isVisible: false, assedId: "" });
-          });
+          archiveFinancialHoldingByIdMutation(assetToDelete.assedId).then(
+            () => {
+              setAssetToDelete({ isVisible: false, assedId: "" });
+            }
+          );
         }}
         deleteButtonCallback={() => {
-          console.log("delete button clicked");
+          permanentlyDeleteFinancialHolding(assetToDelete.assedId)
+            .then(() => {
+              setAssetToDelete({ isVisible: false, assedId: "" });
+            })
+            .catch((err) => {
+              console.log(err);
+            });
         }}
       />
     </View>

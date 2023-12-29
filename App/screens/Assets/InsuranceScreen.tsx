@@ -11,17 +11,16 @@ import { useSelector } from "react-redux";
 import { selectInsuranceById } from "../../redux/api/vault/financialArtifact/insurance/insuranceApiSlice";
 import FinancialInstitutionInfoCard from "../../components/Common/FinancialInstitutionInfoCard";
 import FinancialInstitutionHoldingCard from "../../components/Common/FinancialInstitutionHoldingCard";
-import {
-  POLICY_BENEFICIERY_TO_TITLE_MAP,
-  POLICY_PREMIUM_FREQUENCY_TO_TITLE_MAP,
-  POLICY_TYPE_TO_TITLE_MAP,
-} from "../../constants/financialHoldings/insuranceHolding";
-import { numberWithCommas } from "../../utils/manipulators";
+import { POLICY_TYPE_TO_TITLE_MAP } from "../../constants/financialHoldings/insuranceHolding";
 import React, { useState } from "react";
 import AssetSharingModal from "../../components/Common/AssetSharingModal";
 import NotesModal from "../../components/Common/NotesModal";
-import { useArchiveFinancialHoldingByIdMutation } from "../../redux/api/vault/financialHolding/allHoldings/allHoldings";
+import {
+  useArchiveFinancialHoldingByIdMutation,
+  usePermanentlyDeleteFinancialHoldingMutation,
+} from "../../redux/api/vault/financialHolding/allHoldings/allHoldings";
 import AssetDeleteModal from "../../components/Common/AssetDeleteModal";
+import { HOLDINGS_PROPS_MAP } from "../../data/AllHoldingsPropsData";
 
 const InsuranceScreen = ({ route }) => {
   const navigation = useNavigation();
@@ -30,7 +29,10 @@ const InsuranceScreen = ({ route }) => {
 
   const { data, isLoading, isFetching } =
     useGetFinancialHoldingForInsuranceQuery(_id);
-  
+
+  const [permanentlyDeleteFinancialHolding] =
+    usePermanentlyDeleteFinancialHoldingMutation();
+
   const {
     theme: { spacing, colors },
   } = useTheme();
@@ -106,56 +108,7 @@ const InsuranceScreen = ({ route }) => {
           }
           renderItem={({ item }) => (
             <FinancialInstitutionHoldingCard
-              holdingClass={item.holdingClass}
-              title={item.holding.policyName}
-              updatedAt={item.updatedAt}
-              tagLabel={POLICY_TYPE_TO_TITLE_MAP[item.holding.policyType]}
-              content={[
-                { key: "Home Branch ", value: item.holding.homeBranch },
-                { key: "Policy Number ", value: item.holding.policyNumber },
-                {
-                  key: "Beneficiary ",
-                  value:
-                    POLICY_BENEFICIERY_TO_TITLE_MAP[item.holding.beneficiary],
-                },
-                {
-                  key: "Nominee",
-                  value: item.holding.nominee || "Not Available",
-                },
-                { type: "divider" },
-                {
-                  key: "Policy Amount ",
-                  value: item.holding.policyAmount
-                    ? `Rs. ${numberWithCommas(item.holding.policyAmount)}`
-                    : "Not Available",
-                },
-                {
-                  key: "Date of Maturity ",
-                  value: new Date(item.holding.dateOfMaturity)
-                    .toDateString()
-                    .replace(/^\w+ /, ""),
-                },
-                { type: "divider" },
-                {
-                  key: "Premium Amount ",
-                  value: item.holding.premiumAmount
-                    ? `Rs. ${numberWithCommas(item.holding.premiumAmount)}`
-                    : "Not Available",
-                },
-                {
-                  key: "Date of Premium ",
-                  value: new Date(item.holding.dateOfPremium)
-                    .toDateString()
-                    .replace(/^\w+ /, ""),
-                },
-                {
-                  key: "Premium Frequency ",
-                  value:
-                    POLICY_PREMIUM_FREQUENCY_TO_TITLE_MAP[
-                      item.holding.premiumFrequency
-                    ],
-                },
-              ]}
+              {...HOLDINGS_PROPS_MAP.INSURANCE(item)}
               editButtonCallBack={() => {
                 navigation.navigate(
                   SCREEN_NAMES.updateInsuranceFinancialHoldingScreen,
@@ -236,12 +189,20 @@ const InsuranceScreen = ({ route }) => {
         crossButtonCLick={closeAssetDeleteModal}
         assetDeleteModalVisible={assetToDelete.isVisible}
         archiveButtonCallback={() => {
-          archiveFinancialHoldingByIdMutation(assetToDelete.assedId).then(() => {
-            setAssetToDelete({ isVisible: false, assedId: "" });
-          });
+          archiveFinancialHoldingByIdMutation(assetToDelete.assedId).then(
+            () => {
+              setAssetToDelete({ isVisible: false, assedId: "" });
+            }
+          );
         }}
         deleteButtonCallback={() => {
-          console.log("delete button clicked");
+          permanentlyDeleteFinancialHolding(assetToDelete.assedId)
+            .then(() => {
+              setAssetToDelete({ isVisible: false, assedId: "" });
+            })
+            .catch((err) => {
+              console.log(err);
+            });
         }}
       />
     </View>

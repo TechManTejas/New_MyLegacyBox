@@ -4,12 +4,69 @@ import {
   createSelector,
   createSlice,
 } from "@reduxjs/toolkit";
-import {
-  BeneficiaryType,
-  ExecutorType,
-  PersonalInfoType,
-  WitnessType,
-} from "../../../types/entity";
+
+interface PersonalInfoProps {
+  _id: string;
+  aadharNumber: string;
+  address: {
+    city: string;
+    country: string;
+    pinCode: number;
+    state: string;
+    street: string;
+  };
+  age: number;
+  dateOfBirth: string;
+  fathersName: string;
+  fullName: string;
+  gender: string;
+  uid: string;
+}
+
+interface NomineeProps {
+  _id: string;
+  email: string;
+  fullName: string;
+  gender: string;
+  phoneNumber: string;
+  relationship: string;
+}
+
+interface BeneficiaryProps extends NomineeProps {
+  address: {
+    city: string;
+    pinCode: number;
+    state: string;
+    street: string;
+  };
+  fathersName: string;
+  aadharNumber: string;
+  age?: number;
+}
+
+interface WitnessProps extends NomineeProps {
+  address?: {
+    city: string;
+    pinCode: number;
+    state: string;
+    street: string;
+  };
+  age?: number;
+  fathersName?: string;
+  aadharNumber?: string;
+}
+
+interface ExecutorProps extends NomineeProps {
+  aadharNumber: string;
+  address?: {
+    city: string;
+    pinCode: number;
+    state: string;
+    street: string;
+  };
+  age?: number;
+  fathersName?: string;
+}
 
 interface WillFormSliceType {
   _id: string;
@@ -21,10 +78,10 @@ const selectedAssetsAdapter = createEntityAdapter<WillFormSliceType>({
 });
 
 interface initialStateType {
-  personalInfo: PersonalInfoType | {};
-  witnesses: WitnessType[];
-  beneficiaries: BeneficiaryType[];
-  executors: ExecutorType[];
+  personalInfo?: PersonalInfoProps | {};
+  witnesses: WitnessProps[];
+  beneficiaries: BeneficiaryProps[];
+  executors: ExecutorProps[];
   assets: any[];
   declarationInfo: {
     place: string;
@@ -140,7 +197,6 @@ export const {
   setBeneficiaryRedux,
   setExecutorRedux,
   setWitnessRedux,
-
   setWillRolesTracker,
   addResidualDistData,
   addSecondaryDistData,

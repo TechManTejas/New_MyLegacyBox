@@ -18,12 +18,8 @@ import PersonalInfoScreen from "../../screens/Drawer/PersonalInfoScreen";
 import DrawerScreen from "../../screens/Drawer/DrawerScreen";
 import FeedbackScreen from "../../screens/Drawer/FeedbackScreen";
 import ContactUsScreen from "../../screens/Drawer/ContactUsScreen";
-import FAQScreen from "../../screens/Drawer/FAQScreen";
 import PrivacyPolicyScreen from "../../screens/Drawer/PrivacyPolicyScreen";
 import AboutUsScreen from "../../screens/Drawer/AboutUsScreen";
-import NominatorsListScreen from "../../screens/Drawer/SharedArtifacts/NominatorsListScreen";
-import AppToursScreen from "../../screens/Drawer/AppToursScreen";
-import ArchivedAssetsScreen from "../../screens/Drawer/ArchivedAssetsScreen";
 
 const Drawer = createDrawerNavigator<DrawerStackParamList>();
 
@@ -77,20 +73,7 @@ const DrawerNavigator: React.FC<StackType> = ({ Stack }) => {
           blur: () => navigation.setParams({ goBack: undefined }),
         })}
       />
-      <Drawer.Screen
-        name={"NOMINATORS_LIST_SCREEN"}
-        component={NominatorsListScreen}
-        options={{
-          title: "Shared with me",
-        }}
-      />
-      <Drawer.Screen
-        name={"ARCHIVED_ASSETS_SCREEN"}
-        component={ArchivedAssetsScreen}
-        options={{
-          title: "Archived Assets",
-        }}
-      />
+
       <Drawer.Screen
         name={"FEEDBACK_SCREEN"}
         component={FeedbackScreen}
@@ -98,13 +81,7 @@ const DrawerNavigator: React.FC<StackType> = ({ Stack }) => {
           title: "Feedback",
         }}
       />
-      <Drawer.Screen
-        name={"APP_TOURS_SCREEN"}
-        component={AppToursScreen}
-        options={{
-          title: "App Tours",
-        }}
-      />
+
       <Drawer.Screen
         name={"ABOUT_US"}
         component={AboutUsScreen}
@@ -119,13 +96,7 @@ const DrawerNavigator: React.FC<StackType> = ({ Stack }) => {
           title: "Privacy policy",
         }}
       />
-      <Drawer.Screen
-        name={"FAQ"}
-        component={FAQScreen}
-        options={{
-          title: "FAQ",
-        }}
-      />
+
       <Drawer.Screen
         name={"CONTACT_US"}
         component={ContactUsScreen}

@@ -2,11 +2,11 @@ import React from "react";
 import { StyleSheet, Text, View, StatusBar } from "react-native";
 import { useTheme } from "../../theme/ThemeProvider";
 import { useIsFocused } from "@react-navigation/native";
-import MajorMenu from "../../components/Common/MajorMenu";
 import {
-  BUSINESS_SHARES_DATA,
-  PRIVATE_SHARES_DATA,
-} from "../../data/SharesAndSecurityData";
+  DEMAT_PRIVATE_SHARES_MENU_DATA,
+  DEMAT_BUSINESS_SHARES_NEMU_DATA,
+} from "../../data/MenuPropsData";
+import SolidIconMenu from "../../components/SolidIconMenu";
 
 const SharesAndScurityListScreen = () => {
   const {
@@ -40,10 +40,10 @@ const SharesAndScurityListScreen = () => {
         <StatusBar barStyle="dark-content" backgroundColor={colors.white100} />
       ) : null}
       <Text style={styles.sectiontitle}>Private Investment</Text>
-      <MajorMenu menuData={PRIVATE_SHARES_DATA} />
+      <SolidIconMenu data={DEMAT_PRIVATE_SHARES_MENU_DATA} isLarge />
 
       <Text style={styles.sectiontitle}>Business Investment</Text>
-      <MajorMenu menuData={BUSINESS_SHARES_DATA} />
+      <SolidIconMenu data={DEMAT_BUSINESS_SHARES_NEMU_DATA} isLarge />
     </View>
   );
 };

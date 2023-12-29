@@ -4,7 +4,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useTheme } from "../../theme/ThemeProvider";
 
 interface CustomSafeViewProps {
-  children?: React.ReactNode[];
+  children?: React.ReactNode;
   safeViewStyle?: StyleProp<ViewStyle>;
 }
 

@@ -38,8 +38,9 @@ const WillAssetDisplayCard = ({ asset }) => {
       marginBottom: spacing.md,
     },
     button: {
-      marginLeft: spacing.sm,
-      backgroundColor: colors.black100,
+      marginLeft: spacing.xxs,
+      // backgroundColor: colors.black100,
+      marginBottom: spacing.xxs,
       padding: spacing.xs,
       borderRadius: spacing.xs,
     },
@@ -243,8 +244,8 @@ const WillAssetDisplayCard = ({ asset }) => {
         <Text style={styles.itemTitle}>{asset.itemTitle}</Text>
         <Pressable onPress={toggleInfoButton} style={styles.button}>
           <FontAwesome
-            name={infoCardVisible ? "arrow-up" : "arrow-down"}
-            size={10}
+            name={infoCardVisible ? "caret-up" : "caret-down"}
+            size={14}
             color={colors.black300}
           />
         </Pressable>

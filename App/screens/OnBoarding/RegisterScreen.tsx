@@ -17,6 +17,10 @@ import CustomSafeView from "../../components/Common/CustomSafeView";
 import CustomKeyboardAvoidingScrollView from "../../components/Common/CustomKeyboardAvoidingScrollView";
 import CustomActivityIndicator from "../../components/Common/CustomActivityIndicator";
 import OrySelfServiceSignUpFlow from "../../components/Ory/OrySelfServiceSignUpFlow";
+import ProgressTracker from "../../components/ProgressTracker";
+import UserGroup from "../../assets/icons/users-group.svg"
+import ShieldHeart from "../../assets/icons/shield-heart.svg"
+import Seeding from "../../assets/icons/seeding.svg"
 
 const RegisterScreen = () => {
   const isFoucused = useIsFocused();
@@ -58,7 +62,6 @@ const RegisterScreen = () => {
   }, []);
 
   const onSubmit = (values) => {
-
     return flow
       ? kratosClient
           .updateRegistrationFlow({
@@ -81,6 +84,14 @@ const RegisterScreen = () => {
           .catch(handleFormSubmitError(setFlow, initiateFlow))
       : Promise.resolve();
   };
+
+  const [cardNo, setCardNo] = useState(0);
+
+  const cardMessages = [
+    <Text>Been there, Done that! <Text style={{ fontFamily: fontFamily.semiBold }}>What's next??</Text> </Text>,
+    <Text>Just trying to do a little better everyday;</Text>,
+    <Text>And here we start again. <Text style={{ fontFamily: fontFamily.semiBold }}>For the family this time!!</Text> </Text>,
+  ];
 
   const styles = StyleSheet.create({
     safeView: {
@@ -154,7 +165,50 @@ const RegisterScreen = () => {
 
         <View style={styles.formWrapper}>
           <View style={styles.formContainer}>
-            <OrySelfServiceSignUpFlow flow={flow} onSubmit={onSubmit} />
+            <OrySelfServiceSignUpFlow
+              cardNo={cardNo}
+              setCardNo={setCardNo}
+              flow={flow}
+              onSubmit={onSubmit}
+            />
+
+            <ProgressTracker
+              icons={[Seeding, UserGroup, ShieldHeart]}
+              currentColor={colors.green600}
+              activeColor={colors.green600}
+              inActiveColor={colors.black300}
+              size={fontSize.xl}
+              currentIndex={cardNo}
+              style={{ marginTop: spacing.xl }}
+            />
+
+            <View
+              style={{
+                alignItems: "center",
+                marginTop: spacing.xxl,
+                flexDirection: "row",
+                paddingHorizontal: spacing.sm,
+                paddingVertical: spacing.md,
+                borderRadius: spacing.sm,
+                
+              }}
+            >
+              <Text style={{ fontSize: fontSize.xxl, marginTop: -spacing.xs }}>✨</Text>
+              <Text
+                style={{
+                  fontFamily: fontFamily.regular,
+                  fontSize: fontSize.md,
+                  lineHeight: fontSize.default,
+                  color: colors.blue400,
+                  flexWrap:"wrap",
+                  flexShrink: 1,
+                  paddingLeft: spacing.md
+                }}
+              >
+                {cardMessages[cardNo]}
+              </Text>
+            </View>
+
             <View style={styles.formFooter}>
               <Text style={styles.caption}>
                 By signing in you agree to our{" "}

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Pressable, StyleSheet, Text } from "react-native";
 import {
   getNodeId,
@@ -11,6 +11,7 @@ import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import { useTheme } from "../../theme/ThemeProvider";
 import { useRoute } from "@react-navigation/core";
 import { SCREEN_NAMES } from "../../constants/screenNames";
+import { getItemAsync } from "expo-secure-store";
 
 const guessAttributeVariant = ({ attributes }) => {
   if (!isUiNodeInputAttributes(attributes)) {
@@ -37,17 +38,6 @@ const guessAttributeVariant = ({ attributes }) => {
   }
 };
 
-const typeToState = ({ type, disabled }) => {
-  if (disabled) {
-    return "disabled";
-  }
-  switch (type) {
-    case "error":
-      return "error";
-  }
-  return undefined;
-};
-
 const OryNodeInput = ({
   node,
   value,
@@ -56,7 +46,11 @@ const OryNodeInput = ({
   textInputOverride,
 }) => {
   const variant = guessAttributeVariant(node);
+  
+  const route = useRoute();
   const [showPassword, setShowPassword] = useState(false);
+  const [lastUsedEmail, setLastUsedEmail] = useState("");
+
 
   if (!variant) return null;
 
@@ -95,7 +89,6 @@ const OryNodeInput = ({
       extraProps.textContentType = "username";
       extraProps.autoCapitalize = "none";
       extraProps.autoCorrect = false;
-      // extra props for displaying custom placeholder
       extraProps.placeholderSuffix = "/ email";
       break;
     case "phone":
@@ -104,9 +97,9 @@ const OryNodeInput = ({
       extraProps.maxLength = 13;
   }
 
-  if (textInputOverride) {
+  if (textInputOverride) 
     extraProps = textInputOverride(node, extraProps);
-  }
+  
 
   const name = getNodeId(node);
   const title = metaLabelModifier(getNodeTitle(node));
@@ -124,7 +117,18 @@ const OryNodeInput = ({
     },
   });
 
-  const route = useRoute()
+  
+
+  useEffect(() => {
+    getItemAsync("lastUsedEmail").then((email) => {
+      if (email) {
+        value = route.name === "LOGIN_SCREEN" && name === "identifier" ? email : value
+        setLastUsedEmail(email)
+      }
+    });
+
+    
+  }, [])  
 
   return (
     <CustomInputGroup
@@ -133,6 +137,8 @@ const OryNodeInput = ({
       title={title}
       onChange={onChange}
       onChangeText={onChange}
+      // defaultValue={route.name === "LOGIN_SCREEN" && name === "identifier" && lastUsedEmail ? lastUsedEmail : ""}
+      // value={route.name === "LOGIN_SCREEN" && name === "identifier" && lastUsedEmail ? lastUsedEmail : ""}
       value={value ? String(value) : ""}
       disabled={disabled}
       messages={node.messages}

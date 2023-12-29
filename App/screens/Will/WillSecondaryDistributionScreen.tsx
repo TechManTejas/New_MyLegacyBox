@@ -69,7 +69,9 @@ const WillSecondaryDistributionScreen = () => {
             return {
               id: index2,
               beneficiary: item2,
-              percent: individualDist ? individualDist.percent : "0",
+              percent: individualDist
+                ? String(Number(individualDist.percent))
+                : "",
             };
           }),
       };
@@ -109,18 +111,21 @@ const WillSecondaryDistributionScreen = () => {
   };
 
   const onChangeText = (val: string, index: number, nestedIndex: number) => {
+    setState((prev) => {
+      const prevState = [...prev];
+      const findToUpdate = prevState.find((obj) => obj.id === index);
+      const findToUpdate2 = findToUpdate["distribution"].find(
+        (inputElem) => inputElem.id === nestedIndex
+      );
 
-      
-      setState((prev) => {
-        const prevState = [...prev];
-        const findToUpdate = prevState.find((obj) => obj.id === index);
-        const findToUpdate2 = findToUpdate["distribution"].find(
-          (inputElem) => inputElem.id === nestedIndex
-        );
-        findToUpdate2["percent"] = `${Number(val)}`;
-        return prevState;
-      });
-    
+      if (!Number.isNaN(Number(val))) {
+        val.charAt(val.length - 1) === "."
+          ? (findToUpdate2["percent"] = val)
+          : (findToUpdate2["percent"] = `${Number(val)}`);
+      }
+
+      return prevState;
+    });
   };
 
   const dispatch = useDispatch();
@@ -133,7 +138,7 @@ const WillSecondaryDistributionScreen = () => {
       if (elem.distType === 2) {
         hasType2 = true;
         total += elem.distribution.reduce((acc, curr) => {
-          return acc + Number(curr.percent);
+          return acc + Number(curr?.percent ?? 0);
         }, 0);
       }
     });

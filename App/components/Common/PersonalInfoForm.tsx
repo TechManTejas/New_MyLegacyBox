@@ -42,7 +42,7 @@ const PersonalInfoForm = () => {
   useEffect(() => {
     setInitialValues(
       data?.data && typeof data.data === "object" ? data.data : {}
-    );
+    );  
   }, [data]);
 
   const [savePersonalInfo, { isLoading }] = useSavePersonalInfoMutation();
@@ -55,6 +55,9 @@ const PersonalInfoForm = () => {
     show: false,
     property: "",
   });
+
+  console.log(datePickerOptions);
+  
 
   const formRef = useRef();
 
@@ -219,7 +222,7 @@ const PersonalInfoForm = () => {
             address: {
               city: initialValues?.address?.city || "",
               state: initialValues?.address?.state || "",
-              pinCode: initialValues?.address?.pinCode || undefined,
+              pinCode: initialValues?.address?.pinCode || "",
               street: initialValues?.address?.street || "",
               country: initialValues?.address?.country || "",
             },
@@ -242,7 +245,7 @@ const PersonalInfoForm = () => {
                       }
                       mode="date"
                       display="default"
-                      onChangeText={(event, selectedDate) => {
+                      onChange={(event, selectedDate) => {
                         setDatePickerOptions({
                           show: false,
                           property: datePickerOptions.property,

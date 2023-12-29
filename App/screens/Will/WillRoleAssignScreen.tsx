@@ -100,17 +100,21 @@ const WillRoleAssigncreen = () => {
               <WillTab
                 showPlusIcon
                 areNomineesDisplayed={showNominee.guardians}
+                tabSubTitle={
+                  beneficiaries
+                    .filter((beneficiary) => beneficiary.age < 18)
+                    .every((beneficiary) =>
+                      beneficiary.hasOwnProperty("guardian")
+                    )
+                    ? undefined
+                    : "Guardian not assigned for some minors"
+                }
                 icon={
                   <UsersGroup
                     height={24}
                     width={24}
                     color={
-                      beneficiaries.filter(
-                        (beneficiary) => beneficiary.age < 18
-                      ).length > 0 &&
-                      beneficiaries
-                        .filter((beneficiary) => beneficiary.age < 18)
-                        .every((beneficiary) => beneficiary.guardian)
+                      beneficiaries.some((beneficiary) => beneficiary.guardian)
                         ? colors.green500
                         : beneficiaries.every(
                             (beneficiary) => beneficiary.age >= 18
@@ -138,13 +142,9 @@ const WillRoleAssigncreen = () => {
                 disabled={beneficiaries.every(
                   (beneficiary) => beneficiary.age >= 18
                 )}
-                dataFilled={
-                  beneficiaries.filter((beneficiary) => beneficiary.age < 18)
-                    .length > 0 &&
-                  beneficiaries
-                    .filter((beneficiary) => beneficiary.age < 18)
-                    .every((beneficiary) => beneficiary.guardian)
-                }
+                dataFilled={beneficiaries
+                  // .filter((beneficiary) => beneficiary.age < 18)
+                  .some((beneficiary) => beneficiary.guardian)}
               />
             )}
             {showNominee.guardians &&

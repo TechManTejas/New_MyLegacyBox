@@ -11,16 +11,16 @@ import { useSelector } from "react-redux";
 import { selectBankById } from "../../redux/api/vault/financialArtifact/bank/bankApiSlice";
 import FinancialInstitutionInfoCard from "../../components/Common/FinancialInstitutionInfoCard";
 import FinancialInstitutionHoldingCard from "../../components/Common/FinancialInstitutionHoldingCard";
-import {
-  BANK_ACCOUNT_OWNERSHIP_TO_TITLE_MAP,
-  BANK_ACCOUNT_TYPES_TO_TITLE_MAP,
-} from "../../constants/financialHoldings/bankHolding";
-import { numberWithCommas } from "../../utils/manipulators";
+import { BANK_ACCOUNT_TYPES_TO_TITLE_MAP } from "../../constants/financialHoldings/bankHolding";
 import React, { useState } from "react";
 import AssetSharingModal from "../../components/Common/AssetSharingModal";
 import NotesModal from "../../components/Common/NotesModal";
 import AssetDeleteModal from "../../components/Common/AssetDeleteModal";
-import { useArchiveFinancialHoldingByIdMutation } from "../../redux/api/vault/financialHolding/allHoldings/allHoldings";
+import {
+  useArchiveFinancialHoldingByIdMutation,
+  usePermanentlyDeleteFinancialHoldingMutation,
+} from "../../redux/api/vault/financialHolding/allHoldings/allHoldings";
+import { HOLDINGS_PROPS_MAP } from "../../data/AllHoldingsPropsData";
 
 const BankScreen = ({ route }) => {
   const navigation = useNavigation();
@@ -60,6 +60,9 @@ const BankScreen = ({ route }) => {
   const closeAssetDeleteModal = () => {
     setAssetToDelete({ isVisible: false, assedId: "" });
   };
+
+  const [permanentlyDeleteFinancialHolding] =
+    usePermanentlyDeleteFinancialHoldingMutation();
 
   const [archiveFinancialHoldingByIdMutation] =
     useArchiveFinancialHoldingByIdMutation();
@@ -108,30 +111,7 @@ const BankScreen = ({ route }) => {
           renderItem={({ item }) => {
             return (
               <FinancialInstitutionHoldingCard
-                holdingClass={item?.holdingClass}
-                updatedAt={item.updatedAt}
-                title={
-                  BANK_ACCOUNT_TYPES_TO_TITLE_MAP[item?.holding.accountType]
-                }
-                tagLabel={
-                  BANK_ACCOUNT_OWNERSHIP_TO_TITLE_MAP[item?.holding.ownership]
-                }
-                content={[
-                  {
-                    key: "Account Number",
-                    value: item?.holding.accountNumber,
-                  },
-                  {
-                    key: "Amount ",
-                    value: item.holding.amount
-                      ? `Rs. ${numberWithCommas(item?.holding.amount)}`
-                      : "Not Available",
-                  },
-                  {
-                    key: "Nominee",
-                    value: item.holding.nominee || "Not Available",
-                  },
-                ]}
+                {...HOLDINGS_PROPS_MAP.BANK(item)}
                 editButtonCallBack={() => {
                   navigation.navigate(
                     SCREEN_NAMES.updateBankFinancialHoldingScreen,
@@ -217,12 +197,20 @@ const BankScreen = ({ route }) => {
         crossButtonCLick={closeAssetDeleteModal}
         assetDeleteModalVisible={assetToDelete.isVisible}
         archiveButtonCallback={() => {
-          archiveFinancialHoldingByIdMutation(assetToDelete.assedId).then(() => {
-            setAssetToDelete({ isVisible: false, assedId: "" });
-          });
+          archiveFinancialHoldingByIdMutation(assetToDelete.assedId).then(
+            () => {
+              setAssetToDelete({ isVisible: false, assedId: "" });
+            }
+          );
         }}
         deleteButtonCallback={() => {
-          console.log("delete button clicked");
+          permanentlyDeleteFinancialHolding(assetToDelete.assedId)
+            .then(() => {
+              setAssetToDelete({ isVisible: false, assedId: "" });
+            })
+            .catch((err) => {
+              console.log(err);
+            });
         }}
       />
     </View>

@@ -147,6 +147,10 @@ const WillNomineeModal: React.FC<WillNomineeModalProps> = ({
         {...props}
         disappearsOnIndex={-1}
         appearsOnIndex={0}
+        pressBehavior={"close"}
+        onPress={() => {
+          closeModal();
+        }}
       />
     ),
     []

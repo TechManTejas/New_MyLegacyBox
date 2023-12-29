@@ -4,7 +4,9 @@ import OnBoardingFooter from "../../components/OnBoarding/OnBoardingFooter";
 import OnBoardingSlidesList from "../../components/OnBoarding/OnBoardingSlidesList";
 import { useTheme } from "../../theme/ThemeProvider";
 import CustomSafeView from "../../components/Common/CustomSafeView";
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { rootApiSlice } from "../../redux/api/rootApi";
 
 const OnBoardingScreen = () => {
   const {
@@ -12,6 +14,8 @@ const OnBoardingScreen = () => {
   } = useTheme();
 
   const isFoucused = useIsFocused();
+
+  const dispatch = useDispatch();
 
   const styles = StyleSheet.create({
     safeViewStyle: {
@@ -21,6 +25,10 @@ const OnBoardingScreen = () => {
       flex: 1,
     },
   });
+
+  useEffect(() => {
+    dispatch(rootApiSlice.util.resetApiState());
+  }, []);
 
   return (
     <CustomSafeView safeViewStyle={styles.safeViewStyle}>

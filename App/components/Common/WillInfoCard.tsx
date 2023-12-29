@@ -20,10 +20,15 @@ const WillInfoCard: React.FC<WillInfoCardProps> = ({
 
   const styles = StyleSheet.create({
     card: {
-      backgroundColor: backgroundColor || tailWindColors.lime100,
 
-      marginVertical: spacing.sm,
-      marginHorizontal: spacing.sm,
+      borderWidth: StyleSheet.hairlineWidth,
+      borderColor: tailWindColors.blue100,
+
+      backgroundColor: backgroundColor || tailWindColors.blue50,
+
+      marginTop: spacing.lg,
+      marginBottom: spacing.sm,
+      marginHorizontal: spacing.lg,
       borderRadius: spacing.sm,
       padding: spacing.md,
     },
@@ -32,7 +37,7 @@ const WillInfoCard: React.FC<WillInfoCardProps> = ({
       fontSize: fontSize.md,
       lineHeight: fontSize.default,
       flex: 1,
-      color: colors.black400,
+      color: colors.black300,
     },
 
     defaultCard: {

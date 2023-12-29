@@ -13,18 +13,16 @@ import { Provider } from "react-redux";
 import { store } from "./redux/store";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
-ExpoSplashScreen.preventAutoHideAsync().catch((err) => {
-  console.log(err);
-});
-
 import { usePreventScreenCapture } from "expo-screen-capture";
 import AnimatedSplashScreen from "./screens/Splash/AnimatedSplashScreen";
 import AppSecurityLayer from "./components/Common/AppSecurityLayer";
-import HomeTourModal from "./components/TourModals/HomeTourModal";
-import WillTourModal from "./components/TourModals/WillTourModal";
-import MyCircleTourModal from "./components/TourModals/MyCircleTourModal";
+import AppTour from "./components/AppTour";
 
 // import notifee from "@notifee/react-native";
+
+ExpoSplashScreen.preventAutoHideAsync().catch((err) => {
+  console.log(err);
+});
 
 function App() {
   // usePreventScreenCapture();
@@ -57,9 +55,7 @@ function App() {
                 setSplashScreenVisible={setSplashScreenVisible}
               />
 
-              <HomeTourModal />
-              <WillTourModal />
-              <MyCircleTourModal />
+              <AppTour />
 
               {/* <AppSecurityLayer splashScreenVisible={splashScreenVisible} /> */}
               <RootNavigator />

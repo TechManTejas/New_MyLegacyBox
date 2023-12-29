@@ -6,7 +6,7 @@ import { SCREEN_NAMES } from "../../../constants/screenNames";
 import {
   HOME_MAJOR_MENU_DATA,
   HOME_MINOR_MENU_DATA,
-} from "../../../data/HomeData";
+} from "../../../data/MenuPropsData";
 import { CustomIcon } from "../../../components/Common/CustomIcon";
 import { SHARED_ARTIFACT_LIST_DATA } from "../../../data/sharedArifactListData";
 

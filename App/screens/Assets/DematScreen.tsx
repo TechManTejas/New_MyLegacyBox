@@ -13,8 +13,12 @@ import { numberWithCommas } from "../../utils/manipulators";
 import React, { useState } from "react";
 import AssetSharingModal from "../../components/Common/AssetSharingModal";
 import NotesModal from "../../components/Common/NotesModal";
-import { useArchiveFinancialHoldingByIdMutation } from "../../redux/api/vault/financialHolding/allHoldings/allHoldings";
+import {
+  useArchiveFinancialHoldingByIdMutation,
+  usePermanentlyDeleteFinancialHoldingMutation,
+} from "../../redux/api/vault/financialHolding/allHoldings/allHoldings";
 import AssetDeleteModal from "../../components/Common/AssetDeleteModal";
+import { HOLDINGS_PROPS_MAP } from "../../data/AllHoldingsPropsData";
 
 const DematScreen = () => {
   const navigation = useNavigation();
@@ -49,6 +53,9 @@ const DematScreen = () => {
 
   const [archiveFinancialHoldingByIdMutation] =
     useArchiveFinancialHoldingByIdMutation();
+
+  const [permanentlyDeleteFinancialHolding] =
+    usePermanentlyDeleteFinancialHoldingMutation();
 
   const styles = StyleSheet.create({
     container: {
@@ -85,33 +92,7 @@ const DematScreen = () => {
           }
           renderItem={({ item }) => (
             <FinancialInstitutionHoldingItem
-              title={item.holding.broker}
-              updatedAt={item.updatedAt}
-              holdingClass={item.holdingClass}
-              tagLabel={DEMAT_TYPE_MAP_TO_TITLE_MAP[item.holding.dematType]}
-              content={[
-                { key: "Customer ID", value: item.holding.customerId },
-                {
-                  key: "Nominee",
-                  value: item.holding.nominee || "Not Available",
-                },
-                { type: "divider" },
-                {
-                  key: "Relationship Manager",
-                  value: item.holding.poc || "Not available",
-                },
-                {
-                  key: "Relationship Manager's Contact",
-                  value: item.holding.pocNumber || "Not available",
-                },
-                { type: "divider" },
-                {
-                  key: "Invested Amount",
-                  value: item.holding.investedAmount
-                    ? `Rs. ${numberWithCommas(item.holding.investedAmount)}`
-                    : "Not available",
-                },
-              ]}
+              { ...HOLDINGS_PROPS_MAP.DEMAT(item) }
               editButtonCallBack={() => {
                 navigation.navigate(
                   SCREEN_NAMES.updateDematFinancialHoldingScreen,
@@ -191,12 +172,20 @@ const DematScreen = () => {
         crossButtonCLick={closeAssetDeleteModal}
         assetDeleteModalVisible={assetToDelete.isVisible}
         archiveButtonCallback={() => {
-          archiveFinancialHoldingByIdMutation(assetToDelete.assedId).then(() => {
-            setAssetToDelete({ isVisible: false, assedId: "" });
-          });
+          archiveFinancialHoldingByIdMutation(assetToDelete.assedId).then(
+            () => {
+              setAssetToDelete({ isVisible: false, assedId: "" });
+            }
+          );
         }}
         deleteButtonCallback={() => {
-          console.log("delete button clicked");
+          permanentlyDeleteFinancialHolding(assetToDelete.assedId)
+            .then(() => {
+              setAssetToDelete({ isVisible: false, assedId: "" });
+            })
+            .catch((err) => {
+              console.log(err);
+            });
         }}
       />
     </View>

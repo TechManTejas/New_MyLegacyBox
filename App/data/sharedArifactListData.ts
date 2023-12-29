@@ -1,7 +1,6 @@
 import { FontAwesomeIconsData } from "./FontawesomeIconsData";
-import { MenuDataProps } from "./HomeData";
 
-export const SHARED_ARTIFACT_LIST_DATA: Array<Partial<MenuDataProps>> = [
+export const SHARED_ARTIFACT_LIST_DATA = [
   {
     id: 1,
     title: "Bank",

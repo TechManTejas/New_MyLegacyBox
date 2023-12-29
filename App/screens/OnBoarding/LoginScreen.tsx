@@ -17,6 +17,7 @@ import { handleFormSubmitError } from "../../utils/oryForm";
 import CustomSafeView from "../../components/Common/CustomSafeView";
 import CustomKeyboardAvoidingScrollView from "../../components/Common/CustomKeyboardAvoidingScrollView";
 import CustomActivityIndicator from "../../components/Common/CustomActivityIndicator";
+import AppFeatures from "../../components/AppFeatures";
 
 const LoginScreen = () => {
   const isFoucused = useIsFocused();
@@ -141,7 +142,11 @@ const LoginScreen = () => {
         <View style={styles.formWrapper}>
           <View style={styles.formContainer}>
             <OrySelfServiceFlow flow={flow} onSubmit={onSubmit} />
+
             <View style={styles.formFooter}>
+              <View style={{ paddingBottom: spacing.lg }}>
+                <AppFeatures />
+              </View>
               <Text style={styles.caption}>
                 By signing in you agree to our{" "}
                 <Text style={styles.captionBold}>Terms & Conditions</Text> and{" "}
