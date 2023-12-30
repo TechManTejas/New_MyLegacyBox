@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import messaging from "@react-native-firebase/messaging";
 import "expo-dev-client";
 import * as ExpoSplashScreen from "expo-splash-screen";
@@ -28,13 +28,6 @@ function App() {
   // usePreventScreenCapture();
 
   const [splashScreenVisible, setSplashScreenVisible] = useState(true);
-
-  useEffect(() => {
-    Updates.addListener((event) => {
-      if (event.type === Updates.UpdateEventType.UPDATE_AVAILABLE)
-        alert("An update is available, Restart the app to see it");
-    });
-  }, []);
 
   messaging().onMessage((message) => {
     console.log(message);
