@@ -70,7 +70,7 @@ const AnimatedSplashScreen: React.FC<AnimatedSplashScreenProps> = ({
       setSplashScreenVisible(false);
     }, 4000);
 
-    const coverEndInterval = setTimeout(() => setCoverVisible(false), 3000);
+    const coverEndInterval = setTimeout(() => setCoverVisible(false), 2500);
 
     return () => {
       clearTimeout(animationEndInterval);
@@ -85,7 +85,6 @@ const AnimatedSplashScreen: React.FC<AnimatedSplashScreenProps> = ({
       <View style={styles.screen}>
         <Image
           style={styles.logo}
-          // fadeDuration={0}
           source={require("../../../assets/icon.png")}
         />
 
@@ -110,7 +109,7 @@ const AnimatedSplashScreen: React.FC<AnimatedSplashScreenProps> = ({
           <View style={styles.placeholder} />
           {coverVisible && (
             <Animated.View
-              exiting={SlideOutRight.duration(3000)}
+              exiting={SlideOutRight.duration(2500)}
               style={[styles.placeholder, styles.cover]}
             />
           )}

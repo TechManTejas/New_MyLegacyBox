@@ -11,7 +11,6 @@ import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import { useTheme } from "../../theme/ThemeProvider";
 import { useRoute } from "@react-navigation/core";
 import { SCREEN_NAMES } from "../../constants/screenNames";
-import { getItemAsync } from "expo-secure-store";
 
 const guessAttributeVariant = ({ attributes }) => {
   if (!isUiNodeInputAttributes(attributes)) {
@@ -46,11 +45,9 @@ const OryNodeInput = ({
   textInputOverride,
 }) => {
   const variant = guessAttributeVariant(node);
-  
+
   const route = useRoute();
   const [showPassword, setShowPassword] = useState(false);
-  const [lastUsedEmail, setLastUsedEmail] = useState("");
-
 
   if (!variant) return null;
 
@@ -97,9 +94,7 @@ const OryNodeInput = ({
       extraProps.maxLength = 13;
   }
 
-  if (textInputOverride) 
-    extraProps = textInputOverride(node, extraProps);
-  
+  if (textInputOverride) extraProps = textInputOverride(node, extraProps);
 
   const name = getNodeId(node);
   const title = metaLabelModifier(getNodeTitle(node));
@@ -117,25 +112,9 @@ const OryNodeInput = ({
     },
   });
 
-  
-
-  useEffect(() => {
-    getItemAsync("lastUsedEmail").then((email) => {
-      if (email) {
-        value = route.name === "LOGIN_SCREEN" && name === "identifier" ? email : value
-        setLastUsedEmail(email)
-      }
-    });
-
-    
-  }, [])  
-
-  console.log(name);
-  
-
   return (
     <CustomInputGroup
-      optional={name==="traits.referralCode"}
+      optional={name === "traits.referralCode"}
       name={name}
       placeholder={`Enter your ${title}`}
       title={title}
