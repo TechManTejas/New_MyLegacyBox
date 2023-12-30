@@ -7,69 +7,49 @@ import {
   setAuthenticatedSession,
 } from "../utils/auth";
 import { kratosClient } from "./kratosSdk";
+import { Session } from "@ory/kratos-client";
 
 interface AuthProviderProps {
-  children: React.JSX.Element
+  children: React.JSX.Element;
 }
 
-const AuthContext = React.createContext({
-  setSession: () => {},
-  syncSession: () => Promise.resolve(),
-  isAuthenticated: false,
-  session: null,
-  sessionToken: null,
-});
+interface SessionContextProps {
+  session: Session;
+  session_token: string;
+}
+
+interface AuthContextProps {
+  setSession?: (
+    sessionToken: string | null,
+    cb: (() => void) | null
+  ) => Promise<void>;
+  syncSession?: () => Promise<void>;
+  isAuthenticated?: boolean;
+  session?: Session;
+  sessionToken?: string;
+}
+
+const AuthContext = React.createContext<AuthContextProps>({});
 
 export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  const [sessionContext, setSessionContext] = useState(undefined);
+  const [sessionContext, setSessionContext] =
+    useState<SessionContextProps | null>(null);
+
   const dispatch = useDispatch();
-
-  // when provider mounts, get session from device,
-  // if session exist we refresh it from server and set sessionContext
-  // if it doest exist then we set sessionContext to null
-  useEffect(() => {
-    getAuthenticatedSession().then(syncSession).catch(console.error);
-  }, []);
-
-  // whenever sessionContext is updated, update it in redux
-  // this is required specifically for the api to prefetch the header with
-  // session token
-  useEffect(() => {
-    dispatch(setSessionRedux(sessionContext));
-    console.log(sessionContext);
-  }, [sessionContext]);
-
-  // if session is empty/null update the sessionContext to null
-  // if session is active, store session in device, and sync session
-  const setAuth = (sessionToken, cb) => {
-    if (!sessionToken) {
-      return killAuthenticatedSession().then(() =>
-        setSessionContext(sessionToken)
-      );
-    }
-
-    return setAuthenticatedSession(sessionToken)
-      .then(() => syncSession(sessionToken))
-      .then(() => {
-        if (cb) cb();
-      });
-  };
 
   // if auth session is not available, set auth with null session (refer above to see how that flow would work)
   // if session exist in device, then refresh it from the server, to update the sessionContext
   // only used to sync the session context in app, and invokes setAuth to remove session info from device
-  const syncSession = (sessionToken) => {
-    if (!sessionToken) {
-      return setAuth(null);
-    }
+  const syncSession = (value: string | null) => {
+    if (!value) return setAuth(null, null);
 
     return kratosClient
-      .toSession({ xSessionToken: sessionToken })
+      .toSession({ xSessionToken: value })
       .then(({ data: session }) => {
         // if session is refreshed we update the context, here token will be same
-        setSessionContext({ session, session_token: sessionToken });
+        setSessionContext({ session, session_token: value });
       })
       .catch((error) => {
         if (error.response?.status === 401) {
@@ -83,6 +63,37 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         // remove session / logout user
         setSessionContext(null);
       });
+  };
+
+  // when provider mounts, get session from device,
+  // if session exist we refresh it from server and set sessionContext
+  // if it doest exist then we set sessionContext to null
+  useEffect(() => {
+    getAuthenticatedSession().then(syncSession).catch(console.error);
+  }, []);
+
+  // whenever sessionContext is updated, update it in redux
+  // this is required specifically for the api to prefetch the header with
+  // session token
+  useEffect(() => {
+    dispatch(setSessionRedux(sessionContext));
+    console.log(JSON.stringify(sessionContext, null, 1));
+  }, [sessionContext]);
+
+  // if session is empty/null update the sessionContext to null
+  // if session is active, store session in device, and sync session
+  const setAuth = async (
+    sessionToken: string | null,
+    cb: (() => void) | null
+  ): Promise<void> => {
+    if (!sessionToken) {
+      await killAuthenticatedSession();
+      return setSessionContext(null);
+    }
+
+    await setAuthenticatedSession(sessionToken);
+    await syncSession(sessionToken);
+    if (cb) cb();
   };
 
   const value = {

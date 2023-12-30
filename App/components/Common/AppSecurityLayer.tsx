@@ -4,12 +4,12 @@ import {
   ActivityIndicator,
   Alert,
   AppState,
-  BackHandler,
   Button,
   Dimensions,
   ImageBackground,
   KeyboardAvoidingView,
   Modal,
+  NativeEventSubscription,
   StyleSheet,
   Text,
   TextInput,
@@ -24,14 +24,20 @@ import {
 import { getItemAsync, setItemAsync } from "expo-secure-store";
 import { useTheme } from "../../theme/ThemeProvider";
 
-const AppSecurityLayer = ({ splashScreenVisible }) => {
+interface AppSecurityLayerProps {
+  splashScreenVisible: true;
+}
+
+const AppSecurityLayer: React.FC<AppSecurityLayerProps> = ({
+  splashScreenVisible,
+}) => {
   const [blackScreen, setBlackScreen] = useState(false);
   const [showPinModal, setShowPinModal] = useState(false);
-  const [userPin, setUserPin] = useState();
+  const [userPin, setUserPin] = useState("");
   const [userPinExists, setUserPinExists] = useState({
     checked: false,
     exists: false,
-    pin: null,
+    pin: "",
   });
 
   const splashScreenVisibleRef = useRef(splashScreenVisible);
@@ -66,12 +72,12 @@ const AppSecurityLayer = ({ splashScreenVisible }) => {
   const checkExistingPin = async () => {
     getItemAsync("userPin").then((pin) => {
       pin !== null
-        ? setUserPinExists({ exists: true, pin, checked: true })
+        ? setUserPinExists({ exists: true, pin: pin as string, checked: true })
         : setUserPinExists({ ...userPinExists, checked: true });
     });
   };
 
-  const loadAppUserAuth = async (nextAppState, firstRun = false) => {
+  const loadAppUserAuth = async (nextAppState: string, firstRun = false) => {
     const enrolledLevel = await getEnrolledLevelAsync();
 
     if (
@@ -89,8 +95,6 @@ const AppSecurityLayer = ({ splashScreenVisible }) => {
             "Oiconomos uses your biometric to ensure the data is accessed by only You",
         });
 
-        if (res.error === "user_cancel") BackHandler.exitApp();
-
         if (res.success) setBlackScreen(false);
       }
     }
@@ -101,7 +105,7 @@ const AppSecurityLayer = ({ splashScreenVisible }) => {
   }, [splashScreenVisible]);
 
   useEffect(() => {
-    let appStateListener = null;
+    let appStateListener: NativeEventSubscription | null = null;
     appStateListener = AppState.addEventListener("change", loadAppUserAuth);
     return () => {
       appStateListener && appStateListener.remove();
@@ -149,7 +153,7 @@ const AppSecurityLayer = ({ splashScreenVisible }) => {
   return (
     <Modal transparent visible={blackScreen} animationType="slide">
       <KeyboardAvoidingView>
-        <ImageBackground style={styles.blackScreen}>
+        <ImageBackground source={require("")} style={styles.blackScreen}>
           {showPinModal ? (
             userPinExists.checked ? (
               <View style={styles.customPinModal}>

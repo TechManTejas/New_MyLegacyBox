@@ -151,7 +151,7 @@ const InsuranceForm = ({
         address: {
           city: initialValues?.address?.city || "",
           state: initialValues?.address?.state || "",
-          pinCode: initialValues?.address?.pinCode || undefined,
+          pinCode: initialValues?.address?.pinCode || "",
           street: initialValues?.address?.street || "",
           country: initialValues?.address?.country || "",
         },
@@ -170,7 +170,7 @@ const InsuranceForm = ({
                 name="companyName"
                 placeholder="Enter your Company Name"
                 title="Company Name"
-                onChange={handleChange("companyName")}
+                onChangeText={handleChange("companyName")}
                 onBlur={handleBlur("companyName")}
                 value={values.companyName}
                 messages={
@@ -183,7 +183,7 @@ const InsuranceForm = ({
                 name="customerId"
                 placeholder="Enter your Customer ID"
                 title="Customer ID"
-                onChange={handleChange("customerId")}
+                onChangeText={handleChange("customerId")}
                 onBlur={handleBlur("customerId")}
                 value={values.customerId}
                 messages={
@@ -197,7 +197,7 @@ const InsuranceForm = ({
                 name="poc"
                 placeholder="Point of contact name"
                 title="Point of contact"
-                onChange={handleChange("poc")}
+                onChangeText={handleChange("poc")}
                 onBlur={handleBlur("poc")}
                 value={values.poc}
                 messages={
@@ -213,7 +213,7 @@ const InsuranceForm = ({
                 placeholder="Phone number of point of contact"
                 title="Point of contact's number"
                 ho
-                onChange={handleChange("pocNumber")}
+                onChangeText={handleChange("pocNumber")}
                 onBlur={handleBlur("pocNumber")}
                 value={values.pocNumber}
                 textContentType="telephoneNumber"
@@ -240,7 +240,7 @@ const InsuranceForm = ({
                     name="address.city"
                     placeholder="Enter City"
                     title="City"
-                    onChange={handleChange("address.city")}
+                    onChangeText={handleChange("address.city")}
                     onBlur={handleBlur("address.city")}
                     value={values.address.city}
                     textContentType="addressCity"
@@ -263,7 +263,7 @@ const InsuranceForm = ({
                     name="address.state"
                     placeholder="Enter state"
                     title="State"
-                    onChange={handleChange("address.state")}
+                    onChangeText={handleChange("address.state")}
                     onBlur={handleBlur("address.state")}
                     value={values.address.state}
                     textContentType="addressState"
@@ -302,7 +302,7 @@ const InsuranceForm = ({
                       );
                       handleBlur("address.pinCode");
                     }}
-                    value={values.address.pinCode}
+                    value={String(values.address.pinCode)}
                     textContentType="postalCode"
                     messages={
                       customErrors.address?.pinCode
@@ -324,7 +324,7 @@ const InsuranceForm = ({
                     name="address.country"
                     placeholder="Enter country"
                     title="country"
-                    onChange={handleChange("address.country")}
+                    onChangeText={handleChange("address.country")}
                     onBlur={handleBlur("address.country")}
                     value={values.address.country}
                     textContentType="countryName"
@@ -347,7 +347,7 @@ const InsuranceForm = ({
                 name="address.street"
                 placeholder="Enter the address"
                 title="Address Line 1"
-                onChange={handleChange("address.street")}
+                onChangeText={handleChange("address.street")}
                 onBlur={handleBlur("address.street")}
                 value={values.address.street}
                 textContentType="fullStreetAddress"

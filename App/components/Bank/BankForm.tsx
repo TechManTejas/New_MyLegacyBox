@@ -11,8 +11,24 @@ import CustomKeyboardAvoidingScrollView from "../Common/CustomKeyboardAvoidingSc
 import { bankValidator } from "../../utils/form/validators/bankValidator";
 
 interface BankFormProps {
-  ctaCaption: string
-  isLoading: boolean
+  ctaCaption: string;
+  isLoading: boolean;
+  initialValues: {
+    name: string;
+    ifsc: string;
+    customerId: string;
+    branchName: string;
+    poc: string;
+    pocNumber: string;
+    address: {
+      city: string;
+      state: string;
+      pinCode: string;
+      street: string;
+      country: string;
+    };
+  };
+  apiCallback: () => void;
 }
 
 const BankForm: React.FC<BankFormProps> = ({
@@ -161,7 +177,7 @@ const BankForm: React.FC<BankFormProps> = ({
         address: {
           city: initialValues?.address?.city || "",
           state: initialValues?.address?.state || "",
-          pinCode: initialValues?.address?.pinCode || undefined,
+          pinCode: initialValues?.address?.pinCode || "",
           street: initialValues?.address?.street || "",
           country: initialValues?.address?.country || "",
         },
@@ -180,7 +196,7 @@ const BankForm: React.FC<BankFormProps> = ({
                 name="ifsc"
                 placeholder="Enter your IFSC"
                 title="IFSC code"
-                onChange={handleChange("ifsc")}
+                onChangeText={handleChange("ifsc")}
                 onBlur={() => {
                   getBankData(values.ifsc, setFieldValue);
                   handleBlur("ifsc");
@@ -199,7 +215,7 @@ const BankForm: React.FC<BankFormProps> = ({
                 name="name"
                 placeholder="Enter your Bank Name"
                 title="Name"
-                onChange={handleChange("name")}
+                onChangeText={handleChange("name")}
                 onBlur={handleBlur("name")}
                 value={values.name}
                 messages={
@@ -214,7 +230,7 @@ const BankForm: React.FC<BankFormProps> = ({
                 name="branchName"
                 placeholder="Enter your Branch Name"
                 title="Branch Name"
-                onChange={handleChange("branchName")}
+                onChangeText={handleChange("branchName")}
                 onBlur={handleBlur("branchName")}
                 value={values.branchName}
                 messages={
@@ -228,9 +244,10 @@ const BankForm: React.FC<BankFormProps> = ({
                 name="customerId"
                 placeholder="Enter your Customer ID"
                 title="Customer ID"
-                onChange={handleChange("customerId")}
+                onChangeText={handleChange("customerId")}
                 onBlur={handleBlur("customerId")}
                 value={values.customerId}
+                isLogging
                 messages={
                   customErrors.customerId
                     ? [{ id: "customerId", text: customErrors.customerId }]
@@ -243,7 +260,7 @@ const BankForm: React.FC<BankFormProps> = ({
                 name="poc"
                 placeholder="Point of contact name"
                 title="Point of contact"
-                onChange={handleChange("poc")}
+                onChangeText={handleChange("poc")}
                 onBlur={handleBlur("poc")}
                 value={values.poc}
                 messages={
@@ -258,7 +275,7 @@ const BankForm: React.FC<BankFormProps> = ({
                 name="pocNumber"
                 placeholder="Phone number of point of contact"
                 title="Point of contact's number"
-                onChange={handleChange("pocNumber")}
+                onChangeText={handleChange("pocNumber")}
                 onBlur={handleBlur("pocNumber")}
                 value={values.pocNumber}
                 textContentType="telephoneNumber"
@@ -285,7 +302,7 @@ const BankForm: React.FC<BankFormProps> = ({
                     name="address.city"
                     placeholder="Enter City"
                     title="City"
-                    onChange={handleChange("address.city")}
+                    onChangeText={handleChange("address.city")}
                     onBlur={handleBlur("address.city")}
                     value={values.address.city}
                     textContentType="addressCity"
@@ -308,7 +325,7 @@ const BankForm: React.FC<BankFormProps> = ({
                     name="address.state"
                     placeholder="Enter state"
                     title="State"
-                    onChange={handleChange("address.state")}
+                    onChangeText={handleChange("address.state")}
                     onBlur={handleBlur("address.state")}
                     value={values.address.state}
                     textContentType="addressState"
@@ -341,7 +358,7 @@ const BankForm: React.FC<BankFormProps> = ({
                         setFieldValue("address.pinCode", +value);
                     }}
                     onBlur={handleBlur("address.pinCode")}
-                    value={values.address.pinCode}
+                    value={String(values.address.pinCode)}
                     textContentType="postalCode"
                     messages={
                       customErrors.address?.pinCode
@@ -361,7 +378,7 @@ const BankForm: React.FC<BankFormProps> = ({
                     name="address.country"
                     placeholder="Enter country"
                     title="country"
-                    onChange={handleChange("address.country")}
+                    onChangeText={handleChange("address.country")}
                     onBlur={handleBlur("address.country")}
                     value={values.address.country}
                     textContentType="countryName"
@@ -386,7 +403,7 @@ const BankForm: React.FC<BankFormProps> = ({
                 name="address.street"
                 placeholder="Enter the address"
                 title="Address Line 1"
-                onChange={handleChange("address.street")}
+                onChangeText={handleChange("address.street")}
                 onBlur={handleBlur("address.street")}
                 value={values.address.street}
                 textContentType="fullStreetAddress"

@@ -1,11 +1,11 @@
 import React from "react";
-import { SafeAreaView, StyleSheet } from "react-native";
+import { SafeAreaView, StyleSheet, StyleProp, ViewStyle } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useTheme } from "../../theme/ThemeProvider";
 
 interface CustomSafeViewProps {
-  children: React.JSX.Element;
-  safeViewStyle?: {};
+  children?: React.ReactNode;
+  safeViewStyle?: StyleProp<ViewStyle>;
 }
 
 const CustomSafeView: React.FC<CustomSafeViewProps> = ({

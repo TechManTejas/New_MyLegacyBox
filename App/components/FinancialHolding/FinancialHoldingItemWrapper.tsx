@@ -1,15 +1,17 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Pressable } from "react-native";
 import { useTheme } from "../../theme/ThemeProvider";
+import { FontAwesome5 } from "@expo/vector-icons";
 
 interface FinancialHoldingItemWrapperProps {
   children: React.ReactNode;
   holdingClass: string;
+  shareBtnCallBack: () => void;
 }
 
 const FinancialHoldingItemWrapper: React.FC<
   FinancialHoldingItemWrapperProps
-> = ({ children, holdingClass }) => {
+> = ({ children, holdingClass, shareBtnCallBack }) => {
   const {
     theme: { colors, fontFamily, fontSize, spacing },
   } = useTheme();
@@ -21,6 +23,7 @@ const FinancialHoldingItemWrapper: React.FC<
       borderColor: colors.black300,
       borderRadius: spacing.xs,
     },
+
     financialHoldingContainer: {
       paddingTop: spacing.md,
     },
@@ -43,6 +46,7 @@ const FinancialHoldingItemWrapper: React.FC<
       color: colors.white100,
       textTransform: "uppercase",
     },
+
     row: {
       flexDirection: "row",
       flexWrap: "wrap",
@@ -52,6 +56,7 @@ const FinancialHoldingItemWrapper: React.FC<
     rowAlignEnd: {
       alignItems: "flex-end",
     },
+
     backgroundColorGreen: {
       backgroundColor: colors.green600,
     },
@@ -61,12 +66,39 @@ const FinancialHoldingItemWrapper: React.FC<
     backgroundColorGrey: {
       backgroundColor: colors.black400,
     },
+
+    shareButtonContainerStyle: {
+      // marginRight: spacing.xs,
+      // marginBottom: spacing.sm,
+
+      backgroundColor: colors.white400,
+      width: 80,
+      height: "100%",
+
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent: "center",
+
+      paddingHorizontal: spacing.sm,
+      paddingVertical: spacing.xs,
+
+      borderTopLeftRadius: spacing.xs,
+      borderBottomRightRadius: spacing.xs,
+    },
+    shareButtonText: {
+      fontFamily: fontFamily.semiBold,
+      fontSize: fontSize.sm,
+      lineHeight: fontSize.lg,
+      color: colors.blue500,
+      marginRight: spacing.xs,
+    },
   });
 
   return (
     <View style={styles.container}>
       <View style={styles.financialHoldingContainer}>
         <View>{children}</View>
+
         <View style={[styles.row, styles.rowAlignEnd]}>
           <View
             style={[
@@ -78,6 +110,16 @@ const FinancialHoldingItemWrapper: React.FC<
           >
             <Text style={styles.financialHoldingClass}>{holdingClass}</Text>
           </View>
+
+          {shareBtnCallBack && (
+            <Pressable
+              onPress={shareBtnCallBack}
+              style={styles.shareButtonContainerStyle}
+            >
+              <Text style={styles.shareButtonText}>Share</Text>
+              <FontAwesome5 name="share-alt" size={10} color={colors.blue500} />
+            </Pressable>
+          )}
         </View>
       </View>
     </View>

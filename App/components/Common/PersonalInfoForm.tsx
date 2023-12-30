@@ -36,19 +36,13 @@ const PersonalInfoForm = () => {
     isLoading: getPersonalInfoLoading,
     isFetching,
   } = getPersonalInfoOptions;
-
-  console.log({
-    data,
-    isLoading: getPersonalInfoLoading,
-    isFetching,
-  });
   
   const [initialValues, setInitialValues] = useState({});
 
   useEffect(() => {
     setInitialValues(
       data?.data && typeof data.data === "object" ? data.data : {}
-    );
+    );  
   }, [data]);
 
   const [savePersonalInfo, { isLoading }] = useSavePersonalInfoMutation();
@@ -61,6 +55,9 @@ const PersonalInfoForm = () => {
     show: false,
     property: "",
   });
+
+  console.log(datePickerOptions);
+  
 
   const formRef = useRef();
 
@@ -225,7 +222,7 @@ const PersonalInfoForm = () => {
             address: {
               city: initialValues?.address?.city || "",
               state: initialValues?.address?.state || "",
-              pinCode: initialValues?.address?.pinCode || undefined,
+              pinCode: initialValues?.address?.pinCode || "",
               street: initialValues?.address?.street || "",
               country: initialValues?.address?.country || "",
             },
@@ -310,9 +307,10 @@ const PersonalInfoForm = () => {
                     name="fathersName"
                     placeholder="Enter your Father's Full Name"
                     title="Father's Name"
-                    onChange={handleChange("fathersName")}
+                    onChangeText={handleChange("fathersName")}
                     onBlur={handleBlur("fathersName")}
                     value={values.fathersName}
+                    isLogging
                     messages={
                       customErrors.fathersName
                         ? [
@@ -367,7 +365,7 @@ const PersonalInfoForm = () => {
                     name="aadharNumber"
                     placeholder="Enter your Aadhar number"
                     title="Aadhar Number"
-                    onChange={handleChange("aadharNumber")}
+                    onChangeText={handleChange("aadharNumber")}
                     onBlur={handleBlur("aadharNumber")}
                     value={values.aadharNumber}
                     messages={
@@ -398,7 +396,7 @@ const PersonalInfoForm = () => {
                         name="address.city"
                         placeholder="Enter City"
                         title="City"
-                        onChange={handleChange("address.city")}
+                        onChangeText={handleChange("address.city")}
                         onBlur={handleBlur("address.city")}
                         value={values.address.city}
                         textContentType="addressCity"
@@ -421,7 +419,7 @@ const PersonalInfoForm = () => {
                         name="address.state"
                         placeholder="Enter state"
                         title="State"
-                        onChange={handleChange("address.state")}
+                        onChangeText={handleChange("address.state")}
                         onBlur={handleBlur("address.state")}
                         value={values.address.state}
                         textContentType="addressState"
@@ -460,7 +458,7 @@ const PersonalInfoForm = () => {
                           );
                           handleBlur("address.pinCode");
                         }}
-                        value={values.address.pinCode}
+                        value={String(values.address.pinCode)}
                         textContentType="postalCode"
                         messages={
                           customErrors.address?.pinCode
@@ -482,7 +480,7 @@ const PersonalInfoForm = () => {
                         name="address.country"
                         placeholder="Enter country"
                         title="country"
-                        onChange={handleChange("address.country")}
+                        onChangeText={handleChange("address.country")}
                         onBlur={handleBlur("address.country")}
                         value={values.address.country}
                         textContentType="countryName"
@@ -505,7 +503,7 @@ const PersonalInfoForm = () => {
                     name="address.street"
                     placeholder="Enter the address"
                     title="Address Line 1"
-                    onChange={handleChange("address.street")}
+                    onChangeText={handleChange("address.street")}
                     onBlur={handleBlur("address.street")}
                     value={values.address.street}
                     textContentType="fullStreetAddress"

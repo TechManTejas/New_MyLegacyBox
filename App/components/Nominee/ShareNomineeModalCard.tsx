@@ -4,7 +4,14 @@ import { useTheme } from "../../theme/ThemeProvider";
 import { FontAwesome } from "@expo/vector-icons";
 import { NOMINEE_RELATIONSHIP_TO_TITLE_MAP } from "../../constants/nominee";
 
-const ShareNomineeModalCard = ({
+interface ShareNomineeModalCardProps {
+  callBack: () => void;
+  item: {};
+  isApproved: boolean;
+  disableCallback: boolean;
+}
+
+const ShareNomineeModalCard: React.FC<ShareNomineeModalCardProps> = ({
   callBack,
   item,
   isApproved,

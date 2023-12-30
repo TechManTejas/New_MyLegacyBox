@@ -2,7 +2,7 @@
   "expo": {
     "name": "Oiconomos",
     "slug": "oiconomos-mobile-app",
-    "version": "1.0.8",
+    "version": "1.0.9",
     "orientation": "portrait",
     "owner": "oiconomos",
     "icon": "./assets/icon.png",
@@ -16,19 +16,18 @@
       "fallbackToCacheTimeout": 0,
       "url": "https://u.expo.dev/c960cc41-49de-4b46-b620-42a8c63d76b5"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
     "android": {
+      "googleServicesFile": "./google-services.json",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
       "package": "com.oiconomos.www",
-      "versionCode": 9
+      "versionCode": 10
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -39,7 +38,7 @@
       }
     },
     "plugins": [
-      "expo-community-flipper"
+      "@react-native-firebase/app"
     ],
     "runtimeVersion": {
       "policy": "sdkVersion"

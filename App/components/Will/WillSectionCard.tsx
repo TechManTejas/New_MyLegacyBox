@@ -1,4 +1,4 @@
-import React from "react"
+import React from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { useTheme } from "../../theme/ThemeProvider";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
@@ -7,7 +7,23 @@ import { Feather } from "@expo/vector-icons";
 import CustomActivityIndicator from "../Common/CustomActivityIndicator";
 import { NOMINEE_RELATIONSHIP_TO_TITLE_MAP } from "../../constants/nominee";
 
-const WillSectionCard = ({
+interface WillSectionCardProps {
+  sectiontitle?: string;
+  tickCondition?: boolean;
+  title?: string;
+  subtitle?: string;
+  disableCondition?: boolean;
+  onPress?: () => void;
+  warnCondition?: boolean;
+  warnMsg?: string;
+  showEditIcon?: boolean;
+  someDataFilled?: boolean;
+  optional?: boolean;
+  isLoading?: boolean;
+  array?: any[];
+}
+
+const WillSectionCard: React.FC<WillSectionCardProps> = ({
   sectiontitle,
   tickCondition,
   title,
@@ -20,7 +36,7 @@ const WillSectionCard = ({
   someDataFilled,
   optional,
   isLoading,
-  array
+  array,
 }) => {
   const {
     theme: { spacing, colors, fontSize, fontFamily },

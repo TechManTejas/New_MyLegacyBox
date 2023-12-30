@@ -1,4 +1,4 @@
-import { FlatList, View, StyleSheet } from "react-native";
+import { FlatList, View, StyleSheet, ViewToken } from "react-native";
 import React, { useRef, useEffect, useState } from "react";
 import { useTheme } from "../../theme/ThemeProvider";
 import CarouselCard from "./CarouselCard";
@@ -39,15 +39,21 @@ const Carousel: React.FC<CarouselProps> = ({ carouselData }) => {
     },
   });
 
+  interface ViewableItemsProps {
+    viewableItems: ViewToken[];
+  }
+
   const [visibleItemIndex, setVisibleItemIndex] = useState(0);
-  const onViewCallBackRef = useRef(({ viewableItems }) => {
+
+  const onViewCallBackRef = useRef(({ viewableItems }: ViewableItemsProps) => {
     if (viewableItems.length > 0) {
-      setVisibleItemIndex(viewableItems[0].index);
+      setVisibleItemIndex(viewableItems[0].index as number);
     }
-  }, []);
+  });
+
   const viewConfigRef = useRef({ viewAreaCoveragePercentThreshold: 50 });
 
-  const flatListRef = useRef(null);
+  const flatListRef = useRef<FlatList | null>(null);
   const [carouselIndex, setCarouselIndex] = useState(0);
 
   useEffect(() => {

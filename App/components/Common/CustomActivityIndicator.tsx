@@ -3,9 +3,9 @@ import { View, ActivityIndicator, StyleSheet } from "react-native";
 import { useTheme } from "../../theme/ThemeProvider";
 
 interface CustomActivityIndicatorProps {
-  backgroundColor?: string
-  color?: string,
-  isLarge?: boolean
+  backgroundColor?: string;
+  color?: string;
+  isLarge?: boolean;
 }
 
 const CustomActivityIndicator: React.FC<CustomActivityIndicatorProps> = ({

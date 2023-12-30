@@ -11,7 +11,7 @@ import * as ExpoSplashScreen from "expo-splash-screen";
 import { useAuth } from "../../authentication/AuthProvider";
 
 interface SplashScreenProps {
-  children: React.JSX.Element
+  children: React.JSX.Element;
 }
 
 const SplashScreen: React.FC<SplashScreenProps> = ({ children }) => {
@@ -19,7 +19,7 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ children }) => {
   const { sessionToken, syncSession } = useAuth();
 
   useEffect(() => {
-    const loadModuleImages = (images) =>
+    const loadModuleImages = (images: string[]) =>
       images.map((image) => Asset.fromModule(image).downloadAsync());
 
     const prepare = () => {
@@ -35,9 +35,6 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ children }) => {
           require("../../assets/images/1.png"),
           require("../../assets/images/2.png"),
           require("../../assets/images/3.png"),
-          require("../../assets/images/logoFullDark.png"),
-          require("../../assets/images/logoFullLight.png"),
-          require("../../assets/images/logoSmallLight.png"),
         ]),
       ])
         .then(async () => {
@@ -50,7 +47,7 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ children }) => {
     prepare();
   }, []);
 
-  return isAppReady && children;
+  return isAppReady ? children: null;
 };
 
 export default SplashScreen;

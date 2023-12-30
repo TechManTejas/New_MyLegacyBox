@@ -92,6 +92,7 @@ const CashHoldingForm = ({
       setGlobalErrorMessage(error?.data?.error?.message || error.message);
     }
   }, []);
+
   const styles = StyleSheet.create({
     scrollContainer: {
       flexGrow: 1,
@@ -170,12 +171,11 @@ const CashHoldingForm = ({
           : undefined,
         nameOfParty: initialValues?.nameOfParty || "",
         phoneNumberOfParty: initialValues?.phoneNumberOfParty || "",
-        amount: initialValues?.amount || undefined,
+        amount: initialValues?.amount || "",
         address: {
           city: initialValues?.address?.city || "",
           state: initialValues?.address?.state || "",
-          pinCode: initialValues?.address?.pinCode || undefined,
-          nominee: initialValues?.nominee || undefined,
+          pinCode: initialValues?.address?.pinCode || "",
           street: initialValues?.address?.street || "",
           country: initialValues?.address?.country || "",
         },
@@ -216,7 +216,7 @@ const CashHoldingForm = ({
                 name="nameOfParty"
                 placeholder="Enter your Name of the Party"
                 title="Name of Party"
-                onChange={handleChange("nameOfParty")}
+                onChangeText={handleChange("nameOfParty")}
                 onBlur={handleBlur("nameOfParty")}
                 value={values.nameOfParty}
                 messages={
@@ -236,7 +236,7 @@ const CashHoldingForm = ({
                 name="phoneNumberOfParty"
                 placeholder="Enter your Phone number of Party"
                 title="Phone number of Party"
-                onChange={handleChange("phoneNumberOfParty")}
+                onChangeText={handleChange("phoneNumberOfParty")}
                 onBlur={handleBlur("phoneNumberOfParty")}
                 value={values.phoneNumberOfParty}
                 messages={
@@ -312,12 +312,12 @@ const CashHoldingForm = ({
                 name="amount"
                 placeholder="Enter the Amount"
                 title="Amount (in Rs)"
-                onChange={(value) => {
+                onChangeText={(value) => {
                   if (value == " " || value == "") setFieldValue("amount", "");
                   else if (!isNaN(value)) setFieldValue("amount", +value);
                 }}
                 onBlur={handleBlur("amount")}
-                value={values.amount}
+                value={String(values.amount)}
                 messages={
                   customErrors.amount
                     ? [
@@ -347,7 +347,7 @@ const CashHoldingForm = ({
                     name="address.city"
                     placeholder="Enter City"
                     title="City"
-                    onChange={handleChange("address.city")}
+                    onChangeText={handleChange("address.city")}
                     onBlur={handleBlur("address.city")}
                     value={values.address.city}
                     textContentType="addressCity"
@@ -370,7 +370,7 @@ const CashHoldingForm = ({
                     name="address.state"
                     placeholder="Enter state"
                     title="State"
-                    onChange={handleChange("address.state")}
+                    onChangeText={handleChange("address.state")}
                     onBlur={handleBlur("address.state")}
                     value={values.address.state}
                     textContentType="addressState"
@@ -406,7 +406,7 @@ const CashHoldingForm = ({
                       );
                       handleBlur("address.pinCode");
                     }}
-                    value={values.address.pinCode}
+                    value={String(values.address.pinCode)}
                     textContentType="postalCode"
                     messages={
                       customErrors.address?.pinCode
@@ -428,7 +428,7 @@ const CashHoldingForm = ({
                     name="address.country"
                     placeholder="Enter country"
                     title="country"
-                    onChange={handleChange("address.country")}
+                    onChangeText={handleChange("address.country")}
                     onBlur={handleBlur("address.country")}
                     value={values.address.country}
                     textContentType="countryName"
@@ -451,7 +451,7 @@ const CashHoldingForm = ({
                 name="address.street"
                 placeholder="Enter the address"
                 title="Address Line 1"
-                onChange={handleChange("address.street")}
+                onChangeText={handleChange("address.street")}
                 onBlur={handleBlur("address.street")}
                 value={values.address.street}
                 textContentType="fullStreetAddress"

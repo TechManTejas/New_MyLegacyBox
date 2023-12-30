@@ -8,10 +8,8 @@ import DrawerNavigator from "../DrawerNavigator/DrawerNavigator";
 import { useAuth } from "../../authentication/AuthProvider";
 import { RootStackParamList } from "../types";
 import { StyleSheet } from "react-native";
-import SharedArtifactsNavigator from "../DrawerNavigator/SharedArtifactsNavigator";
 import { useTheme } from "../../theme/ThemeProvider";
 import CustomHeaderLeftIcon from "../../components/Common/CustomHeaderLeftIcon";
-import CustomHeaderRightIcon from "../../components/Common/CustomHeaderRightIcon";
 import CustomHeaderTitle from "../../components/Common/CustomHeaderTitle";
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -39,7 +37,6 @@ export const RootNavigator: React.FC<{}> = () => {
         screenOptions={({ navigation }) => ({
           headerStyle: styles.headerStyle,
           headerLeft: () => <CustomHeaderLeftIcon navigation={navigation} />,
-          headerRight: () => <CustomHeaderRightIcon />,
           headerTitleAlign: "center",
           headerTitle: (props) => <CustomHeaderTitle {...props} />,
         })}
@@ -78,7 +75,6 @@ export const RootNavigator: React.FC<{}> = () => {
             >
               {() => <DrawerNavigator Stack={Stack} />}
             </Stack.Screen>
-            {SharedArtifactsNavigator({ Stack })}
           </Stack.Group>
         )}
       </Stack.Navigator>

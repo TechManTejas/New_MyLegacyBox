@@ -1,3 +1,5 @@
+import { StackNavigationProp } from "@react-navigation/stack";
+
 type Nominee = {
   fullName: string;
 };
@@ -32,6 +34,7 @@ export type DrawerStackParamList = {
   PRIVACY_POLICY: undefined;
   FAQ: undefined;
   CONTACT_US: undefined;
+  ARCHIVED_ASSETS_SCREEN: undefined;
 };
 
 type FinancialInstitutionStackParamList = {
@@ -110,7 +113,16 @@ export type SharedArtifactsStackParamList = {
 
 export type WillStackParamList = {
   WILL_SCREEN: undefined;
-  WILL_INFO_SCREEN: undefined;
+  WILL_INDEX_SCREEN: undefined;
+  WILL_ROLE_ASSIGN_SCREEN: undefined;
+  WILL_ASSET_INDEX_SCREEN: undefined;
+
+  WILL_RESIDUAL_DISTRIBUTION_SCREEN: undefined;
+  WILL_SECONDARY_DISTRIBUTION_SCREEN: undefined;
+
+  WILL_PREVIEW_SCREEN: undefined;
+  WILL_SIGN_SCREEN: undefined;
+
   WILL_ASSETS_SCREEN: undefined;
   WILL_ASSETS_INFO_SCREEN: undefined;
   WILL_DECLARATION_SCREEN: undefined;
@@ -134,3 +146,5 @@ export type RootStackParamList = {
   WillStackParamList &
   FinancialHoldingStackParamList &
   FinancialInstitutionStackParamList;
+
+export type AllScreenNavigationProp = StackNavigationProp<RootStackParamList>;

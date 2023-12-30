@@ -8,16 +8,23 @@ import Empty from "../../components/Common/Empty";
 import { useNavigation } from "@react-navigation/native";
 import { SCREEN_NAMES } from "../../constants/screenNames";
 import FinancialInstitutionHoldingItem from "../../components/Common/FinancialInstitutionHoldingCard";
-import { CASH_TYPE_TO_TITLE_MAP } from "../../constants/financialHoldings/cashHolding";
-import { numberWithCommas } from "../../utils/manipulators";
 import React, { useState } from "react";
 import AssetSharingModal from "../../components/Common/AssetSharingModal";
 import NotesModal from "../../components/Common/NotesModal";
+import {
+  useArchiveFinancialHoldingByIdMutation,
+  usePermanentlyDeleteFinancialHoldingMutation,
+} from "../../redux/api/vault/financialHolding/allHoldings/allHoldings";
+import AssetDeleteModal from "../../components/Common/AssetDeleteModal";
+import { HOLDINGS_PROPS_MAP } from "../../data/AllHoldingsPropsData";
 
 const CashScreen = () => {
   const navigation = useNavigation();
 
   const { data, isLoading, isFetching } = useGetFinancialHoldingForCashQuery();
+
+  const [permanentlyDeleteFinancialHolding] =
+    usePermanentlyDeleteFinancialHoldingMutation();
 
   const {
     theme: { spacing, colors },
@@ -35,6 +42,18 @@ const CashScreen = () => {
     financialArtifactId: "",
     financialArtifactType: "",
   });
+
+  const [assetToDelete, setAssetToDelete] = useState({
+    isVisible: false,
+    assedId: "",
+  });
+
+  const closeAssetDeleteModal = () => {
+    setAssetToDelete({ isVisible: false, assedId: "" });
+  };
+
+  const [archiveFinancialHoldingByIdMutation] =
+    useArchiveFinancialHoldingByIdMutation();
 
   const styles = StyleSheet.create({
     container: {
@@ -71,35 +90,7 @@ const CashScreen = () => {
           }
           renderItem={({ item }) => (
             <FinancialInstitutionHoldingItem
-              holdingClass={item.holdingClass}
-              updatedAt={item.updatedAt}
-              title={item.holding.nameOfParty}
-              tagLabel={CASH_TYPE_TO_TITLE_MAP[item.holding.cashType]}
-              content={[
-                { key: "Phone Number", value: item.holding.phoneNumberOfParty },
-                {
-                  key: "Date of Transaction",
-                  value: new Date(item.holding.dateOfTransaction)
-                    .toDateString()
-                    .replace(/^\w+ /, ""),
-                },
-                {
-                  key: "Amount",
-                  value: item.holding.amount
-                    ? `Rs. ${numberWithCommas(item.holding.amount)}`
-                    : "Not Available",
-                },
-                {
-                  key: "Nominee",
-                  value: item.holding.nominee || "Not Available",
-                },
-                {
-                  key: "Address",
-                  value: item.holding.address
-                    ? `${item.holding.address.street},\n ${item.holding.address.city}, ${item.holding.address.state}, ${item.holding.address.pinCode}`
-                    : "Not Available",
-                },
-              ]}
+              { ...HOLDINGS_PROPS_MAP.CASH(item) }
               editButtonCallBack={() => {
                 navigation.navigate(
                   SCREEN_NAMES.updateCashFinancialHoldingScreen,
@@ -123,6 +114,12 @@ const CashScreen = () => {
                   financialArtifactType: item.holdingType,
                 });
                 setNotesModalVisible(true);
+              }}
+              deleteButtonCallBack={() => {
+                setAssetToDelete({
+                  isVisible: true,
+                  assedId: item._id,
+                });
               }}
             />
           )}
@@ -150,6 +147,26 @@ const CashScreen = () => {
         setModalVisible={setNotesModalVisible}
         artifactDetails={artifactDetails}
         setArtifactDetails={setArtifactDetails}
+      />
+      <AssetDeleteModal
+        crossButtonCLick={closeAssetDeleteModal}
+        assetDeleteModalVisible={assetToDelete.isVisible}
+        archiveButtonCallback={() => {
+          archiveFinancialHoldingByIdMutation(assetToDelete.assedId).then(
+            () => {
+              setAssetToDelete({ isVisible: false, assedId: "" });
+            }
+          );
+        }}
+        deleteButtonCallback={() => {
+          permanentlyDeleteFinancialHolding(assetToDelete.assedId)
+            .then(() => {
+              setAssetToDelete({ isVisible: false, assedId: "" });
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        }}
       />
     </View>
   );

@@ -15,26 +15,42 @@ import { useTheme } from "../../theme/ThemeProvider";
 import CustomActivityIndicator from "./CustomActivityIndicator";
 import Empty from "./Empty";
 import ShareNomineeModalCard from "../Nominee/ShareNomineeModalCard";
-import { SCREEN_NAMES } from "../../constants/screenNames";
 import { BackHandler } from "react-native";
 
-const AssetSharingModal = ({
+interface AssetSharingModalProps {
+  modalVisible: boolean;
+  setModalVisible: React.Dispatch<React.SetStateAction<boolean>>;
+  artifactDetails: {
+    financialArtifact: {};
+    financialArtifactId: string;
+    financialArtifactType: string;
+  };
+  setArtifactDetails: React.Dispatch<
+    React.SetStateAction<{
+      financialArtifact: {};
+      financialArtifactId: string;
+      financialArtifactType: string;
+    }>
+  >;
+}
+
+const AssetSharingModal: React.FC<AssetSharingModalProps> = ({
   modalVisible,
   setModalVisible,
   artifactDetails,
   setArtifactDetails,
 }) => {
   const snapPoints = ["70%"];
-  const sheetRef = useRef(null);
+  const sheetRef = useRef<BottomSheet | null>(null);
   modalVisible && sheetRef.current?.snapToIndex(0);
 
   useEffect(() => {
-
     if (!modalVisible) {
       setArtifactDetails({
         financialArtifactId: "",
         financialArtifactType: "",
-      })
+        financialArtifact: {}
+      });
     }
 
     const backHandler = BackHandler.addEventListener(
@@ -153,7 +169,7 @@ const AssetSharingModal = ({
           <Pressable
             style={styles.modalbtn}
             onPress={() => {
-              navigation.navigate("ADD_NOMINEE_SCREEN")
+              navigation.navigate("ADD_NOMINEE_SCREEN");
             }}
           >
             <Text style={styles.modalbtntext}>+ My Circle</Text>
@@ -173,39 +189,41 @@ const AssetSharingModal = ({
               <Empty message="No Nominees Available" />
             </View>
           ) : (
-            artifactDetails.financialArtifactId && <BottomSheetFlatList
-              style={styles.flatList}
-              data={Object.values(
-                nomineeList.data ? nomineeList.data.entities : {}
-              )}
-              keyExtractor={(item) => item._id}
-              renderItem={({ item }) => {
-                return Object.values(
-                  data?.data && typeof data.data === "object"
-                    ? data.data.nominees
-                    : {}
-                ).some((c) => c.email === item.email) ? (
-                  <ShareNomineeModalCard
-                    isApproved
-                    item={item}
-                    callBack={() => revoke(item)}
-                    disableCallback={
-                      revokeAssetAccessFromNomineeLoading ||
-                      shareAssetToNomineeLoading
-                    }
-                  />
-                ) : (
-                  <ShareNomineeModalCard
-                    item={item}
-                    callBack={() => share(item)}
-                    disableCallback={
-                      revokeAssetAccessFromNomineeLoading ||
-                      shareAssetToNomineeLoading
-                    }
-                  />
-                );
-              }}
-            />
+            artifactDetails.financialArtifactId && (
+              <BottomSheetFlatList
+                style={styles.flatList}
+                data={Object.values(
+                  nomineeList.data ? nomineeList.data.entities : {}
+                )}
+                keyExtractor={(item) => item._id}
+                renderItem={({ item }) => {
+                  return Object.values(
+                    data?.data && typeof data.data === "object"
+                      ? data.data.nominees
+                      : {}
+                  ).some((c) => c.email === item.email) ? (
+                    <ShareNomineeModalCard
+                      isApproved
+                      item={item}
+                      callBack={() => revoke(item)}
+                      disableCallback={
+                        revokeAssetAccessFromNomineeLoading ||
+                        shareAssetToNomineeLoading
+                      }
+                    />
+                  ) : (
+                    <ShareNomineeModalCard
+                      item={item}
+                      callBack={() => share(item)}
+                      disableCallback={
+                        revokeAssetAccessFromNomineeLoading ||
+                        shareAssetToNomineeLoading
+                      }
+                    />
+                  );
+                }}
+              />
+            )
           )}
         </View>
       </View>

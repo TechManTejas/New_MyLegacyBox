@@ -4,12 +4,69 @@ import {
   createSelector,
   createSlice,
 } from "@reduxjs/toolkit";
-import {
-  BeneficiaryType,
-  ExecutorType,
-  PersonalInfoType,
-  WitnessType,
-} from "../../../types/entity";
+
+interface PersonalInfoProps {
+  _id: string;
+  aadharNumber: string;
+  address: {
+    city: string;
+    country: string;
+    pinCode: number;
+    state: string;
+    street: string;
+  };
+  age: number;
+  dateOfBirth: string;
+  fathersName: string;
+  fullName: string;
+  gender: string;
+  uid: string;
+}
+
+interface NomineeProps {
+  _id: string;
+  email: string;
+  fullName: string;
+  gender: string;
+  phoneNumber: string;
+  relationship: string;
+}
+
+interface BeneficiaryProps extends NomineeProps {
+  address: {
+    city: string;
+    pinCode: number;
+    state: string;
+    street: string;
+  };
+  fathersName: string;
+  aadharNumber: string;
+  age?: number;
+}
+
+interface WitnessProps extends NomineeProps {
+  address?: {
+    city: string;
+    pinCode: number;
+    state: string;
+    street: string;
+  };
+  age?: number;
+  fathersName?: string;
+  aadharNumber?: string;
+}
+
+interface ExecutorProps extends NomineeProps {
+  aadharNumber: string;
+  address?: {
+    city: string;
+    pinCode: number;
+    state: string;
+    street: string;
+  };
+  age?: number;
+  fathersName?: string;
+}
 
 interface WillFormSliceType {
   _id: string;
@@ -21,16 +78,19 @@ const selectedAssetsAdapter = createEntityAdapter<WillFormSliceType>({
 });
 
 interface initialStateType {
-  personalInfo: PersonalInfoType | {};
-  witnesses: WitnessType[];
-  beneficiaries: BeneficiaryType[];
-  executors: ExecutorType[];
+  personalInfo?: PersonalInfoProps | {};
+  witnesses: WitnessProps[];
+  beneficiaries: BeneficiaryProps[];
+  executors: ExecutorProps[];
   assets: any[];
   declarationInfo: {
     place: string;
     declaration: string;
   };
   selectedAssets: EntityState<WillFormSliceType>;
+  residualDistData: any[];
+  secondaryDistData: any[];
+  willRolesTracker: any[];
 }
 
 const initialState: initialStateType = {
@@ -44,6 +104,9 @@ const initialState: initialStateType = {
     declaration: "",
   },
   selectedAssets: selectedAssetsAdapter.getInitialState(),
+  residualDistData: [],
+  secondaryDistData: [],
+  willRolesTracker: [],
 };
 
 export const willFormSlice = createSlice({
@@ -56,6 +119,10 @@ export const willFormSlice = createSlice({
     setDeclarationInfoRedux: (state, action) => {
       state.declarationInfo = action.payload;
     },
+    setWitnessRedux: (state, action) => {
+      state.witnesses = action.payload;
+      return state;
+    },
     addWitnessRedux: (state, action) => {
       state.witnesses.push(action.payload);
     },
@@ -64,6 +131,10 @@ export const willFormSlice = createSlice({
         (elem) => elem._id !== action.payload
       );
     },
+    setExecutorRedux: (state, action) => {
+      state.executors = action.payload;
+      return state;
+    },
     addExecutorRedux: (state, action) => {
       state.executors.push(action.payload);
     },
@@ -71,6 +142,10 @@ export const willFormSlice = createSlice({
       state.executors = state.executors.filter(
         (elem) => elem._id !== action.payload
       );
+    },
+    setBeneficiaryRedux: (state, action) => {
+      state.beneficiaries = action.payload;
+      return state;
     },
     addBeneficiaryRedux: (state, action) => {
       state.beneficiaries.push(action.payload);
@@ -99,15 +174,32 @@ export const willFormSlice = createSlice({
     removeSelectedAssetRedux: (state, action) => {
       selectedAssetsAdapter.removeOne(state.selectedAssets, action.payload);
     },
+    addResidualDistData: (state, action) => {
+      state.residualDistData = action.payload;
+    },
+    addSecondaryDistData: (state, action) => {
+      state.secondaryDistData = action.payload;
+    },
     clearAssets: (state) => {
       state.assets = [];
+      state.residualDistData = [];
+      state.secondaryDistData = [];
       return state;
+    },
+    setWillRolesTracker: (state, action) => {
+      state.willRolesTracker = action.payload;
     },
     clearWillFormRedux: () => initialState,
   },
 });
 
 export const {
+  setBeneficiaryRedux,
+  setExecutorRedux,
+  setWitnessRedux,
+  setWillRolesTracker,
+  addResidualDistData,
+  addSecondaryDistData,
   setPersonalInfoRedux,
   setDeclarationInfoRedux,
   addWitnessRedux,
@@ -129,6 +221,21 @@ export const {
 const willFormSelector = (state: { willForm: any }) => state.willForm;
 
 export const getWill = createSelector(willFormSelector, (willForm) => willForm);
+
+export const getWillRolesTrackerData = createSelector(
+  willFormSelector,
+  (willForm) => willForm.willRolesTracker
+);
+
+export const getResidualDistData = createSelector(
+  willFormSelector,
+  (willForm) => willForm.residualDistData
+);
+
+export const getSecondaryDistData = createSelector(
+  willFormSelector,
+  (willForm) => willForm.secondaryDistData
+);
 
 export const getPersonalInfoSelector = createSelector(
   willFormSelector,

@@ -89,7 +89,7 @@ const FeedbackScreen = () => {
                     name="subject"
                     placeholder="Enter the subject"
                     title="Subject"
-                    onChange={handleChange("subject")}
+                    onChangeText={handleChange("subject")}
                     onBlur={handleBlur("subject")}
                     value={values.subject}
                     textTransformNormal
@@ -99,7 +99,7 @@ const FeedbackScreen = () => {
                     name="description"
                     placeholder="Enter the description"
                     title="Description"
-                    onChange={handleChange("description")}
+                    onChangeText={handleChange("description")}
                     onBlur={handleBlur("description")}
                     value={values.description}
                     multiline

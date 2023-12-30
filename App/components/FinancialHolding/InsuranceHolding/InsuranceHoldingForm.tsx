@@ -129,9 +129,9 @@ const InsuranceHoldingForm = ({
         beneficiary: initialValues?.beneficiary || "",
         homeBranch: initialValues?.homeBranch || "",
         premiumFrequency: initialValues?.premiumFrequency || "",
-        policyAmount: initialValues?.policyAmount || undefined,
-        premiumAmount: initialValues?.premiumAmount || undefined,
-        nominee: initialValues?.nominee || undefined,
+        policyAmount: initialValues?.policyAmount || "",
+        premiumAmount: initialValues?.premiumAmount || "",
+        nominee: initialValues?.nominee || "",
         dateOfPremium: initialValues?.dateOfPremium
           ? new Date(initialValues?.dateOfPremium)
           : undefined,
@@ -172,7 +172,7 @@ const InsuranceHoldingForm = ({
                 name="policyName"
                 placeholder="Enter your Policy Name"
                 title="Policy Name"
-                onChange={handleChange("policyName")}
+                onChangeText={handleChange("policyName")}
                 onBlur={handleBlur("policyName")}
                 value={values.policyName}
                 messages={
@@ -187,7 +187,7 @@ const InsuranceHoldingForm = ({
                 name="homeBranch"
                 placeholder="Enter your Home branch"
                 title="Home Branch"
-                onChange={handleChange("homeBranch")}
+                onChangeText={handleChange("homeBranch")}
                 onBlur={handleBlur("homeBranch")}
                 value={values.homeBranch}
                 messages={
@@ -202,7 +202,7 @@ const InsuranceHoldingForm = ({
                 name="policyNumber"
                 placeholder="Enter your Policy Number"
                 title="Policy Number"
-                onChange={handleChange("policyNumber")}
+                onChangeText={handleChange("policyNumber")}
                 onBlur={handleBlur("policyNumber")}
                 value={values.policyNumber}
                 messages={
@@ -356,7 +356,7 @@ const InsuranceHoldingForm = ({
                 placeholder="Enter Nominee"
                 title="Nominee"
                 optional
-                onChange={handleChange("nominee")}
+                onChangeText={handleChange("nominee")}
                 onBlur={handleBlur("nominee")}
                 value={values.nominee}
                 messages={
@@ -375,13 +375,13 @@ const InsuranceHoldingForm = ({
                 name="policyAmount"
                 placeholder="Enter the Policy Amount"
                 title="Policy Amount (in Rs)"
-                onChange={(value) => {
+                onChangeText={(value) => {
                   if (value == " " || value == "")
                     setFieldValue("policyAmount", "");
                   else if (!isNaN(value)) setFieldValue("policyAmount", +value);
                 }}
                 onBlur={handleBlur("policyAmount")}
-                value={values.policyAmount}
+                value={String(values.policyAmount)}
                 messages={
                   customErrors.policyAmount
                     ? [
@@ -400,14 +400,14 @@ const InsuranceHoldingForm = ({
                 name="premiumAmount"
                 placeholder="Enter the Premium Amount"
                 title="Premium Amount (in Rs)"
-                onChange={(value) => {
+                onChangeText={(value) => {
                   if (value == " " || value == "")
                     setFieldValue("premiumAmount", "");
                   else if (!isNaN(value))
                     setFieldValue("premiumAmount", +value);
                 }}
                 onBlur={handleBlur("premiumAmount")}
-                value={values.premiumAmount}
+                value={String(values.premiumAmount)}
                 messages={
                   customErrors.premiumAmount
                     ? [

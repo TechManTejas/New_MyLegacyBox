@@ -1,20 +1,17 @@
-import * as SecureStore from "expo-secure-store";
+import { getItemAsync, deleteItemAsync, setItemAsync } from "expo-secure-store";
 
 const userSessionName = "user_session";
 
 export const getAuthenticatedSession = () => {
-  const p = SecureStore.getItemAsync(userSessionName);
+  const p = getItemAsync(userSessionName);
   return p;
 };
 
-export const setAuthenticatedSession = (sessionToken) => {
-  if (!sessionToken) {
-    return killAuthenticatedSession();
-  }
-
-  return SecureStore.setItemAsync(userSessionName, sessionToken);
+export const setAuthenticatedSession = (sessionToken?: string) => {
+  if (!sessionToken) return killAuthenticatedSession();
+  return setItemAsync(userSessionName, sessionToken);
 };
 
 export const killAuthenticatedSession = () => {
-  return SecureStore.deleteItemAsync(userSessionName);
+  return deleteItemAsync(userSessionName);
 };

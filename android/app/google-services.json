@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "712023391329",
+    "project_id": "oiconomos-11",
+    "storage_bucket": "oiconomos-11.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:712023391329:android:72d2abb1ff484bb1387e20",
+        "android_client_info": {
+          "package_name": "com.oiconomos.www"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCsZ-3r7iQ7_YLvsQ_H9sfAuiBTCDUJ-0g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

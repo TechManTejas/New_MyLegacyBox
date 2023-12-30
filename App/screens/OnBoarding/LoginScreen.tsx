@@ -7,7 +7,11 @@ import {
   useWindowDimensions,
   StatusBar,
 } from "react-native";
-import { useIsFocused, useNavigation } from "@react-navigation/native";
+import {
+  useFocusEffect,
+  useIsFocused,
+  useNavigation,
+} from "@react-navigation/native";
 import { useAuth } from "../../authentication/AuthProvider";
 import { useTheme } from "../../theme/ThemeProvider";
 import { kratosClient } from "../../authentication/kratosSdk";
@@ -17,6 +21,8 @@ import { handleFormSubmitError } from "../../utils/oryForm";
 import CustomSafeView from "../../components/Common/CustomSafeView";
 import CustomKeyboardAvoidingScrollView from "../../components/Common/CustomKeyboardAvoidingScrollView";
 import CustomActivityIndicator from "../../components/Common/CustomActivityIndicator";
+import AppFeatures from "../../components/AppFeatures";
+import { getItemAsync } from "expo-secure-store";
 
 const LoginScreen = () => {
   const isFoucused = useIsFocused();
@@ -30,11 +36,23 @@ const LoginScreen = () => {
   const [flow, setFlow] = useState(undefined);
   const [inProgressFlow, setInProgressFlow] = useState(true);
 
+  const [lastUsedEmail, setLastUsedEmail] = useState("");
+
   useEffect(() => {
     initiateFlow();
 
     return () => setFlow(undefined);
   }, []);
+
+  useFocusEffect(
+    useCallback(() => {
+      getItemAsync("lastUsedEmail").then((email) => {
+        if (email) {
+          setLastUsedEmail(email);
+        }
+      });
+    }, [])
+  );
 
   const initiateFlow = useCallback(() => {
     setInProgressFlow(true);
@@ -140,8 +158,16 @@ const LoginScreen = () => {
 
         <View style={styles.formWrapper}>
           <View style={styles.formContainer}>
-            <OrySelfServiceFlow flow={flow} onSubmit={onSubmit} />
+            <OrySelfServiceFlow
+              flow={flow}
+              onSubmit={onSubmit}
+              identifierValue={lastUsedEmail}
+            />
+
             <View style={styles.formFooter}>
+              <View style={{ paddingBottom: spacing.lg }}>
+                <AppFeatures />
+              </View>
               <Text style={styles.caption}>
                 By signing in you agree to our{" "}
                 <Text style={styles.captionBold}>Terms & Conditions</Text> and{" "}

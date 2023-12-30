@@ -2,10 +2,34 @@ import { View, Text, StyleSheet, Pressable, FlatList } from "react-native";
 import { useTheme } from "../../theme/ThemeProvider";
 import FinancialHoldingItemWrapper from "../FinancialHolding/FinancialHoldingItemWrapper";
 import CustomPill from "./Pill/CustomPill";
-import { FontAwesome5, FontAwesome } from "@expo/vector-icons";
+import { FontAwesome5, FontAwesome, Entypo } from "@expo/vector-icons";
 import React from "react";
+import { useRoute } from "@react-navigation/native";
 
-const FinancialInstitutionHoldingCard = ({
+interface ContentProps {
+  type?: string;
+  key: string;
+  value: string;
+}
+
+interface FinancialInstitutionHoldingCardProps {
+  holdingClass: string;
+  updatedAt: string;
+  content: ContentProps[];
+  title: string;
+  tagLabel: string;
+  editButtonCallBack: () => void;
+  shareButtonCallBack: () => void;
+  notesButtonCallBack: () => void;
+  deleteButtonCallBack: () => void;
+  unarchiveButtonCallBack: () => void;
+  permanentDeleteButtonCallBack: () => void;
+  widthKey: number;
+}
+
+const FinancialInstitutionHoldingCard: React.FC<
+  FinancialInstitutionHoldingCardProps
+> = ({
   holdingClass,
   updatedAt,
   content,
@@ -14,6 +38,9 @@ const FinancialInstitutionHoldingCard = ({
   editButtonCallBack,
   shareButtonCallBack,
   notesButtonCallBack,
+  deleteButtonCallBack,
+  permanentDeleteButtonCallBack,
+  unarchiveButtonCallBack,
   widthKey,
 }) => {
   const {
@@ -115,10 +142,11 @@ const FinancialInstitutionHoldingCard = ({
     },
     buttomText: {
       color: colors.white,
-      paddingRight: 10,
-      paddingTop: 2,
+      paddingRight: 8,
+      // paddingTop: 2,
       fontFamily: fontFamily.semiBold,
-      fontSize: fontSize.md,
+      fontSize: fontSize.sm,
+      lineHeight: fontSize.md,
     },
     halfWidth: {
       width: "50%",
@@ -140,37 +168,70 @@ const FinancialInstitutionHoldingCard = ({
       marginLeft: spacing.xs,
     },
     notesbtn: {
-      marginLeft: spacing.xs,
+      marginRight: spacing.xs,
+      backgroundColor: colors.white400,
+    },
+    notesbtntext: {
+      color: colors.blue500,
     },
   });
 
+  const { name } = useRoute()
+
   return (
-    <FinancialHoldingItemWrapper holdingClass={holdingClass}>
+    <FinancialHoldingItemWrapper
+      shareBtnCallBack={shareButtonCallBack}
+      holdingClass={holdingClass}
+    >
       <View style={styles.infoHeaderContainer}>
         <Text style={styles.name}>{title || "Policy"}</Text>
         <View style={styles.btngroup}>
+          {notesButtonCallBack && (
+            <Pressable
+              onPress={notesButtonCallBack}
+              style={[styles.buttom, styles.notesbtn]}
+            >
+              <Text style={[styles.buttomText, styles.notesbtntext]}>
+                Notes
+              </Text>
+              <FontAwesome
+                name="sticky-note"
+                size={14}
+                color={colors.blue500}
+              />
+            </Pressable>
+          )}
           {editButtonCallBack && (
             <Pressable onPress={editButtonCallBack} style={styles.buttom}>
               {/* <Text style={styles.buttomText}>Edit</Text> */}
               <FontAwesome5 name="pen" size={10} color="white" />
             </Pressable>
           )}
-          {shareButtonCallBack && (
+          {deleteButtonCallBack && (
             <Pressable
-              onPress={shareButtonCallBack}
+              onPress={deleteButtonCallBack}
               style={[styles.buttom, styles.sharebtn]}
             >
               {/* <Text style={styles.buttomText}>Share</Text> */}
-              <FontAwesome5 name="share-alt" size={10} color="white" />
+              <FontAwesome5 name="trash" size={10} color={"white"} />
             </Pressable>
           )}
-          {notesButtonCallBack && (
+          {unarchiveButtonCallBack && (
             <Pressable
-              onPress={notesButtonCallBack}
-              style={[styles.buttom, styles.notesbtn]}
+              onPress={unarchiveButtonCallBack}
+              style={[styles.buttom, styles.sharebtn]}
             >
-              {/* <Text style={styles.buttomText}>Share</Text> */}
-              <FontAwesome name="sticky-note" size={10} color="white" />
+              {/* <Text style={styles.buttomText}>Unarchive</Text> */}
+              <Entypo name="back-in-time" size={10} color="white" />
+            </Pressable>
+          )}
+          {permanentDeleteButtonCallBack && (
+            <Pressable
+              onPress={permanentDeleteButtonCallBack}
+              style={[styles.buttom, styles.sharebtn, name==="ARCHIVED_ASSETS_SCREEN" && { backgroundColor: colors.red500 }]}
+            >
+              {/* <Text style={styles.buttomText}>Delete</Text> */}
+              <FontAwesome5 name="trash" size={10} color={"white"} />
             </Pressable>
           )}
         </View>
@@ -207,7 +268,7 @@ const FinancialInstitutionHoldingCard = ({
       <FlatList
         data={content}
         renderItem={({ item, index }) =>
-          item.type == "divider" ? (
+          item.type === "divider" ? (
             <View style={styles.contentDivider} />
           ) : (
             <View key={index} style={[styles.row, styles.marginBottomXs]}>

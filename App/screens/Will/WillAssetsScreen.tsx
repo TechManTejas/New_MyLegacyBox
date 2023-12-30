@@ -23,7 +23,6 @@ import { addSelectedAssetRedux } from "../../redux/form/willFormSlice";
 import { PROVIDENT_FUND_TYPE_TO_TITLE_MAP } from "../../constants/financialHoldings/providentFundHolding";
 import { useMemo } from "react";
 import { BANK_ACCOUNT_OWNERSHIP_MAP } from "../../constants/financialHoldings/bankHolding";
-import { SCREEN_NAMES } from "../../constants/screenNames";
 
 const WillAssetsScreen = () => {
   const navigation = useNavigation();
@@ -97,15 +96,76 @@ const WillAssetsScreen = () => {
         ? [
             {
               title: "Bank",
-              data: bankData.ids.map((id) => bankData.entities[id]),
+              data: financialData
+                .filter(
+                  (financialHolding) =>
+                    financialHolding.holdingType ===
+                    FINANCIAL_HOLDING_TYPE_MAP.bank
+                )
+                .reduce(
+                  (acc, holding) => {
+                    if (!acc.lookup[holding.parentId]) {
+                      acc.lookup[holding.parentId] = true;
+                      acc.ids.push(holding.parentId);
+                    }
+
+                    return acc;
+                  },
+                  {
+                    lookup: {},
+                    ids: [],
+                  }
+                )
+                .ids.map((parentId) => bankData.entities[parentId]),
+              //  bankData.ids.map((id) => bankData.entities[id]),
             },
             {
               title: "Postal",
-              data: postalData.ids.map((id) => postalData.entities[id]),
+              data: financialData
+                .filter(
+                  (financialHolding) =>
+                    financialHolding.holdingType ===
+                    FINANCIAL_HOLDING_TYPE_MAP.postal
+                )
+                .reduce(
+                  (acc, holding) => {
+                    if (!acc.lookup[holding.parentId]) {
+                      acc.lookup[holding.parentId] = true;
+                      acc.ids.push(holding.parentId);
+                    }
+
+                    return acc;
+                  },
+                  {
+                    lookup: {},
+                    ids: [],
+                  }
+                )
+                .ids.map((parentId) => postalData.entities[parentId]),
             },
             {
               title: "Insurance",
-              data: insuranceData.ids.map((id) => insuranceData.entities[id]),
+              data: financialData
+                .filter(
+                  (financialHolding) =>
+                    financialHolding.holdingType ===
+                    FINANCIAL_HOLDING_TYPE_MAP.insurance
+                )
+                .reduce(
+                  (acc, holding) => {
+                    if (!acc.lookup[holding.parentId]) {
+                      acc.lookup[holding.parentId] = true;
+                      acc.ids.push(holding.parentId);
+                    }
+
+                    return acc;
+                  },
+                  {
+                    lookup: {},
+                    ids: [],
+                  }
+                )
+                .ids.map((parentId) => insuranceData.entities[parentId]),
             },
             {
               title: "Demat",
@@ -163,7 +223,7 @@ const WillAssetsScreen = () => {
                   FINANCIAL_HOLDING_TYPE_MAP.cash
               ),
             },
-          ]
+          ].filter((section) => section.data && section.data.length > 0)
         : undefined;
 
     return result;
@@ -317,17 +377,19 @@ const WillAssetsScreen = () => {
           <SectionList
             sections={sectionListData}
             keyExtractor={({ _id }) => _id}
-            renderItem={({ item, index, section }) => (
-              <View style={styles.assetContainerStyle}>
-                <WillAssetCard
-                  {...getItemTitleAndSubTitle(item, section.title)}
-                  pressHandler={(itemTitle) => {
-                    pressHandler(item, section.title, itemTitle);
-                  }}
-                  selected={!!selectedAssetsEntities[item._id]}
-                />
-              </View>
-            )}
+            renderItem={({ item, index, section }) => {
+              return (
+                <View style={styles.assetContainerStyle}>
+                  <WillAssetCard
+                    {...getItemTitleAndSubTitle(item, section.title)}
+                    pressHandler={(itemTitle) => {
+                      pressHandler(item, section.title, itemTitle);
+                    }}
+                    selected={!!selectedAssetsEntities[item._id]}
+                  />
+                </View>
+              );
+            }}
             renderSectionHeader={({ section: { title } }) => (
               <View style={styles.sectionTitleContainer}>
                 <Text style={styles.sectionTitle}>{title}</Text>

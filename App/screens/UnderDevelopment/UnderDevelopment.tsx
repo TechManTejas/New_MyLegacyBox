@@ -1,11 +1,12 @@
 import { View, Text, StyleSheet } from "react-native";
 import React from "react";
 import { useTheme } from "../../theme/ThemeProvider";
-import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
+import { Ionicons  } from "@expo/vector-icons";
 
 const UnderDevelopment = () => {
-
-  const { theme: { colors, spacing, fontSize, fontFamily } } = useTheme();
+  const {
+    theme: { colors, spacing, fontSize, fontFamily },
+  } = useTheme();
 
   const styles = StyleSheet.create({
     container: {
@@ -35,8 +36,8 @@ const UnderDevelopment = () => {
     <View style={styles.container}>
       <View style={styles.content}>
         <View style={styles.iconContainer}>
-          <FontAwesome5
-            name="laptop-code"
+          <Ionicons 
+            name="construct"
             size={styles.icon.fontSize}
             color={styles.icon.color}
           />

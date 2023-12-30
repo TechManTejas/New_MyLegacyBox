@@ -101,8 +101,6 @@ export const SCREEN_NAMES = {
   willUpdateNomineeScreen: "WILL_UPDATE_NOMINEE_SCREEN",
   willScreen: "WILL_SCREEN",
 
-  willInfoScreen: "WILL_INFO_SCREEN",
-
   willWitnessesScreen: "WILL_WITNESSES_SCREEN",
   willBeneficiariesScreen: "WILL_BENEFICIARIES_SCREEN",
 
@@ -116,4 +114,11 @@ export const SCREEN_NAMES = {
   willGenerationScreen: "WILL_GENERATION_SCREEN",
 
   ohubScreen: "OHUB_SCREEN",
+
+  archivedAssetsScreen: "ARCHIVED_ASSETS_SCREEN",
+
+  faq: "FAQ",
+
+  appTourScreen: "APP_TOURS_SCREEN"
+
 };

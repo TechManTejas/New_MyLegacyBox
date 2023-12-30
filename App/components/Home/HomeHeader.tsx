@@ -5,6 +5,8 @@ import { useTheme } from "../../theme/ThemeProvider";
 import { FontAwesome } from '@expo/vector-icons'; 
 import { useNavigation } from "@react-navigation/native";
 
+import CircleUser from "../../assets/icons/circleUser.svg"
+
 const HomeHeader = () => {
   const { theme: { colors, spacing, fontFamily, fontSize } } = useTheme();
   const { session } = useAuth();
@@ -34,13 +36,9 @@ const HomeHeader = () => {
       color: colors.black400,
     },
     iconContainer: {
-      // borderWidth: spacing.xxxs,
       paddingHorizontal: spacing.xs,
       paddingTop: spacing.xs,
       paddingBottom: spacing.sm,
-      // borderRadius: spacing.sm,
-      // borderColor: colors.blue300,
-      // borderStyle: "dashed",
       backgroundColor: colors.white100,
     },
   });
@@ -49,7 +47,7 @@ const HomeHeader = () => {
     <View style={styles.container}>
       <View>
         <Text style={styles.greeting}>
-          Hi,{" "}
+          Namaste,{" "}
           <Text style={styles.username}>
             {session?.identity?.traits?.name?.first || "user"}
           </Text>
@@ -63,7 +61,8 @@ const HomeHeader = () => {
         }}
       >
         <View>
-          <FontAwesome name="user-circle" size={fontSize.xxxl} color={colors.blue400} />
+          {/* <FontAwesome name="user-circle" size={fontSize.xxxl} color={colors.blue400} /> */}
+          <CircleUser width={fontSize.xxxl} height={fontSize.xxxl} fill={colors.blue400} />
         </View>
       </Pressable>
     </View>

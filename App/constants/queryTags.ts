@@ -26,6 +26,7 @@ export enum QUERY_TAGS {
   feedback = "feedback",
   personalInfo = "PERSONAL_INFO",
   notes = "NOTES",
+  archivedAssets = "ARCHIVED_ASSETS",
 }
 
 export const tagTypes = [
@@ -53,4 +54,5 @@ export const tagTypes = [
   QUERY_TAGS.feedback,
   QUERY_TAGS.personalInfo,
   QUERY_TAGS.notes,
+  QUERY_TAGS.archivedAssets,
 ];

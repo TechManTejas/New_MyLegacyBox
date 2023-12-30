@@ -1,13 +1,79 @@
 import React, { useEffect, useState } from "react";
-import { ActivityIndicator, StyleSheet, Text, TextInput, View } from "react-native";
+import {
+  ActivityIndicator,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+  NativeSyntheticEvent,
+  TextInputChangeEventData,
+  TextInputFocusEventData,
+  NativeTouchEvent,
+  GestureResponderEvent,
+} from "react-native";
 import { useTheme } from "../../theme/ThemeProvider";
 import CustomErrorMessageGroup from "./CustomErrorMessageGroup";
 import CustomToolTip from "../Common/CustomToolTip";
 import { Ionicons } from "@expo/vector-icons";
-import CustomActivityIndicator from "../Common/CustomActivityIndicator";
 
-const CustomInputGroup = ({
-  name,
+interface MessageProps {
+  text: string;
+  id: string;
+}
+
+interface CustomInputGroup {
+  title?: string;
+  subTitle?: string;
+  marginBottom?: number;
+  onPressIn?: (e: NativeSyntheticEvent<NativeTouchEvent>) => void;
+  onChange?: (e: NativeSyntheticEvent<TextInputChangeEventData>) => void;
+  onFocus?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void;
+  onChangeText?: (text: string) => void;
+  onBlur?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void;
+  onTouchStart?: (event: GestureResponderEvent) => void;
+  pointerEvents?: "box-none" | "none" | "box-only" | "auto" | undefined;
+  value?: string;
+  placeholder?: string;
+  disabled?: boolean;
+  messages?: MessageProps[];
+  IconLeftComponent?: any;
+  IconRightComponent?: any;
+  placeholderSuffix?: string;
+  multiline?: boolean;
+  numberOfLines?: number;
+  optional?: boolean;
+  textContentType?:
+    | "none"
+    | "URL"
+    | "addressCity"
+    | "addressCityAndState"
+    | "addressState"
+    | "countryName"
+    | "creditCardNumber"
+    | "emailAddress"
+    | "familyName"
+    | "fullStreetAddress"
+    | "givenName"
+    | "jobTitle"
+    | "location"
+    | "middleName"
+    | "name"
+    | "namePrefix"
+    | "nameSuffix"
+    | "nickname"
+    | "organizationName"
+    | "postalCode"
+    | "streetAddressLine1"
+    | "streetAddressLine2"
+    | "sublocality";
+  textTransformNormal?: boolean;
+  info?: React.JSX.Element;
+  loader?: boolean;
+  defaultValue?: string
+}
+
+const CustomInputGroup: React.FC<CustomInputGroup> = ({
+  // name,
   title,
   subTitle,
   onPressIn,
@@ -31,24 +97,23 @@ const CustomInputGroup = ({
   textTransformNormal,
   info,
   loader,
+  marginBottom,
+  defaultValue,
   ...extraProps
 }) => {
-  const [hasError, setHasError] = useState(false);
+  const [_, setHasError] = useState(false);
   const {
     theme: { colors, spacing, fontSize, fontFamily },
   } = useTheme();
 
   useEffect(() => {
-    if (messages.length) {
-      setHasError(true);
-    } else {
-      setHasError(false);
-    }
+    if (messages.length) setHasError(true);
+    else setHasError(false);
   }, [messages]);
 
   const styles = StyleSheet.create({
     container: {
-      marginBottom: spacing.lg,
+      marginBottom: marginBottom !== undefined ? marginBottom : spacing.lg,
     },
     labelContainer: {
       flexDirection: "row",
@@ -96,15 +161,12 @@ const CustomInputGroup = ({
       fontSize: fontSize.md,
       color: colors.black500,
       lineHeight: fontSize.default,
-      // paddingHorizontal: spacing.sm,
       paddingHorizontal: spacing.lg,
       height: 40,
-
-      // borderRadius: 20
     },
     multilineInput: {
       textAlignVertical: "top",
-      height: 70
+      height: 70,
     },
     inputDisabled: {
       backgroundColor: colors.black100,
@@ -139,7 +201,7 @@ const CustomInputGroup = ({
   return (
     <View style={styles.container}>
       <View style={styles.labelContainer}>
-        <Text style={styles.label}>{title}</Text>
+        {title && <Text style={styles.label}>{title}</Text>}
         {info && (
           <CustomToolTip
             icon={
@@ -155,7 +217,13 @@ const CustomInputGroup = ({
           />
         )}
         {optional ? <Text style={styles.labelOptional}>optional</Text> : null}
-        {loader && <ActivityIndicator style={{ marginLeft: spacing.sm }} size={10} color={colors.blue500} />}
+        {loader && (
+          <ActivityIndicator
+            style={{ marginLeft: spacing.sm }}
+            size={10}
+            color={colors.blue500}
+          />
+        )}
       </View>
       {subTitle ? (
         <View style={styles.subTitleContainer}>
@@ -182,17 +250,19 @@ const CustomInputGroup = ({
           onFocus={onFocus}
           numberOfLines={multiline ? numberOfLines : 1}
           onChange={onChange}
-          onChangeText={onChangeText ? onChangeText : onChange}
+          onChangeText={onChangeText}
           onBlur={onBlur}
           onTouchStart={onTouchStart}
-          value={value || value === 0 ? String(value) : ""}
+          value={value}
           pointerEvents={pointerEvents}
           placeholder={`${placeholder} ${placeholderSuffix || ""}`}
           editable={!disabled}
           textContentType={textContentType}
           placeholderTextColor={styles.placeholder.color}
           multiline={multiline}
+          defaultValue={defaultValue}
           {...extraProps}
+          
         />
         {IconRightComponent ? (
           <IconRightComponent

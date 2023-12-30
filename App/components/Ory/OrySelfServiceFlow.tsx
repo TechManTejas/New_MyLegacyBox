@@ -3,7 +3,13 @@ import { getNodeId, isUiNodeInputAttributes } from "../../utils/oryForm";
 import CustomErrorMessageGroup from "../Form/CustomErrorMessageGroup";
 import OryNode from "./OryNode";
 
-const OrySelfServiceFlow = ({ flow, only, onSubmit, textInputOverride }) => {
+const OrySelfServiceFlow = ({
+  flow,
+  only,
+  onSubmit,
+  textInputOverride,
+  identifierValue,
+}) => {
   const [inProgress, setInProgress] = useState(false);
   const [values, setValues] = useState({});
   const [nodes, setNodes] = useState([]);
@@ -46,7 +52,11 @@ const OrySelfServiceFlow = ({ flow, only, onSubmit, textInputOverride }) => {
           return;
         }
 
-        values[name] = node.attributes.value;
+        if (node.attributes.name === "identifier" && identifierValue) {
+          values[name] = identifierValue;
+        } else {
+          values[name] = node.attributes.value;
+        }
       }
     });
 

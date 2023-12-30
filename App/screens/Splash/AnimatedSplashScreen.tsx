@@ -66,12 +66,11 @@ const AnimatedSplashScreen: React.FC<AnimatedSplashScreenProps> = ({
   });
 
   useEffect(() => {
-
     const animationEndInterval = setTimeout(() => {
       setSplashScreenVisible(false);
-    }, 7000);
+    }, 4000);
 
-    const coverEndInterval = setTimeout(() => setCoverVisible(false), 3000);
+    const coverEndInterval = setTimeout(() => setCoverVisible(false), 2500);
 
     return () => {
       clearTimeout(animationEndInterval);
@@ -86,14 +85,13 @@ const AnimatedSplashScreen: React.FC<AnimatedSplashScreenProps> = ({
       <View style={styles.screen}>
         <Image
           style={styles.logo}
-          fadeDuration={0}
           source={require("../../../assets/icon.png")}
         />
 
         <View style={styles.animatedTextBlock}>
           {text.split("").map((char, id) => (
             <Animated.Text
-              entering={FadeInLeft.delay(id * 150 + 1500).duration(500)}
+              entering={FadeInLeft.delay(id * 100 ).duration(500)}
               style={styles.text}
               key={id}
             >
@@ -111,7 +109,7 @@ const AnimatedSplashScreen: React.FC<AnimatedSplashScreenProps> = ({
           <View style={styles.placeholder} />
           {coverVisible && (
             <Animated.View
-              exiting={SlideOutRight.duration(7000)}
+              exiting={SlideOutRight.duration(2500)}
               style={[styles.placeholder, styles.cover]}
             />
           )}

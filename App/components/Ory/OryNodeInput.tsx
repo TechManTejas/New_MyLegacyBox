@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Pressable, StyleSheet, Text } from "react-native";
 import {
   getNodeId,
@@ -37,17 +37,6 @@ const guessAttributeVariant = ({ attributes }) => {
   }
 };
 
-const typeToState = ({ type, disabled }) => {
-  if (disabled) {
-    return "disabled";
-  }
-  switch (type) {
-    case "error":
-      return "error";
-  }
-  return undefined;
-};
-
 const OryNodeInput = ({
   node,
   value,
@@ -56,6 +45,8 @@ const OryNodeInput = ({
   textInputOverride,
 }) => {
   const variant = guessAttributeVariant(node);
+
+  const route = useRoute();
   const [showPassword, setShowPassword] = useState(false);
 
   if (!variant) return null;
@@ -95,7 +86,6 @@ const OryNodeInput = ({
       extraProps.textContentType = "username";
       extraProps.autoCapitalize = "none";
       extraProps.autoCorrect = false;
-      // extra props for displaying custom placeholder
       extraProps.placeholderSuffix = "/ email";
       break;
     case "phone":
@@ -104,9 +94,7 @@ const OryNodeInput = ({
       extraProps.maxLength = 13;
   }
 
-  if (textInputOverride) {
-    extraProps = textInputOverride(node, extraProps);
-  }
+  if (textInputOverride) extraProps = textInputOverride(node, extraProps);
 
   const name = getNodeId(node);
   const title = metaLabelModifier(getNodeTitle(node));
@@ -124,15 +112,16 @@ const OryNodeInput = ({
     },
   });
 
-  const route = useRoute()
-
   return (
     <CustomInputGroup
+      optional={name === "traits.referralCode"}
       name={name}
       placeholder={`Enter your ${title}`}
       title={title}
       onChange={onChange}
       onChangeText={onChange}
+      // defaultValue={route.name === "LOGIN_SCREEN" && name === "identifier" && lastUsedEmail ? lastUsedEmail : ""}
+      // value={route.name === "LOGIN_SCREEN" && name === "identifier" && lastUsedEmail ? lastUsedEmail : ""}
       value={value ? String(value) : ""}
       disabled={disabled}
       messages={node.messages}

@@ -38,16 +38,15 @@ const WillAssetDisplayCard = ({ asset }) => {
       marginBottom: spacing.md,
     },
     button: {
-      marginLeft: spacing.sm,
-      backgroundColor: colors.black100,
+      marginLeft: spacing.xxs,
+      // backgroundColor: colors.black100,
+      marginBottom: spacing.xxs,
       padding: spacing.xs,
       borderRadius: spacing.xs,
     },
     titleButtonContainer: {
       flexDirection: "row",
       alignItems: "center",
-      //   marginBottom: spacing.xs
-      //   justifyContent: "",
     },
   });
 
@@ -231,13 +230,22 @@ const WillAssetDisplayCard = ({ asset }) => {
   );
 
   return (
-    <View style={styles.assetContainer}>
+    <View
+      style={[
+        styles.assetContainer,
+        {
+          padding: spacing.md,
+          borderRadius: spacing.md,
+          backgroundColor: colors.white100,
+        },
+      ]}
+    >
       <View style={styles.titleButtonContainer}>
         <Text style={styles.itemTitle}>{asset.itemTitle}</Text>
         <Pressable onPress={toggleInfoButton} style={styles.button}>
           <FontAwesome
-            name={infoCardVisible ? "arrow-down" : "arrow-right"}
-            size={10}
+            name={infoCardVisible ? "caret-up" : "caret-down"}
+            size={14}
             color={colors.black300}
           />
         </Pressable>
@@ -246,15 +254,21 @@ const WillAssetDisplayCard = ({ asset }) => {
       {infoCardVisible ? (
         <View style={{ marginTop: spacing.xs }}>
           {getContents(asset).map((item, index) => (
-            <WillToggleCard key={index + "will-toggle-card"} contents={item} />
+            <WillToggleCard
+              key={index + "will-toggle-card" + item[0].value}
+              contents={item}
+            />
           ))}
         </View>
       ) : null}
 
       <View>
-        {Object.entries(asset.allocations).map(([_id, percent], idx) => (
-          <WillNamePercentCard key={idx} percent={percent} _id={_id} />
-        ))}
+        {Object.entries(asset.allocations).map(([_id, percent], idx) => {
+          if (percent !== 0)
+            return (
+              <WillNamePercentCard key={idx} percent={percent} _id={_id} />
+            );
+        })}
       </View>
     </View>
   );

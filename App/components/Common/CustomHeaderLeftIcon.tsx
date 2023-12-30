@@ -1,11 +1,24 @@
-import React from "react"
+import React, { useState } from "react";
 import { Pressable, StyleSheet } from "react-native";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import { useTheme } from "../../theme/ThemeProvider";
+import { NavigationProp, useRoute } from "@react-navigation/native";
+import PopUpModal from "../PopUpModal";
 
-const CustomHeaderLeftIcon = ({ navigation }) => {
+interface CustomHeaderLeftIconProps {
+  navigation: NavigationProp<ReactNavigation.RootParamList>;
+}
 
-  const { theme: { colors, spacing, fontSize } } = useTheme();
+const CustomHeaderLeftIcon: React.FC<CustomHeaderLeftIconProps> = ({
+  navigation,
+}) => {
+  const route = useRoute();
+
+  const [isPopUpVisible, setIsPopUpVisible] = useState(false);
+
+  const {
+    theme: { colors, spacing, fontSize },
+  } = useTheme();
 
   const styles = StyleSheet.create({
     headerLeftIcon: {
@@ -18,19 +31,39 @@ const CustomHeaderLeftIcon = ({ navigation }) => {
     },
   });
 
+  const firstButtonCallBack = () => {
+    setIsPopUpVisible(false);
+    if (navigation.canGoBack()) navigation.goBack();
+  };
+
+  const secondButtonCallBack = () => {
+    setIsPopUpVisible(false);
+  };
+
+  const backPress = () => {
+    if (route.name === "WILL_INDEX_SCREEN") {
+      setIsPopUpVisible(true);
+    } else if (navigation.canGoBack()) navigation.goBack();
+  };
+
   return (
-    <Pressable
-      style={styles.headerLeftIcon}
-      onPress={() => {
-        if (navigation.canGoBack()) navigation.goBack();
-      }}
-    >
-      <FontAwesome5
-        name="chevron-left"
-        color={styles.headerLeftIcon.color}
-        size={styles.headerLeftIcon.fontSize}
+    <>
+      <Pressable style={styles.headerLeftIcon} onPress={backPress}>
+        <FontAwesome5
+          name="chevron-left"
+          color={styles.headerLeftIcon.color}
+          size={styles.headerLeftIcon.fontSize}
+        />
+      </Pressable>
+      <PopUpModal
+        isVisible={isPopUpVisible}
+        setIsVisible={setIsPopUpVisible}
+        title="Are you sure you want to go back ?"
+        message="Your progress will be lost"
+        firstButton={{ callBack: firstButtonCallBack, text: "Go Back" }}
+        secondButton={{ callBack: secondButtonCallBack, text: "Cancel" }}
       />
-    </Pressable>
+    </>
   );
 };
 
