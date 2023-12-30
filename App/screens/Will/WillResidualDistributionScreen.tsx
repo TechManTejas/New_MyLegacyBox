@@ -53,8 +53,8 @@ const WillResidualDistributionScreen = () => {
       color: colors.red400,
     },
 
-    left: { width: "70%",},
-    right: { width: "30%",},
+    left: { width: "70%" },
+    right: { width: "30%" },
     individualCard: {
       flexDirection: "row",
       alignItems: "center",
@@ -72,7 +72,7 @@ const WillResidualDistributionScreen = () => {
       return {
         id: index,
         beneficiary: item,
-        percent: existingData ? existingData.percent : "0",
+        percent: existingData ? String(Number(existingData.percent)) : "",
       };
     })
   );
@@ -80,21 +80,25 @@ const WillResidualDistributionScreen = () => {
   const [isError, setIsError] = useState(false);
 
   const updateValues = (val: string, id: number) => {
-    if (/^\d+$/.test(val) || val === "") {
       setState((prev) => {
         const prevState = [...prev];
         const findToUpdate = prevState.find((obj) => obj.id === id);
-        findToUpdate["percent"] = `${Number(val)}`;
+
+        if (!Number.isNaN(Number(val))) {
+          val.charAt(val.length - 1) === "."
+            ? findToUpdate["percent"] = val
+            : findToUpdate["percent"] = `${Number(val)}`
+        }
+
         return prevState;
       });
-    }
   };
 
   const validateAndSave = () => {
-    const totalPercentage = state.reduce(
-      (acc, curr) => acc + Number(curr?.percent ?? 0),
-      0
-    );
+
+    const totalPercentage = state.reduce((acc, curr) => {
+      return acc + Number(curr?.percent ?? 0);
+    }, 0);
 
     if (totalPercentage === 100 || totalPercentage === 99.99) {
       dispatch(addResidualDistData(state));
@@ -105,10 +109,7 @@ const WillResidualDistributionScreen = () => {
   };
 
   return (
-    <WillFormContainer
-      Handler={validateAndSave}
-      nextDisabled={state.some((obj) => obj.percent === "")}
-    >
+    <WillFormContainer Handler={validateAndSave}>
       <ScrollView style={styles.container}>
         <View style={styles.formContainer}>
           <WillInfoCard content="It is essential to specify 'Residuary clause' in a Will, which refers to any other property not specifically included in a Will or which is not in existence at the time of execution of a Will. Residuary clause clarifies the mannerism in which any such assets are to be bequeathed. " />
@@ -128,7 +129,7 @@ const WillResidualDistributionScreen = () => {
                   <Text style={styles.left}>{item.fullName}</Text>
                   <View style={styles.right}>
                     <CustomInputGroup
-                    marginBottom={spacing.xs}
+                      marginBottom={spacing.xs}
                       placeholder="Enter %"
                       // title={`${item.fullName}'s Distribution`}
                       value={

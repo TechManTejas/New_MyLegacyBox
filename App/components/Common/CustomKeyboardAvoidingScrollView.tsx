@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 interface CustomKeyboardAvoidingScrollViewProps {
-  children: React.ReactNode;
+  children: React.ReactNode[];
 }
 
 const CustomKeyboardAvoidingScrollView: React.FC<

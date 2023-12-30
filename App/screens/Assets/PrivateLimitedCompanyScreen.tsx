@@ -12,9 +12,11 @@ import AssetSharingModal from "../../components/Common/AssetSharingModal";
 import NotesModal from "../../components/Common/NotesModal";
 import { useGetFinancialHoldingForPrivateLimitedCompanyQuery } from "../../redux/api/vault/financialHolding/privateLimitedCompany/privateLimitedCompanyApiSlice";
 import {
-  PRIVATE_LIMITED_COMPANY_TYPE_MAP,
-  PRIVATE_LIMITED_COMPANY_TYPE_MAP_TO_TITLE_MAP,
-} from "../../constants/financialHoldings/privateLimitedHolding";
+  useArchiveFinancialHoldingByIdMutation,
+  usePermanentlyDeleteFinancialHoldingMutation,
+} from "../../redux/api/vault/financialHolding/allHoldings/allHoldings";
+import AssetDeleteModal from "../../components/Common/AssetDeleteModal";
+import { HOLDINGS_PROPS_MAP } from "../../data/AllHoldingsPropsData";
 
 const PrivateLimitedCompanyScreen = () => {
   const navigation = useNavigation();
@@ -40,6 +42,21 @@ const PrivateLimitedCompanyScreen = () => {
     financialArtifactId: "",
     financialArtifactType: "",
   });
+
+  const [assetToDelete, setAssetToDelete] = useState({
+    isVisible: false,
+    assedId: "",
+  });
+
+  const closeAssetDeleteModal = () => {
+    setAssetToDelete({ isVisible: false, assedId: "" });
+  };
+
+  const [archiveFinancialHoldingByIdMutation] =
+    useArchiveFinancialHoldingByIdMutation();
+
+  const [permanentlyDeleteFinancialHolding] =
+    usePermanentlyDeleteFinancialHoldingMutation();
 
   const styles = StyleSheet.create({
     container: {
@@ -76,42 +93,7 @@ const PrivateLimitedCompanyScreen = () => {
           }
           renderItem={({ item }) => (
             <FinancialInstitutionHoldingItem
-              widthKey={45}
-              title={item.holding.nameOfCompany}
-              updatedAt={item.updatedAt}
-              holdingClass={item.holdingClass}
-              tagLabel={
-                PRIVATE_LIMITED_COMPANY_TYPE_MAP_TO_TITLE_MAP[
-                  item.holding.natureOfInvestment
-                ]
-              }
-              content={[
-                { key: "CIN Number", value: item.holding.cinNumber },
-                ...(item.holding.natureOfInvestment ===
-                  PRIVATE_LIMITED_COMPANY_TYPE_MAP.equity ||
-                item.holding.natureOfInvestment ===
-                  PRIVATE_LIMITED_COMPANY_TYPE_MAP.preference
-                  ? [
-                      {
-                        key: "No of Shares held",
-                        value: item.holding.noOfSharesHeld,
-                      },
-                      {
-                        key: "Share Certificate Number",
-                        value: item.holding.shareCertificateNumber,
-                      },
-                    ]
-                  : [
-                      {
-                        key: "No of Shares granted",
-                        value: item.holding.noOfSharesGranted,
-                      },
-                      {
-                        key: "No of Shares vested",
-                        value: item.holding.noOfSharesVested,
-                      },
-                    ]),
-              ]}
+              {...HOLDINGS_PROPS_MAP.PRIVATELIMITEDCOMPANY(item)}
               editButtonCallBack={() => {
                 navigation.navigate(
                   SCREEN_NAMES.updatePrivateLimitedCompanyFinancialHoldingScreen,
@@ -135,6 +117,12 @@ const PrivateLimitedCompanyScreen = () => {
                   financialArtifactType: item.holdingType,
                 });
                 setNotesModalVisible(true);
+              }}
+              deleteButtonCallBack={() => {
+                setAssetToDelete({
+                  isVisible: true,
+                  assedId: item._id,
+                });
               }}
             />
           )}
@@ -176,6 +164,26 @@ const PrivateLimitedCompanyScreen = () => {
               : "",
           },
         ]}
+      />
+      <AssetDeleteModal
+        crossButtonCLick={closeAssetDeleteModal}
+        assetDeleteModalVisible={assetToDelete.isVisible}
+        archiveButtonCallback={() => {
+          archiveFinancialHoldingByIdMutation(assetToDelete.assedId).then(
+            () => {
+              setAssetToDelete({ isVisible: false, assedId: "" });
+            }
+          );
+        }}
+        deleteButtonCallback={() => {
+          permanentlyDeleteFinancialHolding(assetToDelete.assedId)
+            .then(() => {
+              setAssetToDelete({ isVisible: false, assedId: "" });
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        }}
       />
     </View>
   );

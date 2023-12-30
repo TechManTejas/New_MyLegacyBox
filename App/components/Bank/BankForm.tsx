@@ -11,8 +11,24 @@ import CustomKeyboardAvoidingScrollView from "../Common/CustomKeyboardAvoidingSc
 import { bankValidator } from "../../utils/form/validators/bankValidator";
 
 interface BankFormProps {
-  ctaCaption: string
-  isLoading: boolean
+  ctaCaption: string;
+  isLoading: boolean;
+  initialValues: {
+    name: string;
+    ifsc: string;
+    customerId: string;
+    branchName: string;
+    poc: string;
+    pocNumber: string;
+    address: {
+      city: string;
+      state: string;
+      pinCode: string;
+      street: string;
+      country: string;
+    };
+  };
+  apiCallback: () => void;
 }
 
 const BankForm: React.FC<BankFormProps> = ({
@@ -148,8 +164,6 @@ const BankForm: React.FC<BankFormProps> = ({
     setInputDisabled(false);
   };
 
-  
-
   return (
     <Formik
       validationSchema={toFormikValidationSchema(bankValidator)}
@@ -163,7 +177,7 @@ const BankForm: React.FC<BankFormProps> = ({
         address: {
           city: initialValues?.address?.city || "",
           state: initialValues?.address?.state || "",
-          pinCode: initialValues?.address?.pinCode || undefined,
+          pinCode: initialValues?.address?.pinCode || "",
           street: initialValues?.address?.street || "",
           country: initialValues?.address?.country || "",
         },
@@ -172,7 +186,6 @@ const BankForm: React.FC<BankFormProps> = ({
       validateOnBlur={false}
     >
       {({ handleChange, setFieldValue, handleBlur, validateForm, values }) => {
-        
         return (
           <CustomKeyboardAvoidingScrollView keyboardVerticalOffset={100}>
             <View style={styles.container}>

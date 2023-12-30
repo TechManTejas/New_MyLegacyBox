@@ -1,6 +1,8 @@
 import { View, Text, StyleSheet } from "react-native";
 import React from "react";
 import { useTheme } from "../../theme/ThemeProvider";
+import CustomToolTip from "../Common/CustomToolTip";
+import { Ionicons } from "@expo/vector-icons"
 
 const WillResidualDistPrevCard = ({ residualData }) => {
   const {
@@ -8,8 +10,12 @@ const WillResidualDistPrevCard = ({ residualData }) => {
   } = useTheme();
 
   const styles = StyleSheet.create({
+
+    header: {
+      alignItems: "center",
+      flexDirection: "row"
+    },
     residualSection: {
-      //   marginHorizontal: spacing.md,
       padding: spacing.md,
     },
     residualName: {
@@ -31,23 +37,25 @@ const WillResidualDistPrevCard = ({ residualData }) => {
       flexDirection: "row",
       alignItems: "flex-start",
       justifyContent: "space-between",
-      marginBottom: spacing.sm,
+      marginBottom: spacing.md,
+      backgroundColor: colors.white100,
+      padding: spacing.md,
+      borderRadius: spacing.sm,
     },
-    residualNameEmail: {},
 
-    titleContainer: {
-      // marginBottom: spacing.sm,
-      borderBottomWidth: StyleSheet.hairlineWidth,
-      borderBlockColor: colors.black200,
-      // paddingBottom: spacing.sm,
-    },
     titleText: {
       fontFamily: fontFamily.semiBold,
       color: colors.blue500,
-      fontSize: fontSize.lg,
-      lineHeight: fontSize.xl,
+      fontSize: fontSize.default,
+      lineHeight: fontSize.lg,
       paddingHorizontal: spacing.lg,
-      paddingVertical: spacing.lg,
+      paddingTop: spacing.lg,
+    },
+    toolTipMessage: {
+      fontFamily: fontFamily.regular,
+      fontSize: fontSize.md,
+      lineHeight: spacing.lg,
+      color: colors.blue500,
     },
   });
 
@@ -55,17 +63,36 @@ const WillResidualDistPrevCard = ({ residualData }) => {
     residualData.length !== 0 && (
       <View
         style={{
-          borderWidth: StyleSheet.hairlineWidth,
-          borderColor: colors.black300,
           borderRadius: spacing.md,
+          backgroundColor: colors.white400,
         }}
       >
-        <View style={styles.titleContainer}>
+        <View style={styles.header}>
           <Text style={styles.titleText}>Residuary Distribution</Text>
+          <CustomToolTip
+              icon={
+                <Ionicons
+                  name="information-circle-outline"
+                  size={fontSize.default}
+                  color={colors.blue500}
+                />
+              }
+              message={
+                <View>
+                  <Text style={styles.toolTipMessage}>
+                    It is essential to specify 'Residuary clause' in a Will, which refers to any other property not specifically 
+                    included in a Will or which is not in existence at the time of execution of a Will. Residuary clause clarifies 
+                    the mannerism in which any such assets are to be bequeathed. 
+                  </Text>
+                </View>
+              }
+              position={"bottom"}
+              style={{ marginTop: spacing.md, marginLeft: -spacing.md }}
+            />
         </View>
         <View style={styles.residualSection}>
           {residualData.map((item, index) => {
-            if (item.percent !== "0")
+            if (item.percent !== "0" && item.percent !== "")
               return (
                 <View key={index} style={styles.residualCard}>
                   <View>

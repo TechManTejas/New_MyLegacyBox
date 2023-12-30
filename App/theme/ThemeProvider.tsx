@@ -1,34 +1,18 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { defaultTheme } from "./theme";
+
+interface ThemeProviderProps {
+  children: React.ReactNode;
+}
 
 const ThemeContext = React.createContext({
   theme: defaultTheme,
-  updateTheme: () => {},
 });
 
 export const useTheme = () => useContext(ThemeContext);
 
-export const ThemeProvider = ({ children }) => {
-  const [theme, setTheme] = useState(defaultTheme);
-
-  const updateTheme = ({
-    colors = {},
-    spacing = {},
-    fontSize = {},
-    fontFamily = {},
-  }) => {
-    const newTheme = {
-      colors: { ...colors, ...defaultTheme.colors },
-      spacing: { ...spacing, ...defaultTheme.spacing },
-      fontSize: { ...fontSize, ...defaultTheme.fontSize },
-      fontFamily: { ...fontFamily, ...defaultTheme.fontFamily },
-    };
-
-    setTheme(newTheme);
-  };
-
-  const value = { theme, updateTheme };
-
+export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
+  const value = { theme: defaultTheme };
 
   return (
     <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>

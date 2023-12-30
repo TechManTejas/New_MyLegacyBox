@@ -165,7 +165,7 @@ const WillDownloadCard = () => {
     assetDistContainer: {
       marginTop: spacing.xl,
       flexDirection: "row",
-      alignItems: "flex-end",
+      alignItems: "center",
       justifyContent: "space-between",
       borderBottomWidth: StyleSheet.hairlineWidth,
       borderBottomColor: colors.black200,
@@ -434,7 +434,6 @@ const WillDownloadCard = () => {
             thumbColor={colors.blue500}
             value={distributionView}
             onValueChange={() => setDistributionView((prev) => !prev)}
-            style={{ marginBottom: -spacing.md }}
           />
         </View>
 
@@ -452,50 +451,65 @@ const WillDownloadCard = () => {
           </View>
         ) : (
           <View style={{ marginTop: spacing.md }}>
-            {data?.data?.beneficiaries.map((beneficiary, idx) => {
-              return (
-                <View key={idx} style={styles.beneficiaryContainer}>
-                  <View style={styles.beneficiaryNameEmail}>
-                    <View>
-                      <Text style={styles.beneficiaryFullName}>
-                        {beneficiary.fullName}
-                      </Text>
-                      <Text style={styles.beneficiaryEmail}>
-                        {beneficiary.email}
+            {data?.data?.beneficiaries
+              .filter((beneficiary) => {
+                if (data?.data?.assets) {
+                  let sum = 0;
+                  data.data.assets.forEach((asset) => {
+                    sum += asset.allocations[beneficiary._id];
+                  });
+                  return sum != 0;
+                }
+                return false;
+              })
+              .map((beneficiary, idx) => {
+                return (
+                  <View key={idx} style={styles.beneficiaryContainer}>
+                    <View style={styles.beneficiaryNameEmail}>
+                      <View>
+                        <Text style={styles.beneficiaryFullName}>
+                          {beneficiary.fullName}
+                        </Text>
+                        <Text style={styles.beneficiaryEmail}>
+                          {beneficiary.email}
+                        </Text>
+                      </View>
+                      <Text style={styles.beneficiaryRelationship}>
+                        {
+                          NOMINEE_RELATIONSHIP_TO_TITLE_MAP[
+                            beneficiary.relationship
+                          ]
+                        }
                       </Text>
                     </View>
-                    <Text style={styles.beneficiaryRelationship}>
-                      {
-                        NOMINEE_RELATIONSHIP_TO_TITLE_MAP[
-                          beneficiary.relationship
-                        ]
-                      }
-                    </Text>
-                  </View>
 
-                  <View style={{ marginTop: spacing.md }}>
-                    {data?.data?.assets.map((asset, idx2) => {
-                      if (
-                        Object.keys(asset.allocations).some(
-                          (id) => id === beneficiary._id
+                    <View style={{ marginTop: spacing.md }}>
+                      {data?.data?.assets
+                        .filter(
+                          (asset) => asset.allocations[beneficiary._id] > 0
                         )
-                      ) {
-                        const detailsCardContent = getContents(asset);
+                        .map((asset, idx2) => {
+                          if (
+                            Object.keys(asset.allocations).some(
+                              (id) => id === beneficiary._id
+                            )
+                          ) {
+                            const detailsCardContent = getContents(asset);
 
-                        return (
-                          <WillBeneficiaryPrevModeToggler
-                            key={idx2}
-                            contents={detailsCardContent}
-                            title={asset.itemTitle}
-                            percent={asset.allocations[beneficiary._id]}
-                          />
-                        );
-                      }
-                    })}
+                            return (
+                              <WillBeneficiaryPrevModeToggler
+                                key={idx2}
+                                contents={detailsCardContent}
+                                title={asset.itemTitle}
+                                percent={asset.allocations[beneficiary._id]}
+                              />
+                            );
+                          }
+                        })}
+                    </View>
                   </View>
-                </View>
-              );
-            })}
+                );
+              })}
           </View>
         )}
 

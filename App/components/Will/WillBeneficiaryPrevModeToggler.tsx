@@ -11,15 +11,16 @@ const WillBeneficiaryPrevModeToggler = ({ contents, title, percent }) => {
 
   const styles = StyleSheet.create({
     button: {
-      marginLeft: spacing.sm,
-      backgroundColor: colors.black100,
+      marginLeft: spacing.xxs,
+      marginBottom: spacing.xxs,
+      // backgroundColor: colors.black100,
       padding: spacing.xs,
       borderRadius: spacing.xs,
     },
   });
 
   const [isDisplayed, setIsDisplayed] = useState(false);
-
+  
   return (
     <View>
       <View
@@ -42,8 +43,8 @@ const WillBeneficiaryPrevModeToggler = ({ contents, title, percent }) => {
             style={styles.button}
           >
             <FontAwesome
-              name={isDisplayed ? "arrow-up" : "arrow-down"}
-              size={10}
+              name={isDisplayed ? "caret-up" : "caret-down"}
+              size={14}
               color={colors.black300}
             />
           </Pressable>

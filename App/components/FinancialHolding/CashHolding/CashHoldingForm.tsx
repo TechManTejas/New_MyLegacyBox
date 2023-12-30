@@ -67,9 +67,6 @@ const CashHoldingForm = ({
 
     setGlobalErrorMessage("");
 
-    console.log(values);
-    
-
     try {
       validationErrors = await validateForm(values);
     } catch (error) {

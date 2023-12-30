@@ -7,7 +7,6 @@ import { useTheme } from "../../theme/ThemeProvider";
 import { StyleSheet } from "react-native";
 import CustomHeaderLeftIcon from "../../components/Common/CustomHeaderLeftIcon";
 import CustomHeaderTitle from "../../components/Common/CustomHeaderTitle";
-import CustomHeaderRightIcon from "../../components/Common/CustomHeaderRightIcon";
 import { StackType } from "../RootNavigator/RootNavigator";
 import SharedArtifactsNavigator from "../DrawerNavigator/SharedArtifactsNavigator";
 
@@ -32,7 +31,6 @@ const SubRootNavigator: React.FC<StackType> = ({ Stack }) => {
       screenOptions={({ navigation }) => ({
         headerStyle: styles.headerStyle,
         headerLeft: () => <CustomHeaderLeftIcon navigation={navigation} />,
-        headerRight: () => <CustomHeaderRightIcon />,
         headerTitleAlign: "center",
         headerTitle: (props) => <CustomHeaderTitle {...props} />,
       })}
@@ -42,6 +40,8 @@ const SubRootNavigator: React.FC<StackType> = ({ Stack }) => {
         component={BottomTabNavigator}
         options={{ headerShown: false }}
       />
+
+      {SharedArtifactsNavigator({ Stack })}
 
       {HomeNavigator({ Stack })}
 

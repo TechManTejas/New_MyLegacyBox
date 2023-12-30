@@ -1,5 +1,5 @@
 import { createEntityAdapter } from "@reduxjs/toolkit";
-import { QUERY_TAGS } from "../../../../../constants/queryTags";
+import { QUERY_TAGS, tagTypes } from "../../../../../constants/queryTags";
 import { rootApiSlice } from "../../../rootApi";
 
 interface FinancialHoldingType {
@@ -42,8 +42,45 @@ export const extendedFinancialHoldingApiSlice = rootApiSlice.injectEndpoints({
               },
             ],
     }),
+    archiveFinancialHoldingById: builder.mutation({
+      query: (financialHoldingId) => ({
+        url: `/vault/financial-holdings/archive/${financialHoldingId}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: [QUERY_TAGS.financialHolding, QUERY_TAGS.archivedAssets],
+    }),
+    unarchiveFinancialHoldingById: builder.mutation({
+      query: (financialHoldingId) => ({
+        url: `/vault/financial-holdings/unarchive/${financialHoldingId}`,
+        method: "POST",
+      }),
+      invalidatesTags: [QUERY_TAGS.financialHolding, QUERY_TAGS.archivedAssets],
+    }),
+    permanentlyDeleteFinancialHolding: builder.mutation({
+      query: (financialHoldingId) => ({
+        url: `/vault/financial-holdings/${financialHoldingId}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: [QUERY_TAGS.archivedAssets, QUERY_TAGS.financialHolding],
+    }),
+    getArchivedFinancialHoldings: builder.query({
+      query: () => "/vault/archive-financial-holdings",
+      transformResponse: (responseData) => {
+        return financialHoldingsAdapter.setAll(
+          initialState,
+          responseData?.data || []
+        );
+      },
+      providesTags: [QUERY_TAGS.archivedAssets],
+    }),
   }),
+  overrideExisting: true,
 });
 
-export const { useGetAllFinancialHoldingsQuery } =
-  extendedFinancialHoldingApiSlice;
+export const {
+  useGetAllFinancialHoldingsQuery,
+  useArchiveFinancialHoldingByIdMutation,
+  useGetArchivedFinancialHoldingsQuery,
+  useUnarchiveFinancialHoldingByIdMutation,
+  usePermanentlyDeleteFinancialHoldingMutation
+} = extendedFinancialHoldingApiSlice;

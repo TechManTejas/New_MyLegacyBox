@@ -9,37 +9,6 @@ export interface CarouselDataProps {
   align: string;
 }
 
-export const homeCarouselData: Array<CarouselDataProps> = [
-  {
-    img: require(`${path}/lock.png`),
-    title: "End to End Encryption",
-    subtitle:
-      "Providing unparalleled security by protecting your data with our robust end-to-end encryption",
-    align: "left",
-  },
-  {
-    img: require(`${path}/shield.png`),
-    title: "Multi Factor Authentication",
-    subtitle:
-      "Fortifying your data with multi-factor authentication for an added layer of defense",
-    align: "right",
-  },
-  {
-    img: require(`${path}/locker.png`),
-    title: "AWS Servers",
-    subtitle:
-      "We use high performance servers with the latest security patches to keep your information safe and secured",
-    align: "left",
-  },
-  {
-    img: require(`${path}/copy.png`),
-    title: "No Paper Trail",
-    subtitle:
-      "We leave no paper trail behind, making ensure that your digital footprint is private and controversial",
-    align: "right",
-  },
-];
-
 export const WillCarouselData = [
   {
     img: require(`${path}/creating_will.png`),

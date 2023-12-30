@@ -12,21 +12,10 @@ import {
   institutes,
 } from "../../data/NomineeArtifactPropsData";
 import Empty from "../../components/Common/Empty";
-import { useFocusEffect } from "@react-navigation/native";
-import React, { useCallback } from "react";
-import { useDispatch } from "react-redux";
-import { setScreenInfo } from "../../redux/screenInfo/screenInfo";
+import React from "react";
 
 const AssetsWithNomineeScreen = ({ route }) => {
-  const { nomineeEmail, nominee } = route.params;
-
-  const dispatch = useDispatch();
-
-  useFocusEffect(
-    useCallback(() => {
-      dispatch(setScreenInfo(`Assets you shared with ${nominee}`));
-    }, [])
-  );
+  const { nomineeEmail } = route.params;
 
   const {
     theme: { spacing, fontFamily, fontSize, colors },
@@ -113,12 +102,6 @@ const AssetsWithNomineeScreen = ({ route }) => {
 
   return (
     <View style={styles.screen}>
-      {/* <View style={styles.assetCountDiv}>
-        <Text style={styles.assetCountText}>
-          Total Data Shared: {data.data.length}
-        </Text>
-      </View> */}
-
       {data.ids.length === 0 || data === undefined ? (
         <Empty message="No data to show" />
       ) : (

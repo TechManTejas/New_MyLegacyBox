@@ -114,4 +114,11 @@ export const SCREEN_NAMES = {
   willGenerationScreen: "WILL_GENERATION_SCREEN",
 
   ohubScreen: "OHUB_SCREEN",
+
+  archivedAssetsScreen: "ARCHIVED_ASSETS_SCREEN",
+
+  faq: "FAQ",
+
+  appTourScreen: "APP_TOURS_SCREEN"
+
 };

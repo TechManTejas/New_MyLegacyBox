@@ -32,7 +32,6 @@ const OnBoardingFooter = () => {
       lineHeight: fontSize.xxl,
       marginBottom: spacing.xl,
       color: colors.blue,
-      // color: colors.white,
       textAlign: "center",
     },
     buttonContainer: {
@@ -45,7 +44,6 @@ const OnBoardingFooter = () => {
       textAlign: "center",
       fontFamily: fontFamily.regular,
       fontSize: fontSize.xs,
-      // color: colors.white,
       color: colors.black400,
     },
     captionBold: {

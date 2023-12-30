@@ -4,14 +4,13 @@ import CustomActivityIndicator from "../../components/Common/CustomActivityIndic
 import BlueButton from "../../components/Common/Button/BlueButton";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import Empty from "../../components/Common/Empty";
-import { useFocusEffect, useNavigation } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 import { SCREEN_NAMES } from "../../constants/screenNames";
 import { useGetNomineesQuery } from "../../redux/api/nominee/nomineeSlice";
 import { NOMINEE_RELATIONSHIP_TO_TITLE_MAP } from "../../constants/nominee";
 import NomineeScreenCard from "../../components/Nominee/NomineeScreenCard";
-import React, { useCallback, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { setScreenInfo } from "../../redux/screenInfo/screenInfo";
 import { getItemAsync, setItemAsync } from "expo-secure-store";
 import { useAuth } from "../../authentication/AuthProvider";
 import { setShowMyCircleTourModal } from "../../redux/appTour/appTour";
@@ -19,27 +18,15 @@ import { setShowMyCircleTourModal } from "../../redux/appTour/appTour";
 const NomineeScreen = () => {
   const dispatch = useDispatch();
 
-  useFocusEffect(
-    useCallback(() => {
-      dispatch(
-        setScreenInfo(
-          "Add your loved ones to the Circle to share information and assign various roles in your Will"
-        )
-      );
-    }, [])
-  );
-
-  const { session } = useAuth()
+  const { session } = useAuth();
 
   useEffect(() => {
-
     getItemAsync(`MyCircleTourShown-${session?.identity.id}`).then((res) => {
       if (res !== "true") {
         dispatch(setShowMyCircleTourModal(true));
         setItemAsync(`MyCircleTourShown-${session?.identity.id}`, "true");
       }
     });
-
   }, []);
 
   const navigation = useNavigation();
@@ -114,8 +101,8 @@ const NomineeScreen = () => {
                 }}
                 editButtonCallBack={() => {
                   navigation.navigate(SCREEN_NAMES.updateNomineeScreen, {
-                    nominee: item
-                  })
+                    nominee: item,
+                  });
                 }}
               />
             );

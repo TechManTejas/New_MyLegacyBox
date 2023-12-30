@@ -4,7 +4,6 @@ import { useTheme } from "../../theme/ThemeProvider";
 import { CustomIcon } from "./CustomIcon";
 import CarretDownFilled from "../../assets/icons/caret-down-filled.svg";
 import CarretUpFilled from "../../assets/icons/caret-up-filled.svg";
-import PlusIcon from "../../assets/icons/plus.svg";
 import SquarePlusIcon from "../../assets/icons/square-rounded-plus-filled.svg";
 
 interface WillTabProps {
@@ -159,7 +158,7 @@ const WillTab: React.FC<WillTabProps> = ({
       </Pressable>
       {nominees !== undefined && !disabled && (
         <Pressable
-          disabled={nominees.length===0}
+          disabled={nominees.length === 0}
           onPress={showNomineesOnPress}
           style={styles.memberViewButton}
         >

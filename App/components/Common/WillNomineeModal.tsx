@@ -32,17 +32,14 @@ interface WillNomineeModalProps {
     nomineesType: string;
     modalVisible: boolean;
   };
-  setModalState: React.Dispatch<
-    React.SetStateAction<{
-      nomineesType: string;
-      modalVisible: boolean;
-    }>
-  >;
+  closeModal: () => void;
+  openModal: () => void;
 }
 
 const WillNomineeModal: React.FC<WillNomineeModalProps> = ({
   modalState,
-  setModalState,
+  closeModal,
+  openModal,
 }) => {
   const snapPoints = ["70%"];
   const sheetRef = useRef<BottomSheet | null>(null);
@@ -58,7 +55,7 @@ const WillNomineeModal: React.FC<WillNomineeModalProps> = ({
     const backAction = () => {
       if (modalState.modalVisible) {
         sheetRef.current?.close();
-        setModalState({ modalVisible: false, nomineesType: "" });
+        closeModal();
         return true;
       }
       return false;
@@ -150,18 +147,20 @@ const WillNomineeModal: React.FC<WillNomineeModalProps> = ({
         {...props}
         disappearsOnIndex={-1}
         appearsOnIndex={0}
+        pressBehavior={"close"}
+        onPress={() => {
+          closeModal();
+        }}
       />
     ),
     []
   );
 
-  console.log(modalState);
-
   return (
     <BottomSheet
       ref={sheetRef}
       snapPoints={snapPoints}
-      enablePanDownToClose={true}
+      // enablePanDownToClose={true}
       onClose={onBottomSheetClose}
       index={-1}
       backdropComponent={renderBackdrop}

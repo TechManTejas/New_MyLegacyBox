@@ -11,6 +11,12 @@ import React, { useState } from "react";
 import AssetSharingModal from "../../components/Common/AssetSharingModal";
 import NotesModal from "../../components/Common/NotesModal";
 import { useGetFinancialHoldingForProprietorshipQuery } from "../../redux/api/vault/financialHolding/proprietorship/proprietorshipApiSlice";
+import {
+  useArchiveFinancialHoldingByIdMutation,
+  usePermanentlyDeleteFinancialHoldingMutation,
+} from "../../redux/api/vault/financialHolding/allHoldings/allHoldings";
+import AssetDeleteModal from "../../components/Common/AssetDeleteModal";
+import { HOLDINGS_PROPS_MAP } from "../../data/AllHoldingsPropsData";
 
 const ProprietorshipScreen = () => {
   const navigation = useNavigation();
@@ -34,6 +40,21 @@ const ProprietorshipScreen = () => {
     financialArtifactId: "",
     financialArtifactType: "",
   });
+
+  const [assetToDelete, setAssetToDelete] = useState({
+    isVisible: false,
+    assedId: "",
+  });
+
+  const closeAssetDeleteModal = () => {
+    setAssetToDelete({ isVisible: false, assedId: "" });
+  };
+
+  const [archiveFinancialHoldingByIdMutation] =
+    useArchiveFinancialHoldingByIdMutation();
+
+  const [permanentlyDeleteFinancialHolding] =
+    usePermanentlyDeleteFinancialHoldingMutation();
 
   const styles = StyleSheet.create({
     container: {
@@ -70,10 +91,7 @@ const ProprietorshipScreen = () => {
           }
           renderItem={({ item }) => (
             <FinancialInstitutionHoldingItem
-              title={item.holding.organisationName}
-              updatedAt={item.updatedAt}
-              holdingClass={item.holdingClass}
-              content={[{ key: "GST Number", value: item.holding.gstNumber }]}
+              { ...HOLDINGS_PROPS_MAP.PROPRIETORSHIP(item) }
               editButtonCallBack={() => {
                 navigation.navigate(
                   SCREEN_NAMES.updateProprietorshipFinancialHoldingScreen,
@@ -97,6 +115,12 @@ const ProprietorshipScreen = () => {
                   financialArtifactType: item.holdingType,
                 });
                 setNotesModalVisible(true);
+              }}
+              deleteButtonCallBack={() => {
+                setAssetToDelete({
+                  isVisible: true,
+                  assedId: item._id,
+                });
               }}
             />
           )}
@@ -138,6 +162,26 @@ const ProprietorshipScreen = () => {
               : "",
           },
         ]}
+      />
+      <AssetDeleteModal
+        crossButtonCLick={closeAssetDeleteModal}
+        assetDeleteModalVisible={assetToDelete.isVisible}
+        archiveButtonCallback={() => {
+          archiveFinancialHoldingByIdMutation(assetToDelete.assedId).then(
+            () => {
+              setAssetToDelete({ isVisible: false, assedId: "" });
+            }
+          );
+        }}
+        deleteButtonCallback={() => {
+          permanentlyDeleteFinancialHolding(assetToDelete.assedId)
+            .then(() => {
+              setAssetToDelete({ isVisible: false, assedId: "" });
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        }}
       />
     </View>
   );

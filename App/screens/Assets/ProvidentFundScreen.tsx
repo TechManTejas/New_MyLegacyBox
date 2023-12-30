@@ -9,16 +9,24 @@ import { useNavigation } from "@react-navigation/native";
 import { SCREEN_NAMES } from "../../constants/screenNames";
 import FinancialInstitutionHoldingItem from "../../components/Common/FinancialInstitutionHoldingCard";
 import { PROVIDENT_FUND_TYPE_TO_TITLE_MAP } from "../../constants/financialHoldings/providentFundHolding";
-import { numberWithCommas } from "../../utils/manipulators";
 import React, { useState } from "react";
 import AssetSharingModal from "../../components/Common/AssetSharingModal";
 import NotesModal from "../../components/Common/NotesModal";
+import {
+  useArchiveFinancialHoldingByIdMutation,
+  usePermanentlyDeleteFinancialHoldingMutation,
+} from "../../redux/api/vault/financialHolding/allHoldings/allHoldings";
+import AssetDeleteModal from "../../components/Common/AssetDeleteModal";
+import { HOLDINGS_PROPS_MAP } from "../../data/AllHoldingsPropsData";
 
 const ProvidentFundScreen = () => {
   const navigation = useNavigation();
 
   const { data, isLoading, isFetching } =
     useGetFinancialHoldingForProvidentFundQuery();
+
+  const [permanentlyDeleteFinancialHolding] =
+    usePermanentlyDeleteFinancialHoldingMutation();
 
   const {
     theme: { spacing, colors },
@@ -36,6 +44,18 @@ const ProvidentFundScreen = () => {
     financialArtifactId: "",
     financialArtifactType: "",
   });
+
+  const [assetToDelete, setAssetToDelete] = useState({
+    isVisible: false,
+    assedId: "",
+  });
+
+  const closeAssetDeleteModal = () => {
+    setAssetToDelete({ isVisible: false, assedId: "" });
+  };
+
+  const [archiveFinancialHoldingByIdMutation] =
+    useArchiveFinancialHoldingByIdMutation();
 
   const styles = StyleSheet.create({
     container: {
@@ -72,23 +92,7 @@ const ProvidentFundScreen = () => {
           }
           renderItem={({ item }) => (
             <FinancialInstitutionHoldingItem
-              title={item.holding.employerName}
-              holdingClass={item.holdingClass}
-              updatedAt={item.updatedAt}
-              tagLabel={PROVIDENT_FUND_TYPE_TO_TITLE_MAP[item.holding.pfType]}
-              content={[
-                { key: "UAN", value: item.holding.uan },
-                {
-                  key: "Amount",
-                  value: item.holding.amount
-                    ? `Rs. ${numberWithCommas(item.holding.amount)}`
-                    : "Not available",
-                },
-                {
-                  key: "Nominee",
-                  value: item.holding.nominee || "Not Available",
-                },
-              ]}
+              {...HOLDINGS_PROPS_MAP.PROVIDENTFUND(item)}
               editButtonCallBack={() => {
                 navigation.navigate(
                   SCREEN_NAMES.updateProvidentFundFinancialHoldingScreen,
@@ -112,6 +116,12 @@ const ProvidentFundScreen = () => {
                   financialArtifactType: item.holdingType,
                 });
                 setNotesModalVisible(true);
+              }}
+              deleteButtonCallBack={() => {
+                setAssetToDelete({
+                  isVisible: true,
+                  assedId: item._id,
+                });
               }}
             />
           )}
@@ -157,6 +167,26 @@ const ProvidentFundScreen = () => {
               : "",
           },
         ]}
+      />
+      <AssetDeleteModal
+        crossButtonCLick={closeAssetDeleteModal}
+        assetDeleteModalVisible={assetToDelete.isVisible}
+        archiveButtonCallback={() => {
+          archiveFinancialHoldingByIdMutation(assetToDelete.assedId).then(
+            () => {
+              setAssetToDelete({ isVisible: false, assedId: "" });
+            }
+          );
+        }}
+        deleteButtonCallback={() => {
+          permanentlyDeleteFinancialHolding(assetToDelete.assedId)
+            .then(() => {
+              setAssetToDelete({ isVisible: false, assedId: "" });
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        }}
       />
     </View>
   );

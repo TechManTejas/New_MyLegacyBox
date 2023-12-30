@@ -1,18 +1,32 @@
 import React, { useEffect } from "react";
-import { View, StyleSheet, ScrollView, StatusBar, Text } from "react-native";
+import {
+  View,
+  StyleSheet,
+  ScrollView,
+  StatusBar,
+  Text,
+  PermissionsAndroid,
+} from "react-native";
 import CustomSafeView from "../components/Common/CustomSafeView";
 import HomeHeader from "../components/Home/HomeHeader";
 import { useTheme } from "../theme/ThemeProvider";
-import { HOME_MAJOR_MENU_DATA, HOME_MINOR_MENU_DATA } from "../data/HomeData";
-import MajorMenu from "../components/Common/MajorMenu";
-import MinorMenu from "../components/Common/MinorMenu";
+import {
+  HOME_SMARTBOX_LARGE_MENU_DATA,
+  HOME_HEADER_MENU_DATA,
+  HOME_SMARTBOX_SMALL_MENU_DATA,
+} from "../data/MenuPropsData";
 import { Ionicons } from "@expo/vector-icons";
 import CustomToolTip from "../components/Common/CustomToolTip";
-import Slider from "../components/Common/Slider";
 import { useAuth } from "../authentication/AuthProvider";
 import { useDispatch } from "react-redux";
 import { getItemAsync, setItemAsync } from "expo-secure-store";
 import { setShowHomeTourModal } from "../redux/appTour/appTour";
+
+import messaging from "@react-native-firebase/messaging";
+import BlogCarousel from "../components/BlogCarousel";
+import { homeBlogCarouselData } from "../data/HomeBlogCarouselData";
+import MinimalIconMenu from "../components/MinimalIconMenu";
+import SolidIconMenu from "../components/SolidIconMenu";
 
 const HomeScreen: React.FC<{}> = () => {
   const {
@@ -109,6 +123,30 @@ const HomeScreen: React.FC<{}> = () => {
     };
   }, []);
 
+  useEffect(() => {
+    setItemAsync("lastUsedEmail", session?.identity?.traits?.email).then(() => {
+      console.log("email cached");
+    });
+  }, []);
+
+  useEffect(() => {
+    getItemAsync("permissionStatus").then((status) => {
+      if (status !== "granted") {
+        PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS
+        ).then((permissionStatus) => {
+          if (permissionStatus === "granted") {
+            messaging()
+              .getToken()
+              .then(() => {
+                setItemAsync("permissionStatus", permissionStatus);
+              });
+          }
+        });
+      }
+    });
+  }, []);
+
   return (
     <CustomSafeView>
       <ScrollView>
@@ -119,6 +157,8 @@ const HomeScreen: React.FC<{}> = () => {
           />
 
           <HomeHeader />
+
+          <MinimalIconMenu data={HOME_HEADER_MENU_DATA} />
 
           <View style={styles.header}>
             <Text style={styles.headertext}>My Smartbox </Text>
@@ -137,11 +177,10 @@ const HomeScreen: React.FC<{}> = () => {
             />
           </View>
 
-          <MajorMenu title="home" menuData={HOME_MAJOR_MENU_DATA} />
-          <MinorMenu title="home" centered menuData={HOME_MINOR_MENU_DATA} />
+          <SolidIconMenu data={HOME_SMARTBOX_LARGE_MENU_DATA} isLarge />
+          <SolidIconMenu data={HOME_SMARTBOX_SMALL_MENU_DATA} isDark />
 
-          <Slider/>
-
+          <BlogCarousel data={homeBlogCarouselData} />
         </View>
       </ScrollView>
     </CustomSafeView>

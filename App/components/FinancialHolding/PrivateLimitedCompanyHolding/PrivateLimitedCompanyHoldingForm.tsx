@@ -197,7 +197,7 @@ const PrivateLimitedCompanyHoldingForm = ({
                 data={objectToDropDownLabelAndValues(
                   PRIVATE_LIMITED_COMPANY_TYPE_MAP_TO_TITLE_MAP
                 )}
-                onChangeText={(value) => {
+                onChange={(value) => {
                   setFieldValue("natureOfInvestment", value);
                   setFieldValue("noOfSharesHeld", "");
                   setFieldValue("shareCertificateNumber", "");

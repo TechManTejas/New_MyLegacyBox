@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="gcm_defaultSenderId" translatable="false">712023391329</string>
-    <string name="google_api_key" translatable="false">AIzaSyCsZ-3r7iQ7_YLvsQ_H9sfAuiBTCDUJ-0g</string>
-    <string name="google_app_id" translatable="false">1:712023391329:android:72d2abb1ff484bb1387e20</string>
-    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyCsZ-3r7iQ7_YLvsQ_H9sfAuiBTCDUJ-0g</string>
-    <string name="google_storage_bucket" translatable="false">oiconomos-11.appspot.com</string>
-    <string name="project_id" translatable="false">oiconomos-11</string>
-</resources>
