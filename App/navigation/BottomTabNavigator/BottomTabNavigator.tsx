@@ -110,7 +110,6 @@ const BottomTabNavigator: React.FC<{}> = () => {
         tabBarLabelStyle: styles.tabBarLabel,
         tabBarIconStyle: styles.tabBarIcon,
         tabBarActiveTintColor: colors.blue500,
-
         headerStyle: styles.headerStyle,
         headerLeft: () => <CustomHeaderLeftIcon navigation={navigation} />,
         headerTitleAlign: "center",
@@ -156,20 +155,20 @@ const BottomTabNavigator: React.FC<{}> = () => {
             },
           ],
           tabBarIcon: ({ focused }) => (
-            // <FontAwesome5
-            //   name="book-open"
-            //   size={styles.iconSize.fontSize}
-            //   color={
-            //     focused ? styles.iconColorFoucsed.color : styles.iconColor.color
-            //   }
-            // />
-            <OpenBookIcon
-              width={styles.iconSize.fontSize}
-              height={styles.iconSize.fontSize}
-              fill={
+            <FontAwesome5
+              name="book-open"
+              size={styles.iconSize.fontSize}
+              color={
                 focused ? styles.iconColorFoucsed.color : styles.iconColor.color
               }
             />
+            // <OpenBookIcon
+            //   width={styles.iconSize.fontSize}
+            //   height={styles.iconSize.fontSize}
+            //   fill={
+            //     focused ? styles.iconColorFoucsed.color : styles.iconColor.color
+            //   }
+            // />
           ),
         })}
       />
@@ -190,16 +189,16 @@ const BottomTabNavigator: React.FC<{}> = () => {
             <View style={styles.centerTabContainer}>
               <View style={styles.centerTab}>
                 <View style={styles.centerTabIconContainer}>
-                  {/* <FontAwesome5
+                  <FontAwesome5
                     name="file-contract"
                     size={styles.centerTabIcon.fontSize}
                     color={styles.centerTabIcon.color}
-                  /> */}
-                  <DocumentSignedIcon
+                  />
+                  {/* <DocumentSignedIcon
                     width={styles.centerTabIcon.fontSize}
                     height={styles.centerTabIcon.fontSize}
                     fill={styles.centerTabIcon.color}
-                  />
+                  /> */}
                 </View>
                 <Text style={styles.centerTabLabel}>My Will</Text>
               </View>
@@ -223,20 +222,20 @@ const BottomTabNavigator: React.FC<{}> = () => {
             },
           ],
           tabBarIcon: ({ focused }) => (
-            // <FontAwesome5
-            //   name="user-friends"
-            //   size={styles.iconSize.fontSize}
-            //   color={
-            //     focused ? styles.iconColorFoucsed.color : styles.iconColor.color
-            //   }
-            // />
-            <TwoUserIcon
-              width={styles.iconSize.fontSize}
-              height={styles.iconSize.fontSize}
-              fill={
+            <FontAwesome5
+              name="user-friends"
+              size={styles.iconSize.fontSize}
+              color={
                 focused ? styles.iconColorFoucsed.color : styles.iconColor.color
               }
             />
+            // <TwoUserIcon
+            //   width={styles.iconSize.fontSize}
+            //   height={styles.iconSize.fontSize}
+            //   fill={
+            //     focused ? styles.iconColorFoucsed.color : styles.iconColor.color
+            //   }
+            // />
           ),
         })}
       />
