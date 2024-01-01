@@ -61,8 +61,8 @@ const HomeHeader = () => {
         }}
       >
         <View>
-          {/* <FontAwesome name="user-circle" size={fontSize.xxxl} color={colors.blue400} /> */}
-          <CircleUser width={fontSize.xxxl} height={fontSize.xxxl} fill={colors.blue400} />
+          <FontAwesome name="user-circle" size={fontSize.xxxl} color={colors.blue400} />
+          {/* <CircleUser width={fontSize.xxxl} height={fontSize.xxxl} fill={colors.blue400} /> */}
         </View>
       </Pressable>
     </View>
