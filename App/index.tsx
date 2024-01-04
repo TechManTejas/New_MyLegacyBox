@@ -18,11 +18,23 @@ import AnimatedSplashScreen from "./screens/Splash/AnimatedSplashScreen";
 import AppSecurityLayer from "./components/Common/AppSecurityLayer";
 import AppTour from "./components/AppTour";
 
+import Bugsnag from "@bugsnag/expo";
+import { Text, View } from "react-native";
+Bugsnag.start();
+
+const ErrorBoundary = Bugsnag.getPlugin("react").createErrorBoundary(React);
+
 // import notifee from "@notifee/react-native";
 
 ExpoSplashScreen.preventAutoHideAsync().catch((err) => {
   console.log(err);
 });
+
+const ErrorView = () => (
+  <View>
+    <Text>Inform users of an error in the component tree.</Text>
+  </View>
+);
 
 function App() {
   // usePreventScreenCapture();
@@ -38,25 +50,27 @@ function App() {
   });
 
   return (
-    <Provider store={store}>
-      <ThemeProvider>
-        <AuthProvider>
-          <SplashScreen>
-            <SafeAreaProvider>
-              <AnimatedSplashScreen
-                splashScreenVisible={splashScreenVisible}
-                setSplashScreenVisible={setSplashScreenVisible}
-              />
+    <ErrorBoundary FallbackComponent={ErrorView}>
+      <Provider store={store}>
+        <ThemeProvider>
+          <AuthProvider>
+            <SplashScreen>
+              <SafeAreaProvider>
+                <AnimatedSplashScreen
+                  splashScreenVisible={splashScreenVisible}
+                  setSplashScreenVisible={setSplashScreenVisible}
+                />
 
-              <AppTour />
+                <AppTour />
 
-              {/* <AppSecurityLayer splashScreenVisible={splashScreenVisible} /> */}
-              <RootNavigator />
-            </SafeAreaProvider>
-          </SplashScreen>
-        </AuthProvider>
-      </ThemeProvider>
-    </Provider>
+                {/* <AppSecurityLayer splashScreenVisible={splashScreenVisible} /> */}
+                <RootNavigator />
+              </SafeAreaProvider>
+            </SplashScreen>
+          </AuthProvider>
+        </ThemeProvider>
+      </Provider>
+    </ErrorBoundary>
   );
 }
 

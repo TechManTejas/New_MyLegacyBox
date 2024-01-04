@@ -27,6 +27,7 @@ import BlogCarousel from "../components/BlogCarousel";
 import { homeBlogCarouselData } from "../data/HomeBlogCarouselData";
 import MinimalIconMenu from "../components/MinimalIconMenu";
 import SolidIconMenu from "../components/SolidIconMenu";
+import Bugsnag from "@bugsnag/expo";
 
 const HomeScreen: React.FC<{}> = () => {
   const {
@@ -110,6 +111,8 @@ const HomeScreen: React.FC<{}> = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    Bugsnag.notify(new Error("testing bugsnack"));
+
     const interval = setTimeout(() => {
       getItemAsync(`homeTourShown-${session?.identity.id}`).then((res) => {
         if (res !== "true") {
