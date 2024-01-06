@@ -1178,6 +1178,11 @@
     "@babel/helper-validator-identifier" "^7.22.20"
     to-fast-properties "^2.0.0"
 
+"@bugsnag/core-performance@^2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@bugsnag/core-performance/-/core-performance-2.1.0.tgz#0650ddd1a8aff353f2955e7e7a59124a999fd85a"
+  integrity sha512-IkBvSNgKUTPib2exKOt0W5OCZ4aWkq5LxiON5ayNTbXz40NfmXfiYt9mujmj23UbnbRunAoD//rs6d3eL20G3Q==
+
 "@bugsnag/core@^7.19.0":
   version "7.19.0"
   resolved "https://registry.yarnpkg.com/@bugsnag/core/-/core-7.19.0.tgz#7663a4addb1322e8315a4012dc9db2aad3fea53b"
@@ -1189,7 +1194,7 @@
     iserror "0.0.2"
     stack-generator "^2.0.3"
 
-"@bugsnag/cuid@^3.0.0":
+"@bugsnag/cuid@^3.0.0", "@bugsnag/cuid@^3.0.2":
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/@bugsnag/cuid/-/cuid-3.0.2.tgz#544f8e6e7e3768c8cb618ca5c5fb1eea6aacbb7e"
   integrity sha512-cIwzC93r3PQ/INeuwtZwkZIG2K8WWN0rRLZQhu+mr48Ay+i6sEki4GYfTsflse7hZ1BeDWrNb/Q9vgY3B31xHQ==
@@ -1198,6 +1203,13 @@
   version "49.0.2"
   resolved "https://registry.yarnpkg.com/@bugsnag/delivery-expo/-/delivery-expo-49.0.2.tgz#aa6403aef8262bf7d0e6b0e7a8f9368908c5791d"
   integrity sha512-LUMvDxVOOcGiykMTcqGq3gz4V9rPdUu3TCxO7A6kbP9wJalx6rHNTa6RIlneRGMEJhxH1RXAl02gHHXpvgkPlw==
+
+"@bugsnag/delivery-fetch-performance@^2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@bugsnag/delivery-fetch-performance/-/delivery-fetch-performance-2.1.0.tgz#b59eefc0239a76d821cda3e6d1c5213385c0070a"
+  integrity sha512-PjoaF0ZUJSboROwgfJec27bUUG4HFbPexS+DcglGhv2e2BinWuNIIXINAqIxIjRFVJppFPEzoST0rg2f+2x75Q==
+  dependencies:
+    "@bugsnag/core-performance" "^2.1.0"
 
 "@bugsnag/expo@^49.0.0":
   version "49.0.2"
@@ -1250,6 +1262,11 @@
   resolved "https://registry.yarnpkg.com/@bugsnag/plugin-expo-device/-/plugin-expo-device-49.0.1.tgz#0eee9c3004832d1918418022f0f990da692cb852"
   integrity sha512-/KGOX/Dte3GQIrFd3Xdud6xMFUmwBv5SWv5v8FJCXEOgWTcLmv2sdEq+Uh2f3LSkLQPweSbJtIxrSz+JCgj0Nw==
 
+"@bugsnag/plugin-expo-eas-sourcemaps@^49.0.2":
+  version "49.0.2"
+  resolved "https://registry.yarnpkg.com/@bugsnag/plugin-expo-eas-sourcemaps/-/plugin-expo-eas-sourcemaps-49.0.2.tgz#ef81664bcc24d82aaf6b28754fb478c9259e481a"
+  integrity sha512-/rklUkj6C1KGNlyAfkRBdScc+sG2YvtCsFHldRcLpM9CjAAcWocrQz4R4Qwn5ez82LEKNPF/HQeYKqbr2S352g==
+
 "@bugsnag/plugin-network-breadcrumbs@^7.19.0":
   version "7.19.0"
   resolved "https://registry.yarnpkg.com/@bugsnag/plugin-network-breadcrumbs/-/plugin-network-breadcrumbs-7.19.0.tgz#eb1cca507d6181e09e1b81a0780bfda1d1435fe2"
@@ -1274,6 +1291,23 @@
   version "7.19.0"
   resolved "https://registry.yarnpkg.com/@bugsnag/plugin-react/-/plugin-react-7.19.0.tgz#3f86c6ed2745cd60a4099d0e14ca46f2b9cf501f"
   integrity sha512-owC4QXYJWGllMoOPcH5P7sbDIDuFLMCbjGAU6FwH5mBMObSQo+1ViSKImlTJQUFXATM8ySISTBVt7w3C6FFHng==
+
+"@bugsnag/react-native-performance@^2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@bugsnag/react-native-performance/-/react-native-performance-2.1.0.tgz#1b8b12a15e31ae2d553e8d4add5e61960031f02a"
+  integrity sha512-vf1qsb1cSCImxSj1lbW8IGTd+u2MSYpE4mQy6f+X/A/Em0rDt82fDmCFn7Rfk145ombOPdePfLIVrKpuUfxdSA==
+  dependencies:
+    "@bugsnag/core-performance" "^2.1.0"
+    "@bugsnag/cuid" "^3.0.2"
+    "@bugsnag/delivery-fetch-performance" "^2.1.0"
+    "@bugsnag/request-tracker-performance" "^2.1.0"
+
+"@bugsnag/request-tracker-performance@^2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@bugsnag/request-tracker-performance/-/request-tracker-performance-2.1.0.tgz#711056f711016901668ae850612114707e3eb6ea"
+  integrity sha512-iFsrdUUGYY6EENrEW5mspNsw01aUS37atkr+vBqjApW3iqxwab7XyVcUrAzftEnjCs9DSILAPRtCqDhzGph2SQ==
+  dependencies:
+    "@bugsnag/core-performance" "^2.1.0"
 
 "@bugsnag/safe-json-stringify@^6.0.0":
   version "6.0.0"
@@ -3909,10 +3943,10 @@ expo-updates-interface@~0.10.0:
   resolved "https://registry.yarnpkg.com/expo-updates-interface/-/expo-updates-interface-0.10.1.tgz#cab075641cd381718ccd9264bf133dc393430a44"
   integrity sha512-I6JMR7EgjXwckrydDmrkBEX/iw750dcqpzQVsjznYWfi0HTEOxajLHB90fBFqQkUV5i5s4Fd3hYQ1Cn0oMzUbA==
 
-expo-updates@~0.18.18:
-  version "0.18.18"
-  resolved "https://registry.yarnpkg.com/expo-updates/-/expo-updates-0.18.18.tgz#6650a144c48f5831b6e03f413a4599d47acca97d"
-  integrity sha512-j9I/vCepUwJ2ZfXsqy5wG+IxXAR05+uiiPABDP9fd++09zt/r2H97abyl5sWaR1h4/0Z9wxXtI0ZssVdDXPE8A==
+expo-updates@~0.18.19:
+  version "0.18.19"
+  resolved "https://registry.yarnpkg.com/expo-updates/-/expo-updates-0.18.19.tgz#40a69ac25f6fcdde7d9ee76b5a5e4e73eb6cd25d"
+  integrity sha512-dakYQ7XhZtBKMLcim08wum108ZUQcNigurijb/6PKdg3QHn21IzOr/27n6x54DctcoW8w1B8w8y1Xw2svVsx4w==
   dependencies:
     "@expo/code-signing-certificates" "0.0.5"
     "@expo/config" "~8.1.0"
@@ -6377,6 +6411,11 @@ react-native-element-dropdown@^2.9.0:
   integrity sha512-7J3K6T1LZo5H2rsEdAPpYDwhgog4UvatFq8bsW3dCrd2oyXiftn83gcQP1NKRYl4QMyb4WCMXIf+FqmZzS4o/Q==
   dependencies:
     lodash "^4.17.21"
+
+react-native-file-access@^3.0.4:
+  version "3.0.4"
+  resolved "https://registry.yarnpkg.com/react-native-file-access/-/react-native-file-access-3.0.4.tgz#cc760232d6a153db152497f6a073c71c4cb911b0"
+  integrity sha512-sDmGeIIiSlLSrdtvEtADQ1uMoF+Zoegvu/Wr0z0Ej9lU8tHX0C1q+fJnCEBJSUjQ31rSzlabjWgQDKbpOEBdWg==
 
 react-native-gesture-handler@~2.12.0:
   version "2.12.1"

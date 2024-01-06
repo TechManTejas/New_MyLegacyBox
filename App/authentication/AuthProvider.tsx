@@ -8,6 +8,7 @@ import {
 } from "../utils/auth";
 import { kratosClient } from "./kratosSdk";
 import { Session } from "@ory/kratos-client";
+import Bugsnag from "@bugsnag/expo";
 
 interface AuthProviderProps {
   children: React.JSX.Element;
@@ -69,7 +70,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   // if session exist we refresh it from server and set sessionContext
   // if it doest exist then we set sessionContext to null
   useEffect(() => {
-    getAuthenticatedSession().then(syncSession).catch(console.error);
+    getAuthenticatedSession().then(syncSession).catch(Bugsnag.notify);
   }, []);
 
   // whenever sessionContext is updated, update it in redux
@@ -101,7 +102,15 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     sessionToken: sessionContext?.session_token,
     isAuthenticated: Boolean(sessionContext?.session_token),
     // get token from device and sync it
-    syncSession: () => getAuthenticatedSession().then(syncSession),
+    syncSession: () => {
+      getAuthenticatedSession()
+        .then(syncSession)
+        .catch((err) => {
+          Bugsnag.notify(err);
+          killAuthenticatedSession();
+        });
+    },
+
     // set the auth session to the device memory
     setSession: setAuth,
   };

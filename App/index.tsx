@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import messaging from "@react-native-firebase/messaging";
 import "expo-dev-client";
 import * as ExpoSplashScreen from "expo-splash-screen";
@@ -18,9 +18,36 @@ import AnimatedSplashScreen from "./screens/Splash/AnimatedSplashScreen";
 import AppSecurityLayer from "./components/Common/AppSecurityLayer";
 import AppTour from "./components/AppTour";
 
-import Bugsnag from "@bugsnag/expo";
+import BugsnagPerformance from '@bugsnag/react-native-performance'
+import Bugsnag, { Event } from "@bugsnag/expo";
 import { Text, View } from "react-native";
-Bugsnag.start();
+import {
+  getAuthenticatedSession,
+  getAuthenticatedSessionTokenParsed,
+} from "./utils/auth";
+
+const onErrorCallBack = async (event: Event) => {
+  try {
+    const res = await getAuthenticatedSessionTokenParsed();
+    event.setUser(res.identity.traits?.email);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+Bugsnag.start({
+  apiKey: process.env.EXPO_PUBLIC_BUGSNAG_API_KEY,
+  appVersion: process.env.EXPO_PUBLIC_BUGSNAG_APP_VERSION,
+  releaseStage: process.env.EXPO_PUBLIC_BUGSNAG_APP_STAGE,
+  onError: onErrorCallBack,
+
+});
+
+BugsnagPerformance.start({
+  apiKey: process.env.EXPO_PUBLIC_BUGSNAG_API_KEY,
+  appVersion: process.env.EXPO_PUBLIC_BUGSNAG_APP_VERSION,
+  releaseStage: process.env.EXPO_PUBLIC_BUGSNAG_APP_STAGE,
+})
 
 const ErrorBoundary = Bugsnag.getPlugin("react").createErrorBoundary(React);
 

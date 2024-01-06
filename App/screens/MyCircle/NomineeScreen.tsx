@@ -11,9 +11,10 @@ import { NOMINEE_RELATIONSHIP_TO_TITLE_MAP } from "../../constants/nominee";
 import NomineeScreenCard from "../../components/Nominee/NomineeScreenCard";
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { getItemAsync, setItemAsync } from "expo-secure-store";
+import { deleteItemAsync, getItemAsync, setItemAsync } from "expo-secure-store";
 import { useAuth } from "../../authentication/AuthProvider";
 import { setShowMyCircleTourModal } from "../../redux/appTour/appTour";
+import Bugsnag from "@bugsnag/expo";
 
 const NomineeScreen = () => {
   const dispatch = useDispatch();
@@ -21,12 +22,25 @@ const NomineeScreen = () => {
   const { session } = useAuth();
 
   useEffect(() => {
-    getItemAsync(`MyCircleTourShown-${session?.identity.id}`).then((res) => {
-      if (res !== "true") {
-        dispatch(setShowMyCircleTourModal(true));
-        setItemAsync(`MyCircleTourShown-${session?.identity.id}`, "true");
-      }
-    });
+    getItemAsync(`MyCircleTourShown-${session?.identity.id}`)
+      .then((res) => {
+        if (res !== "true") {
+          dispatch(setShowMyCircleTourModal(true));
+          setItemAsync(`MyCircleTourShown-${session?.identity.id}`, "true").then(() => {})
+          .catch((err) => {
+            console.log(err);
+          });
+        }
+      })
+      .catch((err) => {
+        Bugsnag.notify(err);
+
+        deleteItemAsync(`MyCircleTourShown-${session?.identity.id}`)
+          .then(() => {})
+          .catch((err) => {
+            console.log(err);
+          });
+      });
   }, []);
 
   const navigation = useNavigation();

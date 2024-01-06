@@ -8,10 +8,11 @@ import { clearWillFormRedux } from "../../redux/form/willFormSlice";
 import CustomCarousel from "../../components/Common/Carousel";
 import { WillCarouselData } from "../../data/Carouseldata";
 import WillDownloadCard from "../../components/Will/WillDownloadCard";
-import { getItemAsync, setItemAsync } from "expo-secure-store";
+import { deleteItemAsync, getItemAsync, setItemAsync } from "expo-secure-store";
 import { useAuth } from "../../authentication/AuthProvider";
 import { setShowWillTourModal } from "../../redux/appTour/appTour";
 import { AllScreenNavigationProp } from "../../navigation/types";
+import Bugsnag from "@bugsnag/expo";
 
 const WillScreen = () => {
   const navigation = useNavigation<AllScreenNavigationProp>();
@@ -21,12 +22,24 @@ const WillScreen = () => {
   const { session } = useAuth();
 
   useEffect(() => {
-    getItemAsync(`willTourShown-${session?.identity.id}`).then((res) => {
-      if (res !== "true") {
-        dispatch(setShowWillTourModal(true));
-        setItemAsync(`willTourShown-${session?.identity.id}`, "true");
-      }
-    });
+    getItemAsync(`willTourShown-${session?.identity.id}`)
+      .then((res) => {
+        if (res !== "true") {
+          dispatch(setShowWillTourModal(true));
+          setItemAsync(`willTourShown-${session?.identity.id}`, "true").then(() => {})
+          .catch((err) => {
+            console.log(err);
+          });
+        }
+      })
+      .catch((err) => {
+        Bugsnag.notify(err);
+        deleteItemAsync(`willTourShown-${session?.identity.id}`)
+          .then(() => {})
+          .catch((err) => {
+            console.log(err);
+          });
+      });
   }, []);
 
   const {
