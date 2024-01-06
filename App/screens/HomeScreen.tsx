@@ -19,7 +19,7 @@ import { Ionicons } from "@expo/vector-icons";
 import CustomToolTip from "../components/Common/CustomToolTip";
 import { useAuth } from "../authentication/AuthProvider";
 import { useDispatch } from "react-redux";
-import { getItemAsync, setItemAsync } from "expo-secure-store";
+import { deleteItemAsync, getItemAsync, setItemAsync } from "expo-secure-store";
 import { setShowHomeTourModal } from "../redux/appTour/appTour";
 
 import messaging from "@react-native-firebase/messaging";
@@ -27,6 +27,7 @@ import BlogCarousel from "../components/BlogCarousel";
 import { homeBlogCarouselData } from "../data/HomeBlogCarouselData";
 import MinimalIconMenu from "../components/MinimalIconMenu";
 import SolidIconMenu from "../components/SolidIconMenu";
+import Bugsnag from "@bugsnag/expo";
 
 const HomeScreen: React.FC<{}> = () => {
   const {
@@ -111,12 +112,25 @@ const HomeScreen: React.FC<{}> = () => {
 
   useEffect(() => {
     const interval = setTimeout(() => {
-      getItemAsync(`homeTourShown-${session?.identity.id}`).then((res) => {
-        if (res !== "true") {
-          dispatch(setShowHomeTourModal(true));
-          setItemAsync(`homeTourShown-${session?.identity.id}`, "true");
-        }
-      });
+      getItemAsync(`homeTourShown-${session?.identity.id}`)
+        .then((res) => {
+          if (res !== "true") {
+            dispatch(setShowHomeTourModal(true));
+            setItemAsync(`homeTourShown-${session?.identity.id}`, "true")
+              .then(() => {})
+              .catch((err) => {
+                console.log(err);
+              });
+          }
+        })
+        .catch((err) => {
+          Bugsnag.notify(err);
+          deleteItemAsync(`homeTourShown-${session?.identity.id}`)
+            .then(() => {})
+            .catch((err) => {
+              console.log(err);
+            });
+        });
     }, 200);
     return () => {
       clearTimeout(interval);
@@ -124,9 +138,13 @@ const HomeScreen: React.FC<{}> = () => {
   }, []);
 
   useEffect(() => {
-    setItemAsync("lastUsedEmail", session?.identity?.traits?.email).then(() => {
-      console.log("email cached");
-    });
+    setItemAsync("lastUsedEmail", session?.identity?.traits?.email)
+      .then(() => {
+        console.log("email cached");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
 
   useEffect(() => {
@@ -139,11 +157,19 @@ const HomeScreen: React.FC<{}> = () => {
             messaging()
               .getToken()
               .then(() => {
-                setItemAsync("permissionStatus", permissionStatus);
+                setItemAsync("permissionStatus", permissionStatus)
+                  .then(() => {})
+                  .catch((err) => {
+                    console.log(err);
+                  });
               });
           }
         });
       }
+    }).then(() => {})
+    .catch((err) => {
+      console.log(err);
+      deleteItemAsync("permissionStatus").then(() => {}).catch(err => { console.log(err) })
     });
   }, []);
 
