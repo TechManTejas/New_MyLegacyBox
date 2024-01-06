@@ -22,7 +22,8 @@ import CustomSafeView from "../../components/Common/CustomSafeView";
 import CustomKeyboardAvoidingScrollView from "../../components/Common/CustomKeyboardAvoidingScrollView";
 import CustomActivityIndicator from "../../components/Common/CustomActivityIndicator";
 import AppFeatures from "../../components/AppFeatures";
-import { getItemAsync } from "expo-secure-store";
+import { deleteItemAsync, getItemAsync } from "expo-secure-store";
+import Bugsnag from "@bugsnag/expo";
 
 const LoginScreen = () => {
   const isFoucused = useIsFocused();
@@ -46,11 +47,20 @@ const LoginScreen = () => {
 
   useFocusEffect(
     useCallback(() => {
-      getItemAsync("lastUsedEmail").then((email) => {
-        if (email) {
-          setLastUsedEmail(email);
-        }
-      });
+      getItemAsync("lastUsedEmail")
+        .then((email) => {
+          if (email) {
+            setLastUsedEmail(email);
+          }
+        })
+        .catch((err) => {
+          Bugsnag.notify(err);
+          deleteItemAsync("lastUsedEmail")
+            .then(() => {})
+            .catch((err) => {
+              console.log(err);
+            });
+        });
     }, [])
   );
 

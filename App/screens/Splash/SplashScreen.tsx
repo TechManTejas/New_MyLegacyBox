@@ -24,7 +24,7 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ children }) => {
 
     const prepare = () => {
       Promise.all([
-        syncSession(sessionToken),
+        syncSession,
         Font.loadAsync({
           Poppins_200ExtraLight,
           Poppins_400Regular,
@@ -41,13 +41,15 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ children }) => {
           setIsAppReady(true);
           await ExpoSplashScreen.hideAsync();
         })
-        .catch(console.error);
+        .catch((err) => {
+          console.error(err);
+        });
     };
 
     prepare();
   }, []);
 
-  return isAppReady ? children: null;
+  return isAppReady ? children : null;
 };
 
 export default SplashScreen;

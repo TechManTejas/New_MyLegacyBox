@@ -2,7 +2,7 @@
   "expo": {
     "name": "Oiconomos",
     "slug": "oiconomos-mobile-app",
-    "version": "1.0.9",
+    "version": "1.0.10",
     "orientation": "portrait",
     "owner": "oiconomos",
     "icon": "./assets/icon.png",
@@ -27,7 +27,7 @@
         "backgroundColor": "#FFFFFF"
       },
       "package": "com.oiconomos.www",
-      "versionCode": 10
+      "versionCode": 11
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -35,10 +35,14 @@
     "extra": {
       "eas": {
         "projectId": "c960cc41-49de-4b46-b620-42a8c63d76b5"
+      },
+      "bugsnag": {
+        "apiKey": "00b566dc80ac348ce9e686d67ff40682"
       }
     },
     "plugins": [
-      "@react-native-firebase/app"
+      "@react-native-firebase/app",
+      "@bugsnag/plugin-expo-eas-sourcemaps"
     ],
     "runtimeVersion": {
       "policy": "sdkVersion"
