@@ -41,6 +41,7 @@ const BankForm: React.FC<BankFormProps> = ({
   const navigation = useNavigation();
   const [customErrors, setCustomErrors] = useState({});
   const [globalErrorMessage, setGlobalErrorMessage] = useState("");
+  const [ isPincodeFieldEnabled, setIsPinCodeFieldEnabled ] = useState(false)
 
   const {
     theme: { colors, spacing, fontSize, fontFamily },
@@ -150,16 +151,41 @@ const BankForm: React.FC<BankFormProps> = ({
   const [inputDisabled, setInputDisabled] = useState(false);
 
   const getBankData = async (ifsc, setFieldValue) => {
+    setCustomErrors({ })
     setInputDisabled(true);
+    setIsPinCodeFieldEnabled(false)
     const res = await fetch(`https://ifsc.razorpay.com/${ifsc}`);
     const data = await res.json();
+
     if (typeof data === "object") {
+
+      const pin =  data.ADDRESS.replaceAll(/\s/g,'').slice(-6)
+
+      if (isNaN(pin)) {
+        setCustomErrors({
+          address: {
+            pinCode: "Unable to fetch pin, please enter manually"
+          }
+        })
+        setFieldValue("address.pinCode", "")
+        setIsPinCodeFieldEnabled(true)
+      }
+      else {
+        setFieldValue("address.pinCode", Number(pin));
+      }
+      
+
       setFieldValue("name", data.BANK);
       setFieldValue("branchName", data.BRANCH);
       setFieldValue("address.city", data.CITY);
       setFieldValue("address.state", data.STATE);
       setFieldValue("address.street", data.ADDRESS);
-      setFieldValue("address.pinCode", Number(data.ADDRESS.slice(-6)));
+      
+    }
+    else {
+      setCustomErrors({
+        ifsc: "Invalid ifsc code"
+      })
     }
     setInputDisabled(false);
   };
@@ -347,7 +373,7 @@ const BankForm: React.FC<BankFormProps> = ({
                 <View style={styles.halfWidth}>
                   <CustomInputGroup
                     loader={inputDisabled}
-                    disabled
+                    disabled={!isPincodeFieldEnabled}
                     name="address.pinCode"
                     placeholder="Enter PIN code"
                     title="PIN Code"
