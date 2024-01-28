@@ -16,7 +16,9 @@
       "fallbackToCacheTimeout": 0,
       "url": "https://u.expo.dev/c960cc41-49de-4b46-b620-42a8c63d76b5"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true
     },
@@ -42,7 +44,8 @@
     },
     "plugins": [
       "@react-native-firebase/app",
-      "@bugsnag/plugin-expo-eas-sourcemaps"
+      "@bugsnag/plugin-expo-eas-sourcemaps",
+      "expo-secure-store"
     ],
     "runtimeVersion": {
       "policy": "sdkVersion"
