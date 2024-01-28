@@ -171,7 +171,7 @@ const BankForm: React.FC<BankFormProps> = ({
         setIsPinCodeFieldEnabled(true)
       }
       else {
-        setFieldValue("address.pinCode", pin);
+        setFieldValue("address.pinCode", Number(pin));
       }
       
 
