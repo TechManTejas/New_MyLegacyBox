@@ -161,6 +161,8 @@ const BankForm: React.FC<BankFormProps> = ({
 
       const pin =  data.ADDRESS.replaceAll(/\s/g,'').slice(-6)
 
+      console.log(typeof pin, pin);
+      
       if (isNaN(pin)) {
         setCustomErrors({
           address: {
@@ -173,7 +175,6 @@ const BankForm: React.FC<BankFormProps> = ({
       else {
         setFieldValue("address.pinCode", Number(pin));
       }
-      
 
       setFieldValue("name", data.BANK);
       setFieldValue("branchName", data.BRANCH);
@@ -377,12 +378,12 @@ const BankForm: React.FC<BankFormProps> = ({
                     name="address.pinCode"
                     placeholder="Enter PIN code"
                     title="PIN Code"
-                    onChangeText={(value) => {
-                      if (value == " " || value == "")
-                        setFieldValue("address.pinCode", "");
-                      else if (!isNaN(value))
-                        setFieldValue("address.pinCode", +value);
-                    }}
+                    // onChangeText={(value) => {
+                    //   if (value == " " || value == "")
+                    //     setFieldValue("address.pinCode", "");
+                    //   else if (!isNaN(value))
+                    //     setFieldValue("address.pinCode", +value);
+                    // }}
                     onBlur={handleBlur("address.pinCode")}
                     value={String(values.address.pinCode)}
                     textContentType="postalCode"
