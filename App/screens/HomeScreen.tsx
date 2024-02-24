@@ -111,6 +111,15 @@ const HomeScreen: React.FC<{}> = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+
+    fetch('https://jsonplaceholder.typicode.com/todos/1')
+    .then(response => response.json())
+    .then(json => console.log(json))
+    .catch(err => {
+      console.log(err, "in fetch test");
+      
+    })
+
     const interval = setTimeout(() => {
       getItemAsync(`homeTourShown-${session?.identity.id}`)
         .then((res) => {
