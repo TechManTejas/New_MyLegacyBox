@@ -26,6 +26,8 @@ import {
   getAuthenticatedSessionTokenParsed,
 } from "./utils/auth";
 
+import {  } from "jail-monkey"
+
 const onErrorCallBack = async (event: Event) => {
   try {
     const res = await getAuthenticatedSessionTokenParsed();

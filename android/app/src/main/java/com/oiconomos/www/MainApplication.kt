@@ -60,7 +60,7 @@ class MainApplication : Application(), ReactApplication {
     }
     ApplicationLifecycleDispatcher.onApplicationCreate(this)
 
-    OkHttpClientProvider.setOkHttpClientFactory(new SSLPinningFactory());
+    // OkHttpClientProvider.setOkHttpClientFactory(new SSLPinningFactory());
 
   }
 

@@ -45,8 +45,11 @@
     "plugins": [
       "@react-native-firebase/app",
       "@bugsnag/plugin-expo-eas-sourcemaps",
-      "expo-secure-store"
+      "expo-secure-store",
+      "@config-plugins/detox"
+      
     ],
+    
     "runtimeVersion": {
       "policy": "sdkVersion"
     }
