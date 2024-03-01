@@ -97,7 +97,7 @@ const BankForm: React.FC<BankFormProps> = ({
       await apiCallback({ ...cleanedValues, ...defaultBody }).unwrap();
       navigation.goBack();
     } catch (error) {
-      console.log(error);
+      console.error(error);
       setGlobalErrorMessage(error?.data?.error?.message || error.message);
     }
   }, []);
@@ -160,8 +160,6 @@ const BankForm: React.FC<BankFormProps> = ({
     if (typeof data === "object") {
 
       const pin =  data.ADDRESS.replaceAll(/\s/g,'').slice(-6)
-
-      console.log(typeof pin, pin);
       
       if (isNaN(pin)) {
         setCustomErrors({

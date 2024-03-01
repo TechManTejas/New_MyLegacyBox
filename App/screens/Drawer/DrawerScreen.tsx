@@ -40,7 +40,7 @@ const DrawerScreen = (props) => {
         });
       })
       .catch((error) => {
-        console.log(error.response);
+        console.error(error.response);
       });
   }, []);
 

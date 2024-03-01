@@ -53,14 +53,11 @@ const ArchivedAssetsScreen = () => {
     unarchiveFinancialHolding(financialHoldingId)
       .unwrap()
       .then((res) => {
-        console.log("kuch bhi");
 
-        console.log(res);
       })
       .catch((err) => {
-        console.log("kuch bhi");
 
-        console.log(JSON.stringify(err, null, 1));
+        console.error(err);
       });
   };
 
@@ -71,11 +68,10 @@ const ArchivedAssetsScreen = () => {
   const permanentDeleteButtonCallBack = () => {
     permanentlyDeleteFinancialHolding(assetDeleteData.assetId)
       .then((res) => {
-        console.log(res);
         setAssetDeleteData({ isVisible: false, assetId: "" });
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
       });
   };
 

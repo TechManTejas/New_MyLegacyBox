@@ -28,7 +28,7 @@ const WillScreen = () => {
           dispatch(setShowWillTourModal(true));
           setItemAsync(`willTourShown-${session?.identity.id}`, "true").then(() => {})
           .catch((err) => {
-            console.log(err);
+            console.error(err);
           });
         }
       })
@@ -37,7 +37,7 @@ const WillScreen = () => {
         deleteItemAsync(`willTourShown-${session?.identity.id}`)
           .then(() => {})
           .catch((err) => {
-            console.log(err);
+            console.error(err);
           });
       });
   }, []);
