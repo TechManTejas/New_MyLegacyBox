@@ -72,11 +72,9 @@ function App() {
 
   const [splashScreenVisible, setSplashScreenVisible] = useState(true);
 
-  messaging().onMessage((message) => {
-  });
+  messaging().onMessage((message) => {});
 
-  messaging().setBackgroundMessageHandler(async (message) => {
-  });
+  messaging().setBackgroundMessageHandler(async (message) => {});
 
   return (
     <ErrorBoundary FallbackComponent={ErrorView}>

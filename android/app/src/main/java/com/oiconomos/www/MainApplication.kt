@@ -19,8 +19,6 @@ import com.facebook.soloader.SoLoader
 import expo.modules.ApplicationLifecycleDispatcher
 import expo.modules.ReactNativeHostWrapper
 
-import com.facebook.react.modules.network.OkHttpClientProvider;
-
 class MainApplication : Application(), ReactApplication {
 
   override val reactNativeHost: ReactNativeHost = ReactNativeHostWrapper(
@@ -59,8 +57,6 @@ class MainApplication : Application(), ReactApplication {
       ReactNativeFlipper.initializeFlipper(this, reactNativeHost.reactInstanceManager)
     }
     ApplicationLifecycleDispatcher.onApplicationCreate(this)
-
-    // OkHttpClientProvider.setOkHttpClientFactory(new SSLPinningFactory());
 
   }
 
