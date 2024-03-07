@@ -119,7 +119,7 @@ const HomeScreen: React.FC<{}> = () => {
             setItemAsync(`homeTourShown-${session?.identity.id}`, "true")
               .then(() => {})
               .catch((err) => {
-                console.log(err);
+                console.error(err);
               });
           }
         })
@@ -128,7 +128,7 @@ const HomeScreen: React.FC<{}> = () => {
           deleteItemAsync(`homeTourShown-${session?.identity.id}`)
             .then(() => {})
             .catch((err) => {
-              console.log(err);
+              console.error(err);
             });
         });
     }, 200);
@@ -143,34 +143,40 @@ const HomeScreen: React.FC<{}> = () => {
         console.log("email cached");
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
       });
   }, []);
 
   useEffect(() => {
-    getItemAsync("permissionStatus").then((status) => {
-      if (status !== "granted") {
-        PermissionsAndroid.request(
-          PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS
-        ).then((permissionStatus) => {
-          if (permissionStatus === "granted") {
-            messaging()
-              .getToken()
-              .then(() => {
-                setItemAsync("permissionStatus", permissionStatus)
-                  .then(() => {})
-                  .catch((err) => {
-                    console.log(err);
-                  });
-              });
-          }
-        });
-      }
-    }).then(() => {})
-    .catch((err) => {
-      console.log(err);
-      deleteItemAsync("permissionStatus").then(() => {}).catch(err => { console.log(err) })
-    });
+    getItemAsync("permissionStatus")
+      .then((status) => {
+        if (status !== "granted") {
+          PermissionsAndroid.request(
+            PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS
+          ).then((permissionStatus) => {
+            if (permissionStatus === "granted") {
+              messaging()
+                .getToken()
+                .then(() => {
+                  setItemAsync("permissionStatus", permissionStatus)
+                    .then(() => {})
+                    .catch((err) => {
+                      console.error(err);
+                    });
+                });
+            }
+          });
+        }
+      })
+      .then(() => {})
+      .catch((err) => {
+        console.error(err);
+        deleteItemAsync("permissionStatus")
+          .then(() => {})
+          .catch((err) => {
+            console.error(err);
+          });
+      });
   }, []);
 
   return (

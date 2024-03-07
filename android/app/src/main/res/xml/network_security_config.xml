@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">127.0.0.1</domain>
+    </domain-config>
+
+    <domain-config cleartextTrafficPermitted="false">
+        <domain includeSubdomains="false">iam.oiconomos.com</domain>
+        <pin-set>
+            <pin digest="SHA-256">47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=</pin>
+            <pin digest="SHA-256">jQJTbIh0grw0/1TkHSumWb+Fs0Ggogr621gT3PvPKG0=</pin>
+        </pin-set>
+    </domain-config>
+    <domain-config  cleartextTrafficPermitted="false">
+        <domain includeSubdomains="false">internal-api.oiconomos.com</domain>
+        <pin-set>
+            <pin digest="SHA-256">UZlgjVJ3rZoUYrlvBz1ctyHN/lXUIV3T3ili8hM9PvQ=</pin>
+            <pin digest="SHA-256">jQJTbIh0grw0/1TkHSumWb+Fs0Ggogr621gT3PvPKG0=</pin>
+        </pin-set>
+    </domain-config>
+    <domain-config  cleartextTrafficPermitted="false">
+        <domain includeSubdomains="false">ifsc.razorpay.com</domain>
+        <pin-set>
+            <pin digest="SHA-256">F8JrlylzPh8K7JB8ZqonHriK+KW0EaxTJ33wRjqk12U=</pin>
+            <pin digest="SHA-256">18tkPyr2nckv4fgo0dhAkaUtJ2hu2831xlO2SKhq8dg=</pin>
+            <pin digest="SHA-256">++MBgDH5WGvL9Bcn5Be30cRcL0f5O+NyoXuWtQdX1aI=</pin>
+        </pin-set>
+    </domain-config>
+    <domain-config  cleartextTrafficPermitted="false">
+        <domain includeSubdomains="false">api.postalpincode.in</domain>
+        <pin-set>
+            <pin digest="SHA-256">iY5B9ZWEwk83VVRtL0v5k//BZnN4uUiWjq5EJPgWeaE=</pin>
+            <pin digest="SHA-256">8Rw90Ej3Ttt8RRkrg+WYDS9n7IS03bk5bjP/UXPtaY8=</pin>
+        </pin-set>
+    </domain-config>
+    <domain-config  cleartextTrafficPermitted="false">
+        <domain includeSubdomains="true">www.bugsnag.com</domain>
+        <pin-set>
+            <pin digest="SHA-256">hgYXknHTYqvOiqefg0uOBVyqGbBAgPNQtNADhP9urRc=</pin>
+            <pin digest="SHA-256">RQeZkB42znUfsDIIFWIRiYEcKl7nHwNFwWCrnMMJbVc=</pin>
+        </pin-set>
+    </domain-config>
+</network-security-config>

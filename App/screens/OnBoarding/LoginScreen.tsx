@@ -58,7 +58,7 @@ const LoginScreen = () => {
           deleteItemAsync("lastUsedEmail")
             .then(() => {})
             .catch((err) => {
-              console.log(err);
+              console.error(err);
             });
         });
     }, [])
@@ -77,7 +77,7 @@ const LoginScreen = () => {
       })
       .catch((error) => {
         setInProgressFlow(false);
-        console.log(error);
+        console.error(error);
       });
   }, []);
 

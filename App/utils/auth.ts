@@ -26,9 +26,8 @@ export const getAuthenticatedSessionTokenParsed = async () => {
     value = await getAuthenticatedSession()
   }
   catch(err) {
-    console.log("random log");
     
-    console.log(err);
+    console.error(err);
   }
 
   if (!value) throw Error("empty value");

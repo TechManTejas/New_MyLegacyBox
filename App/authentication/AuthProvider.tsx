@@ -55,7 +55,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       .catch((error) => {
         if (error.response?.status === 401) {
           // The user is no longer logged in (hence 401)
-          console.log("Session is not authenticated:", error);
+          console.error("Session is not authenticated:", error);
         } else {
           // A network or some other error occurred
           console.error(error);
@@ -78,7 +78,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   // session token
   useEffect(() => {
     dispatch(setSessionRedux(sessionContext));
-    console.log(JSON.stringify(sessionContext, null, 1));
+    // console.log(JSON.stringify(sessionContext, null, 1));
   }, [sessionContext]);
 
   // if session is empty/null update the sessionContext to null

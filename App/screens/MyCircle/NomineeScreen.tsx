@@ -28,7 +28,7 @@ const NomineeScreen = () => {
           dispatch(setShowMyCircleTourModal(true));
           setItemAsync(`MyCircleTourShown-${session?.identity.id}`, "true").then(() => {})
           .catch((err) => {
-            console.log(err);
+            console.error(err);
           });
         }
       })
@@ -38,7 +38,7 @@ const NomineeScreen = () => {
         deleteItemAsync(`MyCircleTourShown-${session?.identity.id}`)
           .then(() => {})
           .catch((err) => {
-            console.log(err);
+            console.error(err);
           });
       });
   }, []);

@@ -53,40 +53,21 @@ export const handleFormSubmitError =
         case 400:
           if (typeof err.response.data.error === "object") {
             const ge = err.response.data;
-            console.log({
-              message: `${ge.message}: ${ge.reason}`,
-              type: "danger",
-            });
 
             return Promise.resolve();
           }
-
-          console.log("Form validation failed:", err.response.data);
           setConfig(err.response.data);
           return Promise.resolve();
         case 404:
         case 410:
-          console.log("Flow could not be found, reloading page.");
           initialize();
           return Promise.resolve();
         case 403:
         case 401:
           if (!logout) {
-            console.log(
-              `Received unexpected 401/403 status code: `,
-              err,
-              err.response.data
-            );
             return Promise.resolve();
           }
 
-          console.log(
-            "The server indicated that this action is not allowed for you. The most likely cause of that is that you modified a privileged field (e.g. your password) but your ORY Kratos Login Session is too old."
-          );
-          console.log({
-            message: "Please re-authenticate before making these changes.",
-            type: "warning",
-          });
           logout();
           return Promise.resolve();
       }
