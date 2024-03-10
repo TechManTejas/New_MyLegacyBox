@@ -28,6 +28,7 @@ import { homeBlogCarouselData } from "../data/HomeBlogCarouselData";
 import MinimalIconMenu from "../components/MinimalIconMenu";
 import SolidIconMenu from "../components/SolidIconMenu";
 import Bugsnag from "@bugsnag/expo";
+import PensionBoxBanner from "../components/Home/PensionBoxBanner";
 
 const HomeScreen: React.FC<{}> = () => {
   const {
@@ -191,6 +192,8 @@ const HomeScreen: React.FC<{}> = () => {
           <HomeHeader />
 
           <MinimalIconMenu data={HOME_HEADER_MENU_DATA} />
+
+          <PensionBoxBanner />
 
           <View style={styles.header}>
             <Text style={styles.headertext}>My Smartbox </Text>

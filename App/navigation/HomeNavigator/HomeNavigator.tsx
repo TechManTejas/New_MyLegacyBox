@@ -6,11 +6,19 @@ import SharesAndScurityListScreen from "../../screens/Assets/SharesAndSecurityLi
 import ArchivedAssetsScreen from "../../screens/Drawer/ArchivedAssetsScreen";
 import AppToursScreen from "../../screens/Drawer/AppToursScreen";
 import FAQScreen from "../../screens/Drawer/FAQScreen";
+import PensionBoxIframeScreen from "../../screens/PensionBox/PensionBoxIframeScreen";
+import { StyleSheet } from "react-native";
+import PensionBoxHeader from "../../components/Home/PensionBoxHeader";
 
 const HomeNavigator: React.FC<StackType> = ({ Stack }) => {
+  const styles = StyleSheet.create({
+    headerStyle: {
+      backgroundColor: "red",
+    },
+  });
+
   return (
     <Stack.Group>
-
       <Stack.Screen
         name={"SHARES_AND_SECURITY_SCREEN"}
         component={SharesAndScurityListScreen}
@@ -19,6 +27,16 @@ const HomeNavigator: React.FC<StackType> = ({ Stack }) => {
           title: "Share & Securities",
         }}
       />
+
+      <Stack.Screen
+        name={"PENSION_BOX_IFRAME_SCREEN"}
+        component={PensionBoxIframeScreen}
+        options={{
+          headerShown: true,
+          header: PensionBoxHeader,
+        }}
+      />
+
       <Stack.Screen
         name={"ARCHIVED_ASSETS_SCREEN"}
         component={ArchivedAssetsScreen}
