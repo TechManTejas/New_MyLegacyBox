@@ -43,15 +43,15 @@ const PensionBoxIframeScreen = () => {
       <WebView
         ref={webViewRef}
         source={{
-          // uri: `https://pensionbox.in/getstarted?partnerId=68044828-a7c7-4206-a183-840596edf3e7&mobileNo=${
-          //   session?.identity.traits?.phone
-          //     ? session?.identity.traits?.phone.startsWith("+91")
-          //       ? session?.identity.traits?.phone.replaceAll("+91", "")
-          //       : session?.identity.traits?.phone
-          //     : ""
-          // }`,
+          uri: `https://pensionbox.in/getstarted?partnerId=68044828-a7c7-4206-a183-840596edf3e7&mobileNo=${
+            session?.identity.traits?.phone
+              ? session?.identity.traits?.phone.startsWith("+91")
+                ? session?.identity.traits?.phone.replaceAll("+91", "")
+                : session?.identity.traits?.phone
+              : ""
+          }`,
           // uri: "https://pensionbox.in/getstarted?partnerId=68044828-a7c7-4206-a183-840596edf3e7&mobileNo=8088634021",
-          uri: "https://pensionbox.in/getstarted?partnerId=68044828-a7c7-4206-a183-840596edf3e7",
+          // uri: "https://pensionbox.in/getstarted?partnerId=68044828-a7c7-4206-a183-840596edf3e7",
         }}
         onShouldStartLoadWithRequest={(request) => {
           const allowedHosts = ["pensionbox.in"];
