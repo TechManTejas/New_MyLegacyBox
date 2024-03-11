@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <network-security-config>
-
+<!-- TO BE REMOVED -->
+ <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">192.168.29.223</domain>
+    </domain-config>
+<!--  -->
     <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="true">127.0.0.1</domain>
     </domain-config>
@@ -39,6 +43,15 @@
         <pin-set>
             <pin digest="SHA-256">hgYXknHTYqvOiqefg0uOBVyqGbBAgPNQtNADhP9urRc=</pin>
             <pin digest="SHA-256">RQeZkB42znUfsDIIFWIRiYEcKl7nHwNFwWCrnMMJbVc=</pin>
+        </pin-set>
+    </domain-config>
+        <domain-config  cleartextTrafficPermitted="false">
+        <domain includeSubdomains="true">www.pensionbox.in</domain>
+        <pin-set>
+            <pin digest="SHA-256">HgxcLCfOZn+zTKat6OtS5hNNSjKaIrtbSTIDncQquqY=</pin>
+            <pin digest="SHA-256">DxH4tt40L+eduF6szpY6TONlxhZhBd+pJ9wbHlQ2fuw=</pin>
+            <pin digest="SHA-256">++MBgDH5WGvL9Bcn5Be30cRcL0f5O+NyoXuWtQdX1aI=</pin>
+            <pin digest="SHA-256">KwccWaCgrnaw6tsrrSO61FgLacNgG2MMLq8GE6+oP5I=</pin>
         </pin-set>
     </domain-config>
 </network-security-config>

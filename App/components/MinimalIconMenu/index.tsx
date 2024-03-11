@@ -25,9 +25,9 @@ const MinimalIconMenu: React.FC<MinimalIconMenuProps> = ({ data }) => {
 
   const styles = StyleSheet.create({
     container: {
-      marginBottom: spacing.sm,
+      marginBottom: spacing.md,
       paddingTop: spacing.xxs,
-      paddingBottom: spacing.md,
+      paddingBottom: spacing.sm,
       flexDirection: "row",
     },
   });
