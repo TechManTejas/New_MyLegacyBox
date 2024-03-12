@@ -79,8 +79,8 @@ const PensionBoxBanner = () => {
         />
       </View>
       <View style={styles.content}>
-        <Text style={styles.contentTitle}>NPS in seconds </Text>
-        <Text style={styles.contentCaption}>Enroll now with pensionBox</Text>
+        <Text style={styles.contentTitle}>NPS in minutes </Text>
+        <Text style={styles.contentCaption}>Enroll with pensionBox</Text>
       </View>
       <Pressable style={styles.ctaContainer} onPress={handler}>
         <Text style={styles.cta}>{"Sign Up Now >"}</Text>

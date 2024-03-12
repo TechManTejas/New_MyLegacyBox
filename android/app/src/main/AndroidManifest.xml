@@ -13,7 +13,7 @@
       <data android:scheme="https"/>
     </intent>
   </queries>
-  <application android:usesCleartextTraffic="false" android:allowBackup="false" android:networkSecurityConfig="@xml/network_security_config" android:name=".MainApplication" android:label="@string/app_name" android:icon="@mipmap/ic_launcher" android:roundIcon="@mipmap/ic_launcher_round" android:allowBackup="true" android:theme="@style/AppTheme">
+  <application android:usesCleartextTraffic="false" android:allowBackup="false" android:networkSecurityConfig="@xml/network_security_config" android:name=".MainApplication" android:label="@string/app_name" android:icon="@mipmap/ic_launcher" android:roundIcon="@mipmap/ic_launcher_round" android:theme="@style/AppTheme">
     <meta-data android:name="com.bugsnag.android.API_KEY" android:value="00b566dc80ac348ce9e686d67ff40682"/>
     <meta-data android:name="expo.modules.updates.ENABLED" android:value="true"/>
     <meta-data android:name="expo.modules.updates.EXPO_RUNTIME_VERSION" android:value="@string/expo_runtime_version"/>
