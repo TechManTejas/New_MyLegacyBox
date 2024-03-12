@@ -6,3 +6,4 @@
 - no console logs
 - bugsnag API keys in place
 - always use jail monkey before building
+- update version code in android/app/build.gradle before update

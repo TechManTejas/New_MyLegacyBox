@@ -11,6 +11,7 @@
     "start-tunnel": "expo start --tunnel --clear",
     "build-apk": "eas build --platform android --profile customproduction",
     "build-dev-apk": "eas build --platform android --profile development",
+    "build-aab": "ead build --platform android",
     "debug": "open 'rndebugger://set-debugger-loc?host=localhost&port=8081'",
     "eas-build-on-success": "npx bugsnag-eas-build-on-success"
   },
