@@ -22,8 +22,7 @@ const OrySelfServiceFlow = ({
     onSubmit({ ...values, [name]: value })
       .then(() => setInProgress(false))
       .catch((error) => {
-        console.log(error);
-        console.log(error.response);
+        console.error(error.response);
       });
   };
 

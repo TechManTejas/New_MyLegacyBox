@@ -124,7 +124,7 @@ const WillSignScreen = () => {
         ).finally(pressHandler);
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -137,7 +137,7 @@ const WillSignScreen = () => {
 
       await generateDownloadLink();
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 

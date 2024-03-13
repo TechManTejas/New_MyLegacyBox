@@ -57,7 +57,7 @@ const RegisterScreen = () => {
       })
       .catch((error) => {
         setInProgressFlow(false);
-        console.log(error);
+        console.error(error);
       });
   }, []);
 

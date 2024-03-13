@@ -55,8 +55,6 @@ const PersonalInfoForm = () => {
     show: false,
     property: "",
   });
-
-  console.log(datePickerOptions);
   
 
   const formRef = useRef();

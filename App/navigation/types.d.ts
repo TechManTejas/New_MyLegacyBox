@@ -133,6 +133,10 @@ export type SubRootStackParamList = {
   BOTTOM_STACK_NAVIGATOR: undefined;
 };
 
+export type PensionBoxParamsList = {
+  PENSION_BOX_IFRAME_SCREEN: undefined;
+};
+
 export type RootStackParamList = {
   ONBOARDING_SCREEN: undefined;
   LOGIN_SCREEN: undefined;
@@ -145,6 +149,7 @@ export type RootStackParamList = {
   NomineeStackParamList &
   WillStackParamList &
   FinancialHoldingStackParamList &
-  FinancialInstitutionStackParamList;
+  FinancialInstitutionStackParamList &
+  PensionBoxParamsList;
 
 export type AllScreenNavigationProp = StackNavigationProp<RootStackParamList>;

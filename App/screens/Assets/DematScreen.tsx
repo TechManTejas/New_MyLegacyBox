@@ -184,7 +184,7 @@ const DematScreen = () => {
               setAssetToDelete({ isVisible: false, assedId: "" });
             })
             .catch((err) => {
-              console.log(err);
+              console.error(err);
             });
         }}
       />
