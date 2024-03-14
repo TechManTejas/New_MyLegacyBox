@@ -54,7 +54,7 @@ const PensionBoxIframeScreen = () => {
           // uri: "https://pensionbox.in/getstarted?partnerId=68044828-a7c7-4206-a183-840596edf3e7",
         }}
         onShouldStartLoadWithRequest={(request) => {
-          const allowedHosts = ["pensionbox.in"];
+          const allowedHosts = ["pensionbox.in", "digilocker.gov.in"];
           const url = request.url.toLowerCase();
           return allowedHosts.some((host) => url.includes(host));
         }}
