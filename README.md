@@ -7,3 +7,4 @@
 - bugsnag API keys in place
 - always use jail monkey before building
 - update version code in android/app/build.gradle before update
+- update runtimeversion in app.json before OTA

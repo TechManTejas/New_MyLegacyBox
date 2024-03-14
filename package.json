@@ -13,6 +13,7 @@
     "build-dev-apk": "eas build --platform android --profile development",
     "build-aab": "eas build --platform android",
     "debug": "open 'rndebugger://set-debugger-loc?host=localhost&port=8081'",
+    "ota": "eas update",
     "eas-build-on-success": "npx bugsnag-eas-build-on-success"
   },
   "dependencies": {
