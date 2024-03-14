@@ -46,8 +46,6 @@
       "expo-secure-store"
     ],
 
-    "runtimeVersion": {
-      "policy": "sdkVersion"
-    }
+    "runtimeVersion": "exposdk:50.0.0"
   }
 }
