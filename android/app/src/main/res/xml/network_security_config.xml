@@ -10,6 +10,13 @@
     </domain-config> -->
 
     <domain-config cleartextTrafficPermitted="false">
+        <domain includeSubdomains="true">expo.dev</domain>
+        <pin-set>
+            <pin digest="SHA-256">47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=</pin>
+            <pin digest="SHA-256">0sQL7bP7stzKtyNWxOrQ0RAKUjyl8cej45TzYrMY6KM=</pin>
+        </pin-set>
+    </domain-config>
+    <domain-config cleartextTrafficPermitted="false">
         <domain includeSubdomains="false">iam.oiconomos.com</domain>
         <pin-set>
             <pin digest="SHA-256">47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=</pin>
