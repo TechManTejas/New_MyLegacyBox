@@ -28,6 +28,7 @@ import {
 
 import {} from "jail-monkey";
 import { useJailBreaker } from "./hooks/useJailBreaker";
+import { useCheckSigningCertificates } from "./hooks/useCheckSigningCertificates";
 
 const onErrorCallBack = async (event: Event) => {
   try {
@@ -65,10 +66,16 @@ const ErrorView = () => (
   </View>
 );
 
+
 function App() {
   // usePreventScreenCapture();
 
   useJailBreaker();
+
+  useCheckSigningCertificates([
+    process.env.EXPO_PUBLIC_APP_PLAYSTORE_CERTIFICATE_SHA256,
+    process.env.EXPO_PUBLIC_APP_PLAYSTORE_CERTIFICATE_SHA256,
+  ]);
 
   const [splashScreenVisible, setSplashScreenVisible] = useState(true);
 
