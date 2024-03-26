@@ -28,22 +28,22 @@ const BANK = (item) => {
   return {
     holdingClass: item?.holdingClass,
     updatedAt: item?.updatedAt,
-    title: BANK_ACCOUNT_TYPES_TO_TITLE_MAP[item?.holding.accountType],
-    tagLabel: BANK_ACCOUNT_OWNERSHIP_TO_TITLE_MAP[item?.holding.ownership],
+    title: BANK_ACCOUNT_TYPES_TO_TITLE_MAP[item?.holding?.accountType],
+    tagLabel: BANK_ACCOUNT_OWNERSHIP_TO_TITLE_MAP[item?.holding?.ownership],
     content: [
       {
         key: "Account Number",
-        value: item?.holding.accountNumber,
+        value: item?.holding?.accountNumber,
       },
       {
         key: "Amount",
-        value: item?.holding.amount
-          ? `Rs. ${numberWithCommas(item?.holding.amount)}`
+        value: item?.holding?.amount
+          ? `Rs. ${numberWithCommas(item?.holding?.amount)}`
           : "Not Available",
       },
       {
         key: "Nominee",
-        value: item?.holding.nominee || "Not Available",
+        value: item?.holding?.nominee || "Not Available",
       },
     ],
   };

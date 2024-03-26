@@ -5,9 +5,9 @@
         <domain includeSubdomains="true">192.168.29.223</domain>
     </domain-config> -->
 <!--  -->
-    <!-- <domain-config cleartextTrafficPermitted="true">
+    <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="true">127.0.0.1</domain>
-    </domain-config> -->
+    </domain-config>
 
     <domain-config cleartextTrafficPermitted="false">
         <domain includeSubdomains="true">expo.dev</domain>
