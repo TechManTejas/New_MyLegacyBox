@@ -19,24 +19,27 @@ const AssetPill = ({ assetName, count }) => {
       flexDirection: "row",
       borderRadius: spacing.sm,
       paddingHorizontal: spacing.sm,
+      paddingVertical: spacing.xs,
       marginTop: spacing.xs,
-      backgroundColor: colors.blue400,
+      backgroundColor: colors.blue100,
       alignItems: "center",
       marginRight: spacing.xs,
     },
     assetName: {
-      color: "white",
+      color: colors.blue500,
       fontFamily: fontFamily.regular,
       fontSize: fontSize.sm,
-      lineHeight: fontSize.md,
-      paddingVertical: spacing.xs,
+      // lineHeight: fontSize.md,
+      // paddingVertical: spacing.xs,
     },
     shareNum: {
-      backgroundColor: colors.white,
-      borderRadius: spacing.xl,
-      paddingHorizontal: spacing.xs,
+      // backgroundColor: colors.white,
+      // borderRadius: spacing.u100,
+      // padding: spacing.default,
       fontSize: fontSize.sm,
       lineHeight: fontSize.md,
+      color: colors.blue500,
+      fontFamily: fontFamily.regular,
       marginLeft: spacing.sm,
     },
   });
@@ -44,7 +47,7 @@ const AssetPill = ({ assetName, count }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.assetName}>{HOLDINGS_NAME_MAP[assetName]}</Text>
-      <Text style={styles.shareNum}>{count}</Text>
+      <Text style={styles.shareNum}>{count > 9 ? "+9" : count}</Text>
     </View>
   );
 };
@@ -63,11 +66,11 @@ const AssetSharerCard = ({
   const styles = StyleSheet.create({
     container: {
       borderWidth: StyleSheet.hairlineWidth,
-      marginTop: 0,
-      margin: spacing.sm,
       padding: spacing.md,
       borderRadius: spacing.xs,
       flexShrink: 1,
+      borderColor: colors.black200,
+      marginBottom: spacing.md,
     },
     header: {
       flexDirection: "row",
@@ -82,7 +85,7 @@ const AssetSharerCard = ({
     },
     buttonText: {
       color: "white",
-      fontFamily: fontFamily.regular,
+      fontFamily: fontFamily.semiBold,
       fontSize: fontSize.md,
       lineHeight: fontSize.lg,
     },
@@ -91,9 +94,13 @@ const AssetSharerCard = ({
       color: colors.blue500,
       fontSize: fontSize.xl,
       lineHeight: fontSize.xxl,
+      marginBottom: spacing.xxs,
     },
     shareText: {
       fontFamily: fontFamily.regular,
+      color: colors.black400,
+      fontSize: fontSize.md,
+      lineHeight: fontSize.default,
     },
     pillsContainer: {
       flexDirection: "row",
@@ -104,7 +111,7 @@ const AssetSharerCard = ({
       flexDirection: "row",
       alignItems: "flex-end",
       justifyContent: "space-between",
-      paddingTop: spacing.xxl,
+      paddingTop: spacing.lg,
     },
     extraAssetsText: {
       fontFamily: fontFamily.regular,
@@ -167,9 +174,7 @@ const NominatorsListScreen = () => {
       backgroundColor: "white",
       flex: 1,
     },
-    nominatorContainer: {
-      // flexGrow: 1
-    },
+    nominatorContainer: {},
     nominatorWrapper: {
       height: 150,
       width: "50%",
@@ -194,6 +199,10 @@ const NominatorsListScreen = () => {
       paddingTop: spacing.lg,
       textAlign: "center",
     },
+    flatlistStyle: {
+      paddingVertical: spacing.sm,
+      paddingHorizontal: spacing.md,
+    },
   });
 
   const { data, isLoading, isFetching, refetch } = useGetAllNominatorsQuery(
@@ -215,9 +224,7 @@ const NominatorsListScreen = () => {
             data={
               data !== undefined ? data.ids.map((id) => data.entities[id]) : []
             }
-            style={{
-              marginTop: spacing.sm,
-            }}
+            style={styles.flatlistStyle}
             renderItem={({ item, index }) => {
               if (item?.hasOwnProperty("sharedArtifactsCountByType"))
                 return (

@@ -2,13 +2,28 @@ import { View, FlatList, StyleSheet, Text } from "react-native";
 import React, { useState } from "react";
 import { useGetSharedArtifactByNominatorWithUidAndTypeQuery } from "../../../redux/api/assetSharing/assetSharingApiSlice";
 import CustomActivityIndicator from "../../../components/Common/CustomActivityIndicator";
-import { HOLDINGS_NAME_MAP, HOLDINGS_PROPS_MAP } from "../../../data/AllHoldingsPropsData";
+import {
+  HOLDINGS_NAME_MAP,
+  HOLDINGS_PROPS_MAP,
+} from "../../../data/AllHoldingsPropsData";
 import FinancialInstitutionHoldingCard from "../../../components/Common/FinancialInstitutionHoldingCard";
 import { useTheme } from "../../../theme/ThemeProvider";
 
-const TypeWiseAssets = ({ type, nominatorHashedUid }: { type: string, nominatorHashedUid: string }) => {
+import CaretUpFilled from "../../../assets/icons/caret-up-filled.svg";
+import CaretDownFilled from "../../../assets/icons/caret-down-filled.svg";
 
-  const { theme: { colors, fontFamily, fontSize, spacing } } = useTheme()
+interface TypeWiseAssetsProps {
+  type: string;
+  nominatorHashedUid: string;
+}
+
+const TypeWiseAssets: React.FC<TypeWiseAssetsProps> = ({
+  type,
+  nominatorHashedUid,
+}) => {
+  const {
+    theme: { colors, fontFamily, fontSize, spacing },
+  } = useTheme();
 
   const styles = StyleSheet.create({
     title: {
@@ -17,9 +32,25 @@ const TypeWiseAssets = ({ type, nominatorHashedUid }: { type: string, nominatorH
       fontSize: fontSize.lg,
       lineHeight: fontSize.xl,
       paddingBottom: spacing.sm,
-      paddingTop: spacing.md
-    }
-  })
+      paddingTop: spacing.md,
+    },
+    header: {
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent: "space-between",
+      borderWidth: StyleSheet.hairlineWidth,
+      borderColor: colors.black300,
+      paddingHorizontal: spacing.sm,
+      paddingVertical: spacing.xs,
+      marginBottom: spacing.sm,
+      borderRadius: spacing.xs,
+    },
+    flatlistStyle: {
+      marginBottom: spacing.sm,
+    },
+  });
+
+  const [showAssets, setShowAssets] = useState(false);
 
   const { isFetching, isLoading, data } =
     useGetSharedArtifactByNominatorWithUidAndTypeQuery({
@@ -27,23 +58,37 @@ const TypeWiseAssets = ({ type, nominatorHashedUid }: { type: string, nominatorH
       financialArtifactType: type,
     });
 
-
-  if (isFetching || isLoading || data === undefined)
-    return <CustomActivityIndicator />;
+  const toggleAssets = () => {
+    setShowAssets((prev) => !prev);
+  };
 
   return (
     <View>
-      <Text style={styles.title}>{HOLDINGS_NAME_MAP[type]}</Text>
-    <FlatList
-      data={data !== undefined ? data.ids.map((id) => data.entities[id]) : []}
-      renderItem={({ item }) => {
-        return (
-          <FinancialInstitutionHoldingCard
-            {...HOLDINGS_PROPS_MAP[type](item.financialArtifact)}
-          />
-        );
-      }}
-    />
+      <View style={styles.header}>
+        <Text style={styles.title}>{HOLDINGS_NAME_MAP[type]}</Text>
+        {isFetching || isLoading || data === undefined ? (
+          <CustomActivityIndicator extraStyle={{ flex: 0 }} />
+        ) : !showAssets ? (
+          <CaretDownFilled onPress={toggleAssets} color={colors.black} />
+        ) : (
+          <CaretUpFilled onPress={toggleAssets} color={colors.black} />
+        )}
+      </View>
+      {showAssets && (
+        <FlatList
+          style={styles.flatlistStyle}
+          data={
+            data !== undefined ? data.ids.map((id) => data.entities[id]) : []
+          }
+          renderItem={({ item }) => {
+            return (
+              <FinancialInstitutionHoldingCard
+                {...HOLDINGS_PROPS_MAP[type](item.financialArtifact)}
+              />
+            );
+          }}
+        />
+      )}
     </View>
   );
 };
@@ -56,12 +101,12 @@ const SharedArtifactsScreen = ({ route }) => {
   const styles = StyleSheet.create({
     screen: {
       backgroundColor: colors.white100,
-      flex: 1
+      flex: 1,
+      paddingVertical: spacing.md,
     },
     listContentContainer: {
       flexGrow: 1,
-      paddingHorizontal: spacing.lg,
-      // paddingVertical: spacing.lg
+      paddingHorizontal: spacing.lg
     },
   });
 
