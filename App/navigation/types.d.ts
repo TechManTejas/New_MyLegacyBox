@@ -109,6 +109,7 @@ export type NomineeStackParamList = {
 export type SharedArtifactsStackParamList = {
   SHARED_ASSETS_TYPE_LIST_SCREEN: undefined;
   SINGLE_SHARED_ARTIFACT_TYPE_SCREEN: undefined;
+  SHARED_ARTIFACTS_SCREEN: undefined;
 };
 
 export type WillStackParamList = {

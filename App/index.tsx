@@ -1,8 +1,7 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useState } from "react";
 import messaging from "@react-native-firebase/messaging";
 import "expo-dev-client";
 import * as ExpoSplashScreen from "expo-splash-screen";
-import * as Updates from "expo-updates";
 import "react-native-url-polyfill/auto";
 
 import { ThemeProvider } from "./theme/ThemeProvider";
@@ -22,7 +21,6 @@ import BugsnagPerformance from "@bugsnag/react-native-performance";
 import Bugsnag, { Event } from "@bugsnag/expo";
 import { Text, View } from "react-native";
 import {
-  getAuthenticatedSession,
   getAuthenticatedSessionTokenParsed,
 } from "./utils/auth";
 
