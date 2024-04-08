@@ -66,7 +66,7 @@ const ErrorView = () => (
 function App() {
   // usePreventScreenCapture();
 
-  // useJailBreaker();
+  useJailBreaker();
 
   const [splashScreenVisible, setSplashScreenVisible] = useState(true);
 
