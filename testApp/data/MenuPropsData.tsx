@@ -10,28 +10,28 @@ export const HOME_SMARTBOX_LARGE_MENU_DATA = [
     title: "Bank",
     ...FontAwesomeIconsData["Bank"],
     // SvgIcon: BankIcon,
-    navigateToScreen: "/drawer/home/bank/banklist",
+    navigateToScreen: "/home/bank/banklist",
   },
   {
     id: 2,
     title: "Post Office",
     ...FontAwesomeIconsData["Post Office"],
     // SvgIcon: PostalIcon,
-    navigateToScreen: "/drawer/home/postal/postallist",
+    navigateToScreen: "/home/postal/postallist",
   },
   {
     id: 3,
     title: "Insurance",
     ...FontAwesomeIconsData["Insurance"],
     // SvgIcon: InsuranceIcon,
-    navigateToScreen: "/drawer/home/insurance/insurancelist",
+    navigateToScreen: "/home/insurance/insurancelist",
   },
   {
     id: 4,
     title: "Share & Securities",
     ...FontAwesomeIconsData["Share & Securities"],
     // SvgIcon: DematIcon,
-    navigateToScreen: "/drawer/home/shares/shareslist",
+    navigateToScreen: "/home/shares/shareslist",
   },
 ];
 
@@ -41,21 +41,21 @@ export const HOME_SMARTBOX_SMALL_MENU_DATA = [
     title: "Cash",
     ...FontAwesomeIconsData["Cash"],
     // SvgIcon: CashIcon,
-    navigateToScreen: "/drawer/home/cash/cash",
+    navigateToScreen: "/home/cash/cash",
   },
   {
     id: 2,
     title: "Real Estate",
     ...FontAwesomeIconsData["Real Estate"],
     // SvgIcon: RealEstateIcon,
-    navigateToScreen: "/drawer/home/realestate/realestatelist",
+    navigateToScreen: "/home/realestate/realestatelist",
   },
   {
     id: 3,
     title: "Provident Fund",
     ...FontAwesomeIconsData["Provident Fund"],
     // SvgIcon: ProvidentFundIcon,
-    navigateToScreen: "/drawer/home/pf/pfs",
+    navigateToScreen: "/home/pf/pfs",
   },
   {
     id: 4,
@@ -73,28 +73,28 @@ export const HOME_HEADER_MENU_DATA = [
     title: "Shared",
     ...FontAwesomeIconsData["sharedWithMe"],
     // SvgIcon: SharedIcon,
-    navigateToScreen: "/drawer/home/nominatorsList",
+    navigateToScreen: "/home/nominatorsList",
   },
   {
     id: 2,
     title: "Archived",
     ...FontAwesomeIconsData["archived"],
     // SvgIcon: ArchivedIcon,
-    navigateToScreen: "/drawer/home/archived",
+    navigateToScreen: "/home/archived",
   },
   {
     id: 3,
     title: "FAQs",
     ...FontAwesomeIconsData["faq"],
     // SvgIcon: FaqIcon,
-    navigateToScreen: "/drawer/home/faq",
+    navigateToScreen: "/home/faq",
   },
   {
     id: 4,
     title: "App tour",
     ...FontAwesomeIconsData["appTour"],
     // SvgIcon: TourIcon,
-    navigateToScreen: "/drawer/home/appTour",
+    navigateToScreen: "/home/appTour",
   },
 ];
 
@@ -103,7 +103,7 @@ export const DEMAT_PRIVATE_SHARES_MENU_DATA = [
     id: 1,
     title: "Demat",
     ...FontAwesomeIconsData["demat"],
-    navigateToScreen: "/drawer/home/shares/demats",
+    navigateToScreen: "/home/shares/demats",
   },
 ];
 
@@ -112,19 +112,19 @@ export const DEMAT_BUSINESS_SHARES_NEMU_DATA = [
     id: 1,
     title: "Proprietorship",
     ...FontAwesomeIconsData["proprietorship"],
-    navigateToScreen: "/drawer/home/shares/proprietorships",
+    navigateToScreen: "/home/shares/proprietorships",
   },
   {
     id: 2,
     title: "Partnership",
     ...FontAwesomeIconsData["partnership"],
-    navigateToScreen: "/drawer/home/shares/partnerships",
+    navigateToScreen: "/home/shares/partnerships",
   },
   {
     id: 3,
     title: "Private Limited",
     ...FontAwesomeIconsData["privateLimitedCompany"],
-    navigateToScreen: "/drawer/home/shares/companies",
+    navigateToScreen: "/home/shares/companies",
   },
 ];
 
@@ -133,7 +133,7 @@ export const REAL_ESTATE_MENU_DATA = [
     id: 1,
     title: REAL_ESTATE_TYPE_TO_TITLE_MAP[REAL_ESTATE_TYPE_MAP.land],
     ...FontAwesomeIconsData["layer"],
-    navigateToScreen: "/drawer/home/realestate/realestates",
+    navigateToScreen: "/home/realestate/realestates",
     navigationParams: {
       realEstateType: REAL_ESTATE_TYPE_MAP.land,
     },
@@ -142,7 +142,7 @@ export const REAL_ESTATE_MENU_DATA = [
     id: 2,
     title: REAL_ESTATE_TYPE_TO_TITLE_MAP[REAL_ESTATE_TYPE_MAP.residential],
     ...FontAwesomeIconsData["residential"],
-    navigateToScreen: "/drawer/home/realestate/realestates",
+    navigateToScreen: "/home/realestate/realestates",
     navigationParams: {
       realEstateType: REAL_ESTATE_TYPE_MAP.residential,
     },
@@ -151,7 +151,7 @@ export const REAL_ESTATE_MENU_DATA = [
     id: 3,
     title: REAL_ESTATE_TYPE_TO_TITLE_MAP[REAL_ESTATE_TYPE_MAP.commercial],
     ...FontAwesomeIconsData["building"],
-    navigateToScreen: "/drawer/home/realestate/realestates",
+    navigateToScreen: "/home/realestate/realestates",
     navigationParams: {
       realEstateType: REAL_ESTATE_TYPE_MAP.commercial,
     },

@@ -1,5 +1,5 @@
-import { Stack, usePathname } from "expo-router";
-import React, { useState } from "react";
+import { Slot, usePathname } from "expo-router";
+import React from "react";
 import { getAuthenticatedSessionTokenParsed } from "../testApp/utils/auth";
 import Bugsnag, { Event } from "@bugsnag/expo";
 import BugsnagPerformance from "@bugsnag/react-native-performance";
@@ -7,10 +7,9 @@ import { Text, View } from "react-native";
 import * as ExpoSplashScreen from "expo-splash-screen";
 import { useCheckSigningCertificates } from "../testApp/hooks/useCheckSigningCertificates";
 import messaging from "@react-native-firebase/messaging";
-import AnimatedSplashScreen from "../testApp/screens/Splash/AnimatedSplashScreen";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import SplashScreen from "../testApp/screens/Splash/SplashScreen";
-import { AuthProvider, useAuth } from "../testApp/authentication/AuthProvider";
+import { AuthProvider } from "../testApp/authentication/AuthProvider";
 import { ThemeProvider } from "../testApp/theme/ThemeProvider";
 import { Provider } from "react-redux";
 import { store } from "../testApp/redux/store";
@@ -50,44 +49,15 @@ const ErrorView = () => (
   </View>
 );
 
-const Screens = () => {
-  const { isAuthenticated } = useAuth();
-
-  console.log(isAuthenticated);
-
-  if (isAuthenticated) {
-    console.log("loading drawer");
-
-    return (
-      <Stack screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="drawer" />
-      </Stack>
-    );
-  }
-
-  console.log("loading index stack");
-
-  return (
-    <Stack screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="index" />
-      <Stack.Screen name="login" />
-      <Stack.Screen name="signup" />
-    </Stack>
-  );
-};
-
 const RootLayout = () => {
-  const path = usePathname();
+  console.log(usePathname());
 
-  console.log(path);
   // useJailBreaker();
 
   // useCheckSigningCertificates([
   //   process.env.EXPO_PUBLIC_APP_PLAYSTORE_CERTIFICATE_SHA256,
   //   process.env.EXPO_PUBLIC_APP_PLAYSTORE_CERTIFICATE_SHA256,
   // ]);
-
-  const [splashScreenVisible, setSplashScreenVisible] = useState(true);
 
   messaging().onMessage((message) => {});
 
@@ -100,12 +70,8 @@ const RootLayout = () => {
           <AuthProvider>
             <SplashScreen>
               <SafeAreaProvider>
-                <AnimatedSplashScreen
-                  splashScreenVisible={splashScreenVisible}
-                  setSplashScreenVisible={setSplashScreenVisible}
-                />
                 <AppTour />
-                <Screens />
+                <Slot />
               </SafeAreaProvider>
             </SplashScreen>
           </AuthProvider>

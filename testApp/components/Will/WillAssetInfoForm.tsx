@@ -165,7 +165,7 @@ const WillAssetInfoForm = ({
 
     dispatch(setAssetRedux(allocationValues));
 
-    router.push("/drawer/will/willassetindex");
+    router.push("/will/willassetindex");
   }, []);
 
   return (

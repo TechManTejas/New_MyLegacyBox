@@ -66,7 +66,7 @@ const PensionBoxBanner = () => {
   });
 
   const handler = () => {
-    router.push("/drawer/home/pensionboxiframe")
+    router.push("/home/pensionboxiframe")
   };
 
   return (

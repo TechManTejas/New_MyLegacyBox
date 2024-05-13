@@ -37,7 +37,7 @@ const CustomHeaderLeftIcon = ({}) => {
   };
 
   const backPress = () => {
-    if ( path === "WILL_INDEX_SCREEN") {
+    if ( path === "/will/willindex") {
       setIsPopUpVisible(true);
     } else if (router.canGoBack()) router.back();
   };

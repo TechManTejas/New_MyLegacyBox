@@ -16,7 +16,7 @@ interface SplashScreenProps {
 
 const SplashScreen: React.FC<SplashScreenProps> = ({ children }) => {
   const [isAppReady, setIsAppReady] = useState(false);
-  const { sessionToken, syncSession } = useAuth();
+  const { syncSession } = useAuth();
 
   useEffect(() => {
     const loadModuleImages = (images: string[]) =>

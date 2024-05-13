@@ -170,7 +170,7 @@ const WillNomeineeModalCard = ({
         <Pressable
           onPress={() =>
             router.push({
-              pathname: "/drawer/members/updateNominee",
+              pathname: "/members/updateNominee",
               params: {
                 nominee: item,
               },

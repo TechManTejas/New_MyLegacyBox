@@ -64,7 +64,7 @@ const OnBoardingFooter = () => {
               uppercase
               expandHorizontal
               onPress={() => {
-                router.push("login")
+                router.push("/login")
               }}
             />
             <View style={{ width: spacing.md }} />
@@ -73,7 +73,7 @@ const OnBoardingFooter = () => {
               uppercase
               expandHorizontal
               onPress={() => {
-                router.push("signup")
+                router.push("/signup")
               }}
             />
           </View>
