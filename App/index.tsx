@@ -1,109 +1,126 @@
-import React, { useState } from "react";
-import messaging from "@react-native-firebase/messaging";
-import "expo-dev-client";
-import * as ExpoSplashScreen from "expo-splash-screen";
-import "react-native-url-polyfill/auto";
+import React, { useEffect, useState } from "react";
+import { useAuth } from "../testApp/authentication/AuthProvider";
+import { useRouter } from "expo-router";
+import { Image, StatusBar, StyleSheet, View } from "react-native";
+import { useTheme } from "../testApp/theme/ThemeProvider";
+import Animated, { FadeInLeft, SlideOutRight } from "react-native-reanimated";
 
-import { ThemeProvider } from "./theme/ThemeProvider";
-import { AuthProvider } from "./authentication/AuthProvider";
-import { RootNavigator } from "./navigation/RootNavigator/RootNavigator";
-import SplashScreen from "./screens/Splash/SplashScreen";
-import { Provider } from "react-redux";
-import { store } from "./redux/store";
-import { SafeAreaProvider } from "react-native-safe-area-context";
-
-import { usePreventScreenCapture } from "expo-screen-capture";
-import AnimatedSplashScreen from "./screens/Splash/AnimatedSplashScreen";
-import AppSecurityLayer from "./components/Common/AppSecurityLayer";
-import AppTour from "./components/AppTour";
-
-import BugsnagPerformance from "@bugsnag/react-native-performance";
-import Bugsnag, { Event } from "@bugsnag/expo";
-import { Text, View } from "react-native";
-import {
-  getAuthenticatedSessionTokenParsed,
-} from "./utils/auth";
-
-import {} from "jail-monkey";
-import { useJailBreaker } from "./hooks/useJailBreaker";
-import { useCheckSigningCertificates } from "./hooks/useCheckSigningCertificates";
-
-const onErrorCallBack = async (event: Event) => {
-  try {
-    const res = await getAuthenticatedSessionTokenParsed();
-    event.setUser(res.identity.traits?.email);
-  } catch (err) {
-    console.error(err);
-  }
-};
-
-Bugsnag.start({
-  apiKey: process.env.EXPO_PUBLIC_BUGSNAG_API_KEY,
-  appVersion: process.env.EXPO_PUBLIC_BUGSNAG_APP_VERSION,
-  releaseStage: process.env.EXPO_PUBLIC_BUGSNAG_APP_STAGE,
-  onError: onErrorCallBack,
-});
-
-BugsnagPerformance.start({
-  apiKey: process.env.EXPO_PUBLIC_BUGSNAG_API_KEY,
-  appVersion: process.env.EXPO_PUBLIC_BUGSNAG_APP_VERSION,
-  releaseStage: process.env.EXPO_PUBLIC_BUGSNAG_APP_STAGE,
-});
-
-const ErrorBoundary = Bugsnag.getPlugin("react").createErrorBoundary(React);
-
-// import notifee from "@notifee/react-native";
-
-ExpoSplashScreen.preventAutoHideAsync().catch((err) => {
-  console.error(err);
-});
-
-const ErrorView = () => (
-  <View>
-    <Text>Inform users of an error in the component tree.</Text>
-  </View>
-);
-
-
-function App() {
-  // usePreventScreenCapture();
-
-  useJailBreaker();
-
-  useCheckSigningCertificates([
-    process.env.EXPO_PUBLIC_APP_PLAYSTORE_CERTIFICATE_SHA256,
-    process.env.EXPO_PUBLIC_APP_PLAYSTORE_CERTIFICATE_SHA256,
-  ]);
-
+const StarterScreen = () => {
   const [splashScreenVisible, setSplashScreenVisible] = useState(true);
 
-  messaging().onMessage((message) => {});
+  const [coverVisible, setCoverVisible] = useState(true);
 
-  messaging().setBackgroundMessageHandler(async (message) => {});
+  const {
+    theme: { colors, fontFamily, fontSize, spacing },
+  } = useTheme();
+
+  const styles = StyleSheet.create({
+    screen: {
+      height: "100%",
+      alignItems: "center",
+      justifyContent: "center",
+      backgroundColor: "white",
+      zIndex: 0,
+    },
+    logo: {
+      width: 120,
+      height: 120,
+    },
+    text: {
+      color: colors.blue500,
+      fontFamily: fontFamily.semiBold,
+      fontSize: fontSize.xl,
+    },
+    animatedTextBlock: {
+      flexDirection: "row",
+    },
+    waveImg: {
+      height: 14,
+      width: 100,
+      marginHorizontal: spacing.lg,
+      zIndex: 10,
+      position: "relative",
+      left: 78,
+      bottom: 6,
+    },
+    placeholder: {
+      height: 20,
+      width: 100,
+      backgroundColor: "white",
+    },
+    cover: {
+      zIndex: 20,
+      position: "relative",
+      bottom: 26,
+      left: 28,
+    },
+    coverContainer: {
+      flexDirection: "row",
+    },
+  });
+
+  const { isAuthenticated } = useAuth();
+  const router = useRouter();
+
+  useEffect(() => {
+    const animationEndInterval = setTimeout(() => {
+      setSplashScreenVisible(false);
+
+      console.log({ isAuthenticated });
+      
+
+      if (isAuthenticated) router.replace("/home");
+      else router.replace("/(public)");
+    }, 4000);
+
+    const coverEndInterval = setTimeout(() => setCoverVisible(false), 2500);
+
+    return () => {
+      clearTimeout(animationEndInterval);
+      clearTimeout(coverEndInterval);
+    };
+  }, []);
+
+  const text = "Personalising Succession";
 
   return (
-    <ErrorBoundary FallbackComponent={ErrorView}>
-      <Provider store={store}>
-        <ThemeProvider>
-          <AuthProvider>
-            <SplashScreen>
-              <SafeAreaProvider>
-                <AnimatedSplashScreen
-                  splashScreenVisible={splashScreenVisible}
-                  setSplashScreenVisible={setSplashScreenVisible}
-                />
+    splashScreenVisible && (
+      <View style={styles.screen}>
+        <StatusBar barStyle="light-content" />
+        <Image
+          style={styles.logo}
+          source={require("../assets/icon.png")}
+        />
 
-                <AppTour />
+        <View style={styles.animatedTextBlock}>
+          {text.split("").map((char, id) => (
+            <Animated.Text
+              entering={FadeInLeft.delay(id * 100).duration(500)}
+              style={styles.text}
+              key={id}
+            >
+              {char}
+            </Animated.Text>
+          ))}
+        </View>
 
-                {/* <AppSecurityLayer splashScreenVisible={splashScreenVisible} /> */}
-                <RootNavigator />
-              </SafeAreaProvider>
-            </SplashScreen>
-          </AuthProvider>
-        </ThemeProvider>
-      </Provider>
-    </ErrorBoundary>
+        <Image
+          style={styles.waveImg}
+          source={require("../assets/wave-flipped.png")}
+        />
+
+        <View style={styles.coverContainer}>
+          <View style={styles.placeholder} />
+          {coverVisible && (
+            <Animated.View
+              exiting={SlideOutRight.duration(2500)}
+              style={[styles.placeholder, styles.cover]}
+            />
+          )}
+        </View>
+      </View>
+    )
   );
-}
+};
 
-export default App;
+export default StarterScreen;
