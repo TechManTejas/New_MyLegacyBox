@@ -27,7 +27,7 @@ const BlogCarousel: React.FC<BlogCarouselProps> = ({ data }) => {
 
   const styles = StyleSheet.create({
     carousel: {
-      marginBottom: spacing.xxl,
+      marginBottom: spacing.lg,
     },
     indicatorContainer: {
       flexDirection: "row",
