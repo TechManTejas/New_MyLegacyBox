@@ -30,6 +30,8 @@ import SolidIconMenu from "../../../../testApp/components/SolidIconMenu";
 import Bugsnag from "@bugsnag/expo";
 import PensionBoxBanner from "../../../../testApp/components/Home/PensionBoxBanner";
 
+import BookMeetingCard from "../../../../components/BookMeetingCard";
+
 const HomeScreen: React.FC<{}> = () => {
   const {
     theme: { spacing, colors, fontFamily, fontSize },
@@ -216,6 +218,8 @@ const HomeScreen: React.FC<{}> = () => {
           <SolidIconMenu data={HOME_SMARTBOX_SMALL_MENU_DATA} isDark />
 
           <BlogCarousel data={homeBlogCarouselData} />
+
+          <BookMeetingCard />
         </View>
       </ScrollView>
     </CustomSafeView>
