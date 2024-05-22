@@ -111,7 +111,7 @@ const WillSignScreen = () => {
   const router = useRouter();
 
   const pressHandler = () => {
-    router.canGoBack() ? router.push("/will") : null;
+    router.canGoBack() ? router.navigate("/will") : null;
   };
 
   const generateDownloadLink = async () => {
@@ -147,29 +147,6 @@ const WillSignScreen = () => {
   });
 
   const submit = () => {
-
-    console.log(JSON.stringify({
-      ...will,
-      residualDistribution: will.residualDistData.map((data) => ({
-        _id: data.beneficiary._id,
-        allocation: data.percent,
-      })),
-      secondaryDistribution: will.secondaryDistData.map((data) => ({
-        _id: data.beneficiary._id,
-        isAssignedToLinealDescendant: data.distType === 1,
-        beneficiaryDistribution:
-          data.distType !== 1
-            ? data.distribution.map((distData) => ({
-                _id: distData.beneficiary._id,
-                allocation: distData.percent,
-              }))
-            : [],
-      })),
-      declarationInfo: {
-        place: declarationInfo.place,
-        declaration: declarationInfo.declaration,
-      },
-    }, null, 1));
 
     addWillToDbAndGenerateWord({
       ...will,

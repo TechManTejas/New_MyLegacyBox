@@ -14,6 +14,7 @@ import { ThemeProvider } from "../testApp/theme/ThemeProvider";
 import { Provider } from "react-redux";
 import { store } from "../testApp/redux/store";
 import AppTour from "../testApp/components/AppTour";
+import { useJailBreaker } from "../testApp/hooks/useJailBreaker";
 
 const onErrorCallBack = async (event: Event) => {
   try {
@@ -50,14 +51,14 @@ const ErrorView = () => (
 );
 
 const RootLayout = () => {
-  console.log(usePathname());
+  // console.log(usePathname());
 
-  // useJailBreaker();
+  useJailBreaker();
 
-  // useCheckSigningCertificates([
-  //   process.env.EXPO_PUBLIC_APP_PLAYSTORE_CERTIFICATE_SHA256,
-  //   process.env.EXPO_PUBLIC_APP_PLAYSTORE_CERTIFICATE_SHA256,
-  // ]);
+  useCheckSigningCertificates([
+    process.env.EXPO_PUBLIC_APP_PLAYSTORE_CERTIFICATE_SHA256,
+    process.env.EXPO_PUBLIC_APP_PLAYSTORE_CERTIFICATE_SHA256,
+  ]);
 
   messaging().onMessage((message) => {});
 

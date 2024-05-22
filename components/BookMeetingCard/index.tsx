@@ -11,7 +11,7 @@ const BookMeetingCard = () => {
   const [bookMeet, { isLoading, isError, isSuccess }] =
     useBookMeetingMutation();
 
-  console.log({ isError, isSuccess });
+  // console.log({ isError, isSuccess });
 
   const bookMeeting = async () => {
     try {
