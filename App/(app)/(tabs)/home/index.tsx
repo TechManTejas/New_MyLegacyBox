@@ -147,6 +147,11 @@ const HomeScreen: React.FC<{}> = () => {
       })
       .catch((err) => {
         console.error(err);
+        deleteItemAsync("lastUsedEmail")
+        .then(() => {})
+        .catch((err) => {
+          console.log(err);
+        });
       });
   }, []);
 

@@ -6,7 +6,7 @@ export const kratosClient = new FrontendApi(
   new Configuration({
     basePath: baseUrl,
     baseOptions: {
-      withCredentials: true,
+      withCredentials: false,
     },
   })
 );

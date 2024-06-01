@@ -19,7 +19,7 @@ import { useJailBreaker } from "../testApp/hooks/useJailBreaker";
 const onErrorCallBack = async (event: Event) => {
   try {
     const res = await getAuthenticatedSessionTokenParsed();
-    event.setUser(res.identity.traits?.email);
+    event.setUser(res?.identity.traits?.email);
   } catch (err) {
     console.error(err);
   }
@@ -53,12 +53,12 @@ const ErrorView = () => (
 const RootLayout = () => {
   // console.log(usePathname());
 
-  useJailBreaker();
+  // useJailBreaker();
 
-  useCheckSigningCertificates([
-    process.env.EXPO_PUBLIC_APP_PLAYSTORE_CERTIFICATE_SHA256,
-    process.env.EXPO_PUBLIC_APP_PLAYSTORE_CERTIFICATE_SHA256,
-  ]);
+  // useCheckSigningCertificates([
+  //   process.env.EXPO_PUBLIC_APP_PLAYSTORE_CERTIFICATE_SHA256,
+  //   process.env.EXPO_PUBLIC_APP_PLAYSTORE_CERTIFICATE_SHA256,
+  // ]);
 
   messaging().onMessage((message) => {});
 
