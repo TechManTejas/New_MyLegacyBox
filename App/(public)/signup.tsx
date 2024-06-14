@@ -59,6 +59,10 @@ const RegisterScreen = () => {
   }, []);
 
   const onSubmit = (values) => {
+
+    console.log(values);
+    
+
     return flow
       ? kratosClient
           .updateRegistrationFlow({

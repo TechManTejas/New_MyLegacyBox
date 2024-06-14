@@ -5,7 +5,7 @@ import {
   SettingsFlow,
   SettingsFlowState,
   UpdateSettingsFlowBody,
-} from "@ory/kratos-client"
+} from "@ory/client"
 import React, { useContext, useEffect, useState } from "react"
 import { handleFormSubmitError } from "../../testApp/utils/oryForm"
 import { useAuth } from "../../testApp/authentication/AuthProvider"

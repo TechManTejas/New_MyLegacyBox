@@ -6,9 +6,8 @@ import {
   ContinueWith,
   RecoveryFlow,
   UpdateRecoveryFlowBody,
-} from "@ory/kratos-client";
+} from "@ory/client";
 import { useFocusEffect, useRouter } from "expo-router";
-import AccountRecoveryFlow from "../../components/AccountRecoveryFlow";
 import {
   AuthProvider,
   useAuth,
@@ -110,7 +109,6 @@ const AccountRecovery = () => {
   };
 
   const onSubmit = async (body: UpdateRecoveryFlowBody) => {
-    // console.log("LOG1", JSON.stringify(body, null, 1));
 
     if (!flow) {
       console.error("No flow!");
@@ -121,12 +119,13 @@ const AccountRecovery = () => {
 
       const { data: updatedFlow } = await kratosClient.updateRecoveryFlow({
         flow: flow?.id,
-        updateRecoveryFlowBody: body,
+        updateRecoveryFlowBody: {
+          method: "code",
+          email: body.email,
+          code: "",
+          transient_payload: {}
+        },
       });
-
-      // console.log("LOG2", JSON.stringify(updatedFlow, null, 1));
-
-      console.log(updatedFlow.state);
 
       if (updatedFlow.state === "passed_challenge") {
         const actions = collectRecoveryActions(updatedFlow.continue_with);

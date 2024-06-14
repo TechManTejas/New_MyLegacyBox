@@ -1,4 +1,4 @@
-import { Configuration, FrontendApi } from "@ory/kratos-client";
+import { Configuration, FrontendApi, IdentityApi } from "@ory/client";
 
 const baseUrl = `${process.env.EXPO_PUBLIC_KRATOS_URL}`;
 

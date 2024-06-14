@@ -7,7 +7,7 @@ import {
   setAuthenticatedSession,
 } from "../utils/auth";
 import { kratosClient } from "./kratosSdk";
-import { Session } from "@ory/kratos-client";
+import { Session } from "@ory/client";
 import Bugsnag from "@bugsnag/expo";
 
 interface AuthProviderProps {
