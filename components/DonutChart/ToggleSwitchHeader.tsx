@@ -4,7 +4,7 @@ import { useDonutChart } from "./DonutChartProvider";
 import { useState } from "react";
 
 const ToggleHeader = () => {
-  const { setIsAmountView } = useDonutChart();
+  const { setIsAmountView, isAmountView } = useDonutChart();
 
   const [toggleButtonsState, setToggleButtonsState] = useState([
     {
@@ -20,7 +20,6 @@ const ToggleHeader = () => {
   const styles = StyleSheet.create({
     toggleHeader: {
       flexDirection: "row",
-      // paddingBottom: 60,
     },
   });
 
@@ -28,6 +27,8 @@ const ToggleHeader = () => {
     isPressed: boolean;
     title: string;
   }) => {
+    console.log(isAmountView);
+    
     if (!button.isPressed) {
       setToggleButtonsState(
         toggleButtonsState.map((item) => ({
@@ -35,7 +36,7 @@ const ToggleHeader = () => {
           isPressed: !item.isPressed,
         }))
       );
-      if (button.title === "Amount View") setIsAmountView(true);
+      if (button.title === "Value") setIsAmountView(true);
       else setIsAmountView(false);
     }
   };
