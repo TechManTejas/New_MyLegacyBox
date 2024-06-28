@@ -1,4 +1,10 @@
-import { Pressable, StyleSheet, Text, View, useWindowDimensions } from "react-native";
+import {
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+  useWindowDimensions,
+} from "react-native";
 import { useTheme } from "../../testApp/theme/ThemeProvider";
 import { useDonutChart } from "./DonutChartProvider";
 import { useState } from "react";
@@ -28,7 +34,7 @@ const ToggleHeader = () => {
     title: string;
   }) => {
     console.log(isAmountView);
-    
+
     if (!button.isPressed) {
       setToggleButtonsState(
         toggleButtonsState.map((item) => ({
@@ -71,8 +77,8 @@ const ToggleButton: React.FC<ToggleButtonProps> = ({
   const {
     theme: { colors, spacing, fontFamily, fontSize },
   } = useTheme();
-  
-    const { width } = useWindowDimensions()
+
+  const { width } = useWindowDimensions();
 
   const styles = StyleSheet.create({
     toggleHeader: {
@@ -83,7 +89,7 @@ const ToggleButton: React.FC<ToggleButtonProps> = ({
       borderRadius: spacing.xs,
       paddingHorizontal: spacing.xl,
       paddingVertical: spacing.lg,
-      width: (width / 2) - 20,
+      width: width / 2 - 20,
       backgroundColor: !isPressed ? colors.white100 : colors.blue,
       elevation: 2,
     },
