@@ -80,9 +80,9 @@ const DrawerLayout = () => {
         />
 
         <Drawer.Screen
-          name="assetsAndLiabilities"
+          name="archived"
           options={{
-            title: "Assets and Liabilities",
+            title: "Archived Assets",
           }}
         />
         

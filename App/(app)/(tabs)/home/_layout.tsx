@@ -33,7 +33,18 @@ const HomeLayout = () => {
       <Stack.Screen name="index" options={{ headerShown: false }} />
       <Stack.Screen name="faq" options={{ title: "FAQs" }} />
       <Stack.Screen name="appTour" options={{ title: "App Tours" }} />
-      <Stack.Screen name="archived" options={{ title: "Archived Assets" }} />
+      <Stack.Screen
+        name="assetsAndLiabilities/insights"
+        options={{ title: "Net Worth" }}
+      />
+            <Stack.Screen
+        name="assetsAndLiabilities/assets"
+        options={{ title: "Assets" }}
+      />
+            <Stack.Screen
+        name="assetsAndLiabilities/liabilities"
+        options={{ title: "Liabilities" }}
+      />
       <Stack.Screen name="nominatorsList" options={{ title: "Shared" }} />
       <Stack.Screen
         name="sharedArtifacts"

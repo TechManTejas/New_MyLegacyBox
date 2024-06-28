@@ -2,11 +2,14 @@ import React from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { useAuth } from "../../authentication/AuthProvider";
 import { useTheme } from "../../theme/ThemeProvider";
-import { FontAwesome } from '@expo/vector-icons'; 
+import { FontAwesome } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import Animated, { FadeInLeft } from "react-native-reanimated";
 
 const HomeHeader = () => {
-  const { theme: { colors, spacing, fontFamily, fontSize } } = useTheme();
+  const {
+    theme: { colors, spacing, fontFamily, fontSize },
+  } = useTheme();
   const { session } = useAuth();
   const navigation = useNavigation();
 
@@ -46,10 +49,27 @@ const HomeHeader = () => {
       <View>
         <Text style={styles.greeting}>
           Namaste,{" "}
-          <Text style={styles.username}>
+
+          <Animated.Text style={{ color: colors.blue500 }}>
+            {(session?.identity?.traits?.name?.first || "user")
+              .split("")
+              .map((char, id) => (
+                <Animated.Text
+                  entering={FadeInLeft.delay(id * 100).duration(10000)}
+                  style={{}}
+                  key={id}
+                >
+                  {char}
+                </Animated.Text>
+              ))}
+          </Animated.Text>
+
+          {/* <Text style={styles.username}>
             {session?.identity?.traits?.name?.first || "user"}
-          </Text>
+          </Text> */}
+
         </Text>
+
         <Text style={styles.caption}>Welcome to Oiconomos!</Text>
       </View>
       <Pressable
@@ -59,7 +79,11 @@ const HomeHeader = () => {
         }}
       >
         <View>
-          <FontAwesome name="user-circle" size={fontSize.xxxl} color={colors.blue400} />
+          <FontAwesome
+            name="user-circle"
+            size={fontSize.xxxl}
+            color={colors.blue400}
+          />
         </View>
       </Pressable>
     </View>

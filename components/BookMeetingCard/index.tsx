@@ -6,12 +6,11 @@ import CustomActivityIndicator from "../../testApp/components/Common/CustomActiv
 
 import PhoneIcon from "../../testApp/assets/icons/phone-outlined.svg";
 import Check from "../../testApp/assets/icons/circle-check.svg";
+import { Link } from "expo-router";
 
 const BookMeetingCard = () => {
   const [bookMeet, { isLoading, isError, isSuccess }] =
     useBookMeetingMutation();
-
-  // console.log({ isError, isSuccess });
 
   const bookMeeting = async () => {
     try {
@@ -32,12 +31,12 @@ const BookMeetingCard = () => {
   const styles = StyleSheet.create({
     bookCard: {
       borderWidth: StyleSheet.hairlineWidth,
-      borderColor: colors.black200,
+      borderColor: colors.black400,
       alignItems: "center",
       justifyContent: "center",
       borderRadius: spacing.sm,
-      marginBottom: spacing.xxl,
-      paddingVertical: spacing.md + spacing.sm,
+      marginBottom: spacing.lg,
+      paddingVertical: spacing.md,
       paddingHorizontal: spacing.md,
     },
     bookTitle: {
@@ -45,17 +44,18 @@ const BookMeetingCard = () => {
       fontSize: fontSize.lg,
       lineHeight: fontSize.xl,
       fontFamily: fontFamily.semiBold,
+      paddingBottom: spacing.sm
     },
     bookText: {
       textAlign: "center",
       fontFamily: fontFamily.regular,
+      fontSize: fontSize.md,
+      lineHeight: fontSize.lg
     },
     bookButton: {
       width: "100%",
-      height: 50,
+      height: 40,
       backgroundColor: colors.blue,
-      padding: spacing.md,
-      paddingHorizontal: spacing.xxl,
       borderRadius: spacing.sm,
       marginTop: spacing.lg,
       flexDirection: "row",
@@ -64,17 +64,25 @@ const BookMeetingCard = () => {
     },
     bookButtonText: {
       color: colors.white100,
-      // fontFamily: fontFamily.semiBold,
-      // lineHeight: fontSize.xl,
       paddingLeft: spacing.sm,
     },
   });
 
   return (
     <View style={styles.bookCard}>
-      <Text style={styles.bookTitle}>Answer to your common questions</Text>
+      <Text style={styles.bookTitle}>Got questions ??</Text>
       <Text style={styles.bookText}>
-        Unlock insights with our concise and user-friendly FAQ guide
+        User friendly{" "}
+        <Link
+          style={{ fontFamily: fontFamily.semiBold, color: colors.blue500 }}
+          replace
+          href={"/home/faq"}
+        >
+          FAQs guide
+        </Link>
+      </Text>
+      <Text style={styles.bookText}>
+        Book an exploration call with our team
       </Text>
 
       {isLoading ? (
@@ -98,7 +106,7 @@ const BookMeetingCard = () => {
       ) : (
         <Pressable onPress={bookMeeting} style={styles.bookButton}>
           <PhoneIcon fill={colors.white100} />
-          <Text style={styles.bookButtonText}>Book a Meeting</Text>
+          <Text style={styles.bookButtonText}>Book Now</Text>
         </Pressable>
       )}
     </View>

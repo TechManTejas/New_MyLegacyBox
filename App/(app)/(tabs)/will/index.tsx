@@ -12,9 +12,10 @@ import { useAuth } from "../../../../testApp/authentication/AuthProvider";
 import { setShowWillTourModal } from "../../../../testApp/redux/appTour/appTour";
 import Bugsnag from "@bugsnag/expo";
 import { useRouter } from "expo-router";
+import BookMeetingCard from "../../../../components/BookMeetingCard";
 
 const WillScreen = () => {
-  const router = useRouter()
+  const router = useRouter();
 
   const dispatch = useDispatch();
 
@@ -25,10 +26,11 @@ const WillScreen = () => {
       .then((res) => {
         if (res !== "true") {
           dispatch(setShowWillTourModal(true));
-          setItemAsync(`willTourShown-${session?.identity.id}`, "true").then(() => {})
-          .catch((err) => {
-            console.error(err);
-          });
+          setItemAsync(`willTourShown-${session?.identity.id}`, "true")
+            .then(() => {})
+            .catch((err) => {
+              console.error(err);
+            });
         }
       })
       .catch((err) => {
@@ -47,7 +49,7 @@ const WillScreen = () => {
 
   const pressHandler = () => {
     dispatch(clearWillFormRedux());
-    router.push("/will/willindex")
+    router.push("/will/willindex");
   };
 
   const styles = StyleSheet.create({
@@ -82,6 +84,9 @@ const WillScreen = () => {
       <ScrollView style={styles.listContainer}>
         <View style={styles.carouselContainer}>
           <CustomCarousel carouselData={WillCarouselData} />
+        </View>
+        <View style={{ marginHorizontal: spacing.md }}>
+          <BookMeetingCard />
         </View>
         <WillDownloadCard />
       </ScrollView>

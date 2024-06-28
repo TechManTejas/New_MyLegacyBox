@@ -3,7 +3,7 @@ import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
 import { useTheme } from "../../../../testApp/theme/ThemeProvider";
 import { useGetAllNominatorsQuery } from "../../../../testApp/redux/api/assetSharing/assetSharingApiSlice";
 import CustomActivityIndicator from "../../../../testApp/components/Common/CustomActivityIndicator";
-import { useNavigation, useIsFocused } from "@react-navigation/native";
+import { useIsFocused } from "@react-navigation/native";
 import Empty from "../../../../testApp/components/Common/Empty";
 import { useRefetchOnFocus } from "../../../../testApp/hooks/useRefetchOnFocus";
 import { HOLDINGS_NAME_MAP } from "../../../../testApp/data/AllHoldingsPropsData";
@@ -52,8 +52,7 @@ const AssetSharerCard = ({
   nominatorHashedUid,
   sharedArtifactsCountByType,
 }) => {
-
-    const router = useRouter()
+  const router = useRouter();
 
   const {
     theme: { colors, fontFamily, fontSize, spacing },
@@ -117,12 +116,13 @@ const AssetSharerCard = ({
   });
 
   const viewAllAssets = () => {
-
-    router.push({ pathname: "/home/sharedArtifacts", params: {
+    router.push({
+      pathname: "/home/sharedArtifacts",
+      params: {
         nominatorHashedUid,
-        sharedArtifactsCountByType,
-    } })
-
+        sharedArtifactsCountByType: Object.keys(sharedArtifactsCountByType),
+      },
+    });
   };
 
   let totalAssets = 0;
@@ -135,7 +135,7 @@ const AssetSharerCard = ({
       <View style={styles.header}>
         <View>
           <Text style={styles.nameText}>{name}</Text>
-          <Text style={styles.shareText}>Shared 4 assets with you</Text>
+          <Text style={styles.shareText}>Shared {totalAssets} assets with you</Text>
         </View>
 
         <Pressable style={styles.button} onPress={viewAllAssets}>
@@ -146,8 +146,14 @@ const AssetSharerCard = ({
         <View style={styles.pillsContainer}>
           {Object.entries(sharedArtifactsCountByType)
             .slice(0, 3)
-            .map((prop) => {
-              return <AssetPill assetName={prop[0]} count={prop[1]} />;
+            .map((prop, index) => {
+              return (
+                <AssetPill
+                  key={`asset-pill-${index}`}
+                  assetName={prop[0]}
+                  count={prop[1]}
+                />
+              );
             })}
         </View>
         {totalAssets > 3 ? (

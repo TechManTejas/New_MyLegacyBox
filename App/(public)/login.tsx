@@ -176,7 +176,7 @@ const LoginScreen = () => {
               identifierValue={lastUsedEmail}
             />
 
-            <View style={styles.accountRecoveryCard}>
+            {/* <View style={styles.accountRecoveryCard}>
               <Text style={styles.forgotPassword}>Forgot Password ?</Text>
               <Pressable
                 style={styles.recoveryButton}
@@ -184,7 +184,7 @@ const LoginScreen = () => {
               >
                 <Text style={styles.recoveryButtonText}>Account Recovery</Text>
               </Pressable>
-            </View>
+            </View> */}
 
             <View style={styles.formFooter}>
               <View style={{ paddingBottom: spacing.lg }}>
