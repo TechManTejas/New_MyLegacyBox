@@ -1,9 +1,12 @@
-import React from 'react'
-import UnderDevelopment from '../../../testApp/screens/UnderDevelopment/UnderDevelopment'
-import CustomWebView from '../../../testApp/components/Common/CustomWebView'
+import React from "react";
+import CustomWebView from "../../../testApp/components/Common/CustomWebView";
 
 const Ohub = () => {
-  return  <CustomWebView uri="https://dev-deploy-site.netlify.app/quiz/" />
-}
+  return (
+    <CustomWebView
+      uri={`${process.env.EXPO_PUBLIC_OICONOMOS_WEBSITE}/app/quiz/`}
+    />
+  );
+};
 
-export default Ohub
+export default Ohub;

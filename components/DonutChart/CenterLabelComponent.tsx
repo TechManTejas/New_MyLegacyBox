@@ -67,7 +67,7 @@ const CenterLabelComponent = () => {
           icon={<AntDesign name="questioncircleo" size={12} color={colors.black400} />}
           message={
             <View>
-              <Text>Hello</Text>
+              <Text>Assets (Less) Liability</Text>
             </View>
           }
           position={"bottom"}

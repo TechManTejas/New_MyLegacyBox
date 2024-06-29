@@ -118,6 +118,7 @@ const TabLayout = () => {
       <Tabs.Screen
         name="ohub"
         options={{
+          title: "Fun & Learn",
           tabBarIcon: ({ focused }) => (
             <FontAwesome5
               name="book-open"

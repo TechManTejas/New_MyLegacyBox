@@ -1,13 +1,27 @@
-import { View, Text, StyleSheet, Pressable } from "react-native";
+import { View, Text, StyleSheet, Pressable, ToastAndroid } from "react-native";
 import React from "react";
 import { useTheme } from "../../testApp/theme/ThemeProvider";
-import { FontAwesomeIconsData } from "../../testApp/data/FontawesomeIconsData";
-import { CustomIcon } from "../../testApp/components/Common/CustomIcon";
-import { useRouter } from "expo-router";
 import PhoneIcon from "../../testApp/assets/icons/phone-outlined.svg";
+import { useBookMeetingMutation } from "../../testApp/redux/api/book-meet/book-meet";
+import CustomActivityIndicator from "../../testApp/components/Common/CustomActivityIndicator";
+import Check from "../../testApp/assets/icons/circle-check.svg";
 
 const PensionBoxBanner = () => {
-  const router = useRouter();
+
+  const [bookMeet, { isLoading, isError, isSuccess }] =
+    useBookMeetingMutation();
+
+  const bookMeeting = async () => {
+    try {
+      const res = await bookMeet(undefined).unwrap();
+      console.log(res);
+      if (res.data) {
+        ToastAndroid.show("Request sent successfully!", ToastAndroid.SHORT);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const {
     theme: { colors, fontFamily, fontSize, spacing },
@@ -24,7 +38,7 @@ const PensionBoxBanner = () => {
       paddingHorizontal: spacing.md,
       flexDirection: "row",
       alignItems: "center",
-      justifyContent: "space-between"
+      justifyContent: "space-between",
     },
     iconContainer: {
       backgroundColor: colors.white100,
@@ -56,7 +70,9 @@ const PensionBoxBanner = () => {
       borderRadius: spacing.xs,
       paddingVertical: spacing.sm,
       paddingHorizontal: spacing.sm,
-      marginRight: spacing.sm
+      marginRight: spacing.sm,
+      flexDirection: "row",
+      alignItems:"center"
     },
     cta: {
       fontFamily: fontFamily.semiBold,
@@ -66,13 +82,8 @@ const PensionBoxBanner = () => {
     },
   });
 
-  const handler = () => {
-    router.push("/home/pensionboxiframe");
-  };
-
   return (
     <View style={styles.container}>
-
       <View style={{ flexDirection: "row", alignItems: "center" }}>
         <View style={styles.iconContainer}>
           <PhoneIcon fill={colors.blue500} />
@@ -82,10 +93,29 @@ const PensionBoxBanner = () => {
         </View>
       </View>
 
-      <Pressable style={styles.ctaContainer} onPress={handler}>
-        <Text style={styles.cta}>Book Now</Text>
-      </Pressable>
-
+      {isLoading ? (
+        <Pressable disabled style={styles.ctaContainer}>
+          {/* <View style={{ width: 30 }}>
+            <CustomActivityIndicator
+              backgroundColor={colors.blue}
+              color={colors.white100}
+            />
+          </View> */}
+          <Text style={styles.cta}>Please Wait </Text>
+        </Pressable>
+      ) : isSuccess ? (
+        <Pressable
+          disabled
+          style={[styles.ctaContainer, { backgroundColor: colors.green500 }]}
+        >
+          {/* <Check width={20} fill={colors.white100} color={colors.green400} /> */}
+          <Text style={styles.cta}>Team Notified</Text>
+        </Pressable>
+      ) : (
+        <Pressable onPress={bookMeeting} style={styles.ctaContainer}>
+          <Text style={styles.cta}>Book Now</Text>
+        </Pressable>
+      )}
     </View>
   );
 };

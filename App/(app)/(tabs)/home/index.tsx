@@ -31,7 +31,7 @@ import Bugsnag from "@bugsnag/expo";
 import PensionBoxBanner from "../../../../testApp/components/Home/PensionBoxBanner";
 
 import BookMeetingCard2 from "../../../../components/BookMeetingCard2";
-import BookMeetingCard from "../../../../components/BookMeetingCard";
+import QuizCard from "../../../../components/QuizCard";
 
 const HomeScreen: React.FC<{}> = () => {
   const {
@@ -149,10 +149,10 @@ const HomeScreen: React.FC<{}> = () => {
       .catch((err) => {
         console.error(err);
         deleteItemAsync("lastUsedEmail")
-        .then(() => {})
-        .catch((err) => {
-          console.log(err);
-        });
+          .then(() => {})
+          .catch((err) => {
+            console.log(err);
+          });
       });
   }, []);
 
@@ -203,7 +203,6 @@ const HomeScreen: React.FC<{}> = () => {
 
           {/* <PensionBoxBanner /> */}
           <BookMeetingCard2 />
-          
 
           <View style={styles.header}>
             <Text style={styles.headertext}>My Smartbox </Text>
@@ -225,16 +224,14 @@ const HomeScreen: React.FC<{}> = () => {
           <SolidIconMenu data={HOME_SMARTBOX_LARGE_MENU_DATA} isLarge />
           <SolidIconMenu data={HOME_SMARTBOX_SMALL_MENU_DATA} isDark />
 
-          <View style={{padding: 5 }} />
+          <View style={{ padding: 5 }} />
 
-          <BookMeetingCard />
-          <View style={{padding: 2 }} />
+          <QuizCard />
+          <View style={{ padding: 2 }} />
 
           <BlogCarousel data={homeBlogCarouselData} />
 
           <PensionBoxBanner />
-
-          
         </View>
       </ScrollView>
     </CustomSafeView>
