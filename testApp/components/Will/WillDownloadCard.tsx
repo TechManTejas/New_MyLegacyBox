@@ -395,7 +395,7 @@ const WillDownloadCard = () => {
               {data.data.personalInfo.fullName}
             </Text>
             <Text style={styles.date}>
-              created on{" "}
+              Last created on{" "}
               {new Date(data.data.willDate).toDateString().replace(/^\w+ /, "")}
             </Text>
           </View>

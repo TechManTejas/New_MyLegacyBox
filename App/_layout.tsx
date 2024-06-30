@@ -14,11 +14,13 @@ import { ThemeProvider } from "../testApp/theme/ThemeProvider";
 import { Provider } from "react-redux";
 import { store } from "../testApp/redux/store";
 import AppTour from "../testApp/components/AppTour";
+import { useJailBreaker } from "../testApp/hooks/useJailBreaker";
+import { usePreventScreenCapture } from "expo-screen-capture"
 
 const onErrorCallBack = async (event: Event) => {
   try {
     const res = await getAuthenticatedSessionTokenParsed();
-    event.setUser(res.identity.traits?.email);
+    event.setUser(res?.identity!.traits?.email);
   } catch (err) {
     console.error(err);
   }
@@ -50,14 +52,17 @@ const ErrorView = () => (
 );
 
 const RootLayout = () => {
-  console.log(usePathname());
 
-  // useJailBreaker();
+  usePreventScreenCapture()
 
-  // useCheckSigningCertificates([
-  //   process.env.EXPO_PUBLIC_APP_PLAYSTORE_CERTIFICATE_SHA256,
-  //   process.env.EXPO_PUBLIC_APP_PLAYSTORE_CERTIFICATE_SHA256,
-  // ]);
+  // console.log(usePathname());
+
+  useJailBreaker();
+
+  useCheckSigningCertificates([
+    process.env.EXPO_PUBLIC_APP_PLAYSTORE_CERTIFICATE_SHA256,
+    process.env.EXPO_PUBLIC_APP_PLAYSTORE_CERTIFICATE_SHA256,
+  ]);
 
   messaging().onMessage((message) => {});
 

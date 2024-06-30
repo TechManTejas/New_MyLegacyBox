@@ -2,7 +2,7 @@
 <network-security-config>
 <!-- TO BE REMOVED -->
     <domain-config cleartextTrafficPermitted="true">
-        <domain includeSubdomains="true">192.168.1.105</domain>
+        <domain includeSubdomains="true">192.168.1.106</domain>
     </domain-config>
 
     <domain-config cleartextTrafficPermitted="false">
@@ -17,6 +17,7 @@
         <pin-set>
             <pin digest="SHA-256">47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=</pin>
             <pin digest="SHA-256">jQJTbIh0grw0/1TkHSumWb+Fs0Ggogr621gT3PvPKG0=</pin>
+            <pin digest="SHA-256">FFrqu00IVpHdiJVSMT/NreJQT2JS3wLnnm3fjXhNdow=</pin>
         </pin-set>
     </domain-config>
     <domain-config  cleartextTrafficPermitted="false">

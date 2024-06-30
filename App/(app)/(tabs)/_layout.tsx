@@ -76,6 +76,9 @@ const TabLayout = () => {
 
   const path = usePathname();
 
+  console.log(path);
+  
+
   const shouldShowTabBarBottom = () => {
     if (path.startsWith("/home/")) return false;
     if (path.startsWith("/members")) return false;
@@ -92,6 +95,7 @@ const TabLayout = () => {
         tabBarLabelStyle: styles.tabBarLabel,
         tabBarIconStyle: styles.tabBarIcon,
         tabBarActiveTintColor: colors.blue500,
+        
         headerStyle: styles.headerStyle,
         headerLeft: () => <CustomHeaderLeftIcon />,
         headerTitleAlign: "center",
@@ -114,6 +118,7 @@ const TabLayout = () => {
       <Tabs.Screen
         name="ohub"
         options={{
+          title: "Fun & Learn",
           tabBarIcon: ({ focused }) => (
             <FontAwesome5
               name="book-open"
@@ -163,6 +168,7 @@ const TabLayout = () => {
         name="members"
         options={{
           title: "My Circle",
+          // headerShown: false,
           tabBarStyle: [
             styles.tabBar,
             {

@@ -3,7 +3,7 @@
     "name": "Oiconomos",
     "slug": "oiconomos-mobile-app",
     "scheme": "oiconomos-app-oneg",
-    "version": "1.0.14",
+    "version": "1.0.15",
     "orientation": "portrait",
     "owner": "oiconomos",
     "icon": "./assets/icon.png",
@@ -30,7 +30,7 @@
         "backgroundColor": "#FFFFFF"
       },
       "package": "com.oiconomos.www",
-      "versionCode": 15
+      "versionCode": 16
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -49,6 +49,6 @@
       "expo-secure-store",
       "expo-router"
     ],
-    "runtimeVersion": "exposdk:50.0.0"
+    "runtimeVersion": "exposdk:51.0.0"
   }
 }

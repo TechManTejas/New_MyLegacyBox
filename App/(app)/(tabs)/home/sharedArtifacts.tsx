@@ -58,7 +58,6 @@ const TypeWiseAssets: React.FC<TypeWiseAssetsProps> = ({
       nominatorHashedUid,
       financialArtifactType: type,
     });
-    
 
   const toggleAssets = () => {
     setShowAssets((prev) => !prev);
@@ -76,15 +75,17 @@ const TypeWiseAssets: React.FC<TypeWiseAssetsProps> = ({
           <CaretUpFilled onPress={toggleAssets} color={colors.black} />
         )}
       </View>
+
       {showAssets && (
         <FlatList
           style={styles.flatlistStyle}
           data={
             data !== undefined ? data.ids.map((id) => data.entities[id]) : []
           }
-          renderItem={({ item }) => {
+          renderItem={({ item, index }) => {
             return (
               <FinancialInstitutionHoldingCard
+                key={`TypeWiseAssets-${index}`}
                 {...HOLDINGS_PROPS_MAP[type](item.financialArtifact)}
               />
             );
@@ -112,13 +113,14 @@ const SharedArtifactsScreen = () => {
     },
   });
 
-  const { nominatorHashedUid, sharedArtifactsCountByType } = useLocalSearchParams();
-  
+  const { nominatorHashedUid, sharedArtifactsCountByType } =
+    useLocalSearchParams();
+
   return (
     <View style={styles.screen}>
       <FlatList
         contentContainerStyle={styles.listContentContainer}
-        data={Object.keys(sharedArtifactsCountByType || [])}
+        data={sharedArtifactsCountByType?.split(",") || []}
         renderItem={({ item }) => {
           return (
             <TypeWiseAssets

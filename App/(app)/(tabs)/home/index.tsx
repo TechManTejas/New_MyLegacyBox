@@ -30,7 +30,8 @@ import SolidIconMenu from "../../../../testApp/components/SolidIconMenu";
 import Bugsnag from "@bugsnag/expo";
 import PensionBoxBanner from "../../../../testApp/components/Home/PensionBoxBanner";
 
-import BookMeetingCard from "../../../../components/BookMeetingCard";
+import BookMeetingCard2 from "../../../../components/BookMeetingCard2";
+import QuizCard from "../../../../components/QuizCard";
 
 const HomeScreen: React.FC<{}> = () => {
   const {
@@ -147,6 +148,11 @@ const HomeScreen: React.FC<{}> = () => {
       })
       .catch((err) => {
         console.error(err);
+        deleteItemAsync("lastUsedEmail")
+          .then(() => {})
+          .catch((err) => {
+            console.log(err);
+          });
       });
   }, []);
 
@@ -195,7 +201,8 @@ const HomeScreen: React.FC<{}> = () => {
 
           <MinimalIconMenu data={HOME_HEADER_MENU_DATA} />
 
-          <PensionBoxBanner />
+          {/* <PensionBoxBanner /> */}
+          <BookMeetingCard2 />
 
           <View style={styles.header}>
             <Text style={styles.headertext}>My Smartbox </Text>
@@ -217,9 +224,14 @@ const HomeScreen: React.FC<{}> = () => {
           <SolidIconMenu data={HOME_SMARTBOX_LARGE_MENU_DATA} isLarge />
           <SolidIconMenu data={HOME_SMARTBOX_SMALL_MENU_DATA} isDark />
 
+          <View style={{ padding: 5 }} />
+
+          <QuizCard />
+          <View style={{ padding: 2 }} />
+
           <BlogCarousel data={homeBlogCarouselData} />
 
-          <BookMeetingCard />
+          <PensionBoxBanner />
         </View>
       </ScrollView>
     </CustomSafeView>

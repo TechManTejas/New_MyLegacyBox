@@ -71,9 +71,9 @@ const StarterScreen = () => {
 
       if (isAuthenticated) router.replace("/home");
       else router.replace("/(public)");
-    }, 4000);
+    }, 2000);
 
-    const coverEndInterval = setTimeout(() => setCoverVisible(false), 2500);
+    const coverEndInterval = setTimeout(() => setCoverVisible(false), 1000);
 
     return () => {
       clearTimeout(animationEndInterval);
@@ -95,7 +95,7 @@ const StarterScreen = () => {
         <View style={styles.animatedTextBlock}>
           {text.split("").map((char, id) => (
             <Animated.Text
-              entering={FadeInLeft.delay(id * 100).duration(500)}
+              entering={FadeInLeft.delay(id * 50).duration(300)}
               style={styles.text}
               key={id}
             >

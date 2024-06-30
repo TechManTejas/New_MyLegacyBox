@@ -4,7 +4,7 @@ import { Drawer } from "expo-router/drawer";
 import { useTheme } from "../../testApp/theme/ThemeProvider";
 import CustomHeaderLeftIcon from "../../testApp/components/Common/CustomHeaderLeftIcon";
 import CustomHeaderTitle from "../../testApp/components/Common/CustomHeaderTitle";
-import DrawerScreen from "./drawerscreen";
+import DrawerScreen from "../../components/DrawerSection";
 import { useAuth } from "../../testApp/authentication/AuthProvider";
 import { Redirect } from "expo-router";
 
@@ -13,9 +13,9 @@ const DrawerLayout = () => {
     theme: { colors },
   } = useTheme();
 
-  const { isAuthenticated } = useAuth()
+  const { isAuthenticated } = useAuth();
 
-  if (!isAuthenticated) return <Redirect href="/" />
+  if (!isAuthenticated) return <Redirect href="/" />;
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
@@ -78,6 +78,14 @@ const DrawerLayout = () => {
             title: "Contact us",
           }}
         />
+
+        <Drawer.Screen
+          name="archived"
+          options={{
+            title: "Archived Assets",
+          }}
+        />
+        
       </Drawer>
     </GestureHandlerRootView>
   );

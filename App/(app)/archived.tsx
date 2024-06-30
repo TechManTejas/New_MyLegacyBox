@@ -1,24 +1,24 @@
 import { View, Text, FlatList, StyleSheet } from "react-native";
 import React, { useState } from "react";
-import { useTheme } from "../../../../testApp/theme/ThemeProvider";
+import { useTheme } from "../../testApp/theme/ThemeProvider";
 import {
   useGetArchivedFinancialHoldingsQuery,
   usePermanentlyDeleteFinancialHoldingMutation,
   useUnarchiveFinancialHoldingByIdMutation,
-} from "../../../../testApp/redux/api/vault/financialHolding/allHoldings/allHoldings";
-import CustomActivityIndicator from "../../../../testApp/components/Common/CustomActivityIndicator";
-import FinancialInstitutionHoldingCard from "../../../../testApp/components/Common/FinancialInstitutionHoldingCard";
+} from "../../testApp/redux/api/vault/financialHolding/allHoldings/allHoldings";
+import CustomActivityIndicator from "../../testApp/components/Common/CustomActivityIndicator";
+import FinancialInstitutionHoldingCard from "../../testApp/components/Common/FinancialInstitutionHoldingCard";
 import {
   INSTITUTES_NAME_MAP,
   institutes,
-} from "../../../../testApp/data/NomineeArtifactPropsData";
-import { INSTITUTE_PROPS_MAP } from "../../../../testApp/data/NomineeArtifactPropsData2";
-import Empty from "../../../../testApp/components/Common/Empty";
-import AssetDeleteModal from "../../../../testApp/components/Common/AssetDeleteModal";
+} from "../../testApp/data/NomineeArtifactPropsData";
+import { INSTITUTE_PROPS_MAP } from "../../testApp/data/NomineeArtifactPropsData2";
+import Empty from "../../testApp/components/Common/Empty";
+import AssetDeleteModal from "../../testApp/components/Common/AssetDeleteModal";
 
 const ArchivedAssets = () => {
   const {
-    theme: { colors, fontFamily, fontSize, spacing },
+    theme: { fontFamily, fontSize, spacing },
   } = useTheme();
 
   const styles = StyleSheet.create({
@@ -52,11 +52,8 @@ const ArchivedAssets = () => {
   const unarchiveButtonCallBack = (financialHoldingId: string) => {
     unarchiveFinancialHolding(financialHoldingId)
       .unwrap()
-      .then((res) => {
-
-      })
+      .then((res) => {})
       .catch((err) => {
-
         console.error(err);
       });
   };

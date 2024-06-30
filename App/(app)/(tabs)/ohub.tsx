@@ -1,8 +1,12 @@
-import React from 'react'
-import UnderDevelopment from '../../../testApp/screens/UnderDevelopment/UnderDevelopment'
+import React from "react";
+import CustomWebView from "../../../testApp/components/Common/CustomWebView";
 
 const Ohub = () => {
-  return <UnderDevelopment />
-}
+  return (
+    <CustomWebView
+      uri={`${process.env.EXPO_PUBLIC_OICONOMOS_WEBSITE}/app/quiz/`}
+    />
+  );
+};
 
-export default Ohub
+export default Ohub;

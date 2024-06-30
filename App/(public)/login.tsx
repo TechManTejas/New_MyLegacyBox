@@ -5,6 +5,7 @@ import {
   Image,
   Text,
   useWindowDimensions,
+  Pressable,
 } from "react-native";
 import { useAuth } from "../../testApp/authentication/AuthProvider";
 import { useTheme } from "../../testApp/theme/ThemeProvider";
@@ -35,7 +36,6 @@ const LoginScreen = () => {
 
   useEffect(() => {
     initiateFlow();
-
     return () => setFlow(undefined);
   }, []);
 
@@ -52,7 +52,7 @@ const LoginScreen = () => {
           deleteItemAsync("lastUsedEmail")
             .then(() => {})
             .catch((err) => {
-              console.error(err);
+              console.log(err);
             });
         });
     }, [])
@@ -66,12 +66,15 @@ const LoginScreen = () => {
         aal: "aal1",
       })
       .then((response) => {
+        // console.log("LOGIN FLOW ", JSON.stringify(response.data, null, 1));
+        
         setInProgressFlow(false);
         setFlow(response.data);
       })
       .catch((error) => {
         setInProgressFlow(false);
         console.error(error);
+        console.log(JSON.stringify(error, null, 1))
       });
   }, []);
 
@@ -83,6 +86,7 @@ const LoginScreen = () => {
             updateLoginFlowBody: values,
           })
           .then(({ data }) => {
+            // console.log("UPDATE LOGIN FLOW ", JSON.stringify(data, null, 1));
             setSession(data.session_token).then(() => {
               router.replace("/home");
             });
@@ -139,6 +143,16 @@ const LoginScreen = () => {
     captionBold: {
       fontFamily: fontFamily.semiBold,
     },
+
+    accountRecoveryCard: {
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent: "center",
+      marginTop: spacing.lg,
+    },
+    forgotPassword: { fontFamily: fontFamily.regular },
+    recoveryButton: { marginLeft: spacing.sm },
+    recoveryButtonText: { color: colors.blue, fontFamily: fontFamily.semiBold },
   });
 
   return inProgressFlow ? (
@@ -161,6 +175,16 @@ const LoginScreen = () => {
               onSubmit={onSubmit}
               identifierValue={lastUsedEmail}
             />
+
+            {/* <View style={styles.accountRecoveryCard}>
+              <Text style={styles.forgotPassword}>Forgot Password ?</Text>
+              <Pressable
+                style={styles.recoveryButton}
+                onPress={() => router.push("/recovery")}
+              >
+                <Text style={styles.recoveryButtonText}>Account Recovery</Text>
+              </Pressable>
+            </View> */}
 
             <View style={styles.formFooter}>
               <View style={{ paddingBottom: spacing.lg }}>
