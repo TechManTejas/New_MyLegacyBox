@@ -15,7 +15,7 @@ import { Provider } from "react-redux";
 import { store } from "../testApp/redux/store";
 import AppTour from "../testApp/components/AppTour";
 import { useJailBreaker } from "../testApp/hooks/useJailBreaker";
-import { usePreventScreenCapture } from "expo-screen-capture"
+import { usePreventScreenCapture } from "expo-screen-capture";
 
 const onErrorCallBack = async (event: Event) => {
   try {
@@ -52,17 +52,16 @@ const ErrorView = () => (
 );
 
 const RootLayout = () => {
-
-  usePreventScreenCapture()
+  usePreventScreenCapture();
 
   // console.log(usePathname());
 
   useJailBreaker();
 
-  useCheckSigningCertificates([
-    process.env.EXPO_PUBLIC_APP_PLAYSTORE_CERTIFICATE_SHA256,
-    process.env.EXPO_PUBLIC_APP_PLAYSTORE_CERTIFICATE_SHA256,
-  ]);
+  // useCheckSigningCertificates([
+  //   process.env.EXPO_PUBLIC_APP_PLAYSTORE_CERTIFICATE_SHA256,
+  //   process.env.EXPO_PUBLIC_APP_PLAYSTORE_CERTIFICATE_SHA256,
+  // ]);
 
   messaging().onMessage((message) => {});
 
