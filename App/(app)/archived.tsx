@@ -18,7 +18,7 @@ import AssetDeleteModal from "../../testApp/components/Common/AssetDeleteModal";
 
 const ArchivedAssets = () => {
   const {
-    theme: { colors, fontFamily, fontSize, spacing },
+    theme: { fontFamily, fontSize, spacing },
   } = useTheme();
 
   const styles = StyleSheet.create({
@@ -52,11 +52,8 @@ const ArchivedAssets = () => {
   const unarchiveButtonCallBack = (financialHoldingId: string) => {
     unarchiveFinancialHolding(financialHoldingId)
       .unwrap()
-      .then((res) => {
-
-      })
+      .then((res) => {})
       .catch((err) => {
-
         console.error(err);
       });
   };

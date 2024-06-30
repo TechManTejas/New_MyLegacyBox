@@ -17,8 +17,6 @@ const Assets = () => {
   if (isLoading || isFetching) return <CustomActivityIndicator />;
 
   const assetsData = data.data.assets.list;
-  console.log(JSON.stringify(assetsData, null, 1));
-  
 
   const sectionData = Object.keys(data.data.assets.list).map((key) => ({
     title: key,

@@ -53,16 +53,16 @@ const ErrorView = () => (
 
 const RootLayout = () => {
 
-  // usePreventScreenCapture()
+  usePreventScreenCapture()
 
   // console.log(usePathname());
 
-  // useJailBreaker();
+  useJailBreaker();
 
-  // useCheckSigningCertificates([
-  //   process.env.EXPO_PUBLIC_APP_PLAYSTORE_CERTIFICATE_SHA256,
-  //   process.env.EXPO_PUBLIC_APP_PLAYSTORE_CERTIFICATE_SHA256,
-  // ]);
+  useCheckSigningCertificates([
+    process.env.EXPO_PUBLIC_APP_PLAYSTORE_CERTIFICATE_SHA256,
+    process.env.EXPO_PUBLIC_APP_PLAYSTORE_CERTIFICATE_SHA256,
+  ]);
 
   messaging().onMessage((message) => {});
 
