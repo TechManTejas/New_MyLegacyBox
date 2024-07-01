@@ -5,7 +5,7 @@ import Bugsnag, { Event } from "@bugsnag/expo";
 import BugsnagPerformance from "@bugsnag/react-native-performance";
 import { Text, View } from "react-native";
 import * as ExpoSplashScreen from "expo-splash-screen";
-// import { useCheckSigningCertificates } from "../testApp/hooks/useCheckSigningCertificates";
+import { useCheckSigningCertificates } from "../testApp/hooks/useCheckSigningCertificates";
 import messaging from "@react-native-firebase/messaging";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import SplashScreen from "../testApp/screens/Splash/SplashScreen";
@@ -59,8 +59,8 @@ const RootLayout = () => {
   useJailBreaker();
 
   useCheckSigningCertificates([
-    process.env.EXPO_PUBLIC_APP_PLAYSTORE_CERTIFICATE_SHA256,
-    process.env.EXPO_PUBLIC_APP_PLAYSTORE_CERTIFICATE_SHA256,
+    process.env.EXPO_PUBLIC_APP_PLAYSTORE_CERTIFICATE_SHA256 as string,
+    process.env.EXPO_PUBLIC_APP_PLAYSTORE_CERTIFICATE_SHA256 as string,
   ]);
 
   messaging().onMessage((message) => {});

@@ -2,7 +2,9 @@ import CertificateVerification from "../native/NativeCertificationVerification";
 import { Alert, BackHandler } from "react-native";
 import { useOnForegroundFocus } from "./useOnForegroundFocus";
 
-export const useCheckSigningCertificates = (certificateSHA256List: [string]) => {
+export const useCheckSigningCertificates = (
+  certificateSHA256List: string[]
+) => {
   useOnForegroundFocus(() => {
     console.debug("Checking for app signing signatures");
 

@@ -17,9 +17,7 @@
       "fallbackToCacheTimeout": 0,
       "url": "https://u.expo.dev/c960cc41-49de-4b46-b620-42a8c63d76b5"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
@@ -30,7 +28,7 @@
         "backgroundColor": "#FFFFFF"
       },
       "package": "com.oiconomos.www",
-      "versionCode": 19
+      "versionCode": 20
     },
     "web": {
       "favicon": "./assets/favicon.png"
