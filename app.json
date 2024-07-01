@@ -17,7 +17,9 @@
       "fallbackToCacheTimeout": 0,
       "url": "https://u.expo.dev/c960cc41-49de-4b46-b620-42a8c63d76b5"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true
     },
@@ -34,11 +36,14 @@
       "favicon": "./assets/favicon.png"
     },
     "extra": {
-      "eas": {
-        "projectId": "c960cc41-49de-4b46-b620-42a8c63d76b5"
-      },
       "bugsnag": {
         "apiKey": "00b566dc80ac348ce9e686d67ff40682"
+      },
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "c960cc41-49de-4b46-b620-42a8c63d76b5"
       }
     },
     "plugins": [
