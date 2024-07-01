@@ -5,7 +5,7 @@ import Bugsnag, { Event } from "@bugsnag/expo";
 import BugsnagPerformance from "@bugsnag/react-native-performance";
 import { Text, View } from "react-native";
 import * as ExpoSplashScreen from "expo-splash-screen";
-import { useCheckSigningCertificates } from "../testApp/hooks/useCheckSigningCertificates";
+// import { useCheckSigningCertificates } from "../testApp/hooks/useCheckSigningCertificates";
 import messaging from "@react-native-firebase/messaging";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import SplashScreen from "../testApp/screens/Splash/SplashScreen";
@@ -27,14 +27,14 @@ const onErrorCallBack = async (event: Event) => {
 };
 
 Bugsnag.start({
-  apiKey: process.env.EXPO_PUBLIC_BUGSNAG_API_KEY,
+  apiKey: process.env.EXPO_PUBLIC_BUGSNAG_API_KEY as string,
   appVersion: process.env.EXPO_PUBLIC_BUGSNAG_APP_VERSION,
   releaseStage: process.env.EXPO_PUBLIC_BUGSNAG_APP_STAGE,
   onError: onErrorCallBack,
 });
 
 BugsnagPerformance.start({
-  apiKey: process.env.EXPO_PUBLIC_BUGSNAG_API_KEY,
+  apiKey: process.env.EXPO_PUBLIC_BUGSNAG_API_KEY as string,
   appVersion: process.env.EXPO_PUBLIC_BUGSNAG_APP_VERSION,
   releaseStage: process.env.EXPO_PUBLIC_BUGSNAG_APP_STAGE,
 });

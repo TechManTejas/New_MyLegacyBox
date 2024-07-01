@@ -3,7 +3,7 @@
     "name": "Oiconomos",
     "slug": "oiconomos-mobile-app",
     "scheme": "oiconomos-app-oneg",
-    "version": "1.0.16",
+    "version": "1.0.17",
     "orientation": "portrait",
     "owner": "oiconomos",
     "icon": "./assets/icon.png",
@@ -28,7 +28,7 @@
         "backgroundColor": "#FFFFFF"
       },
       "package": "com.oiconomos.www",
-      "versionCode": 17
+      "versionCode": 18
     },
     "web": {
       "favicon": "./assets/favicon.png"
