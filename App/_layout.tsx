@@ -52,11 +52,11 @@ const ErrorView = () => (
 );
 
 const RootLayout = () => {
-  usePreventScreenCapture();
+  // usePreventScreenCapture()
 
   // console.log(usePathname());
 
-  useJailBreaker();
+  // useJailBreaker();
 
   // useCheckSigningCertificates([
   //   process.env.EXPO_PUBLIC_APP_PLAYSTORE_CERTIFICATE_SHA256 as string,

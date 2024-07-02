@@ -66,7 +66,7 @@ const StarterScreen = () => {
     const animationEndInterval = setTimeout(() => {
       setSplashScreenVisible(false);
 
-      console.log({ isAuthenticated });
+      // console.log({ isAuthenticated });
       
 
       if (isAuthenticated) router.replace("/home");

@@ -76,9 +76,6 @@ const TabLayout = () => {
 
   const path = usePathname();
 
-  console.log(path);
-  
-
   const shouldShowTabBarBottom = () => {
     if (path.startsWith("/home/")) return false;
     if (path.startsWith("/members")) return false;
@@ -168,7 +165,6 @@ const TabLayout = () => {
         name="members"
         options={{
           title: "My Circle",
-          // headerShown: false,
           tabBarStyle: [
             styles.tabBar,
             {
