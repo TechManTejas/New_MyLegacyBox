@@ -5,7 +5,7 @@ const Faq = () => {
   return (
     <WebView
       source={{
-        uri: `${process.env.EXPO_PUBLIC_OICONOMOS_WEBSITE}/app/faq/`,
+        uri: `${process.env.EXPO_PUBLIC_OICONOMOS_WEBSITE}/faq/`,
       }}
       style={{ flex: 1 }}
     />

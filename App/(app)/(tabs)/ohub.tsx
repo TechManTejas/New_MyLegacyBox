@@ -5,7 +5,7 @@ const Ohub = () => {
   return (
     <WebView
       source={{
-        uri: `${process.env.EXPO_PUBLIC_OICONOMOS_WEBSITE}/app/quiz/`,
+        uri: `${process.env.EXPO_PUBLIC_OICONOMOS_WEBSITE}/quiz/`,
       }}
       style={{ flex: 1 }}
     />
