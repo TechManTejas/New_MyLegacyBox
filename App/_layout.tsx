@@ -16,6 +16,7 @@ import { store } from "../testApp/redux/store";
 import AppTour from "../testApp/components/AppTour";
 import { useJailBreaker } from "../testApp/hooks/useJailBreaker";
 import { usePreventScreenCapture } from "expo-screen-capture";
+import * as Updates from "expo-updates";
 
 const onErrorCallBack = async (event: Event) => {
   try {
@@ -52,6 +53,7 @@ const ErrorView = () => (
 );
 
 const RootLayout = () => {
+
   // usePreventScreenCapture()
 
   // console.log(usePathname());
