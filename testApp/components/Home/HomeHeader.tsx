@@ -50,7 +50,7 @@ const HomeHeader = () => {
         <Text style={styles.greeting}>
           Namaste,{" "}
 
-          {/* <Animated.Text style={{ color: colors.blue500 }}>
+          <Animated.Text style={{ color: colors.blue500 }}>
             {(session?.identity?.traits?.name?.first || "user")
               .split("")
               .map((char, id) => (
@@ -62,11 +62,11 @@ const HomeHeader = () => {
                   {char}
                 </Animated.Text>
               ))}
-          </Animated.Text> */}
+          </Animated.Text>
 
-          <Text style={styles.username}>
+          {/* <Text style={styles.username}>
             {session?.identity?.traits?.name?.first || "user"}
-          </Text>
+          </Text> */}
 
         </Text>
 

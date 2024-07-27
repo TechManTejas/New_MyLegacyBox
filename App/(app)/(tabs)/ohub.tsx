@@ -1,13 +1,10 @@
 import React from "react";
-import WebView from "react-native-webview";
+import CustomWebView from "../../../testApp/components/Common/CustomWebView";
 
 const Ohub = () => {
   return (
-    <WebView
-      source={{
-        uri: `${process.env.EXPO_PUBLIC_OICONOMOS_WEBSITE}/quiz/`,
-      }}
-      style={{ flex: 1 }}
+    <CustomWebView
+      uri={`${process.env.EXPO_PUBLIC_OICONOMOS_WEBSITE}/app/quiz/`}
     />
   );
 };
