@@ -3,7 +3,7 @@
     "name": "Oiconomos",
     "slug": "oiconomos-mobile-app",
     "scheme": "oiconomos-app-oneg",
-    "version": "1.0.18",
+    "version": "1.0.16",
     "orientation": "portrait",
     "owner": "oiconomos",
     "icon": "./assets/icon.png",
@@ -28,20 +28,17 @@
         "backgroundColor": "#FFFFFF"
       },
       "package": "com.oiconomos.www",
-      "versionCode": 24
+      "versionCode": 17
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "extra": {
-      "bugsnag": {
-        "apiKey": "00b566dc80ac348ce9e686d67ff40682"
-      },
-      "router": {
-        "origin": false
-      },
       "eas": {
         "projectId": "c960cc41-49de-4b46-b620-42a8c63d76b5"
+      },
+      "bugsnag": {
+        "apiKey": "00b566dc80ac348ce9e686d67ff40682"
       }
     },
     "plugins": [
