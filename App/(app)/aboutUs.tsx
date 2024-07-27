@@ -1,10 +1,13 @@
-import React from 'react'
-import CustomWebView from '../../testApp/components/Common/CustomWebView'
+import React from "react";
+import WebView from "react-native-webview";
 
 const AboutUs = () => {
   return (
-    <CustomWebView uri="https://www.oiconomos.com" />
-  )
-}
+    <WebView
+      source={{ uri: "https://www.oiconomos.com" }}
+      style={{ flex: 1 }}
+    />
+  );
+};
 
-export default AboutUs
+export default AboutUs;

@@ -1,10 +1,13 @@
 import React from "react";
-import CustomWebView from "../../../../testApp/components/Common/CustomWebView";
+import WebView from "react-native-webview";
 
 const Faq = () => {
   return (
-    <CustomWebView
-      uri={`${process.env.EXPO_PUBLIC_OICONOMOS_WEBSITE}/app/faq/`}
+    <WebView
+      source={{
+        uri: `${process.env.EXPO_PUBLIC_OICONOMOS_WEBSITE}/faq/`,
+      }}
+      style={{ flex: 1 }}
     />
   );
 };
