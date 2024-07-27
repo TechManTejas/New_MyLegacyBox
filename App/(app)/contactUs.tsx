@@ -1,9 +1,12 @@
 import React from 'react'
-import CustomWebView from '../../testApp/components/Common/CustomWebView'
+import WebView from 'react-native-webview'
 
 const ContactUs = () => {
   return (
-    <CustomWebView uri="https://www.oiconomos.com" />
+    <WebView
+      source={{ uri: `${process.env.EXPO_PUBLIC_OICONOMOS_WEBSITE}/` }}
+      style={{ flex: 1 }}
+    />
   )
 }
 
