@@ -28,7 +28,8 @@
         "backgroundColor": "#FFFFFF"
       },
       "package": "com.oiconomos.www",
-      "versionCode": 17
+      "versionCode": 26
+
     },
     "web": {
       "favicon": "./assets/favicon.png"
