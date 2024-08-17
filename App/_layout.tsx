@@ -5,7 +5,7 @@ import Bugsnag, { Event } from "@bugsnag/expo";
 import BugsnagPerformance from "@bugsnag/react-native-performance";
 import { Text, View } from "react-native";
 import * as ExpoSplashScreen from "expo-splash-screen";
-// import { useCheckSigningCertificates } from "../testApp/hooks/useCheckSigningCertificates";
+import { useCheckSigningCertificates } from "../testApp/hooks/useCheckSigningCertificates";
 import messaging from "@react-native-firebase/messaging";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import SplashScreen from "../testApp/screens/Splash/SplashScreen";
@@ -16,7 +16,6 @@ import { store } from "../testApp/redux/store";
 import AppTour from "../testApp/components/AppTour";
 import { useJailBreaker } from "../testApp/hooks/useJailBreaker";
 import { usePreventScreenCapture } from "expo-screen-capture";
-import * as Updates from "expo-updates";
 
 const onErrorCallBack = async (event: Event) => {
   try {
@@ -28,14 +27,14 @@ const onErrorCallBack = async (event: Event) => {
 };
 
 Bugsnag.start({
-  apiKey: process.env.EXPO_PUBLIC_BUGSNAG_API_KEY as string,
+  apiKey: process.env.EXPO_PUBLIC_BUGSNAG_API_KEY,
   appVersion: process.env.EXPO_PUBLIC_BUGSNAG_APP_VERSION,
   releaseStage: process.env.EXPO_PUBLIC_BUGSNAG_APP_STAGE,
   onError: onErrorCallBack,
 });
 
 BugsnagPerformance.start({
-  apiKey: process.env.EXPO_PUBLIC_BUGSNAG_API_KEY as string,
+  apiKey: process.env.EXPO_PUBLIC_BUGSNAG_API_KEY,
   appVersion: process.env.EXPO_PUBLIC_BUGSNAG_APP_VERSION,
   releaseStage: process.env.EXPO_PUBLIC_BUGSNAG_APP_STAGE,
 });
@@ -53,16 +52,15 @@ const ErrorView = () => (
 );
 
 const RootLayout = () => {
-
-  // usePreventScreenCapture()
+  usePreventScreenCapture();
 
   // console.log(usePathname());
 
-  // useJailBreaker();
+  useJailBreaker();
 
   // useCheckSigningCertificates([
-  //   process.env.EXPO_PUBLIC_APP_PLAYSTORE_CERTIFICATE_SHA256 as string,
-  //   process.env.EXPO_PUBLIC_APP_PLAYSTORE_CERTIFICATE_SHA256 as string,
+  //   process.env.EXPO_PUBLIC_APP_PLAYSTORE_CERTIFICATE_SHA256,
+  //   process.env.EXPO_PUBLIC_APP_PLAYSTORE_CERTIFICATE_SHA256,
   // ]);
 
   messaging().onMessage((message) => {});

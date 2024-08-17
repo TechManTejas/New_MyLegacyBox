@@ -4,7 +4,7 @@ import WebView from 'react-native-webview'
 const ContactUs = () => {
   return (
     <WebView
-      source={{ uri: "https://www.oiconomos.com" }}
+      source={{ uri: `${process.env.EXPO_PUBLIC_OICONOMOS_WEBSITE}/` }}
       style={{ flex: 1 }}
     />
   )
