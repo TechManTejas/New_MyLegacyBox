@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">87.5% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/8</span>
+                <span class='fraction'>7/8</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>3/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">87.5% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/7</span>
+                <span class='fraction'>7/8</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -126,27 +126,21 @@
 <a name='L61'></a><a href='#L61'>61</a>
 <a name='L62'></a><a href='#L62'>62</a>
 <a name='L63'></a><a href='#L63'>63</a>
-<a name='L64'></a><a href='#L64'>64</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -167,17 +161,26 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -189,69 +192,75 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from "react"
-import { useSelector } from "react-redux"
-import { getAssetsSelector } from "../../redux/form/willFormSlice"
-import { Pressable, StyleSheet, Text, View } from "react-native"
-import { useTheme } from "../../theme/ThemeProvider"
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from "react";
+import { useSelector } from "react-redux";
+import { getAssetsSelector } from "../../redux/form/willFormSlice";
+import { Pressable, StyleSheet, Text, View } from "react-native";
+import { useTheme } from "../../theme/ThemeProvider";
 &nbsp;
-const WillAssetDistributionCard = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >({</span> beneficiariesMap }) =&gt; {</span>
+const WillAssetDistributionCard = ({ beneficiariesMap }: any) =&gt; {
+  const {
+    theme: { spacing, colors, fontSize, fontFamily },
+  } = useTheme();
 &nbsp;
-    const { theme: { spacing, colors, fontSize, fontFamily } } = <span class="cstat-no" title="statement not covered" >useTheme()</span>
+  const styles = StyleSheet.create({
+    personpercentage: {
+      display: "flex",
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent: "space-between",
+    },
+    allocperson: {
+      fontFamily: fontFamily.semiBold,
+      color: colors.black400,
+    },
+    allocpercent: {
+      fontFamily: fontFamily.semiBold,
+      color: colors.black400,
+    },
+    card: {
+      padding: spacing.sm,
+      paddingHorizontal: spacing.md,
+      borderRadius: 10,
+      borderColor: colors.black200,
+      borderWidth: 0.5,
+      marginTop: spacing.sm,
+    },
+    cardtitle: {
+      color: colors.blue600,
+      fontSize: fontSize.lg,
+      fontFamily: fontFamily.semiBold,
+      lineHeight: spacing.xl,
+    },
+  });
 &nbsp;
-    const styles = <span class="cstat-no" title="statement not covered" >StyleSheet.create({</span>
-        personpercentage: {
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-between"
-        },
-        allocperson: {
-            fontFamily: fontFamily.semiBold,
-            color: colors.black400,
-        },
-        allocpercent: {
-            fontFamily: fontFamily.semiBold,
-            color: colors.black400,
-        },
-        card: {
-            padding: spacing.sm,
-            paddingHorizontal: spacing.md,
-            borderRadius: 10,
-            borderColor: colors.black200,
-            borderWidth: 0.5,
-            marginTop: spacing.sm,
-        },
-        cardtitle: {
-            color: colors.blue600,
-            fontSize: fontSize.lg,
-            fontFamily: fontFamily.semiBold,
-            lineHeight: spacing.xl
-        },
-    })
+  const assetsDistribution = useSelector(<span class="fstat-no" title="function not covered" >(s</span>tate: any) =&gt;
+<span class="cstat-no" title="statement not covered" >    getAssetsSelector(state),</span>
+  );
 &nbsp;
-    const assetsDistribution = <span class="cstat-no" title="statement not covered" >useSelector(<span class="fstat-no" title="function not covered" >(s</span>tate) =&gt; <span class="cstat-no" title="statement not covered" >getAssetsSelector(state))</span></span>
+  return assetsDistribution.map((item: any, index: any) =&gt; {
+    return (
+      &lt;Pressable key={index} disabled style={styles.card}&gt;
+        &lt;Text style={styles.cardtitle}&gt;{item.itemTitle}&lt;/Text&gt;
+        {Object.entries(item.allocations).map(([key, val], idx) =&gt; {
+          return (
+            &lt;View style={styles.personpercentage} key={idx}&gt;
+              &lt;Text style={styles.allocperson}&gt;
+                {beneficiariesMap[key]?.fullName}
+              &lt;/Text&gt;
+              &lt;Text style={styles.allocpercent}&gt;{val as string} %&lt;/Text&gt;
+            &lt;/View&gt;
+          );
+        })}
+      &lt;/Pressable&gt;
+    );
+  });
+};
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    return assetsDistribution.map(<span class="fstat-no" title="function not covered" >(i</span>tem, index) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >        return (</span>
-            &lt;Pressable key={index} disabled style={styles.card}&gt;
-                &lt;Text style={styles.cardtitle}&gt;{item.itemTitle}&lt;/Text&gt;
-                {
-                    Object.entries(item.allocations).map(<span class="fstat-no" title="function not covered" >([</span>key, val], idx) =&gt; {
-<span class="cstat-no" title="statement not covered" >                        return (</span>
-                            &lt;View style={styles.personpercentage} key={idx}&gt;
-                                &lt;Text style={styles.allocperson}&gt;{beneficiariesMap[key]?.fullName}&lt;/Text&gt;
-                                &lt;Text style={styles.allocpercent}&gt;{val} %&lt;/Text&gt;
-                            &lt;/View&gt;
-                        )
-                    })
-                }
-            &lt;/Pressable&gt;
-        )
-    })
-}
-&nbsp;
-export default WillAssetDistributionCard
+export default WillAssetDistributionCard;
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -259,7 +268,7 @@ export default WillAssetDistributionCard
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-01-23T09:38:53.815Z
+                at 2026-01-23T11:14:28.912Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>

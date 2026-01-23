@@ -7,25 +7,25 @@ interface ProprietorshipHoldingType {
   _id: string;
 }
 
-const proprietorshipHoldingsAdapter =
-  createEntityAdapter<ProprietorshipHoldingType>({
-    selectId: ({ _id }) => _id,
-    sortComparer: (a, b) => a._id.localeCompare(a._id),
-  });
+const proprietorshipHoldingsAdapter = createEntityAdapter<any>({
+  selectId: (model: ProprietorshipHoldingType) => model._id,
+  sortComparer: (a: ProprietorshipHoldingType, b: ProprietorshipHoldingType) =>
+    a._id.localeCompare(a._id),
+} as any);
 
 const initialState = proprietorshipHoldingsAdapter.getInitialState();
 
 export const proprietorshipHoldingApiSlice = rootApiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getFinancialHoldingForProprietorship: builder.query({
-      query: (filter) =>
+      query: (filter: any) =>
         `/vault/proprietorships/holdings?${new URLSearchParams(filter)}`,
       transformResponse: (responseData: {
         data: ProprietorshipHoldingType[];
       }) => {
         return proprietorshipHoldingsAdapter.setAll(
           initialState,
-          responseData?.data || []
+          responseData?.data || [],
         );
       },
       providesTags: (result) =>

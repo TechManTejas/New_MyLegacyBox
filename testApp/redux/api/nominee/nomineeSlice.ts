@@ -11,16 +11,16 @@ interface NomineeType {
   _id: string;
 }
 
-const nomineeAdapter = createEntityAdapter<NomineeType>({
-  selectId: ({ _id }) => _id,
-  sortComparer: (a, b) => a._id.localeCompare(b._id),
-});
+const nomineeAdapter = createEntityAdapter<any>({
+  selectId: ({ _id }: any) => _id,
+  sortComparer: (a: any, b: any) => a._id.localeCompare(b._id),
+} as any);
 
 const initialState = nomineeAdapter.getInitialState();
 
 export const extendedNomineeApiSlice = rootApiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getNominees: builder.query<EntityState<NomineeType>, void>({
+    getNominees: builder.query<EntityState<any, string>, void>({
       query: () => "/nominees",
       transformResponse: (responseData: { data: NomineeType[] }) => {
         return nomineeAdapter.setAll(initialState, responseData?.data || []);
@@ -29,7 +29,7 @@ export const extendedNomineeApiSlice = rootApiSlice.injectEndpoints({
         result
           ? [
               { type: QUERY_TAGS.nominee, id: QUERY_TAGS.nomineeList },
-              ...result.ids.map((id) => ({
+              ...result.ids.map((id: any) => ({
                 type: QUERY_TAGS.nominee as const,
                 id,
               })),
@@ -37,7 +37,7 @@ export const extendedNomineeApiSlice = rootApiSlice.injectEndpoints({
           : [{ type: QUERY_TAGS.nominee, id: QUERY_TAGS.nomineeList }],
     }),
     addNominee: builder.mutation({
-      query: (nominee) => ({
+      query: (nominee: any) => ({
         url: "/nominees",
         method: "POST",
         body: nominee,
@@ -48,7 +48,7 @@ export const extendedNomineeApiSlice = rootApiSlice.injectEndpoints({
           : [],
     }),
     updateNominee: builder.mutation({
-      query: ({ _id, ...nominee }) => ({
+      query: ({ _id, ...nominee }: any) => ({
         url: `/nominees/${_id}`,
         method: "PUT",
         body: nominee,
@@ -65,7 +65,7 @@ const selectNomineesResponse =
 
 const selectNominees = createSelector(
   selectNomineesResponse,
-  (state) => state.data
+  (state) => state.data,
 );
 
 export const { selectById: selectNomineeById } = nomineeAdapter.getSelectors<

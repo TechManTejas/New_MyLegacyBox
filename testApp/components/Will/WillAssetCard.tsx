@@ -9,6 +9,12 @@ const WillAssetCard = ({
   pressHandler,
   selected,
   containerStyle,
+}: {
+  title: any;
+  subTitle: any;
+  pressHandler: any;
+  selected: any;
+  containerStyle: any;
 }) => {
   const {
     theme: { colors, fontFamily, fontSize, spacing },

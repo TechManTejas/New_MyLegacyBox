@@ -6,16 +6,18 @@ import { getBeneficiariesSelector } from "../../redux/form/willFormSlice";
 import { useSelector } from "react-redux";
 import { useRoute } from "@react-navigation/native";
 
-const WillNamePercentCard = ({ _id, percent }) => {
+const WillNamePercentCard = ({ _id, percent }: any) => {
   const {
     theme: { fontFamily, colors, fontSize, spacing },
   } = useTheme();
 
   const route = useRoute();
 
-  const { data, isLoading, isFetching } = useGetWillQuery();
+  const { data, isLoading, isFetching } = useGetWillQuery(undefined);
 
-  const beneficiaries = useSelector((state) => getBeneficiariesSelector(state));
+  const beneficiaries = useSelector((state: any) =>
+    getBeneficiariesSelector(state),
+  );
 
   const styles = StyleSheet.create({
     nomineeName: {
@@ -45,8 +47,8 @@ const WillNamePercentCard = ({ _id, percent }) => {
     <View style={styles.distribution}>
       <Text style={[styles.nomineeName, styles.assetHolders]}>
         {route.name === "WILL_PREVIEW_SCREEN"
-          ? beneficiaries.find((nominee) => nominee._id === _id)?.fullName
-          : data.data.beneficiaries.find((nominee) => nominee._id === _id)
+          ? beneficiaries.find((nominee: any) => nominee._id === _id)?.fullName
+          : data.data.beneficiaries.find((nominee: any) => nominee._id === _id)
               ?.fullName}
       </Text>
       <Text style={styles.percent}>{percent} %</Text>

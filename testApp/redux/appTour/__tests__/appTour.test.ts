@@ -12,7 +12,7 @@ describe("appToursSlice", () => {
   };
 
   it("should return the initial state", () => {
-    expect(appTourReducer(undefined, { type: undefined })).toEqual(
+    expect(appTourReducer(undefined, { type: undefined } as any)).toEqual(
       initialState,
     );
   });

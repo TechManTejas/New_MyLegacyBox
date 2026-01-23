@@ -11,16 +11,16 @@ interface PostalType {
   _id: string;
 }
 
-const postalAdapter = createEntityAdapter<PostalType>({
-  selectId: ({ _id }) => _id,
-  sortComparer: (a, b) => a._id.localeCompare(b._id),
-});
+const postalAdapter = createEntityAdapter<any>({
+  selectId: ({ _id }: any) => _id,
+  sortComparer: (a: any, b: any) => a._id.localeCompare(b._id),
+} as any);
 
 const initialState = postalAdapter.getInitialState();
 
 export const extendedPostalApiSlice = rootApiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getPostals: builder.query<EntityState<PostalType>, void>({
+    getPostals: builder.query<EntityState<any, string>, void>({
       query: () => "/vault/postals",
       transformResponse: (responseData: { data: PostalType[] }) => {
         return postalAdapter.setAll(initialState, responseData?.data || []);
@@ -29,7 +29,7 @@ export const extendedPostalApiSlice = rootApiSlice.injectEndpoints({
         result
           ? [
               { type: QUERY_TAGS.postal, id: QUERY_TAGS.postalList },
-              ...result.ids.map((id) => ({
+              ...result.ids.map((id: any) => ({
                 type: QUERY_TAGS.postal as const,
                 id,
               })),
@@ -37,7 +37,7 @@ export const extendedPostalApiSlice = rootApiSlice.injectEndpoints({
           : [{ type: QUERY_TAGS.postal, id: QUERY_TAGS.postalList }],
     }),
     addPostal: builder.mutation({
-      query: (postal) => ({
+      query: (postal: any) => ({
         url: "/vault/postals",
         method: "POST",
         body: postal,
@@ -46,7 +46,7 @@ export const extendedPostalApiSlice = rootApiSlice.injectEndpoints({
         result ? [{ type: QUERY_TAGS.postal, id: QUERY_TAGS.postalList }] : [],
     }),
     updatePostal: builder.mutation({
-      query: ({ _id, ...postal }) => ({
+      query: ({ _id, ...postal }: any) => ({
         url: `/vault/postals/${_id}`,
         method: "PUT",
         body: postal,
@@ -63,7 +63,7 @@ const selectPostalsResponse =
 
 const selectPostals = createSelector(
   selectPostalsResponse,
-  (state) => state.data
+  (state) => state.data,
 );
 
 export const { selectById: selectPostalById } = postalAdapter.getSelectors<

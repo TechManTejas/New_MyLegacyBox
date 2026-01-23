@@ -1,20 +1,36 @@
-export const isUiNodeAnchorAttributes = (pet) => pet.href !== undefined;
+import {
+  UiNode,
+  UiNodeAnchorAttributes,
+  UiNodeImageAttributes,
+  UiNodeInputAttributes,
+  UiNodeTextAttributes,
+} from "@ory/client";
 
-export const isUiNodeImageAttributes = (pet) => pet.src !== undefined;
+export const isUiNodeAnchorAttributes = (
+  pet: any,
+): pet is UiNodeAnchorAttributes => pet.href !== undefined;
 
-export const isUiNodeInputAttributes = (pet) => pet.name !== undefined;
+export const isUiNodeImageAttributes = (
+  pet: any,
+): pet is UiNodeImageAttributes => pet.src !== undefined;
 
-export const isUiNodeTextAttributes = (pet) => pet.text !== undefined;
+export const isUiNodeInputAttributes = (
+  pet: any,
+): pet is UiNodeInputAttributes => pet.name !== undefined;
 
-export const getNodeId = ({ attributes }) => {
+export const isUiNodeTextAttributes = (pet: any): pet is UiNodeTextAttributes =>
+  pet.text !== undefined;
+
+export const getNodeId = ({ attributes }: UiNode) => {
   if (isUiNodeInputAttributes(attributes)) {
     return attributes.name;
   } else {
+    // @ts-ignore
     return attributes.id;
   }
 };
 
-export const getNodeValue = ({ attributes }) => {
+export const getNodeValue = ({ attributes }: UiNode) => {
   if (isUiNodeInputAttributes(attributes)) {
     return attributes.value;
   }
@@ -22,7 +38,7 @@ export const getNodeValue = ({ attributes }) => {
   return "";
 };
 
-export const getNodeTitle = ({ attributes, meta }) => {
+export const getNodeTitle = ({ attributes, meta }: UiNode) => {
   if (isUiNodeInputAttributes(attributes)) {
     if (meta?.label?.text) {
       return meta.label.text;
@@ -37,7 +53,7 @@ export const getNodeTitle = ({ attributes, meta }) => {
   return "";
 };
 
-export const metaLabelModifier = (label) => {
+export const metaLabelModifier = (label?: string) => {
   switch (label) {
     case "ID":
       return "username";
@@ -47,7 +63,12 @@ export const metaLabelModifier = (label) => {
 };
 
 export const handleFormSubmitError =
-  (setConfig, initialize, logout) => (err) => {
+  (
+    setConfig: (data: any) => void,
+    initialize: () => void,
+    logout?: () => void,
+  ) =>
+  (err: any): Promise<void> => {
     if (err.response) {
       switch (err.response.status) {
         case 400:
@@ -58,8 +79,8 @@ export const handleFormSubmitError =
           }
           setConfig(err.response.data);
           return Promise.resolve();
-        case 404:
         case 410:
+        case 404:
           initialize();
           return Promise.resolve();
         case 403:

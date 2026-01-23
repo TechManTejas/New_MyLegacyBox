@@ -2,7 +2,7 @@ import { View, Text, StyleSheet } from "react-native";
 import React from "react";
 import { useTheme } from "../../theme/ThemeProvider";
 
-const WillToggleCard = ({ contents }) => {
+const WillToggleCard = ({ contents }: any) => {
   const {
     theme: { colors, fontFamily, fontSize, spacing },
   } = useTheme();
@@ -13,13 +13,13 @@ const WillToggleCard = ({ contents }) => {
       borderStyle: "dashed",
       borderColor: colors.black100,
       marginBottom: spacing.md,
-      marginHorizontal: spacing.md
+      marginHorizontal: spacing.md,
     },
     info: {
       fontFamily: fontFamily.regular,
       fontSize: fontSize.md,
       lineHeight: fontSize.default,
-    //   color: colors.blue500,
+      //   color: colors.blue500,
       paddingHorizontal: spacing.sm,
       marginBottom: spacing.xs,
     },
@@ -58,7 +58,7 @@ const WillToggleCard = ({ contents }) => {
 
   return (
     <View style={styles.cardContainer}>
-      {contents.map((item, index) =>
+      {contents.map((item: any, index: any) =>
         item.type == "divider" ? (
           <View key={index} style={styles.contentDivider} />
         ) : (
@@ -72,7 +72,7 @@ const WillToggleCard = ({ contents }) => {
               {item?.value ?? "Not available"}
             </Text>
           </View>
-        )
+        ),
       )}
     </View>
   );

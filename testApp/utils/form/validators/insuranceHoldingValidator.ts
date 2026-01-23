@@ -18,24 +18,33 @@ export const insuranceHoldingValidator = z
         required_error: "Policy number is required",
         invalid_type_error: "Invalid type for Policy number",
       })
-      .refine((value) => !isNaN(value), {
+      .refine((value: any) => !isNaN(value), {
         message: "Input should be a numeric value",
       }),
 
-    policyType: z.enum(Object.values(POLICY_TYPE_MAP), {
-      required_error: "Policy type is required",
-      invalid_type_error: "Invalid type for Policy type",
-    }),
+    policyType: z.enum(
+      Object.values(POLICY_TYPE_MAP) as [string, ...string[]],
+      {
+        required_error: "Policy type is required",
+        invalid_type_error: "Invalid type for Policy type",
+      },
+    ),
 
-    beneficiary: z.enum(Object.values(POLICY_BENEFICIERY_MAP), {
-      required_error: "Beneficiary is required",
-      invalid_type_error: "Invalid type for Beneficiary",
-    }),
+    beneficiary: z.enum(
+      Object.values(POLICY_BENEFICIERY_MAP) as [string, ...string[]],
+      {
+        required_error: "Beneficiary is required",
+        invalid_type_error: "Invalid type for Beneficiary",
+      },
+    ),
 
-    premiumFrequency: z.enum(Object.values(POLICY_PREMIUM_FREQUENCY_MAP), {
-      required_error: "Premium frequency is required",
-      invalid_type_error: "Invalid type for Premium frequency",
-    }),
+    premiumFrequency: z.enum(
+      Object.values(POLICY_PREMIUM_FREQUENCY_MAP) as [string, ...string[]],
+      {
+        required_error: "Premium frequency is required",
+        invalid_type_error: "Invalid type for Premium frequency",
+      },
+    ),
 
     homeBranch: z
       .string({
@@ -47,7 +56,7 @@ export const insuranceHoldingValidator = z
       .number({
         invalid_type_error: "Invalid type for Policy amount",
       })
-      .refine((value) => !isNaN(value), {
+      .refine((value: any) => !isNaN(value), {
         message: "Input should be a numeric value",
       })
       .optional(),
@@ -56,7 +65,7 @@ export const insuranceHoldingValidator = z
       .number({
         invalid_type_error: "Invalid type for Premium amount",
       })
-      .refine((value) => !isNaN(value), {
+      .refine((value: any) => !isNaN(value), {
         message: "Input should be a numeric value",
       })
       .optional(),
@@ -75,7 +84,7 @@ export const insuranceHoldingValidator = z
       .string({
         invalid_type_error: "Invalid type for Nominee",
       })
-      .refine((value) => /^[A-Za-z\s]+$/.test(value), {
+      .refine((value: string) => /^[A-Za-z\s]+$/.test(value), {
         message: "Input should be a non-numeric value",
       })
       .optional(),

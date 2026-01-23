@@ -22,6 +22,8 @@ interface MessageProps {
 }
 
 interface CustomInputGroup {
+  name?: string;
+  keyboardType?: any;
   title?: string;
   subTitle?: string;
   marginBottom?: number;
@@ -69,7 +71,7 @@ interface CustomInputGroup {
   textTransformNormal?: boolean;
   info?: React.JSX.Element;
   loader?: boolean;
-  defaultValue?: string
+  defaultValue?: string;
 }
 
 const CustomInputGroup: React.FC<CustomInputGroup> = ({
@@ -262,7 +264,6 @@ const CustomInputGroup: React.FC<CustomInputGroup> = ({
           multiline={multiline}
           defaultValue={defaultValue}
           {...extraProps}
-          
         />
         {IconRightComponent ? (
           <IconRightComponent

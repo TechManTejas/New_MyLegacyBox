@@ -11,16 +11,16 @@ interface InsuranceType {
   _id: string;
 }
 
-const insuranceAdapter = createEntityAdapter<InsuranceType>({
-  selectId: ({ _id }) => _id,
-  sortComparer: (a, b) => a._id.localeCompare(b._id),
-});
+const insuranceAdapter = createEntityAdapter<any>({
+  selectId: ({ _id }: any) => _id,
+  sortComparer: (a: any, b: any) => a._id.localeCompare(b._id),
+} as any);
 
 const initialState = insuranceAdapter.getInitialState();
 
 export const extendedInsuranceApiSlice = rootApiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getInsurances: builder.query<EntityState<InsuranceType>, void>({
+    getInsurances: builder.query<EntityState<any, string>, void>({
       query: () => "/vault/insurances",
       transformResponse: (responseData: { data: InsuranceType[] }) => {
         return insuranceAdapter.setAll(initialState, responseData?.data || []);
@@ -29,7 +29,7 @@ export const extendedInsuranceApiSlice = rootApiSlice.injectEndpoints({
         result
           ? [
               { type: QUERY_TAGS.insurance, id: QUERY_TAGS.insuranceList },
-              ...result.ids.map((id) => ({
+              ...result.ids.map((id: any) => ({
                 type: QUERY_TAGS.insurance as const,
                 id,
               })),
@@ -37,7 +37,7 @@ export const extendedInsuranceApiSlice = rootApiSlice.injectEndpoints({
           : [{ type: QUERY_TAGS.insurance, id: QUERY_TAGS.insuranceList }],
     }),
     addInsurance: builder.mutation({
-      query: (insurance) => ({
+      query: (insurance: any) => ({
         url: "/vault/insurances",
         method: "POST",
         body: insurance,
@@ -48,7 +48,7 @@ export const extendedInsuranceApiSlice = rootApiSlice.injectEndpoints({
           : [],
     }),
     updateInsurance: builder.mutation({
-      query: ({ _id, ...insurance }) => ({
+      query: ({ _id, ...insurance }: any) => ({
         url: `/vault/insurances/${_id}`,
         method: "PUT",
         body: insurance,
@@ -65,12 +65,12 @@ const selectInsurancesResponse =
 
 const selectInsurances = createSelector(
   selectInsurancesResponse,
-  (state) => state.data
+  (state) => state.data,
 );
 
 export const { selectById: selectInsuranceById } =
   insuranceAdapter.getSelectors<RootState<{}, string, "rootApi">>(
-    (state) => selectInsurances(state) ?? initialState
+    (state) => selectInsurances(state) ?? initialState,
   );
 
 export const {

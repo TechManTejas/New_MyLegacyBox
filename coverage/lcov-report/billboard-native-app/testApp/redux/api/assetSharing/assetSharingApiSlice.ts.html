@@ -235,22 +235,22 @@ interface AssetShareType {
   _id: string;
 }
 &nbsp;
-const assetSharingAdapter = <span class="cstat-no" title="statement not covered" >createEntityAdapter&lt;AssetShareType&gt;({</span>
-  selectId: <span class="fstat-no" title="function not covered" >({</span> _id }) =&gt; <span class="cstat-no" title="statement not covered" >_id,</span>
-  sortComparer: <span class="fstat-no" title="function not covered" >(a</span>, b) =&gt; <span class="cstat-no" title="statement not covered" >a._id.localeCompare(b._id),</span>
-});
+const assetSharingAdapter = <span class="cstat-no" title="statement not covered" >createEntityAdapter&lt;any&gt;({</span>
+  selectId: <span class="fstat-no" title="function not covered" >({</span> _id }: any) =&gt; <span class="cstat-no" title="statement not covered" >_id,</span>
+  sortComparer: <span class="fstat-no" title="function not covered" >(a</span>: any, b: any) =&gt; <span class="cstat-no" title="statement not covered" >a._id.localeCompare(b._id),</span>
+} as any);
 &nbsp;
 const initialState = <span class="cstat-no" title="statement not covered" >assetSharingAdapter.getInitialState();</span>
 &nbsp;
 export const assetSharingApiSlice = <span class="cstat-no" title="statement not covered" >rootApiSlice.injectEndpoints({</span>
   endpoints: <span class="fstat-no" title="function not covered" >(b</span>uilder) =&gt; (<span class="cstat-no" title="statement not covered" >{</span>
     getNomineesForAnArtifact: builder.query({
-      query: <span class="fstat-no" title="function not covered" >(f</span>inancialHoldingId) =&gt;
+      query: <span class="fstat-no" title="function not covered" >(f</span>inancialHoldingId: string) =&gt;
 <span class="cstat-no" title="statement not covered" >        `/shared-artifact/nominator/${financialHoldingId}`,</span>
       providesTags: [QUERY_TAGS.shareAsset],
     }),
     shareAssetToNominee: builder.mutation({
-      query: <span class="fstat-no" title="function not covered" >(n</span>ominee) =&gt; (<span class="cstat-no" title="statement not covered" >{</span>
+      query: <span class="fstat-no" title="function not covered" >(n</span>ominee: any) =&gt; (<span class="cstat-no" title="statement not covered" >{</span>
         url: "/shared-artifact/nominator",
         method: "POST",
         body: nominee,
@@ -258,7 +258,7 @@ export const assetSharingApiSlice = <span class="cstat-no" title="statement not 
       invalidatesTags: [QUERY_TAGS.shareAsset],
     }),
     revokeAssetAccessFromNominee: builder.mutation({
-      query: <span class="fstat-no" title="function not covered" >(n</span>ominee) =&gt; (<span class="cstat-no" title="statement not covered" >{</span>
+      query: <span class="fstat-no" title="function not covered" >(n</span>ominee: any) =&gt; (<span class="cstat-no" title="statement not covered" >{</span>
         url: "/shared-artifact/nominator",
         method: "DELETE",
         body: nominee,
@@ -266,12 +266,12 @@ export const assetSharingApiSlice = <span class="cstat-no" title="statement not 
       invalidatesTags: [QUERY_TAGS.shareAsset],
     }),
     getAllAssetSharedToANominee: builder.query({
-      query: <span class="fstat-no" title="function not covered" >(n</span>omineeEmail) =&gt;
+      query: <span class="fstat-no" title="function not covered" >(n</span>omineeEmail: string) =&gt;
 <span class="cstat-no" title="statement not covered" >        `/shared-artifact/nominator?nomineeEmail=${nomineeEmail}`,</span>
       transformResponse: <span class="fstat-no" title="function not covered" >(r</span>esponseData: { data: AssetShareType[] }) =&gt; {
 <span class="cstat-no" title="statement not covered" >        return assetSharingAdapter.setAll(</span>
           initialState,
-          responseData?.data || []
+          responseData?.data || [],
         );
       },
       providesTags: [QUERY_TAGS.shareAsset],
@@ -281,19 +281,19 @@ export const assetSharingApiSlice = <span class="cstat-no" title="statement not 
       transformResponse: <span class="fstat-no" title="function not covered" >(r</span>esponseData: { data: AssetShareType[] }) =&gt; {
 <span class="cstat-no" title="statement not covered" >        return assetSharingAdapter.setAll(</span>
           initialState,
-          responseData?.data || []
+          responseData?.data || [],
         );
       },
       providesTags: [QUERY_TAGS.shareAsset],
     }),
     getSharedArtifactByNominatorWithUidAndType: builder.query({
-      query: <span class="fstat-no" title="function not covered" >(d</span>ata) =&gt;
+      query: <span class="fstat-no" title="function not covered" >(d</span>ata: any) =&gt;
 <span class="cstat-no" title="statement not covered" >        `/shared-artifact/nominee?nominatorHashedUid=${data.nominatorHashedUid}&amp;financialArtifactType=${data.financialArtifactType}`,</span>
       providesTags: [QUERY_TAGS.shareAsset],
       transformResponse: <span class="fstat-no" title="function not covered" >(r</span>esponseData: { data: AssetShareType[] }) =&gt; {
 <span class="cstat-no" title="statement not covered" >        return assetSharingAdapter.setAll(</span>
           initialState,
-          responseData?.data || []
+          responseData?.data || [],
         );
       },
     }),
@@ -316,7 +316,7 @@ export const {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-01-23T09:38:53.815Z
+                at 2026-01-23T11:14:28.912Z
             </div>
         <script src="../../../../../prettify.js"></script>
         <script>

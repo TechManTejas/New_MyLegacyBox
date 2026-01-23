@@ -17,7 +17,7 @@ import { REAL_ESTATE_OWNERSHIP_STATUS_TO_TITLE_MAP } from "../../constants/finan
 import { PROVIDENT_FUND_TYPE_TO_TITLE_MAP } from "../../constants/financialHoldings/providentFundHolding";
 import { PRIVATE_LIMITED_COMPANY_TYPE_MAP_TO_TITLE_MAP } from "../../constants/financialHoldings/privateLimitedHolding";
 
-const WillAssetDisplayCard = ({ asset }) => {
+const WillAssetDisplayCard = ({ asset }: { asset: any }) => {
   const [infoCardVisible, setInfoCardVisible] = useState(false);
 
   const toggleInfoButton = () => {
@@ -51,12 +51,12 @@ const WillAssetDisplayCard = ({ asset }) => {
   });
 
   const getContents = useCallback(
-    (singleAsset) => {
+    (singleAsset: any) => {
       let totalContents = [];
 
       switch (singleAsset.section) {
         case "BANK":
-          totalContents = singleAsset.children.map((item) => {
+          totalContents = singleAsset.children.map((item: any) => {
             return [
               {
                 key: "Account Type",
@@ -76,7 +76,7 @@ const WillAssetDisplayCard = ({ asset }) => {
           });
           break;
         case "POSTAL":
-          totalContents = singleAsset.children.map((item, index) => {
+          totalContents = singleAsset.children.map((item: any, index: any) => {
             return [
               {
                 key: "Account Type",
@@ -96,7 +96,7 @@ const WillAssetDisplayCard = ({ asset }) => {
           });
           break;
         case "INSURANCE":
-          totalContents = singleAsset.children.map((item, index) => {
+          totalContents = singleAsset.children.map((item: any, index: any) => {
             return [
               {
                 key: "Policy Name",
@@ -226,7 +226,7 @@ const WillAssetDisplayCard = ({ asset }) => {
 
       return totalContents;
     },
-    [asset]
+    [asset],
   );
 
   return (
@@ -253,7 +253,7 @@ const WillAssetDisplayCard = ({ asset }) => {
 
       {infoCardVisible ? (
         <View style={{ marginTop: spacing.xs }}>
-          {getContents(asset).map((item, index) => (
+          {getContents(asset).map((item: any, index: any) => (
             <WillToggleCard
               key={index + "will-toggle-card" + item[0].value}
               contents={item}

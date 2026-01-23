@@ -6,22 +6,22 @@ interface AssetShareType {
   _id: string;
 }
 
-const assetSharingAdapter = createEntityAdapter<AssetShareType>({
-  selectId: ({ _id }) => _id,
-  sortComparer: (a, b) => a._id.localeCompare(b._id),
-});
+const assetSharingAdapter = createEntityAdapter<any>({
+  selectId: ({ _id }: any) => _id,
+  sortComparer: (a: any, b: any) => a._id.localeCompare(b._id),
+} as any);
 
 const initialState = assetSharingAdapter.getInitialState();
 
 export const assetSharingApiSlice = rootApiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getNomineesForAnArtifact: builder.query({
-      query: (financialHoldingId) =>
+      query: (financialHoldingId: string) =>
         `/shared-artifact/nominator/${financialHoldingId}`,
       providesTags: [QUERY_TAGS.shareAsset],
     }),
     shareAssetToNominee: builder.mutation({
-      query: (nominee) => ({
+      query: (nominee: any) => ({
         url: "/shared-artifact/nominator",
         method: "POST",
         body: nominee,
@@ -29,7 +29,7 @@ export const assetSharingApiSlice = rootApiSlice.injectEndpoints({
       invalidatesTags: [QUERY_TAGS.shareAsset],
     }),
     revokeAssetAccessFromNominee: builder.mutation({
-      query: (nominee) => ({
+      query: (nominee: any) => ({
         url: "/shared-artifact/nominator",
         method: "DELETE",
         body: nominee,
@@ -37,12 +37,12 @@ export const assetSharingApiSlice = rootApiSlice.injectEndpoints({
       invalidatesTags: [QUERY_TAGS.shareAsset],
     }),
     getAllAssetSharedToANominee: builder.query({
-      query: (nomineeEmail) =>
+      query: (nomineeEmail: string) =>
         `/shared-artifact/nominator?nomineeEmail=${nomineeEmail}`,
       transformResponse: (responseData: { data: AssetShareType[] }) => {
         return assetSharingAdapter.setAll(
           initialState,
-          responseData?.data || []
+          responseData?.data || [],
         );
       },
       providesTags: [QUERY_TAGS.shareAsset],
@@ -52,19 +52,19 @@ export const assetSharingApiSlice = rootApiSlice.injectEndpoints({
       transformResponse: (responseData: { data: AssetShareType[] }) => {
         return assetSharingAdapter.setAll(
           initialState,
-          responseData?.data || []
+          responseData?.data || [],
         );
       },
       providesTags: [QUERY_TAGS.shareAsset],
     }),
     getSharedArtifactByNominatorWithUidAndType: builder.query({
-      query: (data) =>
+      query: (data: any) =>
         `/shared-artifact/nominee?nominatorHashedUid=${data.nominatorHashedUid}&financialArtifactType=${data.financialArtifactType}`,
       providesTags: [QUERY_TAGS.shareAsset],
       transformResponse: (responseData: { data: AssetShareType[] }) => {
         return assetSharingAdapter.setAll(
           initialState,
-          responseData?.data || []
+          responseData?.data || [],
         );
       },
     }),

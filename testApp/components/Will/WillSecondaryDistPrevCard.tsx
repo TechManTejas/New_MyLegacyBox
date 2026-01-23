@@ -3,7 +3,7 @@ import React from "react";
 import { useTheme } from "../../theme/ThemeProvider";
 import { NOMINEE_RELATIONSHIP_TO_TITLE_MAP } from "../../constants/nominee";
 import CustomToolTip from "../Common/CustomToolTip";
-import { Ionicons } from "@expo/vector-icons"
+import { Ionicons } from "@expo/vector-icons";
 
 interface WillSecondaryDistPrevCardProps {
   secondaryData: any[];
@@ -24,7 +24,7 @@ const WillSecondaryDistPrevCard: React.FC<WillSecondaryDistPrevCardProps> = ({
       // borderBottomColor: colors.black200,
       // paddingBottom: spacing.sm,
       alignItems: "center",
-      flexDirection: "row"
+      flexDirection: "row",
     },
     titleText: {
       fontFamily: fontFamily.semiBold,
@@ -37,7 +37,7 @@ const WillSecondaryDistPrevCard: React.FC<WillSecondaryDistPrevCardProps> = ({
       // borderColor: colors.black300,
       borderRadius: spacing.md,
       marginBottom: spacing.md,
-      backgroundColor: colors.white100
+      backgroundColor: colors.white100,
     },
     secondarySection: {},
     secondaryName: {
@@ -97,34 +97,41 @@ const WillSecondaryDistPrevCard: React.FC<WillSecondaryDistPrevCardProps> = ({
 
   return (
     secondaryData.length !== 0 && (
-      <View style={{  borderRadius: spacing.md, padding: spacing.md, marginTop: spacing.lg, backgroundColor: colors.white400 }}>
+      <View
+        style={{
+          borderRadius: spacing.md,
+          padding: spacing.md,
+          marginTop: spacing.lg,
+          backgroundColor: colors.white400,
+        }}
+      >
         <View style={styles.titleContainer}>
           <Text style={styles.titleText}>Contigent Distribution</Text>
           <CustomToolTip
-              icon={
-                <Ionicons
-                  name="information-circle-outline"
-                  size={fontSize.default}
-                  color={colors.blue500}
-                />
-              }
-              message={
-                <View>
-                  <Text style={styles.toolTipMessage}>
-                    A secondary beneficiary clause in a will, often referred to as a 'contingent beneficiary' clause, specifies 
-                    what should happen to a bequest or property if the primary beneficiary is unable to inherit or predeceases the
-                    testator.
-                  </Text>
-                </View>
-              }
-              position={"bottom"}
-              style={{ marginLeft: spacing.sm }}
-            />
+            icon={
+              <Ionicons
+                name="information-circle-outline"
+                size={fontSize.default}
+                color={colors.blue500}
+              />
+            }
+            message={
+              <View>
+                <Text style={styles.toolTipMessage}>
+                  A secondary beneficiary clause in a will, often referred to as
+                  a 'contingent beneficiary' clause, specifies what should
+                  happen to a bequest or property if the primary beneficiary is
+                  unable to inherit or predeceases the testator.
+                </Text>
+              </View>
+            }
+            position={"bottom"}
+            style={{ marginLeft: spacing.sm }}
+          />
         </View>
 
         <View>
-          {secondaryData.map((item, index) => {
-            
+          {secondaryData.map((item: any, index: any) => {
             if (item.distType !== 0) {
               return (
                 <View key={index} style={styles.secondaryCard}>
@@ -164,8 +171,8 @@ const WillSecondaryDistPrevCard: React.FC<WillSecondaryDistPrevCardProps> = ({
 
                   {item.distType === 2 && (
                     <View>
-                      {item.distribution.map((item2, index2) => {
-                        if (item2.percent !== "0"&&item2.percent!=="")
+                      {item.distribution.map((item2: any, index2: any) => {
+                        if (item2.percent !== "0" && item2.percent !== "")
                           return (
                             <View key={index2} style={styles.distCard}>
                               <View>

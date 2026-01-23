@@ -250,8 +250,7 @@
 <a name='L185'></a><a href='#L185'>185</a>
 <a name='L186'></a><a href='#L186'>186</a>
 <a name='L187'></a><a href='#L187'>187</a>
-<a name='L188'></a><a href='#L188'>188</a>
-<a name='L189'></a><a href='#L189'>189</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L188'></a><a href='#L188'>188</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -416,7 +415,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -452,7 +450,7 @@ import {
 } from "../constants/financialHoldings/realEstateHolding";
 &nbsp;
 export const artifactsData = <span class="cstat-no" title="statement not covered" >{</span>
-  bank: <span class="fstat-no" title="function not covered" >(i</span>tem) =&gt; <span class="cstat-no" title="statement not covered" >[</span>
+  bank: <span class="fstat-no" title="function not covered" >(i</span>tem: any) =&gt; <span class="cstat-no" title="statement not covered" >[</span>
     {
       key: "Bank",
       value: item.bankName,
@@ -471,7 +469,7 @@ export const artifactsData = <span class="cstat-no" title="statement not covered
     },
   ],
 &nbsp;
-  insurance: <span class="fstat-no" title="function not covered" >(i</span>tem) =&gt; <span class="cstat-no" title="statement not covered" >[</span>
+  insurance: <span class="fstat-no" title="function not covered" >(i</span>tem: any) =&gt; <span class="cstat-no" title="statement not covered" >[</span>
     {
       key: "Company",
       value: item.companyName,
@@ -494,7 +492,7 @@ export const artifactsData = <span class="cstat-no" title="statement not covered
     },
   ],
 &nbsp;
-  providentfund: <span class="fstat-no" title="function not covered" >(i</span>tem) =&gt; <span class="cstat-no" title="statement not covered" >[</span>
+  providentfund: <span class="fstat-no" title="function not covered" >(i</span>tem: any) =&gt; <span class="cstat-no" title="statement not covered" >[</span>
     {
       key: "Employer Name",
       value: item.employerName,
@@ -509,7 +507,7 @@ export const artifactsData = <span class="cstat-no" title="statement not covered
     },
   ],
 &nbsp;
-  postal: <span class="fstat-no" title="function not covered" >(i</span>tem) =&gt; <span class="cstat-no" title="statement not covered" >[</span>
+  postal: <span class="fstat-no" title="function not covered" >(i</span>tem: any) =&gt; <span class="cstat-no" title="statement not covered" >[</span>
     {
       key: "Post Office Name",
       value: item.postOfficeName,
@@ -528,7 +526,7 @@ export const artifactsData = <span class="cstat-no" title="statement not covered
     },
   ],
 &nbsp;
-  demat: <span class="fstat-no" title="function not covered" >(i</span>tem) =&gt; <span class="cstat-no" title="statement not covered" >[</span>
+  demat: <span class="fstat-no" title="function not covered" >(i</span>tem: any) =&gt; <span class="cstat-no" title="statement not covered" >[</span>
     {
       key: "Broker Name",
       value: item.broker,
@@ -547,7 +545,7 @@ export const artifactsData = <span class="cstat-no" title="statement not covered
     },
   ],
 &nbsp;
-  realestate: <span class="fstat-no" title="function not covered" >(i</span>tem) =&gt; <span class="cstat-no" title="statement not covered" >[</span>
+  realestate: <span class="fstat-no" title="function not covered" >(i</span>tem: any) =&gt; <span class="cstat-no" title="statement not covered" >[</span>
     {
       key: "Real Estate Type",
       value: REAL_ESTATE_TYPE_TO_TITLE_MAP[item.realEstateType],
@@ -566,7 +564,7 @@ export const artifactsData = <span class="cstat-no" title="statement not covered
     },
   ],
 &nbsp;
-  cash: <span class="fstat-no" title="function not covered" >(i</span>tem) =&gt; <span class="cstat-no" title="statement not covered" >[</span>
+  cash: <span class="fstat-no" title="function not covered" >(i</span>tem: any) =&gt; <span class="cstat-no" title="statement not covered" >[</span>
     {
       key: "Name of Party",
       value: item.nameOfParty,
@@ -581,7 +579,7 @@ export const artifactsData = <span class="cstat-no" title="statement not covered
     },
   ],
 &nbsp;
-  proprietorship: <span class="fstat-no" title="function not covered" >(i</span>tem) =&gt; <span class="cstat-no" title="statement not covered" >[</span>
+  proprietorship: <span class="fstat-no" title="function not covered" >(i</span>tem: any) =&gt; <span class="cstat-no" title="statement not covered" >[</span>
     {
       key: "GST Number",
       value: item.gstNumber,
@@ -592,7 +590,7 @@ export const artifactsData = <span class="cstat-no" title="statement not covered
     },
   ],
 &nbsp;
-  partnership: <span class="fstat-no" title="function not covered" >(i</span>tem) =&gt; <span class="cstat-no" title="statement not covered" >[</span>
+  partnership: <span class="fstat-no" title="function not covered" >(i</span>tem: any) =&gt; <span class="cstat-no" title="statement not covered" >[</span>
     {
       key: "Percentage Holding",
       value: item.percentageHolding,
@@ -603,7 +601,7 @@ export const artifactsData = <span class="cstat-no" title="statement not covered
     },
   ],
 &nbsp;
-  privatelimitedcompany: <span class="fstat-no" title="function not covered" >(i</span>tem) =&gt; <span class="cstat-no" title="statement not covered" >[</span>
+  privatelimitedcompany: <span class="fstat-no" title="function not covered" >(i</span>tem: any) =&gt; <span class="cstat-no" title="statement not covered" >[</span>
     {
       key: "Nature of Investment",
       value: item.natureOfInvestment,
@@ -624,8 +622,7 @@ export const artifactsData = <span class="cstat-no" title="statement not covered
       key: "Share Certificate Number",
       value: item.shareCertificateNumber,
     },
-  ]
-&nbsp;
+  ],
 };
 &nbsp;</pre></td></tr></table></pre>
 
@@ -634,7 +631,7 @@ export const artifactsData = <span class="cstat-no" title="statement not covered
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-01-23T09:38:53.815Z
+                at 2026-01-23T11:14:28.912Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

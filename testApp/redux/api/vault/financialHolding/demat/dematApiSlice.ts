@@ -7,21 +7,22 @@ interface dematHoldingType {
   _id: string;
 }
 
-const dematHoldingsAdapter = createEntityAdapter<dematHoldingType>({
-  selectId: ({ _id }) => _id,
-  sortComparer: (a, b) => a._id.localeCompare(a._id),
-});
+const dematHoldingsAdapter = createEntityAdapter<any>({
+  selectId: ({ _id }: any) => _id,
+  sortComparer: (a: any, b: any) => a._id.localeCompare(a._id),
+} as any);
 
 const initialState = dematHoldingsAdapter.getInitialState();
 
 export const dematHoldingApiSlice = rootApiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getFinancialHoldingForDemat: builder.query({
-      query: (filter) => `/vault/demats/holdings?${new URLSearchParams(filter)}`,
+      query: (filter: any) =>
+        `/vault/demats/holdings?${new URLSearchParams(filter)}`,
       transformResponse: (responseData: { data: dematHoldingType[] }) => {
         return dematHoldingsAdapter.setAll(
           initialState,
-          responseData?.data || []
+          responseData?.data || [],
         );
       },
       providesTags: (result) =>
@@ -44,7 +45,7 @@ export const dematHoldingApiSlice = rootApiSlice.injectEndpoints({
             ],
     }),
     addFinancialHoldingForDemat: builder.mutation({
-      query: ({ ...holding }) => ({
+      query: ({ ...holding }: any) => ({
         url: `/vault/demats/holdings`,
         method: "POST",
         body: holding,
@@ -60,7 +61,7 @@ export const dematHoldingApiSlice = rootApiSlice.injectEndpoints({
           : [],
     }),
     updateFinancialHoldingForDemat: builder.mutation({
-      query: ({ _id, ...financialHolding }) => ({
+      query: ({ _id, ...financialHolding }: any) => ({
         url: `/vault/demats/holdings/${_id}`,
         method: "PUT",
         body: financialHolding,

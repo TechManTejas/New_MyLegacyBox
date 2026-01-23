@@ -7,22 +7,25 @@ interface ProvidentFundHoldingType {
   _id: string;
 }
 
-const providentFundHoldingsAdapter = createEntityAdapter<ProvidentFundHoldingType>({
-  selectId: ({ _id }) => _id,
-  sortComparer: (a, b) => a._id.localeCompare(a._id),
-});
+const providentFundHoldingsAdapter = createEntityAdapter<any>({
+  selectId: (model: ProvidentFundHoldingType) => model._id,
+  sortComparer: (a: ProvidentFundHoldingType, b: ProvidentFundHoldingType) =>
+    a._id.localeCompare(a._id),
+} as any);
 
 const initialState = providentFundHoldingsAdapter.getInitialState();
 
 export const providentFundHoldingApiSlice = rootApiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getFinancialHoldingForProvidentFund: builder.query({
-      query: (filter) =>
+      query: (filter: any) =>
         `/vault/provident-funds/holdings?${new URLSearchParams(filter)}`,
-      transformResponse: (responseData: { data: ProvidentFundHoldingType[] }) => {
+      transformResponse: (responseData: {
+        data: ProvidentFundHoldingType[];
+      }) => {
         return providentFundHoldingsAdapter.setAll(
           initialState,
-          responseData?.data || []
+          responseData?.data || [],
         );
       },
       providesTags: (result) =>
@@ -69,7 +72,6 @@ export const providentFundHoldingApiSlice = rootApiSlice.injectEndpoints({
       invalidatesTags: (result, error, args) =>
         result ? [{ type: QUERY_TAGS.financialHolding, _id: args._id }] : [],
     }),
-
   }),
 });
 

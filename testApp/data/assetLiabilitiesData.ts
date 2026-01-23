@@ -11,7 +11,7 @@ import {
 } from "../constants/financialHoldings/realEstateHolding";
 
 export const artifactsData = {
-  bank: (item) => [
+  bank: (item: any) => [
     {
       key: "Bank",
       value: item.bankName,
@@ -30,7 +30,7 @@ export const artifactsData = {
     },
   ],
 
-  insurance: (item) => [
+  insurance: (item: any) => [
     {
       key: "Company",
       value: item.companyName,
@@ -53,7 +53,7 @@ export const artifactsData = {
     },
   ],
 
-  providentfund: (item) => [
+  providentfund: (item: any) => [
     {
       key: "Employer Name",
       value: item.employerName,
@@ -68,7 +68,7 @@ export const artifactsData = {
     },
   ],
 
-  postal: (item) => [
+  postal: (item: any) => [
     {
       key: "Post Office Name",
       value: item.postOfficeName,
@@ -87,7 +87,7 @@ export const artifactsData = {
     },
   ],
 
-  demat: (item) => [
+  demat: (item: any) => [
     {
       key: "Broker Name",
       value: item.broker,
@@ -106,7 +106,7 @@ export const artifactsData = {
     },
   ],
 
-  realestate: (item) => [
+  realestate: (item: any) => [
     {
       key: "Real Estate Type",
       value: REAL_ESTATE_TYPE_TO_TITLE_MAP[item.realEstateType],
@@ -125,7 +125,7 @@ export const artifactsData = {
     },
   ],
 
-  cash: (item) => [
+  cash: (item: any) => [
     {
       key: "Name of Party",
       value: item.nameOfParty,
@@ -140,7 +140,7 @@ export const artifactsData = {
     },
   ],
 
-  proprietorship: (item) => [
+  proprietorship: (item: any) => [
     {
       key: "GST Number",
       value: item.gstNumber,
@@ -151,7 +151,7 @@ export const artifactsData = {
     },
   ],
 
-  partnership: (item) => [
+  partnership: (item: any) => [
     {
       key: "Percentage Holding",
       value: item.percentageHolding,
@@ -162,7 +162,7 @@ export const artifactsData = {
     },
   ],
 
-  privatelimitedcompany: (item) => [
+  privatelimitedcompany: (item: any) => [
     {
       key: "Nature of Investment",
       value: item.natureOfInvestment,
@@ -183,6 +183,5 @@ export const artifactsData = {
       key: "Share Certificate Number",
       value: item.shareCertificateNumber,
     },
-  ]
-
+  ],
 };

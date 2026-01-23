@@ -6,21 +6,21 @@ interface BankHoldingType {
   _id: string;
 }
 
-const bankHoldingsAdapter = createEntityAdapter<BankHoldingType>({
-  selectId: ({ _id }) => _id,
-  sortComparer: (a, b) => a._id.localeCompare(a._id),
-});
+const bankHoldingsAdapter = createEntityAdapter<any>({
+  selectId: ({ _id }: any) => _id,
+  sortComparer: (a: any, b: any) => a._id.localeCompare(a._id),
+} as any);
 
 const initialState = bankHoldingsAdapter.getInitialState();
 
 export const bankHoldingApiSlice = rootApiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getFinancialHoldingForBank: builder.query({
-      query: (parentId) => `/vault/banks/${parentId}/holdings`,
+      query: (parentId: string) => `/vault/banks/${parentId}/holdings`,
       transformResponse: (responseData: { data: BankHoldingType[] }) => {
         return bankHoldingsAdapter.setAll(
           initialState,
-          responseData?.data || []
+          responseData?.data || [],
         );
       },
       providesTags: (result) =>
@@ -43,7 +43,7 @@ export const bankHoldingApiSlice = rootApiSlice.injectEndpoints({
             ],
     }),
     addFinancialHoldingForBank: builder.mutation({
-      query: ({ parentId, ...holding }) => ({
+      query: ({ parentId, ...holding }: any) => ({
         url: `/vault/banks/${parentId}/holdings`,
         method: "POST",
         body: holding,
@@ -59,7 +59,7 @@ export const bankHoldingApiSlice = rootApiSlice.injectEndpoints({
           : [],
     }),
     updateFinancialHoldingForBank: builder.mutation({
-      query: ({ parentId, _id, ...financialHolding }) => ({
+      query: ({ parentId, _id, ...financialHolding }: any) => ({
         url: `/vault/banks/${parentId}/holdings/${_id}`,
         method: "PUT",
         body: financialHolding,

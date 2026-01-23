@@ -6,10 +6,10 @@ interface FinancialHoldingType {
   _id: string;
 }
 
-const financialHoldingsAdapter = createEntityAdapter<FinancialHoldingType>({
-  selectId: ({ _id }) => _id,
-  sortComparer: (a, b) => a._id.localeCompare(a._id),
-});
+const financialHoldingsAdapter = createEntityAdapter<any>({
+  selectId: ({ _id }: any) => _id,
+  sortComparer: (a: any, b: any) => a._id.localeCompare(a._id),
+} as any);
 
 const initialState = financialHoldingsAdapter.getInitialState();
 
@@ -20,7 +20,7 @@ export const extendedFinancialHoldingApiSlice = rootApiSlice.injectEndpoints({
       transformResponse: (responseData: { data: FinancialHoldingType[] }) => {
         return financialHoldingsAdapter.setAll(
           initialState,
-          responseData?.data || []
+          responseData?.data || [],
         );
       },
       providesTags: (result) =>
@@ -65,10 +65,10 @@ export const extendedFinancialHoldingApiSlice = rootApiSlice.injectEndpoints({
     }),
     getArchivedFinancialHoldings: builder.query({
       query: () => "/vault/archive-financial-holdings",
-      transformResponse: (responseData) => {
+      transformResponse: (responseData: { data: FinancialHoldingType[] }) => {
         return financialHoldingsAdapter.setAll(
           initialState,
-          responseData?.data || []
+          responseData?.data || [],
         );
       },
       providesTags: [QUERY_TAGS.archivedAssets],
@@ -82,5 +82,5 @@ export const {
   useArchiveFinancialHoldingByIdMutation,
   useGetArchivedFinancialHoldingsQuery,
   useUnarchiveFinancialHoldingByIdMutation,
-  usePermanentlyDeleteFinancialHoldingMutation
+  usePermanentlyDeleteFinancialHoldingMutation,
 } = extendedFinancialHoldingApiSlice;

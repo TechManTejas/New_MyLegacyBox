@@ -24,7 +24,7 @@ import {
 } from "../constants/financialHoldings/realEstateHolding";
 import { numberWithCommas } from "../utils/manipulators";
 
-const bankProps = (item) => {
+const bankProps = (item: any) => {
   return {
     holdingClass: item?.financialArtifact.holdingClass,
     updatedAt: item?.financialArtifact.updatedAt,
@@ -55,7 +55,7 @@ const bankProps = (item) => {
   };
 };
 
-const postalProps = (item) => {
+const postalProps = (item: any) => {
   return {
     updatedAt: item?.financialArtifact.updatedAt,
     holdingClass: item?.financialArtifact.holdingClass,
@@ -86,7 +86,7 @@ const postalProps = (item) => {
   };
 };
 
-const insuranceProps = (item) => {
+const insuranceProps = (item: any) => {
   return {
     holdingClass: item?.financialArtifact.holdingClass,
     title: item?.financialArtifact.holding.policyName,
@@ -98,7 +98,10 @@ const insuranceProps = (item) => {
         key: "Nominee",
         value: item?.financialArtifact.holding.nominee || "Not Available",
       },
-      { key: "Home Branch ", value: item?.financialArtifact.holding.homeBranch },
+      {
+        key: "Home Branch ",
+        value: item?.financialArtifact.holding.homeBranch,
+      },
       {
         key: "Policy Number ",
         value: item?.financialArtifact.holding.policyNumber,
@@ -115,7 +118,7 @@ const insuranceProps = (item) => {
         key: "Policy Amount ",
         value: item?.financialArtifact.holding.policyAmount
           ? `Rs. ${numberWithCommas(
-              item?.financialArtifact.holding.policyAmount
+              item?.financialArtifact.holding.policyAmount,
             )}`
           : "Not Available",
       },
@@ -130,7 +133,7 @@ const insuranceProps = (item) => {
         key: "Premium Amount ",
         value: item?.financialArtifact.holding.premiumAmount
           ? `Rs. ${numberWithCommas(
-              item?.financialArtifact.holding.premiumAmount
+              item?.financialArtifact.holding.premiumAmount,
             )}`
           : "Not Available",
       },
@@ -151,7 +154,7 @@ const insuranceProps = (item) => {
   };
 };
 
-const cashProps = (item) => {
+const cashProps = (item: any) => {
   return {
     holdingClass: item?.financialArtifact.holdingClass,
     updatedAt: item?.financialArtifact.updatedAt,
@@ -188,7 +191,7 @@ const cashProps = (item) => {
   };
 };
 
-const dematProps = (item) => {
+const dematProps = (item: any) => {
   return {
     title: item?.financialArtifact.holding.broker,
     updatedAt: item?.financialArtifact.updatedAt,
@@ -215,7 +218,7 @@ const dematProps = (item) => {
         key: "Invested Amount",
         value: item?.financialArtifact.holding.investedAmount
           ? `Rs. ${numberWithCommas(
-              item?.financialArtifact.holding.investedAmount
+              item?.financialArtifact.holding.investedAmount,
             )}`
           : "Not available",
       },
@@ -223,7 +226,7 @@ const dematProps = (item) => {
   };
 };
 
-const proprietorshipProps = (item) => {
+const proprietorshipProps = (item: any) => {
   return {
     title: item?.financialArtifact.holding.organisationName,
     updatedAt: item?.financialArtifact.updatedAt,
@@ -234,7 +237,7 @@ const proprietorshipProps = (item) => {
   };
 };
 
-const partnershipProps = (item) => {
+const partnershipProps = (item: any) => {
   return {
     title: item?.financialArtifact.holding.nameOfFirm,
     updatedAt: item.updatedAt,
@@ -249,7 +252,7 @@ const partnershipProps = (item) => {
   };
 };
 
-const privateLimitedCompanyProps = (item) => {
+const privateLimitedCompanyProps = (item: any) => {
   return {
     title: item?.financialArtifact.holding.nameOfCompany,
     updatedAt: item?.financialArtifact.updatedAt,
@@ -288,7 +291,7 @@ const privateLimitedCompanyProps = (item) => {
   };
 };
 
-const realEstateProps = (item) => {
+const realEstateProps = (item: any) => {
   return {
     title: item?.financialArtifact.holding.propertyName,
     holdingClass: item?.financialArtifact.holdingClass,
@@ -323,7 +326,7 @@ const realEstateProps = (item) => {
         key: "Property Value",
         value: item?.financialArtifact.holding.propertyValue
           ? `Rs. ${numberWithCommas(
-              item?.financialArtifact.holding.propertyValue
+              item?.financialArtifact.holding.propertyValue,
             )}`
           : "Not Available",
       },
@@ -350,7 +353,7 @@ const realEstateProps = (item) => {
   };
 };
 
-const providentFundProps = (item) => {
+const providentFundProps = (item: any) => {
   return {
     title: item?.financialArtifact.holding.employerName,
     holdingClass: item?.financialArtifact.holdingClass,

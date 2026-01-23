@@ -181,7 +181,8 @@
 <a name='L116'></a><a href='#L116'>116</a>
 <a name='L117'></a><a href='#L117'>117</a>
 <a name='L118'></a><a href='#L118'>118</a>
-<a name='L119'></a><a href='#L119'>119</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L119'></a><a href='#L119'>119</a>
+<a name='L120'></a><a href='#L120'>120</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -241,8 +242,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -303,18 +305,17 @@
 import React from "react";
 import { useTheme } from "../../theme/ThemeProvider";
 import CustomToolTip from "../Common/CustomToolTip";
-import { Ionicons } from "@expo/vector-icons"
+import { Ionicons } from "@expo/vector-icons";
 &nbsp;
-const WillResidualDistPrevCard = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >({</span> residualData }) =&gt; {</span>
+const WillResidualDistPrevCard = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >({</span> residualData }: any) =&gt; {</span>
   const {
     theme: { spacing, colors, fontFamily, fontSize },
   } = <span class="cstat-no" title="statement not covered" >useTheme();</span>
 &nbsp;
   const styles = <span class="cstat-no" title="statement not covered" >StyleSheet.create({</span>
-&nbsp;
     header: {
       alignItems: "center",
-      flexDirection: "row"
+      flexDirection: "row",
     },
     residualSection: {
       padding: spacing.md,
@@ -371,28 +372,30 @@ const WillResidualDistPrevCard = <span class="cstat-no" title="statement not cov
         &lt;View style={styles.header}&gt;
           &lt;Text style={styles.titleText}&gt;Residuary Distribution&lt;/Text&gt;
           &lt;CustomToolTip
-              icon={
-                &lt;Ionicons
-                  name="information-circle-outline"
-                  size={fontSize.default}
-                  color={colors.blue500}
-                /&gt;
-              }
-              message={
-                &lt;View&gt;
-                  &lt;Text style={styles.toolTipMessage}&gt;
-                    It is essential to specify 'Residuary clause' in a Will, which refers to any other property not specifically 
-                    included in a Will or which is not in existence at the time of execution of a Will. Residuary clause clarifies 
-                    the mannerism in which any such assets are to be bequeathed. 
-                  &lt;/Text&gt;
-                &lt;/View&gt;
-              }
-              position={"bottom"}
-              style={{ marginTop: spacing.md, marginLeft: -spacing.md }}
-            /&gt;
+            icon={
+              &lt;Ionicons
+                name="information-circle-outline"
+                size={fontSize.default}
+                color={colors.blue500}
+              /&gt;
+            }
+            message={
+              &lt;View&gt;
+                &lt;Text style={styles.toolTipMessage}&gt;
+                  It is essential to specify 'Residuary clause' in a Will, which
+                  refers to any other property not specifically included in a
+                  Will or which is not in existence at the time of execution of
+                  a Will. Residuary clause clarifies the mannerism in which any
+                  such assets are to be bequeathed.
+                &lt;/Text&gt;
+              &lt;/View&gt;
+            }
+            position={"bottom"}
+            style={{ marginTop: spacing.md, marginLeft: -spacing.md }}
+          /&gt;
         &lt;/View&gt;
         &lt;View style={styles.residualSection}&gt;
-          {residualData.map(<span class="fstat-no" title="function not covered" >(i</span>tem, index) =&gt; {
+          {residualData.map(<span class="fstat-no" title="function not covered" >(i</span>tem: any, index: any) =&gt; {
 <span class="cstat-no" title="statement not covered" >            if (item.percent !== "0" &amp;&amp; item.percent !== "")</span>
 <span class="cstat-no" title="statement not covered" >              return (</span>
                 &lt;View key={index} style={styles.residualCard}&gt;
@@ -424,7 +427,7 @@ export default WillResidualDistPrevCard;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-01-23T09:38:53.815Z
+                at 2026-01-23T11:14:28.912Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>

@@ -14,16 +14,16 @@ export const privateLimitedCompanyHoldingValidator = z
       })
       .regex(
         new RegExp(
-          "^([LUu]{1})([0-9]{5})([A-Za-z]{2})([0-9]{4})([A-Za-z]{3})([0-9]{6})$"
+          "^([LUu]{1})([0-9]{5})([A-Za-z]{2})([0-9]{4})([A-Za-z]{3})([0-9]{6})$",
         ),
-        "Invalid CIN number"
+        "Invalid CIN number",
       ),
     natureOfInvestment: z.enum(
-      Object.values(PRIVATE_LIMITED_COMPANY_TYPE_MAP),
+      Object.values(PRIVATE_LIMITED_COMPANY_TYPE_MAP) as [string, ...string[]],
       {
         required_error: "Nature of investment is required",
         invalid_type_error: "Invalid type for Nature of investment",
-      }
+      },
     ),
     noOfSharesHeld: z
       .number({
@@ -63,7 +63,7 @@ export const privateLimitedCompanyHoldingValidator = z
     {
       message: "This field is required for equity/preference",
       path: ["noOfSharesHeld"],
-    }
+    },
   )
   .refine(
     (args) => {
@@ -78,7 +78,7 @@ export const privateLimitedCompanyHoldingValidator = z
     {
       message: "This field is required for equity/preference",
       path: ["shareCertificateNumber"],
-    }
+    },
   )
   .refine(
     (args) => {
@@ -90,7 +90,7 @@ export const privateLimitedCompanyHoldingValidator = z
     {
       message: "This field is required for esop",
       path: ["noOfSharesGranted"],
-    }
+    },
   )
   .refine(
     (args) => {
@@ -102,5 +102,5 @@ export const privateLimitedCompanyHoldingValidator = z
     {
       message: "This field is required for esop",
       path: ["noOfSharesVested"],
-    }
+    },
   );

@@ -8,45 +8,53 @@ import { addressValidator } from "./addressValidator";
 
 export const realEstateHoldingValidator = z
   .object({
+    propertyName: z.string({
+      required_error: "Property Name is required",
+      invalid_type_error: "Invalid type for property name",
+    }),
 
-    propertyName: z
-      .string({
-        required_error: "Property Name is required",
-        invalid_type_error: "Invalid type for property name",
-      }),
-
-    realEstateType: z
-      .enum(Object.values(REAL_ESTATE_TYPE_MAP), {
+    realEstateType: z.enum(
+      Object.values(REAL_ESTATE_TYPE_MAP) as [string, ...string[]],
+      {
         required_error: "Real estate type is required",
         invalid_type_error: "Invalid type for Real estate type",
-      }),
+      },
+    ),
 
-    ownershipStatus: z
-      .enum(Object.values(REAL_ESTATE_OWNERSHIP_STATUS_MAP), {
+    ownershipStatus: z.enum(
+      Object.values(REAL_ESTATE_OWNERSHIP_STATUS_MAP) as [string, ...string[]],
+      {
         required_error: "Ownership status is required",
         invalid_type_error: "Invalid type for Ownership status",
-      }),
+      },
+    ),
 
     propertyArea: z
       .number({
         invalid_type_error: "Invalid type for Property area",
       })
-      .refine(value => !isNaN(value), {
+      .refine((value: any) => !isNaN(value), {
         message: "Input should be a numeric value",
       })
       .optional(),
 
     propertyAreaUnit: z
-      .enum(Object.values(REAL_ESTATE_PROPERTY_AREA_UNIT_MAP), {
-        invalid_type_error: "Invalid type for Property Area Unit",
-      })
+      .enum(
+        Object.values(REAL_ESTATE_PROPERTY_AREA_UNIT_MAP) as [
+          string,
+          ...string[],
+        ],
+        {
+          invalid_type_error: "Invalid type for Property Area Unit",
+        },
+      )
       .optional(),
 
     propertyValue: z
       .number({
         invalid_type_error: "Invalid type for Property value",
       })
-      .refine(value => !isNaN(value), {
+      .refine((value: any) => !isNaN(value), {
         message: "Input should be a numeric value",
       })
       .optional(),
@@ -63,7 +71,7 @@ export const realEstateHoldingValidator = z
         invalid_type_error: "Invalid type for Ownership percentage",
       })
       .max(100)
-      .refine(value => !isNaN(value), {
+      .refine((value: any) => !isNaN(value), {
         message: "Input should be a numeric value",
       }),
 
@@ -74,6 +82,5 @@ export const realEstateHoldingValidator = z
       .optional(),
 
     address: addressValidator,
-
   })
   .strict();
