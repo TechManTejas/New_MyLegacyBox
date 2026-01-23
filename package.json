@@ -17,7 +17,8 @@
     "ota-production": "eas update --branch production",
     "eas-build-on-success": "npx bugsnag-eas-build-on-success",
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "type-check": "tsc --noEmit"
   },
   "dependencies": {
     "@bugsnag/expo": "^51.0.0",
