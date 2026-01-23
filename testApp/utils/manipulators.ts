@@ -1,3 +1,5 @@
+import { toTitleCase } from "./stringUtils";
+
 export const cleanObjectAndTrim = (obj: any) => {
   Object.entries(obj).forEach(([k, v]) => {
     if ((v as any)?.constructor === Object) {
@@ -31,4 +33,8 @@ export function numberWithCommas(x: number) {
 export function capitalize(str: string) {
   if (!str) return str;
   return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+export function formatLabel(str: string) {
+  return toTitleCase(str.replace(/_/g, " "));
 }
