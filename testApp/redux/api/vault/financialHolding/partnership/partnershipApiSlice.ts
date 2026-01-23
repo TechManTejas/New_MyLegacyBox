@@ -7,25 +7,23 @@ interface PartnershipHoldingType {
   _id: string;
 }
 
-const partnershipHoldingsAdapter =
-  createEntityAdapter<PartnershipHoldingType>({
-    selectId: ({ _id }) => _id,
-    sortComparer: (a, b) => a._id.localeCompare(a._id),
-  });
+const partnershipHoldingsAdapter = createEntityAdapter<any>({
+  selectId: (model: PartnershipHoldingType) => model._id,
+  sortComparer: (a: PartnershipHoldingType, b: PartnershipHoldingType) =>
+    a._id.localeCompare(b._id),
+} as any);
 
 const initialState = partnershipHoldingsAdapter.getInitialState();
 
 export const partnershipHoldingApiSlice = rootApiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getFinancialHoldingForPartnership: builder.query({
-      query: (filter) =>
+      query: (filter: any) =>
         `/vault/partnerships/holdings?${new URLSearchParams(filter)}`,
-      transformResponse: (responseData: {
-        data: PartnershipHoldingType[];
-      }) => {
+      transformResponse: (responseData: { data: PartnershipHoldingType[] }) => {
         return partnershipHoldingsAdapter.setAll(
           initialState,
-          responseData?.data || []
+          responseData?.data || [],
         );
       },
       providesTags: (result) =>

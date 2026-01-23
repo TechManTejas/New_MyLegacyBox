@@ -7,22 +7,22 @@ interface cashHoldingType {
   _id: string;
 }
 
-const cashHoldingsAdapter = createEntityAdapter<cashHoldingType>({
-  selectId: ({ _id }) => _id,
-  sortComparer: (a, b) => a._id.localeCompare(a._id),
-});
+const cashHoldingsAdapter = createEntityAdapter<any>({
+  selectId: ({ _id }: any) => _id,
+  sortComparer: (a: any, b: any) => a._id.localeCompare(a._id),
+} as any);
 
 const initialState = cashHoldingsAdapter.getInitialState();
 
 export const cashHoldingApiSlice = rootApiSlice.injectEndpoints({
   endpoints: (builder) => ({
-
     getFinancialHoldingForCash: builder.query({
-      query: (filter) => `/vault/cash/holdings?${new URLSearchParams(filter)}`,
+      query: (filter: any) =>
+        `/vault/cash/holdings?${new URLSearchParams(filter)}`,
       transformResponse: (responseData: { data: cashHoldingType[] }) => {
         return cashHoldingsAdapter.setAll(
           initialState,
-          responseData?.data || []
+          responseData?.data || [],
         );
       },
       providesTags: (result) =>
@@ -45,7 +45,7 @@ export const cashHoldingApiSlice = rootApiSlice.injectEndpoints({
             ],
     }),
     addFinancialHoldingForCash: builder.mutation({
-      query: ({ ...holding }) => ({
+      query: ({ ...holding }: any) => ({
         url: `/vault/cash/holdings`,
         method: "POST",
         body: holding,
@@ -61,7 +61,7 @@ export const cashHoldingApiSlice = rootApiSlice.injectEndpoints({
           : [],
     }),
     updateFinancialHoldingForCash: builder.mutation({
-      query: ({ _id, ...financialHolding }) => ({
+      query: ({ _id, ...financialHolding }: any) => ({
         url: `/vault/cash/holdings/${_id}`,
         method: "PUT",
         body: financialHolding,

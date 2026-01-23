@@ -260,7 +260,14 @@
 <a name='L195'></a><a href='#L195'>195</a>
 <a name='L196'></a><a href='#L196'>196</a>
 <a name='L197'></a><a href='#L197'>197</a>
-<a name='L198'></a><a href='#L198'>198</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L198'></a><a href='#L198'>198</a>
+<a name='L199'></a><a href='#L199'>199</a>
+<a name='L200'></a><a href='#L200'>200</a>
+<a name='L201'></a><a href='#L201'>201</a>
+<a name='L202'></a><a href='#L202'>202</a>
+<a name='L203'></a><a href='#L203'>203</a>
+<a name='L204'></a><a href='#L204'>204</a>
+<a name='L205'></a><a href='#L205'>205</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -358,6 +365,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -462,7 +476,7 @@ import React from "react";
 import { useTheme } from "../../theme/ThemeProvider";
 import { NOMINEE_RELATIONSHIP_TO_TITLE_MAP } from "../../constants/nominee";
 import CustomToolTip from "../Common/CustomToolTip";
-import { Ionicons } from "@expo/vector-icons"
+import { Ionicons } from "@expo/vector-icons";
 &nbsp;
 interface WillSecondaryDistPrevCardProps {
   secondaryData: any[];
@@ -483,7 +497,7 @@ const WillSecondaryDistPrevCard: React.FC&lt;WillSecondaryDistPrevCardProps&gt; 
       // borderBottomColor: colors.black200,
       // paddingBottom: spacing.sm,
       alignItems: "center",
-      flexDirection: "row"
+      flexDirection: "row",
     },
     titleText: {
       fontFamily: fontFamily.semiBold,
@@ -496,7 +510,7 @@ const WillSecondaryDistPrevCard: React.FC&lt;WillSecondaryDistPrevCardProps&gt; 
       // borderColor: colors.black300,
       borderRadius: spacing.md,
       marginBottom: spacing.md,
-      backgroundColor: colors.white100
+      backgroundColor: colors.white100,
     },
     secondarySection: {},
     secondaryName: {
@@ -556,34 +570,41 @@ const WillSecondaryDistPrevCard: React.FC&lt;WillSecondaryDistPrevCardProps&gt; 
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
     secondaryData.length !== 0 &amp;&amp; (
-      &lt;View style={{  borderRadius: spacing.md, padding: spacing.md, marginTop: spacing.lg, backgroundColor: colors.white400 }}&gt;
+      &lt;View
+        style={{
+          borderRadius: spacing.md,
+          padding: spacing.md,
+          marginTop: spacing.lg,
+          backgroundColor: colors.white400,
+        }}
+      &gt;
         &lt;View style={styles.titleContainer}&gt;
           &lt;Text style={styles.titleText}&gt;Contigent Distribution&lt;/Text&gt;
           &lt;CustomToolTip
-              icon={
-                &lt;Ionicons
-                  name="information-circle-outline"
-                  size={fontSize.default}
-                  color={colors.blue500}
-                /&gt;
-              }
-              message={
-                &lt;View&gt;
-                  &lt;Text style={styles.toolTipMessage}&gt;
-                    A secondary beneficiary clause in a will, often referred to as a 'contingent beneficiary' clause, specifies 
-                    what should happen to a bequest or property if the primary beneficiary is unable to inherit or predeceases the
-                    testator.
-                  &lt;/Text&gt;
-                &lt;/View&gt;
-              }
-              position={"bottom"}
-              style={{ marginLeft: spacing.sm }}
-            /&gt;
+            icon={
+              &lt;Ionicons
+                name="information-circle-outline"
+                size={fontSize.default}
+                color={colors.blue500}
+              /&gt;
+            }
+            message={
+              &lt;View&gt;
+                &lt;Text style={styles.toolTipMessage}&gt;
+                  A secondary beneficiary clause in a will, often referred to as
+                  a 'contingent beneficiary' clause, specifies what should
+                  happen to a bequest or property if the primary beneficiary is
+                  unable to inherit or predeceases the testator.
+                &lt;/Text&gt;
+              &lt;/View&gt;
+            }
+            position={"bottom"}
+            style={{ marginLeft: spacing.sm }}
+          /&gt;
         &lt;/View&gt;
 &nbsp;
         &lt;View&gt;
-          {secondaryData.map(<span class="fstat-no" title="function not covered" >(i</span>tem, index) =&gt; {
-            
+          {secondaryData.map(<span class="fstat-no" title="function not covered" >(i</span>tem: any, index: any) =&gt; {
 <span class="cstat-no" title="statement not covered" >            if (item.distType !== 0) {</span>
 <span class="cstat-no" title="statement not covered" >              return (</span>
                 &lt;View key={index} style={styles.secondaryCard}&gt;
@@ -623,8 +644,8 @@ const WillSecondaryDistPrevCard: React.FC&lt;WillSecondaryDistPrevCardProps&gt; 
 &nbsp;
                   {item.distType === 2 &amp;&amp; (
                     &lt;View&gt;
-                      {item.distribution.map(<span class="fstat-no" title="function not covered" >(i</span>tem2, index2) =&gt; {
-<span class="cstat-no" title="statement not covered" >                        if (item2.percent !== "0"&amp;&amp;item2.percent!=="")</span>
+                      {item.distribution.map(<span class="fstat-no" title="function not covered" >(i</span>tem2: any, index2: any) =&gt; {
+<span class="cstat-no" title="statement not covered" >                        if (item2.percent !== "0" &amp;&amp; item2.percent !== "")</span>
 <span class="cstat-no" title="statement not covered" >                          return (</span>
                             &lt;View key={index2} style={styles.distCard}&gt;
                               &lt;View&gt;
@@ -661,7 +682,7 @@ export default WillSecondaryDistPrevCard;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-01-23T09:38:53.815Z
+                at 2026-01-23T11:14:28.912Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>

@@ -144,7 +144,10 @@
 <a name='L79'></a><a href='#L79'>79</a>
 <a name='L80'></a><a href='#L80'>80</a>
 <a name='L81'></a><a href='#L81'>81</a>
-<a name='L82'></a><a href='#L82'>82</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L82'></a><a href='#L82'>82</a>
+<a name='L83'></a><a href='#L83'>83</a>
+<a name='L84'></a><a href='#L84'>84</a>
+<a name='L85'></a><a href='#L85'>85</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -159,6 +162,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -239,29 +245,32 @@ export const nomineeValidator = <span class="cstat-no" title="statement not cove
         required_error: "Full name is required",
         invalid_type_error: "Invalid type for Full name",
       })
-      .refine(<span class="fstat-no" title="function not covered" >(v</span>alue) =&gt; <span class="cstat-no" title="statement not covered" >/^[A-Za-z\s]+$/.test(value),</span> {
+      .refine(<span class="fstat-no" title="function not covered" >(v</span>alue: string) =&gt; <span class="cstat-no" title="statement not covered" >/^[A-Za-z\s]+$/.test(value),</span> {
         message: "Input should be a non-numeric value",
       }),
 &nbsp;
-    gender: z.enum(Object.values(NOMINEE_GENDER_MAP), {
+    gender: z.enum(Object.values(NOMINEE_GENDER_MAP) as [string, ...string[]], {
       required_error: "Gender is required",
       invalid_type_error: "Invalid type for Gender",
     }),
 &nbsp;
-    relationship: z.enum(Object.values(NOMINEE_RELATIONSHIP_MAP), {
-      required_error: "Relationship is required",
-      invalid_type_error: "Invalid type for Relationship",
-    }),
+    relationship: z.enum(
+      Object.values(NOMINEE_RELATIONSHIP_MAP) as [string, ...string[]],
+      {
+        required_error: "Relationship is required",
+        invalid_type_error: "Invalid type for Relationship",
+      },
+    ),
 &nbsp;
     phoneNumber: z
       .string({
         required_error: "Phone number is required",
         invalid_type_error: "Invalid type for Phone number",
       })
-      .refine(<span class="fstat-no" title="function not covered" >(v</span>alue) =&gt; <span class="cstat-no" title="statement not covered" >!isNaN(value),</span> {
+      .refine(<span class="fstat-no" title="function not covered" >(v</span>alue: any) =&gt; <span class="cstat-no" title="statement not covered" >!isNaN(value),</span> {
         message: "Input should be a numeric value",
       })
-      .refine(<span class="fstat-no" title="function not covered" >(v</span>alue) =&gt; <span class="cstat-no" title="statement not covered" >/^\d{10}$/.test(value),</span> {
+      .refine(<span class="fstat-no" title="function not covered" >(v</span>alue: string) =&gt; <span class="cstat-no" title="statement not covered" >/^\d{10}$/.test(value),</span> {
         message: "Number should be of 10 digits",
       }),
 &nbsp;
@@ -277,7 +286,7 @@ export const nomineeValidator = <span class="cstat-no" title="statement not cove
       .number({
         invalid_type_error: "Invalid type for number",
       })
-      .refine(<span class="fstat-no" title="function not covered" >(v</span>alue) =&gt; <span class="cstat-no" title="statement not covered" >!isNaN(value),</span> {
+      .refine(<span class="fstat-no" title="function not covered" >(v</span>alue: any) =&gt; <span class="cstat-no" title="statement not covered" >!isNaN(value),</span> {
         message: "Input should be a numeric value",
       })
       .optional(),
@@ -286,10 +295,10 @@ export const nomineeValidator = <span class="cstat-no" title="statement not cove
       .string({
         invalid_type_error: "Invalid type for Aadhar number",
       })
-      .refine(<span class="fstat-no" title="function not covered" >(v</span>alue) =&gt; <span class="cstat-no" title="statement not covered" >!isNaN(value),</span> {
+      .refine(<span class="fstat-no" title="function not covered" >(v</span>alue: any) =&gt; <span class="cstat-no" title="statement not covered" >!isNaN(value),</span> {
         message: "Input should be a numeric value",
       })
-      .refine(<span class="fstat-no" title="function not covered" >(v</span>alue) =&gt; <span class="cstat-no" title="statement not covered" >/^\d{12}$/.test(value),</span> {
+      .refine(<span class="fstat-no" title="function not covered" >(v</span>alue: string) =&gt; <span class="cstat-no" title="statement not covered" >/^\d{12}$/.test(value),</span> {
         message: "Number should be of 12 digits",
       })
       .optional(),
@@ -298,7 +307,7 @@ export const nomineeValidator = <span class="cstat-no" title="statement not cove
       .string({
         invalid_type_error: "Invalid type for father's name",
       })
-      .refine(<span class="fstat-no" title="function not covered" >(v</span>alue) =&gt; <span class="cstat-no" title="statement not covered" >/^[A-Za-z\s]+$/.test(value),</span> {
+      .refine(<span class="fstat-no" title="function not covered" >(v</span>alue: string) =&gt; <span class="cstat-no" title="statement not covered" >/^[A-Za-z\s]+$/.test(value),</span> {
         message: "Input should be a non-numeric value",
       })
       .optional(),
@@ -313,7 +322,7 @@ export const nomineeValidator = <span class="cstat-no" title="statement not cove
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-01-23T09:38:53.815Z
+                at 2026-01-23T11:14:28.912Z
             </div>
         <script src="../../../../../prettify.js"></script>
         <script>

@@ -6,21 +6,22 @@ interface PostalHoldingType {
   _id: string;
 }
 
-const postalHoldingsAdapter = createEntityAdapter<PostalHoldingType>({
-  selectId: ({ _id }) => _id,
-  sortComparer: (a, b) => a._id.localeCompare(a._id),
-});
+const postalHoldingsAdapter = createEntityAdapter<any>({
+  selectId: (model: PostalHoldingType) => model._id,
+  sortComparer: (a: PostalHoldingType, b: PostalHoldingType) =>
+    a._id.localeCompare(a._id),
+} as any);
 
 const initialState = postalHoldingsAdapter.getInitialState();
 
 export const postalHoldingApiSlice = rootApiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getFinancialHoldingForPostal: builder.query({
-      query: (parentId) => `/vault/postals/${parentId}/holdings`,
+      query: (parentId: any) => `/vault/postals/${parentId}/holdings`,
       transformResponse: (responseData: { data: PostalHoldingType[] }) => {
         return postalHoldingsAdapter.setAll(
           initialState,
-          responseData?.data || []
+          responseData?.data || [],
         );
       },
       providesTags: (result) =>
@@ -43,7 +44,7 @@ export const postalHoldingApiSlice = rootApiSlice.injectEndpoints({
             ],
     }),
     addFinancialHoldingForPostal: builder.mutation({
-      query: ({ parentId, ...holding }) => ({
+      query: ({ parentId, ...holding }: any) => ({
         url: `/vault/postals/${parentId}/holdings`,
         method: "POST",
         body: holding,
@@ -59,7 +60,7 @@ export const postalHoldingApiSlice = rootApiSlice.injectEndpoints({
           : [],
     }),
     updateFinancialHoldingForPostal: builder.mutation({
-      query: ({ parentId, _id, ...financialHolding }) => ({
+      query: ({ parentId, _id, ...financialHolding }: any) => ({
         url: `/vault/postals/${parentId}/holdings/${_id}`,
         method: "PUT",
         body: financialHolding,

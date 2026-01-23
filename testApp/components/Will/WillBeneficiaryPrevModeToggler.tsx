@@ -4,7 +4,7 @@ import { useTheme } from "../../theme/ThemeProvider";
 import WillToggleCard from "./WillToggleCard";
 import { FontAwesome } from "@expo/vector-icons";
 
-const WillBeneficiaryPrevModeToggler = ({ contents, title, percent }) => {
+const WillBeneficiaryPrevModeToggler = ({ contents, title, percent }: any) => {
   const {
     theme: { fontFamily, colors, spacing },
   } = useTheme();
@@ -20,7 +20,7 @@ const WillBeneficiaryPrevModeToggler = ({ contents, title, percent }) => {
   });
 
   const [isDisplayed, setIsDisplayed] = useState(false);
-  
+
   return (
     <View>
       <View
@@ -55,8 +55,11 @@ const WillBeneficiaryPrevModeToggler = ({ contents, title, percent }) => {
         </Text>
       </View>
       {isDisplayed &&
-        contents.map((content, index) => (
-          <WillToggleCard key={index + "will-toggle-card" + content[0].value} contents={content} />
+        contents.map((content: any, index: any) => (
+          <WillToggleCard
+            key={index + "will-toggle-card" + content[0].value}
+            contents={content}
+          />
         ))}
     </View>
   );

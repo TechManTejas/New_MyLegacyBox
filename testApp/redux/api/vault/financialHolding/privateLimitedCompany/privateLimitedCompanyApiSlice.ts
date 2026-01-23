@@ -7,11 +7,13 @@ interface PrivateLimitedCompanyHoldingType {
   _id: string;
 }
 
-const privateLimitedCompanyHoldingsAdapter =
-  createEntityAdapter<PrivateLimitedCompanyHoldingType>({
-    selectId: ({ _id }) => _id,
-    sortComparer: (a, b) => a._id.localeCompare(a._id),
-  });
+const privateLimitedCompanyHoldingsAdapter = createEntityAdapter<any>({
+  selectId: (model: PrivateLimitedCompanyHoldingType) => model._id,
+  sortComparer: (
+    a: PrivateLimitedCompanyHoldingType,
+    b: PrivateLimitedCompanyHoldingType,
+  ) => a._id.localeCompare(a._id),
+} as any);
 
 const initialState = privateLimitedCompanyHoldingsAdapter.getInitialState();
 
@@ -19,16 +21,16 @@ export const privateLimitedCompanyHoldingApiSlice =
   rootApiSlice.injectEndpoints({
     endpoints: (builder) => ({
       getFinancialHoldingForPrivateLimitedCompany: builder.query({
-        query: (filter) =>
+        query: (filter: any) =>
           `/vault/private-limited-companies/holdings?${new URLSearchParams(
-            filter
+            filter,
           )}`,
         transformResponse: (responseData: {
           data: PrivateLimitedCompanyHoldingType[];
         }) => {
           return privateLimitedCompanyHoldingsAdapter.setAll(
             initialState,
-            responseData?.data || []
+            responseData?.data || [],
           );
         },
         providesTags: (result) =>

@@ -7,22 +7,23 @@ interface realEstateHoldingType {
   _id: string;
 }
 
-const realEstateHoldingsAdapter = createEntityAdapter<realEstateHoldingType>({
-  selectId: ({ _id }) => _id,
-  sortComparer: (a, b) => a._id.localeCompare(a._id),
-});
+const realEstateHoldingsAdapter = createEntityAdapter<any>({
+  selectId: (model: realEstateHoldingType) => model._id,
+  sortComparer: (a: realEstateHoldingType, b: realEstateHoldingType) =>
+    a._id.localeCompare(a._id),
+} as any);
 
 const initialState = realEstateHoldingsAdapter.getInitialState();
 
 export const realEstateHoldingApiSlice = rootApiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getFinancialHoldingForRealEstate: builder.query({
-      query: (filter) =>
+      query: (filter: any) =>
         `/vault/real-estates/holdings?${new URLSearchParams(filter)}`,
       transformResponse: (responseData: { data: realEstateHoldingType[] }) => {
         return realEstateHoldingsAdapter.setAll(
           initialState,
-          responseData?.data || []
+          responseData?.data || [],
         );
       },
       providesTags: (result) =>

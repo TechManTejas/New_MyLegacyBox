@@ -10,7 +10,9 @@ describe("authSlice", () => {
   };
 
   it("should return the initial state", () => {
-    expect(authReducer(undefined, { type: undefined })).toEqual(initialState);
+    expect(authReducer(undefined, { type: undefined } as any)).toEqual(
+      initialState,
+    );
   });
 
   it("should handle setSessionRedux", () => {

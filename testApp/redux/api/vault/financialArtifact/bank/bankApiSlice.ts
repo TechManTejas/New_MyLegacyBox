@@ -12,16 +12,16 @@ type Bank = {
   // Other properties...
 };
 
-const bankAdapter = createEntityAdapter<Bank>({
-  selectId: ({ _id }) => _id,
-  sortComparer: (a, b) => a._id.localeCompare(b._id),
-});
+const bankAdapter = createEntityAdapter<any>({
+  selectId: ({ _id }: any) => _id,
+  sortComparer: (a: any, b: any) => a._id.localeCompare(b._id),
+} as any);
 
 const initialState = bankAdapter.getInitialState();
 
 export const extendedBankApiSlice = rootApiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getBanks: builder.query<EntityState<Bank>, void>({
+    getBanks: builder.query<EntityState<any, string>, void>({
       query: () => "/vault/banks",
       transformResponse: (responseData: { data: Bank[] }) => {
         const banksData = responseData.data || [];
@@ -31,7 +31,7 @@ export const extendedBankApiSlice = rootApiSlice.injectEndpoints({
         result
           ? [
               { type: QUERY_TAGS.bank, id: QUERY_TAGS.bankList },
-              ...result.ids.map((id) => ({
+              ...result.ids.map((id: any) => ({
                 type: QUERY_TAGS.bank as const,
                 id,
               })),
@@ -39,7 +39,7 @@ export const extendedBankApiSlice = rootApiSlice.injectEndpoints({
           : [{ type: QUERY_TAGS.bank, id: QUERY_TAGS.bankList }],
     }),
     addBank: builder.mutation({
-      query: (bank) => ({
+      query: (bank: any) => ({
         url: "/vault/banks",
         method: "POST",
         body: bank,
@@ -48,7 +48,7 @@ export const extendedBankApiSlice = rootApiSlice.injectEndpoints({
         result ? [{ type: QUERY_TAGS.bank, id: QUERY_TAGS.bankList }] : [],
     }),
     updateBank: builder.mutation({
-      query: ({ _id, ...bank }) => ({
+      query: ({ _id, ...bank }: any) => ({
         url: `/vault/banks/${_id}`,
         method: "PUT",
         body: bank,

@@ -24,7 +24,7 @@ import {
 } from "../constants/financialHoldings/realEstateHolding";
 import { numberWithCommas } from "../utils/manipulators";
 
-const BANK = (item) => {
+const BANK = (item: any) => {
   return {
     holdingClass: item?.holdingClass,
     updatedAt: item?.updatedAt,

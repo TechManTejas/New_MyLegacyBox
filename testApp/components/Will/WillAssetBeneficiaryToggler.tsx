@@ -6,6 +6,10 @@ const WillAssetBeneficiaryToggler = ({
   distributionView,
   assetBtnCallback,
   beneficiaryBtnCallback,
+}: {
+  distributionView: any;
+  assetBtnCallback: any;
+  beneficiaryBtnCallback: any;
 }) => {
   const {
     theme: { spacing, colors, fontFamily, fontSize },

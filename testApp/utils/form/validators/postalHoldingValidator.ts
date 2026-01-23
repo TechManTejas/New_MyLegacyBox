@@ -11,25 +11,31 @@ export const postalHoldingValidator = z
         required_error: "Account number is required",
         invalid_type_error: "Invalid type for Account number",
       })
-      .refine((value) => !isNaN(value), {
+      .refine((value: any) => !isNaN(value), {
         message: "Input should be a numeric value",
       }),
 
-    accountType: z.enum(Object.values(POSTAL_ACCOUNT_TYPES_MAP), {
-      required_error: "Account type is required",
-      invalid_type_error: "Invalid type for Account type",
-    }),
+    accountType: z.enum(
+      Object.values(POSTAL_ACCOUNT_TYPES_MAP) as [string, ...string[]],
+      {
+        required_error: "Account type is required",
+        invalid_type_error: "Invalid type for Account type",
+      },
+    ),
 
-    ownership: z.enum(Object.values(POSTAL_ACCOUNT_OWNERSHIP_MAP), {
-      required_error: "Ownership is required",
-      invalid_type_error: "Invalid type for Ownership",
-    }),
+    ownership: z.enum(
+      Object.values(POSTAL_ACCOUNT_OWNERSHIP_MAP) as [string, ...string[]],
+      {
+        required_error: "Ownership is required",
+        invalid_type_error: "Invalid type for Ownership",
+      },
+    ),
 
     amount: z
       .number({
         invalid_type_error: "Invalid type for Amount",
       })
-      .refine((value) => !isNaN(value), {
+      .refine((value: any) => !isNaN(value), {
         message: "Input should be a numeric value",
       })
       .optional(),
@@ -44,7 +50,7 @@ export const postalHoldingValidator = z
       .string({
         invalid_type_error: "Invalid type for Nominee",
       })
-      .refine((value) => /^[A-Za-z\s]+$/.test(value), {
+      .refine((value: string) => /^[A-Za-z\s]+$/.test(value), {
         message: "Input should be a non-numeric value",
       })
       .optional(),

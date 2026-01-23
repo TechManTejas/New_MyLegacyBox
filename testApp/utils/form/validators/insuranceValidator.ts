@@ -3,12 +3,10 @@ import { addressValidator } from "./addressValidator";
 
 export const insuranceValidator = z
   .object({
-
-    companyName: z
-      .string({
-        required_error: "Company name is required",
-        invalid_type_error: "Invalid type for Company name",
-      }),
+    companyName: z.string({
+      required_error: "Company name is required",
+      invalid_type_error: "Invalid type for Company name",
+    }),
 
     customerId: z
       .string({
@@ -20,7 +18,7 @@ export const insuranceValidator = z
       .string({
         invalid_type_error: "Invalid type for Point of contact name",
       })
-      .refine(value => /^[A-Za-z\s]+$/.test(value), {
+      .refine((value: string) => /^[A-Za-z\s]+$/.test(value), {
         message: "Input should be a non-numeric value",
       })
       .optional(),
@@ -29,15 +27,14 @@ export const insuranceValidator = z
       .string({
         invalid_type_error: "Invalid type for Point of contact number",
       })
-      .refine(value => !isNaN(value), {
+      .refine((value: any) => !isNaN(value), {
         message: "Input should be a numeric value",
       })
-      .refine(value => /^\d{10}$/.test(value), {
-        message: "Number should be of 10 digits"
+      .refine((value: string) => /^\d{10}$/.test(value), {
+        message: "Number should be of 10 digits",
       })
       .optional(),
 
     address: addressValidator.optional(),
-    
   })
   .strict();

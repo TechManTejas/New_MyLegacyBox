@@ -18,14 +18,14 @@ const WillAssetInfoForm = ({
   initialValues,
   sectionTitles,
   beneficiariesMap,
-}) => {
+}: any) => {
   const router = useRouter();
-  const [customErrors, setCustomErrors] = useState({});
+  const [customErrors, setCustomErrors] = useState<any>({});
   const [globalErrorMessage, setGlobalErrorMessage] = useState("");
-  const formRef = useRef();
+  const formRef = useRef<any>(null);
 
-  const selectedAssetsEntities = useSelector((state) =>
-    getSelectedAssetsEntitiesSelector(state)
+  const selectedAssetsEntities = useSelector((state: any) =>
+    getSelectedAssetsEntitiesSelector(state),
   );
 
   const dispatch = useDispatch();
@@ -121,52 +121,58 @@ const WillAssetInfoForm = ({
     },
   });
 
-  const customErrorWithValidation = useCallback(({ values, errors }) => {
-    let customErrors;
-    let isValid;
+  const customErrorWithValidation = useCallback(
+    ({ values, errors }: { values: any; errors: any }) => {
+      let customErrors;
+      let isValid;
 
-    customErrors = { ...errors };
+      customErrors = { ...errors };
 
-    isValid = !Boolean(Object.keys(customErrors).length);
+      isValid = !Boolean(Object.keys(customErrors).length);
 
-    setCustomErrors(customErrors);
+      setCustomErrors(customErrors);
 
-    return isValid;
-  }, []);
+      return isValid;
+    },
+    [],
+  );
 
-  const onSubmit = useCallback(async ({ values, validateForm }) => {
-    let validationErrors;
+  const onSubmit = useCallback(
+    async ({ values, validateForm }: { values: any; validateForm: any }) => {
+      let validationErrors;
 
-    setGlobalErrorMessage("");
+      setGlobalErrorMessage("");
 
-    try {
-      validationErrors = await validateForm(values);
-    } catch (error) {
-      setGlobalErrorMessage(error.message);
-    }
-
-    const isValid = customErrorWithValidation({
-      values,
-      errors: validationErrors,
-    });
-
-    if (!isValid) return;
-
-    const allocationValues = Object.values(selectedAssetsEntities).map(
-      (asset) => {
-        const data = values[asset._id];
-
-        for (let key in data)
-          if (data.hasOwnProperty(key) && data[key] === "") data[key] = 0;
-
-        return { ...asset, allocations: data };
+      try {
+        validationErrors = await validateForm(values);
+      } catch (error) {
+        setGlobalErrorMessage((error as any).message);
       }
-    );
 
-    dispatch(setAssetRedux(allocationValues));
+      const isValid = customErrorWithValidation({
+        values,
+        errors: validationErrors,
+      });
 
-    router.push("/will/willassetindex");
-  }, []);
+      if (!isValid) return;
+
+      const allocationValues = Object.values(selectedAssetsEntities).map(
+        (asset) => {
+          const data = values[asset._id];
+
+          for (let key in data)
+            if (data.hasOwnProperty(key) && data[key] === "") data[key] = 0;
+
+          return { ...asset, allocations: data };
+        },
+      );
+
+      dispatch(setAssetRedux(allocationValues));
+
+      router.push("/will/willassetindex");
+    },
+    [],
+  );
 
   return (
     <WillFormContainer
@@ -177,97 +183,113 @@ const WillAssetInfoForm = ({
         })
       }
     >
-      <Formik
-        validationSchema={toFormikValidationSchema(willAssetInfoValidator)}
-        initialValues={initialValues}
-        innerRef={formRef}
-        validateOnChange={false}
-        validateOnBlur={false}
-      >
-        {({ setFieldValue, handleBlur, values }) => {
-          return (
-            <CustomKeyboardAvoidingScrollView keyboardVerticalOffset={100}>
-              <View style={styles.container}>
-                {Object.entries(sectionTitles).map(([k, v]) => (
-                  <View
-                    style={styles.sectionContainer}
-                    key={`allocation-section-${k}`}
-                  >
-                    <View style={styles.sectionTitleContainer}>
-                      <Text style={styles.sectionTitle}>{k}</Text>
-                    </View>
-                    {v.map(({ id, title }) => (
+      {[
+        <Formik
+          onSubmit={() => {}}
+          validationSchema={toFormikValidationSchema(willAssetInfoValidator)}
+          initialValues={initialValues}
+          innerRef={formRef}
+          validateOnChange={false}
+          validateOnBlur={false}
+        >
+          {({ setFieldValue, handleBlur, values }) => {
+            return (
+              <CustomKeyboardAvoidingScrollView>
+                {[
+                  <View style={styles.container} key="container">
+                    {Object.entries(sectionTitles).map(([k, v]) => (
                       <View
-                        style={styles.childContainer}
-                        key={`allocation-section-${id}`}
+                        style={styles.sectionContainer}
+                        key={`allocation-section-${k}`}
                       >
-                        <View style={styles.sectionAllocationTitleContainer}>
-                          <Text style={styles.sectionAllocationTitle}>
-                            {title}
-                          </Text>
-                          {customErrors[id] &&
-                          typeof customErrors[id] === "string" ? (
-                            <Text style={styles.sectionErrorMessage}>
-                              {customErrors[id]}
-                            </Text>
-                          ) : null}
+                        <View style={styles.sectionTitleContainer}>
+                          <Text style={styles.sectionTitle}>{k}</Text>
                         </View>
-                        {Object.entries(initialValues[id]).map(
-                          ([_id, allocation]) => {
-                            return (
-                              <View
-                                style={styles.individualCard}
-                                key={`allocation-input-${id}-${_id}`}
-                              >
-                                <Text
-                                  style={styles.left}
-                                >{`${beneficiariesMap[_id].fullName}`}</Text>
-                                <View style={styles.right}>
-                                  <CustomInputGroup
-                                    marginBottom={spacing.xs}
-                                    name={`${id}.${_id}`}
-                                    placeholder={`Enter %`}
-                                    onChangeText={(value) => {
-                                      if (!Number.isNaN(Number(value))) {
-                                        value.charAt(value.length - 1) === "."
-                                          ? setFieldValue(`${id}.${_id}`, value)
-                                          : setFieldValue(
-                                              `${id}.${_id}`,
-                                              Number(value)
-                                            );
-                                      }
-                                    }}
-                                    onBlur={handleBlur(`${id}.${_id}`)}
-                                    value={String(values[id][_id])}
-                                    keyboardType="numeric"
-                                    messages={
-                                      customErrors[id] && customErrors[id][_id]
-                                        ? [
-                                            {
-                                              id: "name",
-                                              text: customErrors[id][_id],
-                                            },
-                                          ]
-                                        : undefined
-                                    }
-                                  />
-                                </View>
-                              </View>
-                            );
-                          }
-                        )}
+                        {(v as any).map(({ id, title }: any) => (
+                          <View
+                            style={styles.childContainer}
+                            key={`allocation-section-${id}`}
+                          >
+                            <View
+                              style={styles.sectionAllocationTitleContainer}
+                            >
+                              <Text style={styles.sectionAllocationTitle}>
+                                {title}
+                              </Text>
+                              {customErrors[id] &&
+                              typeof customErrors[id] === "string" ? (
+                                <Text style={styles.sectionErrorMessage}>
+                                  {customErrors[id]}
+                                </Text>
+                              ) : null}
+                            </View>
+                            {Object.entries(initialValues[id]).map(
+                              ([_id, allocation]) => {
+                                return (
+                                  <View
+                                    style={styles.individualCard}
+                                    key={`allocation-input-${id}-${_id}`}
+                                  >
+                                    <Text
+                                      style={styles.left}
+                                    >{`${beneficiariesMap[_id].fullName}`}</Text>
+                                    <View style={styles.right}>
+                                      <CustomInputGroup
+                                        marginBottom={spacing.xs}
+                                        name={`${id}.${_id}`}
+                                        placeholder={`Enter %`}
+                                        onChangeText={(value) => {
+                                          if (!Number.isNaN(Number(value))) {
+                                            value.charAt(value.length - 1) ===
+                                            "."
+                                              ? setFieldValue(
+                                                  `${id}.${_id}`,
+                                                  value,
+                                                )
+                                              : setFieldValue(
+                                                  `${id}.${_id}`,
+                                                  Number(value),
+                                                );
+                                          }
+                                        }}
+                                        onBlur={handleBlur(`${id}.${_id}`)}
+                                        value={String(values[id][_id])}
+                                        keyboardType="numeric"
+                                        messages={
+                                          customErrors[id] &&
+                                          customErrors[id][_id]
+                                            ? [
+                                                {
+                                                  id: "name",
+                                                  text: customErrors[id][
+                                                    _id
+                                                  ] as string,
+                                                },
+                                              ]
+                                            : undefined
+                                        }
+                                      />
+                                    </View>
+                                  </View>
+                                );
+                              },
+                            )}
+                          </View>
+                        ))}
                       </View>
                     ))}
-                  </View>
-                ))}
-                {globalErrorMessage ? (
-                  <Text style={styles.errorMessage}>{globalErrorMessage}</Text>
-                ) : null}
-              </View>
-            </CustomKeyboardAvoidingScrollView>
-          );
-        }}
-      </Formik>
+                    {globalErrorMessage ? (
+                      <Text style={styles.errorMessage}>
+                        {globalErrorMessage}
+                      </Text>
+                    ) : null}
+                  </View>,
+                ]}
+              </CustomKeyboardAvoidingScrollView>
+            );
+          }}
+        </Formik>,
+      ]}
     </WillFormContainer>
   );
 };

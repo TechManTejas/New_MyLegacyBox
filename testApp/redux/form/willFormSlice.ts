@@ -72,10 +72,11 @@ interface WillFormSliceType {
   _id: string;
 }
 
-const selectedAssetsAdapter = createEntityAdapter<WillFormSliceType>({
-  selectId: ({ _id }) => _id,
-  sortComparer: (a, b) => a._id.localeCompare(b._id),
-});
+const selectedAssetsAdapter = createEntityAdapter<any>({
+  selectId: (model: WillFormSliceType) => model._id,
+  sortComparer: (a: WillFormSliceType, b: WillFormSliceType) =>
+    a._id.localeCompare(b._id),
+} as any);
 
 interface initialStateType {
   personalInfo?: PersonalInfoProps | {};
@@ -87,7 +88,7 @@ interface initialStateType {
     place: string;
     declaration: string;
   };
-  selectedAssets: EntityState<WillFormSliceType>;
+  selectedAssets: EntityState<any, string>;
   residualDistData: any[];
   secondaryDistData: any[];
   willRolesTracker: any[];
@@ -128,7 +129,7 @@ export const willFormSlice = createSlice({
     },
     removeWitnessRedux: (state, action) => {
       state.witnesses = state.witnesses.filter(
-        (elem) => elem._id !== action.payload
+        (elem) => elem._id !== action.payload,
       );
     },
     setExecutorRedux: (state, action) => {
@@ -140,7 +141,7 @@ export const willFormSlice = createSlice({
     },
     removeExecutorRedux: (state, action) => {
       state.executors = state.executors.filter(
-        (elem) => elem._id !== action.payload
+        (elem) => elem._id !== action.payload,
       );
     },
     setBeneficiaryRedux: (state, action) => {
@@ -155,7 +156,7 @@ export const willFormSlice = createSlice({
     },
     removeBeneficiaryRedux: (state, action) => {
       state.beneficiaries = state.beneficiaries.filter(
-        (elem) => elem._id !== action.payload
+        (elem) => elem._id !== action.payload,
       );
     },
     setAssetRedux: (state, action) => {
@@ -224,52 +225,52 @@ export const getWill = createSelector(willFormSelector, (willForm) => willForm);
 
 export const getWillRolesTrackerData = createSelector(
   willFormSelector,
-  (willForm) => willForm.willRolesTracker
+  (willForm) => willForm.willRolesTracker,
 );
 
 export const getResidualDistData = createSelector(
   willFormSelector,
-  (willForm) => willForm.residualDistData
+  (willForm) => willForm.residualDistData,
 );
 
 export const getSecondaryDistData = createSelector(
   willFormSelector,
-  (willForm) => willForm.secondaryDistData
+  (willForm) => willForm.secondaryDistData,
 );
 
 export const getPersonalInfoSelector = createSelector(
   willFormSelector,
-  (willForm) => willForm.personalInfo
+  (willForm) => willForm.personalInfo,
 );
 
 export const getWitnessesSelector = createSelector(
   willFormSelector,
-  (willForm) => willForm.witnesses
+  (willForm) => willForm.witnesses,
 );
 
 export const getExecutorsSelector = createSelector(
   willFormSelector,
-  (willForm) => willForm.executors
+  (willForm) => willForm.executors,
 );
 
 export const getBeneficiariesSelector = createSelector(
   willFormSelector,
-  (willForm) => willForm.beneficiaries
+  (willForm) => willForm.beneficiaries,
 );
 
 export const getAssetsSelector = createSelector(
   willFormSelector,
-  (willForm) => willForm.assets
+  (willForm) => willForm.assets,
 );
 
 export const getDeclarationSelector = createSelector(
   willFormSelector,
-  (willForm) => willForm.declarationInfo
+  (willForm) => willForm.declarationInfo,
 );
 
 const selectedAssetsSelector = selectedAssetsAdapter.getSelectors(
   (state: { willForm: { selectedAssets: any } }) =>
-    state.willForm.selectedAssets
+    state.willForm.selectedAssets,
 );
 
 export const getSelectedAssetsSelector = selectedAssetsSelector.selectAll;

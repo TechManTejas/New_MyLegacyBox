@@ -595,7 +595,8 @@
 <a name='L530'></a><a href='#L530'>530</a>
 <a name='L531'></a><a href='#L531'>531</a>
 <a name='L532'></a><a href='#L532'>532</a>
-<a name='L533'></a><a href='#L533'>533</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L533'></a><a href='#L533'>533</a>
+<a name='L534'></a><a href='#L534'>534</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1061,6 +1062,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1162,7 +1164,7 @@ import WillPreviewNomineesCard from "./WillPreviewNomineesCard";
 const WillDownloadCard = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
   const [generateWordFileHash] = <span class="cstat-no" title="statement not covered" >useGenerateWordFileHashMutation();</span>
 &nbsp;
-  const { data, isLoading, isFetching } = <span class="cstat-no" title="statement not covered" >useGetWillQuery();</span>
+  const { data, isLoading, isFetching } = <span class="cstat-no" title="statement not covered" >useGetWillQuery(undefined);</span>
 &nbsp;
   const {
     theme: { spacing, fontFamily, fontSize, colors },
@@ -1321,12 +1323,12 @@ const WillDownloadCard = <span class="cstat-no" title="statement not covered" ><
     { type: "PROVIDENT_FUND", title: "Provident Fund" },
   ];
 &nbsp;
-  const getContents = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(s</span>ingleAsset) =&gt; {</span>
+  const getContents = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(s</span>ingleAsset: any) =&gt; {</span>
     let totalContents = <span class="cstat-no" title="statement not covered" >[];</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    switch (singleAsset.section) {</span>
       case "BANK":
-<span class="cstat-no" title="statement not covered" >        totalContents = singleAsset.children.map(<span class="fstat-no" title="function not covered" >(i</span>tem) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >        totalContents = singleAsset.children.map(<span class="fstat-no" title="function not covered" >(i</span>tem: any) =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >          return [</span>
             {
               key: "Account Type",
@@ -1345,7 +1347,7 @@ const WillDownloadCard = <span class="cstat-no" title="statement not covered" ><
         });
 <span class="cstat-no" title="statement not covered" >        break;</span>
       case "POSTAL":
-<span class="cstat-no" title="statement not covered" >        totalContents = singleAsset.children.map(<span class="fstat-no" title="function not covered" >(i</span>tem, index) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >        totalContents = singleAsset.children.map(<span class="fstat-no" title="function not covered" >(i</span>tem: any, index: any) =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >          return [</span>
             {
               key: "Account Type",
@@ -1365,7 +1367,7 @@ const WillDownloadCard = <span class="cstat-no" title="statement not covered" ><
         });
 <span class="cstat-no" title="statement not covered" >        break;</span>
       case "INSURANCE":
-<span class="cstat-no" title="statement not covered" >        totalContents = singleAsset.children.map(<span class="fstat-no" title="function not covered" >(i</span>tem, index) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >        totalContents = singleAsset.children.map(<span class="fstat-no" title="function not covered" >(i</span>tem: any, index: any) =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >          return [</span>
             {
               key: "Policy Name",
@@ -1496,11 +1498,11 @@ const WillDownloadCard = <span class="cstat-no" title="statement not covered" ><
 &nbsp;
   const generateDownloadLink = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >as</span>ync () =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >    try {</span>
-      const result = <span class="cstat-no" title="statement not covered" >await generateWordFileHash().unwrap();</span>
+      const result = <span class="cstat-no" title="statement not covered" >await generateWordFileHash(undefined).unwrap();</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >      if (result.data &amp;&amp; result.status === 200) {</span>
 <span class="cstat-no" title="statement not covered" >        Linking.openURL(</span>
-          generateWordFileWillByHashUrl.replace(":hashedWillId", result.data)
+          generateWordFileWillByHashUrl.replace(":hashedWillId", result.data),
         );
       }
     } catch (error) {
@@ -1572,7 +1574,7 @@ const WillDownloadCard = <span class="cstat-no" title="statement not covered" ><
 <span class="cstat-no" title="statement not covered" >              &lt;WillAssetByCategoryCard</span>
                 key={idx}
                 assetList={data.data.assets.filter(
-<span class="fstat-no" title="function not covered" >                  (a</span>sset) =&gt; <span class="cstat-no" title="statement not covered" >asset.section === assetDetail.type</span>
+<span class="fstat-no" title="function not covered" >                  (a</span>sset: any) =&gt; <span class="cstat-no" title="statement not covered" >asset.section === assetDetail.type,</span>
                 )}
                 title={assetDetail.title}
               /&gt;
@@ -1581,17 +1583,17 @@ const WillDownloadCard = <span class="cstat-no" title="statement not covered" ><
         ) : (
           &lt;View style={{ marginTop: spacing.md }}&gt;
             {data?.data?.beneficiaries
-              .filter(<span class="fstat-no" title="function not covered" >(b</span>eneficiary) =&gt; {
+              .filter(<span class="fstat-no" title="function not covered" >(b</span>eneficiary: any) =&gt; {
 <span class="cstat-no" title="statement not covered" >                if (data?.data?.assets) {</span>
                   let sum = <span class="cstat-no" title="statement not covered" >0;</span>
-<span class="cstat-no" title="statement not covered" >                  data.data.assets.forEach(<span class="fstat-no" title="function not covered" >(a</span>sset) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >                  data.data.assets.forEach(<span class="fstat-no" title="function not covered" >(a</span>sset: any) =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >                    sum += asset.allocations[beneficiary._id];</span>
                   });
 <span class="cstat-no" title="statement not covered" >                  return sum != 0;</span>
                 }
 <span class="cstat-no" title="statement not covered" >                return false;</span>
               })
-              .map(<span class="fstat-no" title="function not covered" >(b</span>eneficiary, idx) =&gt; {
+              .map(<span class="fstat-no" title="function not covered" >(b</span>eneficiary: any, idx: any) =&gt; {
 <span class="cstat-no" title="statement not covered" >                return (</span>
                   &lt;View key={idx} style={styles.beneficiaryContainer}&gt;
                     &lt;View style={styles.beneficiaryNameEmail}&gt;
@@ -1615,12 +1617,13 @@ const WillDownloadCard = <span class="cstat-no" title="statement not covered" ><
                     &lt;View style={{ marginTop: spacing.md }}&gt;
                       {data?.data?.assets
                         .filter(
-<span class="fstat-no" title="function not covered" >                          (a</span>sset) =&gt; <span class="cstat-no" title="statement not covered" >asset.allocations[beneficiary._id] &gt; 0</span>
+<span class="fstat-no" title="function not covered" >                          (a</span>sset: any) =&gt;
+<span class="cstat-no" title="statement not covered" >                            asset.allocations[beneficiary._id] &gt; 0,</span>
                         )
-                        .map(<span class="fstat-no" title="function not covered" >(a</span>sset, idx2) =&gt; {
+                        .map(<span class="fstat-no" title="function not covered" >(a</span>sset: any, idx2: any) =&gt; {
 <span class="cstat-no" title="statement not covered" >                          if (</span>
                             Object.keys(asset.allocations).some(
-<span class="fstat-no" title="function not covered" >                              (i</span>d) =&gt; <span class="cstat-no" title="statement not covered" >id === beneficiary._id</span>
+<span class="fstat-no" title="function not covered" >                              (i</span>d: any) =&gt; <span class="cstat-no" title="statement not covered" >id === beneficiary._id,</span>
                             )
                           ) {
                             const detailsCardContent = <span class="cstat-no" title="statement not covered" >getContents(asset);</span>
@@ -1666,7 +1669,7 @@ export default WillDownloadCard;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-01-23T09:38:53.815Z
+                at 2026-01-23T11:14:28.912Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>

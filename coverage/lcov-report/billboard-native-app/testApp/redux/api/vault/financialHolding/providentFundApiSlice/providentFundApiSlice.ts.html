@@ -143,7 +143,9 @@
 <a name='L78'></a><a href='#L78'>78</a>
 <a name='L79'></a><a href='#L79'>79</a>
 <a name='L80'></a><a href='#L80'>80</a>
-<a name='L81'></a><a href='#L81'>81</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L81'></a><a href='#L81'>81</a>
+<a name='L82'></a><a href='#L82'>82</a>
+<a name='L83'></a><a href='#L83'>83</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -154,37 +156,21 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -206,6 +192,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -214,6 +203,21 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -232,22 +236,25 @@ interface ProvidentFundHoldingType {
   _id: string;
 }
 &nbsp;
-const providentFundHoldingsAdapter = <span class="cstat-no" title="statement not covered" >createEntityAdapter&lt;ProvidentFundHoldingType&gt;({</span>
-  selectId: <span class="fstat-no" title="function not covered" >({</span> _id }) =&gt; <span class="cstat-no" title="statement not covered" >_id,</span>
-  sortComparer: <span class="fstat-no" title="function not covered" >(a</span>, b) =&gt; <span class="cstat-no" title="statement not covered" >a._id.localeCompare(a._id),</span>
-});
+const providentFundHoldingsAdapter = <span class="cstat-no" title="statement not covered" >createEntityAdapter&lt;any&gt;({</span>
+  selectId: <span class="fstat-no" title="function not covered" >(m</span>odel: ProvidentFundHoldingType) =&gt; <span class="cstat-no" title="statement not covered" >model._id,</span>
+  sortComparer: <span class="fstat-no" title="function not covered" >(a</span>: ProvidentFundHoldingType, b: ProvidentFundHoldingType) =&gt;
+<span class="cstat-no" title="statement not covered" >    a._id.localeCompare(a._id),</span>
+} as any);
 &nbsp;
 const initialState = <span class="cstat-no" title="statement not covered" >providentFundHoldingsAdapter.getInitialState();</span>
 &nbsp;
 export const providentFundHoldingApiSlice = <span class="cstat-no" title="statement not covered" >rootApiSlice.injectEndpoints({</span>
   endpoints: <span class="fstat-no" title="function not covered" >(b</span>uilder) =&gt; (<span class="cstat-no" title="statement not covered" >{</span>
     getFinancialHoldingForProvidentFund: builder.query({
-      query: <span class="fstat-no" title="function not covered" >(f</span>ilter) =&gt;
+      query: <span class="fstat-no" title="function not covered" >(f</span>ilter: any) =&gt;
 <span class="cstat-no" title="statement not covered" >        `/vault/provident-funds/holdings?${new URLSearchParams(filter)}`,</span>
-      transformResponse: <span class="fstat-no" title="function not covered" >(r</span>esponseData: { data: ProvidentFundHoldingType[] }) =&gt; {
+      transformResponse: <span class="fstat-no" title="function not covered" >(r</span>esponseData: {
+        data: ProvidentFundHoldingType[];
+      }) =&gt; {
 <span class="cstat-no" title="statement not covered" >        return providentFundHoldingsAdapter.setAll(</span>
           initialState,
-          responseData?.data || []
+          responseData?.data || [],
         );
       },
       providesTags: <span class="fstat-no" title="function not covered" >(r</span>esult) =&gt;
@@ -294,7 +301,6 @@ export const providentFundHoldingApiSlice = <span class="cstat-no" title="statem
       invalidatesTags: <span class="fstat-no" title="function not covered" >(r</span>esult, error, args) =&gt;
 <span class="cstat-no" title="statement not covered" >        result ? [{ type: QUERY_TAGS.financialHolding, _id: args._id }] : [],</span>
     }),
-&nbsp;
   }),
 });
 &nbsp;
@@ -310,7 +316,7 @@ export const {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-01-23T09:38:53.815Z
+                at 2026-01-23T11:14:28.912Z
             </div>
         <script src="../../../../../../../prettify.js"></script>
         <script>

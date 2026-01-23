@@ -1,10 +1,11 @@
-export const cleanObjectAndTrim = (obj) => {
+export const cleanObjectAndTrim = (obj: any) => {
   Object.entries(obj).forEach(([k, v]) => {
-    if (v?.constructor === Object) {
+    if ((v as any)?.constructor === Object) {
       // clean the nested object
       cleanObjectAndTrim(v);
 
       // delete key if nested object empty
+      // @ts-ignore
       if (Object.keys(v).length === 0) {
         delete obj[k];
       }
@@ -20,13 +21,14 @@ export const cleanObjectAndTrim = (obj) => {
   return obj;
 };
 
-export const objectToDropDownLabelAndValues = (obj) =>
+export const objectToDropDownLabelAndValues = (obj: any) =>
   Object.entries(obj).map(([k, v]) => ({ label: v, value: k }));
 
-export function numberWithCommas(x) {
+export function numberWithCommas(x: number) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
-export function capitalize(str) {
+export function capitalize(str: string) {
+  if (!str) return str;
   return str.charAt(0).toUpperCase() + str.slice(1);
 }

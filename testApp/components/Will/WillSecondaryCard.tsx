@@ -6,10 +6,11 @@ import { RadioButton } from "react-native-paper";
 interface WillSecondaryCardProp {
   beneficiaryName: string;
   distType: 1 | 2;
-  changeToType2: () => void
-  changeToType1: () => void
-  distributionCard: React.ReactNode
-  isError: boolean
+  changeToType2: () => void;
+  changeToType1: () => void;
+  distributionCard: React.ReactNode;
+  isError: boolean;
+  distData: any[];
 }
 
 const WillSecondaryCard: React.FC<WillSecondaryCardProp> = ({
@@ -61,7 +62,7 @@ const WillSecondaryCard: React.FC<WillSecondaryCardProp> = ({
 
   const distCheck = distData.reduce(
     (acc, curr) => acc + Number(curr.percent),
-    0
+    0,
   );
 
   const check100 = distCheck === 100 || distCheck === 99.99;

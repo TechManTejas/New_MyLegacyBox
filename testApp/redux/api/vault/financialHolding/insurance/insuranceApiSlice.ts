@@ -6,21 +6,22 @@ interface InsuranceHoldingType {
   _id: string;
 }
 
-const insuranceHoldingsAdapter = createEntityAdapter<InsuranceHoldingType>({
-  selectId: ({ _id }) => _id,
-  sortComparer: (a, b) => a._id.localeCompare(a._id),
-});
+const insuranceHoldingsAdapter = createEntityAdapter<any>({
+  selectId: (model: InsuranceHoldingType) => model._id,
+  sortComparer: (a: InsuranceHoldingType, b: InsuranceHoldingType) =>
+    a._id.localeCompare(a._id),
+} as any);
 
 const initialState = insuranceHoldingsAdapter.getInitialState();
 
 export const insuranceHoldingApiSlice = rootApiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getFinancialHoldingForInsurance: builder.query({
-      query: (parentId) => `/vault/insurances/${parentId}/holdings`,
+      query: (parentId: any) => `/vault/insurances/${parentId}/holdings`,
       transformResponse: (responseData: { data: InsuranceHoldingType[] }) => {
         return insuranceHoldingsAdapter.setAll(
           initialState,
-          responseData?.data || []
+          responseData?.data || [],
         );
       },
       providesTags: (result) =>
@@ -43,7 +44,7 @@ export const insuranceHoldingApiSlice = rootApiSlice.injectEndpoints({
             ],
     }),
     addFinancialHoldingForInsurance: builder.mutation({
-      query: ({ parentId, ...holding }) => ({
+      query: ({ parentId, ...holding }: any) => ({
         url: `/vault/insurances/${parentId}/holdings`,
         method: "POST",
         body: holding,
@@ -59,7 +60,7 @@ export const insuranceHoldingApiSlice = rootApiSlice.injectEndpoints({
           : [],
     }),
     updateFinancialHoldingForInsurance: builder.mutation({
-      query: ({ parentId, _id, ...financialHolding }) => ({
+      query: ({ parentId, _id, ...financialHolding }: any) => ({
         url: `/vault/insurances/${parentId}/holdings/${_id}`,
         method: "PUT",
         body: financialHolding,

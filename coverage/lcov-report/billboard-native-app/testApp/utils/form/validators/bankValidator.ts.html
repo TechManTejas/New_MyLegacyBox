@@ -117,11 +117,7 @@
 <a name='L52'></a><a href='#L52'>52</a>
 <a name='L53'></a><a href='#L53'>53</a>
 <a name='L54'></a><a href='#L54'>54</a>
-<a name='L55'></a><a href='#L55'>55</a>
-<a name='L56'></a><a href='#L56'>56</a>
-<a name='L57'></a><a href='#L57'>57</a>
-<a name='L58'></a><a href='#L58'>58</a>
-<a name='L59'></a><a href='#L59'>59</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L55'></a><a href='#L55'>55</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -136,10 +132,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -171,7 +164,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -184,27 +176,24 @@ import { addressValidator } from "./addressValidator";
 &nbsp;
 export const bankValidator = <span class="cstat-no" title="statement not covered" >z</span>
   .object({
-&nbsp;
-    ifsc: z
-      .string({
-        required_error: "IFSC code is required",
-        invalid_type_error: "Invalid type for IFSC code",
-      }),
+    ifsc: z.string({
+      required_error: "IFSC code is required",
+      invalid_type_error: "Invalid type for IFSC code",
+    }),
 &nbsp;
     name: z
       .string({
         required_error: "Bank name is required",
         invalid_type_error: "Invalid type for Bank name",
       })
-      .refine(<span class="fstat-no" title="function not covered" >va</span>lue =&gt; <span class="cstat-no" title="statement not covered" >/^[A-Za-z\s]+$/.test(value),</span> {
+      .refine(<span class="fstat-no" title="function not covered" >(v</span>alue: string) =&gt; <span class="cstat-no" title="statement not covered" >/^[A-Za-z\s]+$/.test(value),</span> {
         message: "Input should be a non-numeric value",
       }),
 &nbsp;
-    branchName: z
-      .string({
-        required_error: "Branch name is required",
-        invalid_type_error: "Invalid type for Branch name",
-      }),
+    branchName: z.string({
+      required_error: "Branch name is required",
+      invalid_type_error: "Invalid type for Branch name",
+    }),
 &nbsp;
     customerId: z
       .string({
@@ -216,7 +205,7 @@ export const bankValidator = <span class="cstat-no" title="statement not covered
       .string({
         invalid_type_error: "Invalid type for Point of contact name",
       })
-      .refine(<span class="fstat-no" title="function not covered" >va</span>lue =&gt; <span class="cstat-no" title="statement not covered" >/^[A-Za-z\s]+$/.test(value),</span> {
+      .refine(<span class="fstat-no" title="function not covered" >(v</span>alue: string) =&gt; <span class="cstat-no" title="statement not covered" >/^[A-Za-z\s]+$/.test(value),</span> {
         message: "Input should be a non-numeric value",
       })
       .optional(),
@@ -225,16 +214,15 @@ export const bankValidator = <span class="cstat-no" title="statement not covered
       .string({
         invalid_type_error: "Invalid type for Point of contact number",
       })
-      .refine(<span class="fstat-no" title="function not covered" >va</span>lue =&gt; <span class="cstat-no" title="statement not covered" >!isNaN(value),</span> {
+      .refine(<span class="fstat-no" title="function not covered" >(v</span>alue: any) =&gt; <span class="cstat-no" title="statement not covered" >!isNaN(value),</span> {
         message: "Input should be a numeric value",
       })
-      .refine(<span class="fstat-no" title="function not covered" >va</span>lue =&gt; <span class="cstat-no" title="statement not covered" >/^\d{10}$/.test(value),</span> {
-        message: "Number should be of 10 digits"
+      .refine(<span class="fstat-no" title="function not covered" >(v</span>alue: string) =&gt; <span class="cstat-no" title="statement not covered" >/^\d{10}$/.test(value),</span> {
+        message: "Number should be of 10 digits",
       })
       .optional(),
 &nbsp;
     address: addressValidator.optional(),
-    
   })
   .strict();
 &nbsp;</pre></td></tr></table></pre>
@@ -244,7 +232,7 @@ export const bankValidator = <span class="cstat-no" title="statement not covered
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-01-23T09:38:53.815Z
+                at 2026-01-23T11:14:28.912Z
             </div>
         <script src="../../../../../prettify.js"></script>
         <script>

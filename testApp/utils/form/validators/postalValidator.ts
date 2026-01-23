@@ -3,7 +3,6 @@ import { addressValidator } from "./addressValidator";
 
 export const postalValidator = z
   .object({
-
     ifsc: z
       .string({
         invalid_type_error: "Invalid type for IFSC code",
@@ -15,7 +14,7 @@ export const postalValidator = z
         required_error: "Branch name is required",
         invalid_type_error: "Invalid type for Branch name",
       })
-      .refine(value => /^[A-Za-z\s]+$/.test(value), {
+      .refine((value: string) => /^[A-Za-z\s]+$/.test(value), {
         message: "Input should be a non-numeric value",
       }),
 
@@ -29,7 +28,7 @@ export const postalValidator = z
       .string({
         invalid_type_error: "Invalid type for Point of contact name",
       })
-      .refine(value => /^[A-Za-z\s]+$/.test(value), {
+      .refine((value: string) => /^[A-Za-z\s]+$/.test(value), {
         message: "Input should be a non-numeric value",
       })
       .optional(),
@@ -38,15 +37,14 @@ export const postalValidator = z
       .string({
         invalid_type_error: "Invalid type for Point of contact number",
       })
-      .refine(value => !isNaN(value), {
+      .refine((value: any) => !isNaN(value), {
         message: "Input should be a numeric value",
       })
-      .refine(value => /^\d{10}$/.test(value), {
-        message: "Number should be of 10 digits"
+      .refine((value: string) => /^\d{10}$/.test(value), {
+        message: "Number should be of 10 digits",
       })
       .optional(),
 
     address: addressValidator.optional(),
-    
   })
   .strict();

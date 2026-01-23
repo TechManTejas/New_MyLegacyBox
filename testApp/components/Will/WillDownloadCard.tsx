@@ -33,7 +33,7 @@ import WillPreviewNomineesCard from "./WillPreviewNomineesCard";
 const WillDownloadCard = () => {
   const [generateWordFileHash] = useGenerateWordFileHashMutation();
 
-  const { data, isLoading, isFetching } = useGetWillQuery();
+  const { data, isLoading, isFetching } = useGetWillQuery(undefined);
 
   const {
     theme: { spacing, fontFamily, fontSize, colors },
@@ -192,12 +192,12 @@ const WillDownloadCard = () => {
     { type: "PROVIDENT_FUND", title: "Provident Fund" },
   ];
 
-  const getContents = (singleAsset) => {
+  const getContents = (singleAsset: any) => {
     let totalContents = [];
 
     switch (singleAsset.section) {
       case "BANK":
-        totalContents = singleAsset.children.map((item) => {
+        totalContents = singleAsset.children.map((item: any) => {
           return [
             {
               key: "Account Type",
@@ -216,7 +216,7 @@ const WillDownloadCard = () => {
         });
         break;
       case "POSTAL":
-        totalContents = singleAsset.children.map((item, index) => {
+        totalContents = singleAsset.children.map((item: any, index: any) => {
           return [
             {
               key: "Account Type",
@@ -236,7 +236,7 @@ const WillDownloadCard = () => {
         });
         break;
       case "INSURANCE":
-        totalContents = singleAsset.children.map((item, index) => {
+        totalContents = singleAsset.children.map((item: any, index: any) => {
           return [
             {
               key: "Policy Name",
@@ -367,11 +367,11 @@ const WillDownloadCard = () => {
 
   const generateDownloadLink = async () => {
     try {
-      const result = await generateWordFileHash().unwrap();
+      const result = await generateWordFileHash(undefined).unwrap();
 
       if (result.data && result.status === 200) {
         Linking.openURL(
-          generateWordFileWillByHashUrl.replace(":hashedWillId", result.data)
+          generateWordFileWillByHashUrl.replace(":hashedWillId", result.data),
         );
       }
     } catch (error) {
@@ -443,7 +443,7 @@ const WillDownloadCard = () => {
               <WillAssetByCategoryCard
                 key={idx}
                 assetList={data.data.assets.filter(
-                  (asset) => asset.section === assetDetail.type
+                  (asset: any) => asset.section === assetDetail.type,
                 )}
                 title={assetDetail.title}
               />
@@ -452,17 +452,17 @@ const WillDownloadCard = () => {
         ) : (
           <View style={{ marginTop: spacing.md }}>
             {data?.data?.beneficiaries
-              .filter((beneficiary) => {
+              .filter((beneficiary: any) => {
                 if (data?.data?.assets) {
                   let sum = 0;
-                  data.data.assets.forEach((asset) => {
+                  data.data.assets.forEach((asset: any) => {
                     sum += asset.allocations[beneficiary._id];
                   });
                   return sum != 0;
                 }
                 return false;
               })
-              .map((beneficiary, idx) => {
+              .map((beneficiary: any, idx: any) => {
                 return (
                   <View key={idx} style={styles.beneficiaryContainer}>
                     <View style={styles.beneficiaryNameEmail}>
@@ -486,12 +486,13 @@ const WillDownloadCard = () => {
                     <View style={{ marginTop: spacing.md }}>
                       {data?.data?.assets
                         .filter(
-                          (asset) => asset.allocations[beneficiary._id] > 0
+                          (asset: any) =>
+                            asset.allocations[beneficiary._id] > 0,
                         )
-                        .map((asset, idx2) => {
+                        .map((asset: any, idx2: any) => {
                           if (
                             Object.keys(asset.allocations).some(
-                              (id) => id === beneficiary._id
+                              (id: any) => id === beneficiary._id,
                             )
                           ) {
                             const detailsCardContent = getContents(asset);

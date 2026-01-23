@@ -236,16 +236,16 @@ interface InsuranceType {
   _id: string;
 }
 &nbsp;
-const insuranceAdapter = <span class="cstat-no" title="statement not covered" >createEntityAdapter&lt;InsuranceType&gt;({</span>
-  selectId: <span class="fstat-no" title="function not covered" >({</span> _id }) =&gt; <span class="cstat-no" title="statement not covered" >_id,</span>
-  sortComparer: <span class="fstat-no" title="function not covered" >(a</span>, b) =&gt; <span class="cstat-no" title="statement not covered" >a._id.localeCompare(b._id),</span>
-});
+const insuranceAdapter = <span class="cstat-no" title="statement not covered" >createEntityAdapter&lt;any&gt;({</span>
+  selectId: <span class="fstat-no" title="function not covered" >({</span> _id }: any) =&gt; <span class="cstat-no" title="statement not covered" >_id,</span>
+  sortComparer: <span class="fstat-no" title="function not covered" >(a</span>: any, b: any) =&gt; <span class="cstat-no" title="statement not covered" >a._id.localeCompare(b._id),</span>
+} as any);
 &nbsp;
 const initialState = <span class="cstat-no" title="statement not covered" >insuranceAdapter.getInitialState();</span>
 &nbsp;
 export const extendedInsuranceApiSlice = <span class="cstat-no" title="statement not covered" >rootApiSlice.injectEndpoints({</span>
   endpoints: <span class="fstat-no" title="function not covered" >(b</span>uilder) =&gt; (<span class="cstat-no" title="statement not covered" >{</span>
-    getInsurances: builder.query&lt;EntityState&lt;InsuranceType&gt;, void&gt;({
+    getInsurances: builder.query&lt;EntityState&lt;any, string&gt;, void&gt;({
       query: <span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >"/vault/insurances",</span>
       transformResponse: <span class="fstat-no" title="function not covered" >(r</span>esponseData: { data: InsuranceType[] }) =&gt; {
 <span class="cstat-no" title="statement not covered" >        return insuranceAdapter.setAll(initialState, responseData?.data || []);</span>
@@ -254,7 +254,7 @@ export const extendedInsuranceApiSlice = <span class="cstat-no" title="statement
 <span class="cstat-no" title="statement not covered" >        result</span>
           ? [
               { type: QUERY_TAGS.insurance, id: QUERY_TAGS.insuranceList },
-              ...result.ids.map(<span class="fstat-no" title="function not covered" >(i</span>d) =&gt; (<span class="cstat-no" title="statement not covered" >{</span>
+              ...result.ids.map(<span class="fstat-no" title="function not covered" >(i</span>d: any) =&gt; (<span class="cstat-no" title="statement not covered" >{</span>
                 type: QUERY_TAGS.insurance as const,
                 id,
               })),
@@ -262,7 +262,7 @@ export const extendedInsuranceApiSlice = <span class="cstat-no" title="statement
           : [{ type: QUERY_TAGS.insurance, id: QUERY_TAGS.insuranceList }],
     }),
     addInsurance: builder.mutation({
-      query: <span class="fstat-no" title="function not covered" >(i</span>nsurance) =&gt; (<span class="cstat-no" title="statement not covered" >{</span>
+      query: <span class="fstat-no" title="function not covered" >(i</span>nsurance: any) =&gt; (<span class="cstat-no" title="statement not covered" >{</span>
         url: "/vault/insurances",
         method: "POST",
         body: insurance,
@@ -273,7 +273,7 @@ export const extendedInsuranceApiSlice = <span class="cstat-no" title="statement
           : [],
     }),
     updateInsurance: builder.mutation({
-      query: <span class="fstat-no" title="function not covered" >({</span> _id, ...insurance }) =&gt; (<span class="cstat-no" title="statement not covered" >{</span>
+      query: <span class="fstat-no" title="function not covered" >({</span> _id, ...insurance }: any) =&gt; (<span class="cstat-no" title="statement not covered" >{</span>
         url: `/vault/insurances/${_id}`,
         method: "PUT",
         body: insurance,
@@ -290,12 +290,12 @@ const selectInsurancesResponse =
 &nbsp;
 const selectInsurances = <span class="cstat-no" title="statement not covered" >createSelector(</span>
   selectInsurancesResponse,
-<span class="fstat-no" title="function not covered" >  (s</span>tate) =&gt; <span class="cstat-no" title="statement not covered" >state.data</span>
+<span class="fstat-no" title="function not covered" >  (s</span>tate) =&gt; <span class="cstat-no" title="statement not covered" >state.data,</span>
 );
 &nbsp;
 export const { selectById: selectInsuranceById } =
 <span class="cstat-no" title="statement not covered" >  insuranceAdapter.getSelectors&lt;RootState&lt;{}, string, "rootApi"&gt;&gt;(</span>
-<span class="fstat-no" title="function not covered" >    (s</span>tate) =&gt; <span class="cstat-no" title="statement not covered" >selectInsurances(state) ?? initialState</span>
+<span class="fstat-no" title="function not covered" >    (s</span>tate) =&gt; <span class="cstat-no" title="statement not covered" >selectInsurances(state) ?? initialState,</span>
   );
 &nbsp;
 export const {
@@ -310,7 +310,7 @@ export const {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-01-23T09:38:53.815Z
+                at 2026-01-23T11:14:28.912Z
             </div>
         <script src="../../../../../../../prettify.js"></script>
         <script>
