@@ -14,7 +14,7 @@ export const authSlice = createSlice({
       state.sessionToken = action.payload?.session_token;
     },
     clearSessionRedux: (state) => {
-      state = initialState;
+      return initialState;
     },
   },
 });
@@ -23,7 +23,7 @@ const authSelector = (state: { auth: { sessionToken: string } }) => state.auth;
 
 export const getSessionTokenSelector = createSelector(
   authSelector,
-  (auth) => auth.sessionToken
+  (auth) => auth.sessionToken,
 );
 
 export const { setSessionRedux, clearSessionRedux } = authSlice.actions;

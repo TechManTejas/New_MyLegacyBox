@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1769160766773" clover="3.2.0">
-  <project timestamp="1769160766774" name="All files">
-    <metrics statements="3955" coveredstatements="58" conditionals="2649" coveredconditionals="11" methods="1485" coveredmethods="13" elements="8089" coveredelements="82" complexity="0" loc="3955" ncloc="3955" packages="96" files="289" classes="289"/>
+<coverage generated="1769161134498" clover="3.2.0">
+  <project timestamp="1769161134498" name="All files">
+    <metrics statements="3955" coveredstatements="72" conditionals="2649" coveredconditionals="11" methods="1485" coveredmethods="18" elements="8089" coveredelements="101" complexity="0" loc="3955" ncloc="3955" packages="96" files="289" classes="289"/>
     <package name="billboard-native-app">
       <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="declaration.d.ts" path="/home/tanmayvaij/project/billboard-native-app/declaration.d.ts">
@@ -4715,30 +4715,30 @@
       </file>
     </package>
     <package name="billboard-native-app.testApp.redux.appTour">
-      <metrics statements="6" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="0"/>
+      <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
       <file name="appTour.ts" path="/home/tanmayvaij/project/billboard-native-app/testApp/redux/appTour/appTour.ts">
-        <metrics statements="6" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="0"/>
-        <line num="3" count="0" type="stmt"/>
-        <line num="9" count="0" type="stmt"/>
-        <line num="14" count="0" type="stmt"/>
-        <line num="17" count="0" type="stmt"/>
-        <line num="20" count="0" type="stmt"/>
-        <line num="29" count="0" type="stmt"/>
+        <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="9" count="1" type="stmt"/>
+        <line num="14" count="1" type="stmt"/>
+        <line num="17" count="1" type="stmt"/>
+        <line num="20" count="1" type="stmt"/>
+        <line num="29" count="1" type="stmt"/>
       </file>
     </package>
     <package name="billboard-native-app.testApp.redux.authentication">
-      <metrics statements="9" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="0"/>
+      <metrics statements="9" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="2"/>
       <file name="authentication.ts" path="/home/tanmayvaij/project/billboard-native-app/testApp/redux/authentication/authentication.ts">
-        <metrics statements="9" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="0"/>
-        <line num="3" count="0" type="stmt"/>
-        <line num="8" count="0" type="stmt"/>
-        <line num="13" count="0" type="stmt"/>
-        <line num="14" count="0" type="stmt"/>
-        <line num="17" count="0" type="stmt"/>
-        <line num="22" count="0" type="stmt"/>
-        <line num="24" count="0" type="stmt"/>
+        <metrics statements="9" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="2"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="13" count="1" type="stmt"/>
+        <line num="14" count="1" type="stmt"/>
+        <line num="17" count="1" type="stmt"/>
+        <line num="22" count="1" type="stmt"/>
+        <line num="24" count="1" type="stmt"/>
         <line num="26" count="0" type="stmt"/>
-        <line num="29" count="0" type="stmt"/>
+        <line num="29" count="1" type="stmt"/>
       </file>
     </package>
     <package name="billboard-native-app.testApp.redux.form">
