@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>6/6</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>6/6</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -438,7 +438,7 @@
 <a name='L373'></a><a href='#L373'>373</a>
 <a name='L374'></a><a href='#L374'>374</a>
 <a name='L375'></a><a href='#L375'>375</a>
-<a name='L376'></a><a href='#L376'>376</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L376'></a><a href='#L376'>376</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -506,7 +506,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -774,7 +774,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -792,7 +792,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -805,15 +805,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const colors = <span class="cstat-no" title="statement not covered" >{</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const colors = {
   blue: "#00146d",
   blue100: "#e6e8f0",
   blue200: "#ccd0e2",
@@ -881,7 +881,7 @@
   white900: "#47494a",
 };
 &nbsp;
-const tailWindColors = <span class="cstat-no" title="statement not covered" >{</span>
+const tailWindColors = {
   white: "#ffffff",
 &nbsp;
   slate50: "#f8fafc",
@@ -1149,7 +1149,7 @@ const tailWindColors = <span class="cstat-no" title="statement not covered" >{</
   rose950: "#4c0519",
 };
 &nbsp;
-const spacing = <span class="cstat-no" title="statement not covered" >{</span>
+const spacing = {
   xxxs: 1,
   xxs: 2,
   xs: 4,
@@ -1167,7 +1167,7 @@ const spacing = <span class="cstat-no" title="statement not covered" >{</span>
   u100: 100,
 };
 &nbsp;
-const fontSize = <span class="cstat-no" title="statement not covered" >{</span>
+const fontSize = {
   xxs: 6,
   xs: 8,
   sm: 10,
@@ -1180,14 +1180,14 @@ const fontSize = <span class="cstat-no" title="statement not covered" >{</span>
   x4l: 48,
 };
 &nbsp;
-const fontFamily = <span class="cstat-no" title="statement not covered" >{</span>
+const fontFamily = {
   light: "Poppins_200ExtraLight",
   regular: "Poppins_400Regular",
   semiBold: "Poppins_600SemiBold",
   extraBold: "Poppins_800ExtraBold",
 };
 &nbsp;
-export const defaultTheme = <span class="cstat-no" title="statement not covered" >{ colors, spacing, fontSize, fontFamily, tailWindColors };</span>
+export const defaultTheme = { colors, spacing, fontSize, fontFamily, tailWindColors };
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -1195,7 +1195,7 @@ export const defaultTheme = <span class="cstat-no" title="statement not covered"
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-01-23T08:56:50.448Z
+                at 2026-01-23T09:32:45.514Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>
